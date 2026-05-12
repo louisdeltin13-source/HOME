@@ -531,11 +531,275 @@
       }
     }
 
+    .home-agenda-panel {
+      margin-top: 0.75rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-panel);
+      box-shadow: var(--shadow-card);
+    }
+
+    .home-agenda-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      .home-agenda-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .home-agenda-subtitle {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .mini-cal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .mini-cal-title {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 650;
+      color: var(--text);
+      flex: 1;
+      text-align: center;
+    }
+
+    .mini-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .mini-cal-dow {
+      padding: 0.15rem 0;
+      font-weight: 700;
+    }
+
+    .mini-cal-cell {
+      aspect-ratio: 1;
+      max-height: 2.1rem;
+      border: none;
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+    }
+
+    .mini-cal-cell:hover:not(:disabled) {
+      background: var(--progress-muted);
+    }
+
+    .mini-cal-cell:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .mini-cal-cell.is-today {
+      outline: 2px solid var(--progress);
+      outline-offset: -1px;
+    }
+
+    .mini-cal-cell.is-view {
+      background: rgba(48, 209, 88, 0.18);
+      font-weight: 700;
+    }
+
+    .mini-cal-cell.is-muted {
+      color: var(--text-muted);
+      opacity: 0.55;
+    }
+
+    .mini-cal-cell .mini-cal-dot {
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--progress);
+      opacity: 0.85;
+    }
+
+    .mini-cal-hint {
+      font-size: 0.62rem;
+      margin: 0.35rem 0 0.5rem;
+      line-height: 1.35;
+    }
+
+    .mini-cal-external-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .settings-calendar-url,
+    .mini-cal-external-row .settings-calendar-url {
+      flex: 1 1 10rem;
+      min-width: 0;
+      padding: 0.45rem 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+    }
+
+    .countdown-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .countdown-list li {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: var(--text);
+      padding: 0.4rem 0.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .countdown-list .cd-label {
+      font-weight: 600;
+    }
+
+    .countdown-list .cd-meta {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .recurring-wk-strip {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      align-items: center;
+      margin-left: 0.25rem;
+    }
+
+    .recurring-wk-btn {
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding: 0 0.2rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .recurring-wk-btn.is-on {
+      background: rgba(48, 209, 88, 0.2);
+      color: var(--text);
+      border-color: var(--progress);
+    }
+
+    .recurring-wk-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .recurring-wk-read {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-left: 0.35rem;
+      white-space: nowrap;
+    }
+
+    .recurring-add-wk-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.45rem;
+    }
+
+    .recurring-add-wk-label {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .settings-countdown-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .settings-countdown-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: flex-end;
+    }
+
+    .settings-countdown-row input[type="text"] {
+      flex: 1 1 8rem;
+      min-width: 0;
+      padding: 0.45rem 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-size: 0.82rem;
+    }
+
+    .settings-countdown-row input[type="date"] {
+      padding: 0.45rem 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-size: 0.82rem;
+    }
+
     .home-layout {
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      max-width: 1100px;
+      max-width: min(100%, 1200px);
       flex-wrap: wrap;
     }
 
@@ -672,16 +936,17 @@
 
     .brief-todo-preview li.brief-todo-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 0.55rem;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .brief-todo-left {
       display: flex;
-      align-items: center;
-      gap: 0.35rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.28rem;
       flex: 1;
       min-width: 0;
     }
@@ -691,13 +956,18 @@
     }
 
     .brief-todo-label {
-      flex: 1;
+      flex: none;
+      width: 100%;
       min-width: 0;
       color: var(--text);
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.42;
     }
 
     .brief-todo-left .brief-todo-label {
-      flex: 1 1 auto;
+      flex: none;
     }
 
     .brief-todo-check {
@@ -786,11 +1056,13 @@
     }
 
     .brief-todo-meta {
-      display: inline-flex;
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 0.28rem;
       flex-shrink: 0;
-      margin-left: 0.35rem;
+      margin-left: 0;
+      max-width: 100%;
     }
 
     .prio-dot {
@@ -871,11 +1143,6 @@
       border: 1px solid var(--border);
       background: var(--bg-elevated);
       color: var(--text);
-    }
-
-    .task-item .task-text {
-      flex: 1 1 8rem;
-      min-width: 0;
     }
 
     .settings-logo-row {
@@ -1006,7 +1273,7 @@
 
     .panel {
       display: none;
-      max-width: 760px;
+      max-width: min(100%, 56rem);
       animation: fadeIn 0.2s ease;
     }
 
@@ -1143,10 +1410,15 @@
 
     .task-item label,
     .task-item .task-text {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: min(100%, 16rem);
       cursor: pointer;
       font-size: 0.95rem;
       transition: transform 0.3s ease, color 0.2s ease;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.45;
     }
 
     .task-item.done .task-text {
@@ -1526,7 +1798,13 @@
       border: 1px solid var(--border);
       background: var(--bg-elevated);
       color: var(--text-muted);
-      max-width: 7rem;
+      max-width: min(42%, 14rem);
+      min-width: 0;
+    }
+
+    .task-item input.task-tag-pill {
+      white-space: normal;
+      word-break: break-word;
     }
 
     .task-due-badge {
@@ -2193,6 +2471,31 @@
                 <div class="brief-block-bars" id="brief-bars-food"></div>
               </div>
             </div>
+            <div id="home-agenda-panel" class="home-agenda-panel" hidden>
+              <div class="home-agenda-grid">
+                <div class="mini-cal-wrap">
+                  <h2 class="home-agenda-subtitle">Calendrier</h2>
+                  <div class="mini-cal-head">
+                    <button type="button" class="icon-btn" id="mini-cal-prev" aria-label="Mois précédent">←</button>
+                    <span id="mini-cal-title" class="mini-cal-title"></span>
+                    <button type="button" class="icon-btn" id="mini-cal-next" aria-label="Mois suivant">→</button>
+                  </div>
+                  <div id="mini-cal-grid" class="mini-cal-grid" aria-label="Mini-calendrier"></div>
+                  <p class="hint mini-cal-hint">
+                    Clic sur un jour : affiche ce journal. Synchronisation Google&nbsp;/ Apple en lecture-écriture
+                    depuis cette page seule n’est pas possible sans serveur (OAuth) : utilise le lien ou l’app
+                    Agenda.
+                  </p>
+                  <div class="mini-cal-external-row">
+                    <button type="button" class="btn secondary" id="btn-home-open-agenda">Ouvrir l’agenda (lien Réglages)</button>
+                  </div>
+                </div>
+                <div class="countdown-wrap">
+                  <h2 class="home-agenda-subtitle">Échéances</h2>
+                  <ul id="countdown-list" class="countdown-list" aria-label="Comptes à rebours"></ul>
+                </div>
+              </div>
+            </div>
           </div>
           <aside class="home-quick-column" aria-label="Liens rapides">
             <div class="card quick-links-home quick-links-home--rail">
@@ -2237,13 +2540,17 @@
 
       <section id="panel-todo" class="panel" aria-labelledby="todo-title">
         <h1 id="todo-title">To-do</h1>
-        <p class="subtitle">Récurrentes (minuit) et ponctuelles (liste du jour ou planifiée).</p>
+        <p class="subtitle">Récurrentes (reset chaque nuit) : par défaut tous les jours ; tu peux limiter à certains jours de la semaine.</p>
         <div class="card">
           <h2>Récurrentes (reset chaque jour)</h2>
           <ul id="list-recurring" class="task-list"></ul>
           <div class="row-input">
-            <input type="text" id="input-recurring" placeholder="Nouvelle habitude quotidienne…" autocomplete="off" />
+            <input type="text" id="input-recurring" placeholder="Nouvelle habitude…" autocomplete="off" />
             <button type="button" class="btn" id="add-recurring">Ajouter</button>
+          </div>
+          <div class="recurring-add-wk-row" id="recurring-new-wk-row">
+            <span class="recurring-add-wk-label">Jours (tous si tout coché)</span>
+            <div id="recurring-new-wk-strip" class="recurring-wk-strip" aria-label="Jours pour la nouvelle habitude"></div>
           </div>
         </div>
         <div class="card card--oneoff">
@@ -2566,6 +2873,22 @@
           </label>
         </div>
         <div class="card settings-card">
+          <h2>Échéances &amp; agenda</h2>
+          <p class="hint">
+            Comptes à rebours affichés dans la vue d’ensemble (J‑X = jours restants jusqu’à la date, par rapport à
+            <strong>aujourd’hui</strong>).
+          </p>
+          <div id="settings-countdown-editor" class="settings-countdown-editor"></div>
+          <div class="settings-countdown-row" style="margin-top:0.35rem">
+            <input type="text" id="settings-countdown-label-inp" placeholder="Libellé (ex. concours, rendu…)" maxlength="120" aria-label="Libellé échéance" />
+            <input type="date" id="settings-countdown-date-inp" aria-label="Date échéance" />
+            <button type="button" class="btn" id="settings-countdown-add">Ajouter</button>
+          </div>
+          <p class="hint" style="margin-top:0.85rem">Lien ouvert par le bouton « Ouvrir l’agenda » sur la vue d’ensemble (Google, Apple iCloud web, etc.).</p>
+          <label class="theme-label" for="settings-agenda-open-url">URL agenda</label>
+          <input type="url" id="settings-agenda-open-url" class="settings-calendar-url" placeholder="https://calendar.google.com/calendar" autocomplete="url" />
+        </div>
+        <div class="card settings-card">
           <h2>Logo &amp; icône d’onglet</h2>
           <p class="hint">PNG, JPG, WebP, GIF ou SVG ; base64 local, cap ~800&nbsp;Ko. Carré ≥180&nbsp;px conseillé.</p>
           <label class="theme-label" for="settings-brand-logo">Fichier image</label>
@@ -2617,7 +2940,7 @@
   var LEGACY_KEY = "personalDashboardV1";
   var THEME_KEY = "dashboardTheme";
   var DAY_MS = 86400000;
-  var STATE_VERSION = 4;
+  var STATE_VERSION = 5;
 
   var todayIso = isoDate(new Date());
   var viewDateIso = todayIso;
@@ -2748,7 +3071,9 @@
           "Bloc sport ou mobilité",
           "Préparer la semaine suivante"
         ],
-        activeMetricKeys: ["running", "muscu", "natation", "water", "protein", "sleep", "meals"]
+        activeMetricKeys: ["running", "muscu", "natation", "water", "protein", "sleep", "meals"],
+        countdowns: [],
+        agendaOpenUrl: "https://calendar.google.com/calendar"
       },
       history: {},
       todos: {
@@ -2918,7 +3243,44 @@
     migrateOneOffItemFields(x, idx);
   }
 
+  function ensureRecurringItemShape(t) {
+    if (!t || typeof t !== "object") return;
+    if (t.weekdays == null) return;
+    if (!Array.isArray(t.weekdays)) {
+      delete t.weekdays;
+      return;
+    }
+    var seen = {};
+    var w = [];
+    t.weekdays.forEach(function (x) {
+      var n = parseInt(x, 10);
+      if (isNaN(n) || n < 0 || n > 6) return;
+      if (!seen[n]) {
+        seen[n] = true;
+        w.push(n);
+      }
+    });
+    w.sort(function (a, b) {
+      return a - b;
+    });
+    if (w.length === 0 || w.length === 7) delete t.weekdays;
+    else t.weekdays = w;
+  }
+
+  function migrateSnapshotRecurringShapes(hist) {
+    if (!hist || typeof hist !== "object") return;
+    Object.keys(hist).forEach(function (k) {
+      var snap = hist[k];
+      if (!snap || !Array.isArray(snap.recurring)) return;
+      snap.recurring.forEach(ensureRecurringItemShape);
+    });
+  }
+
   function ensureTodosShape(d) {
+    if (d.todos && Array.isArray(d.todos.recurring)) {
+      d.todos.recurring.forEach(ensureRecurringItemShape);
+    }
+    migrateSnapshotRecurringShapes(d.history);
     if (!d.todos || !Array.isArray(d.todos.oneOff)) return;
     d.todos.oneOff.forEach(function (x, i) {
       ensureOneOffItemShape(x, i);
@@ -2985,7 +3347,9 @@
         meals: src.nutrition.meals
       },
       recurring: src.todos.recurring.map(function (t) {
-        return { id: t.id, text: t.text, done: t.done };
+        var o = { id: t.id, text: t.text, done: t.done };
+        if (Array.isArray(t.weekdays) && t.weekdays.length) o.weekdays = t.weekdays.slice();
+        return o;
       }),
       oneOff: src.todos.oneOff.map(function (t) {
         var o = { id: t.id, text: t.text, done: t.done };
@@ -3046,6 +3410,19 @@
     ensureActiveMetricKeys(d.meta);
     delete d.meta.focusDayKind;
     delete d.meta.focusDayId;
+    if (!Array.isArray(d.meta.countdowns)) d.meta.countdowns = [];
+    d.meta.countdowns = d.meta.countdowns
+      .filter(function (x) {
+        return x && x.id && typeof x.dateIso === "string" && /^\d{4}-\d{2}-\d{2}$/.test(x.dateIso);
+      })
+      .map(function (x) {
+        return {
+          id: String(x.id),
+          label: (x.label && String(x.label).trim().slice(0, 120)) || "Échéance",
+          dateIso: x.dateIso
+        };
+      });
+    if (typeof d.meta.agendaOpenUrl !== "string") d.meta.agendaOpenUrl = "";
     if (data.history && typeof data.history === "object") d.history = data.history;
     if (data.todos) d.todos = data.todos;
     if (data.targets) d.targets = Object.assign(d.targets, data.targets);
@@ -3090,10 +3467,11 @@
     } catch (eCk) { /* ignore */ }
   }
 
-  function dayScoreFromLive(st) {
+  function dayScoreFromLive(st, dayIsoForRec) {
+    var recIso = dayIsoForRec || todayIso;
     var t = st.targets;
     var sn = { sport: st.sport, nutrition: st.nutrition };
-    var rec = st.todos.recurring;
+    var rec = filterRecurringForDay(st.todos.recurring, recIso);
     var recRatio = rec.length ? rec.filter(function (x) { return x.done; }).length / rec.length : 1;
     var ratios = [recRatio];
     var keys = getActiveMetricKeysFromMeta(st.meta);
@@ -3128,7 +3506,7 @@
         st.meta.weekActivity = [false, false, false, false, false, false, false];
       } else {
         var idx = indexWeekdayFromMonday(last);
-        if (idx >= 0 && idx < 7 && dayScoreFromLive(st) >= 0.45) st.meta.weekActivity[idx] = true;
+        if (idx >= 0 && idx < 7 && dayScoreFromLive(st, last) >= 0.45) st.meta.weekActivity[idx] = true;
       }
     }
 
@@ -3160,11 +3538,36 @@
     return state.history[viewDateIso] || null;
   }
 
-  function getRecurringItems() {
-    if (isViewingToday()) return state.todos.recurring;
+  function weekdayMon0FromIso(iso) {
+    var d = parseISODate(iso);
+    return (d.getDay() + 6) % 7;
+  }
+
+  function recurringMatchesDay(task, dayIso) {
+    var w = task.weekdays;
+    if (!Array.isArray(w) || w.length === 0) return true;
+    var mon0 = weekdayMon0FromIso(dayIso);
+    for (var wi = 0; wi < w.length; wi++) {
+      if (Number(w[wi]) === mon0) return true;
+    }
+    return false;
+  }
+
+  function filterRecurringForDay(arr, dayIso) {
+    return (arr || []).filter(function (t) {
+      return t && recurringMatchesDay(t, dayIso);
+    });
+  }
+
+  function getRawRecurringForView() {
+    if (isViewingToday()) return state.todos.recurring || [];
     var snap = state.history[viewDateIso];
     if (!snap) return [];
     return snap.recurring || [];
+  }
+
+  function getRecurringItems() {
+    return filterRecurringForDay(getRawRecurringForView(), viewDateIso);
   }
 
   function filterOneOffForDay(arr, dayIso) {
@@ -3213,7 +3616,7 @@
   function scorePercentFromSnapshot(dayIso, snap) {
     if (!snap) return null;
     var t = state.targets;
-    var rec = snap.recurring || [];
+    var rec = filterRecurringForDay(snap.recurring || [], dayIso);
     var one = filterOneOffForDay(snap.oneOff || [], dayIso);
     var rem = snap.reminders || [];
     var sn = {
@@ -3234,7 +3637,7 @@
 
   function scorePercentLiveToday() {
     var t = state.targets;
-    var rec = state.todos.recurring;
+    var rec = filterRecurringForDay(state.todos.recurring, todayIso);
     var one = state.todos.oneOff || [];
     var rem = state.reminders;
     var sn = { sport: state.sport, nutrition: state.nutrition };
@@ -3638,12 +4041,16 @@
       var spE = document.createElement("span");
       spE.className = "task-text";
       spE.style.color = "var(--text-muted)";
-      spE.textContent =
-        kind === "oneoff"
-          ? "Aucune ponctuelle : utilise le formulaire ci-dessus."
-          : kind === "recurring"
-          ? "Aucune habitude — ajoute la première ci-dessous."
-          : "Rien pour l’instant.";
+      var msg = "Rien pour l’instant.";
+      if (kind === "oneoff") msg = "Aucune ponctuelle : utilise le formulaire ci-dessus.";
+      else if (kind === "recurring") {
+        var nAll = (state.todos.recurring || []).length;
+        var nDay = filterRecurringForDay(state.todos.recurring, viewDateIso).length;
+        if (!nAll) msg = "Aucune habitude — ajoute la première ci-dessous.";
+        else if (!nDay) msg = "Aucune habitude prévue pour ce jour de la semaine.";
+        else msg = "Toutes les habitudes prévues ce jour sont cochées.";
+      }
+      spE.textContent = msg;
       liE.appendChild(spE);
       listEl.appendChild(liE);
       return;
@@ -3696,6 +4103,51 @@
 
       li.appendChild(cb);
       li.appendChild(span);
+
+      if (kind === "recurring") {
+        var letters = ["L", "M", "M", "J", "V", "S", "D"];
+        var titles = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
+        if (ro) {
+          var wkRead = document.createElement("span");
+          wkRead.className = "recurring-wk-read";
+          wkRead.textContent = weekdaysLabel(item);
+          li.appendChild(wkRead);
+        } else {
+          var wkStrip = document.createElement("div");
+          wkStrip.className = "recurring-wk-strip";
+          wkStrip.setAttribute("role", "group");
+          wkStrip.setAttribute("aria-label", "Jours actifs (les sept = tous les jours)");
+          var baseSel = Array.isArray(item.weekdays) && item.weekdays.length ? item.weekdays : null;
+          for (var wi = 0; wi < 7; wi++) {
+            var on = baseSel === null || baseSel.indexOf(wi) >= 0;
+            var wb = document.createElement("button");
+            wb.type = "button";
+            wb.className = "recurring-wk-btn" + (on ? " is-on" : "");
+            wb.textContent = letters[wi];
+            wb.title = titles[wi];
+            wb.dataset.recWk = String(wi);
+            wb.addEventListener("click", function (ev) {
+              ev.stopPropagation();
+              ev.preventDefault();
+              this.classList.toggle("is-on");
+              var picked = [];
+              wkStrip.querySelectorAll(".recurring-wk-btn.is-on").forEach(function (b) {
+                picked.push(Number(b.dataset.recWk));
+              });
+              picked.sort(function (a, b) {
+                return a - b;
+              });
+              if (picked.length === 0 || picked.length === 7) delete item.weekdays;
+              else item.weekdays = picked;
+              ensureRecurringItemShape(item);
+              saveState(state);
+              refreshChrome();
+            });
+            wkStrip.appendChild(wb);
+          }
+          li.appendChild(wkStrip);
+        }
+      }
 
       if (kind === "oneoff") {
         var pr = item.priority === "high" || item.priority === "low" ? item.priority : "medium";
@@ -4130,10 +4582,11 @@
       ulO.innerHTML = "";
       return;
     }
+    var rawRec = getRawRecurringForView();
     var rec = getRecurringItems();
     var one = getOneOffItems();
     var canToggle = isViewingToday();
-    var totalAll = rec.length + one.length;
+    var totalAll = rawRec.length + one.length;
 
     function emptyBothNoData() {
       var li = '<li class="brief-todo-empty">Aucune entrée — panneau To-do.</li>';
@@ -4151,8 +4604,10 @@
       var dis = canToggle ? "" : " disabled";
       ul.innerHTML = slice
         .map(function (p) {
-          var labelShort = truncateText(p.text, 96);
-          var ariaDone = "Marquer comme fait : " + truncateText(p.text, 120);
+          var rawLabel = String(p.text || "");
+          var labelShown = rawLabel.length > 480 ? truncateText(rawLabel, 480) : rawLabel;
+          var labelSafe = escapeHtml(labelShown);
+          var ariaDone = "Marquer comme fait : " + truncateText(p.text, 200);
           var meta = "";
           if (kind === "oneoff") {
             var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
@@ -4168,12 +4623,11 @@
               dueB +
               "</span>";
           }
-          var titleAttr = kind === "recurring" ? "Récurrente" : "Ponctuelle";
           return (
             '<li class="brief-todo-row" title="' +
-            escapeAttr(titleAttr) +
+            escapeAttr(rawLabel.length > 180 ? truncateText(rawLabel, 180) : rawLabel) +
             '"><div class="brief-todo-left"><span class="brief-todo-label">' +
-            escapeHtml(labelShort) +
+            labelSafe +
             "</span>" +
             meta +
             '</div><button type="button" class="brief-todo-check"' +
@@ -4228,10 +4682,11 @@
       };
     });
 
+    var schedToday = filterRecurringForDay(rawRec, viewDateIso).length;
     var emptyR =
-      rec.length === 0
-        ? '<li class="brief-todo-empty">Aucune habitude récurrente.</li>'
-        : '<li class="brief-todo-empty">Toutes les récurrentes sont cochées.</li>';
+      schedToday === 0
+        ? '<li class="brief-todo-empty">Aucune récurrente prévue ce jour.</li>'
+        : '<li class="brief-todo-empty">Toutes les récurrentes prévues sont cochées.</li>';
     var emptyO =
       one.length === 0
         ? '<li class="brief-todo-empty">Aucune tâche ponctuelle.</li>'
@@ -4309,6 +4764,164 @@
     }
   }
 
+  function firstDayOfMonthIso(iso) {
+    return iso.slice(0, 7) + "-01";
+  }
+
+  function addMonthsKeepDay(iso, delta) {
+    var d = parseISODate(iso);
+    var day = d.getDate();
+    d.setDate(1);
+    d.setMonth(d.getMonth() + delta);
+    var dim = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+    d.setDate(Math.min(day, dim));
+    return isoDate(d);
+  }
+
+  function daysBetweenIso(fromIso, toIso) {
+    return Math.round((parseISODate(toIso).getTime() - parseISODate(fromIso).getTime()) / DAY_MS);
+  }
+
+  function weekdaysLabel(task) {
+    var w = task.weekdays;
+    if (!Array.isArray(w) || !w.length) return "· tous les jours";
+    var letters = ["L", "M", "M", "J", "V", "S", "D"];
+    return (
+      "· " +
+      w
+        .slice()
+        .sort(function (a, b) {
+          return a - b;
+        })
+        .map(function (x) {
+          return letters[x] != null ? letters[x] : "";
+        })
+        .join(" ")
+    );
+  }
+
+  function renderCountdownList() {
+    var ul = document.getElementById("countdown-list");
+    if (!ul) return;
+    var list = (state.meta.countdowns || []).slice().sort(function (a, b) {
+      return a.dateIso.localeCompare(b.dateIso);
+    });
+    if (!list.length) {
+      ul.innerHTML =
+        '<li class="hint" style="list-style:none;border:none;background:none;padding:0;margin:0;">Aucune échéance — ajoute-en dans Réglages.</li>';
+      return;
+    }
+    ul.innerHTML = list
+      .map(function (ev) {
+        var d = daysBetweenIso(todayIso, ev.dateIso);
+        var meta;
+        if (d > 1) meta = "J-" + d + " · " + formatIsoShortFr(ev.dateIso);
+        else if (d === 1) meta = "Demain · " + formatIsoShortFr(ev.dateIso);
+        else if (d === 0) meta = "Aujourd’hui · " + formatIsoShortFr(ev.dateIso);
+        else if (d < 0) meta = "Passé (" + -d + " j) · " + formatIsoShortFr(ev.dateIso);
+        else meta = formatIsoShortFr(ev.dateIso);
+        return (
+          '<li><span class="cd-label">' +
+          escapeHtml(ev.label) +
+          '</span><span class="cd-meta">' +
+          escapeHtml(meta) +
+          "</span></li>"
+        );
+      })
+      .join("");
+  }
+
+  function renderMiniCalendar() {
+    var title = document.getElementById("mini-cal-title");
+    var grid = document.getElementById("mini-cal-grid");
+    if (!title || !grid) return;
+    var monthFirst = firstDayOfMonthIso(viewDateIso);
+    var p = monthFirst.split("-").map(Number);
+    var dim = new Date(p[0], p[1], 0).getDate();
+    var d0 = parseISODate(monthFirst);
+    title.textContent = d0.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+    var labels = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+    var html = "";
+    labels.forEach(function (L) {
+      html += '<div class="mini-cal-dow">' + L + "</div>";
+    });
+    var pad = weekdayMon0FromIso(monthFirst);
+    var i;
+    for (i = 0; i < pad; i++) {
+      html += '<div class="mini-cal-cell is-muted" aria-hidden="true"></div>';
+    }
+    for (var day = 1; day <= dim; day++) {
+      var dayIso = monthFirst.slice(0, 8) + String(day).padStart(2, "0");
+      var fut = dayIso > todayIso;
+      var hasSnap = dayIso === todayIso || !!state.history[dayIso];
+      var hasCd = (state.meta.countdowns || []).some(function (c) {
+        return c.dateIso === dayIso;
+      });
+      var hasRec = !fut && filterRecurringForDay(state.todos.recurring, dayIso).length > 0;
+      var hasDot = hasCd || hasRec;
+      var cls = "mini-cal-cell";
+      if (dayIso === todayIso) cls += " is-today";
+      if (dayIso === viewDateIso) cls += " is-view";
+      if (fut) cls += " is-muted";
+      var dot = hasDot ? '<span class="mini-cal-dot" aria-hidden="true"></span>' : "";
+      var inner = "<span>" + day + "</span>" + dot;
+      if (fut || !hasSnap) {
+        html +=
+          '<div class="' +
+          cls +
+          '"' +
+          (fut ? ' aria-disabled="true"' : "") +
+          ">" +
+          inner +
+          "</div>";
+      } else {
+        html +=
+          '<button type="button" class="' +
+          cls +
+          '" data-cal-day="' +
+          escapeAttr(dayIso) +
+          '">' +
+          inner +
+          "</button>";
+      }
+    }
+    grid.innerHTML = html;
+  }
+
+  function renderHomeAgenda() {
+    var panel = document.getElementById("home-agenda-panel");
+    if (!panel) return;
+    if (!isViewingToday() && !getSnap()) {
+      panel.setAttribute("hidden", "");
+      return;
+    }
+    panel.removeAttribute("hidden");
+    renderMiniCalendar();
+    renderCountdownList();
+  }
+
+  function renderSettingsCountdownEditor() {
+    var host = document.getElementById("settings-countdown-editor");
+    if (!host) return;
+    var list = state.meta.countdowns || [];
+    host.innerHTML = list
+      .map(function (x) {
+        return (
+          '<div class="settings-countdown-row" data-cd-id="' +
+          escapeAttr(x.id) +
+          '"><span style="flex:1;min-width:8rem;font-size:0.82rem">' +
+          escapeHtml(x.label) +
+          "</span>" +
+          '<span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted)">' +
+          escapeHtml(formatIsoShortFr(x.dateIso)) +
+          '</span><button type="button" class="btn secondary" data-cd-del="' +
+          escapeAttr(x.id) +
+          '">Retirer</button></div>'
+        );
+      })
+      .join("");
+  }
+
   function renderDailyBrief() {
     var proseEl = document.getElementById("daily-brief-prose");
     if (!proseEl) return;
@@ -4320,8 +4933,8 @@
       fillBriefBars("brief-bars-food", []);
       fillBriefTodoHomeDuo();
       renderHomeTasksPill();
+      renderHomeAgenda();
       applyHomeOverviewVisibility();
-      return;
     }
 
     var t = state.targets;
@@ -4411,6 +5024,7 @@
     }
     fillBriefTodoHomeDuo();
     renderHomeTasksPill();
+    renderHomeAgenda();
     applyHomeOverviewVisibility();
   }
 
@@ -4597,6 +5211,7 @@
     renderScoreChart30();
     updateNotesWordcount();
     renderTargetsInDOM();
+    renderSettingsCountdownEditor();
     buildSettingsMetricsPanel();
     applyBrandMark();
     syncFaviconFromBrand();
@@ -4617,7 +5232,7 @@
     }
 
     var adds = document.querySelectorAll(
-      "#panel-todo .row-input, #panel-todo .oneoff-add-toolbar, #panel-todo .oneoff-title-input, #panel-reminders .row-input"
+      "#panel-todo .row-input, #panel-todo .oneoff-add-toolbar, #panel-todo .oneoff-title-input, #panel-todo #recurring-new-wk-row, #panel-reminders .row-input"
     );
     adds.forEach(function (row) {
       row.style.display = isViewingToday() ? "" : "none";
@@ -4660,6 +5275,10 @@
     if (cbS && document.activeElement !== cbS) cbS.checked = state.meta.showBriefSport !== false;
     var cbF = document.getElementById("settings-show-brief-food");
     if (cbF && document.activeElement !== cbF) cbF.checked = state.meta.showBriefFood !== false;
+    var agUrl = document.getElementById("settings-agenda-open-url");
+    if (agUrl && document.activeElement !== agUrl) {
+      agUrl.value = state.meta.agendaOpenUrl != null ? String(state.meta.agendaOpenUrl) : "";
+    }
     syncSettingsLogoPreview();
   }
 
@@ -4725,6 +5344,14 @@
       });
     }
 
+    var agInp = document.getElementById("settings-agenda-open-url");
+    if (agInp && !agInp.dataset.wiredAgenda) {
+      agInp.dataset.wiredAgenda = "1";
+      agInp.addEventListener("change", function () {
+        state.meta.agendaOpenUrl = String(agInp.value || "").trim();
+        saveState(state);
+      });
+    }
   }
 
   function wireBriefTodoHomeClicksOnce() {
@@ -4750,6 +5377,131 @@
     });
   }
 
+  function initRecurringNewWeekStrip() {
+    var strip = document.getElementById("recurring-new-wk-strip");
+    if (!strip || strip.dataset.wired) return;
+    strip.dataset.wired = "1";
+    var letters = ["L", "M", "M", "J", "V", "S", "D"];
+    var titles = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
+    strip.innerHTML = "";
+    for (var i = 0; i < 7; i++) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "recurring-wk-btn is-on";
+      b.textContent = letters[i];
+      b.title = titles[i];
+      b.dataset.newWk = String(i);
+      b.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        this.classList.toggle("is-on");
+      });
+      strip.appendChild(b);
+    }
+  }
+
+  function collectNewWeekdaysFromStrip() {
+    var strip = document.getElementById("recurring-new-wk-strip");
+    if (!strip) return undefined;
+    var on = [];
+    strip.querySelectorAll(".recurring-wk-btn.is-on").forEach(function (b) {
+      on.push(Number(b.dataset.newWk));
+    });
+    on.sort(function (a, b) {
+      return a - b;
+    });
+    if (on.length === 0 || on.length === 7) return undefined;
+    return on;
+  }
+
+  function resetNewWeekstripAllOn() {
+    var strip = document.getElementById("recurring-new-wk-strip");
+    if (!strip) return;
+    strip.querySelectorAll(".recurring-wk-btn").forEach(function (b) {
+      b.classList.add("is-on");
+    });
+  }
+
+  function wireMiniCalendarOnce() {
+    var prev = document.getElementById("mini-cal-prev");
+    var next = document.getElementById("mini-cal-next");
+    var grid = document.getElementById("mini-cal-grid");
+    var openAg = document.getElementById("btn-home-open-agenda");
+    if (prev && !prev.dataset.calWired) {
+      prev.dataset.calWired = "1";
+      prev.addEventListener("click", function () {
+        viewDateIso = addMonthsKeepDay(viewDateIso, -1);
+        saveState(state);
+        refreshChrome();
+      });
+    }
+    if (next && !next.dataset.calWired) {
+      next.dataset.calWired = "1";
+      next.addEventListener("click", function () {
+        var n = addMonthsKeepDay(viewDateIso, 1);
+        if (n <= todayIso) {
+          viewDateIso = n;
+          saveState(state);
+          refreshChrome();
+        }
+      });
+    }
+    if (grid && !grid.dataset.calWired) {
+      grid.dataset.calWired = "1";
+      grid.addEventListener("click", function (ev) {
+        var btn = ev.target.closest("[data-cal-day]");
+        if (!btn) return;
+        var iso = btn.getAttribute("data-cal-day");
+        if (!iso || iso > todayIso) return;
+        if (iso !== todayIso && !state.history[iso]) return;
+        viewDateIso = iso;
+        saveState(state);
+        refreshChrome();
+      });
+    }
+    if (openAg && !openAg.dataset.calWired) {
+      openAg.dataset.calWired = "1";
+      openAg.addEventListener("click", function () {
+        var raw = state.meta.agendaOpenUrl != null ? String(state.meta.agendaOpenUrl).trim() : "";
+        var u = normalizeQuickLinkUrl(raw) || "https://calendar.google.com/calendar";
+        window.open(u, "_blank", "noopener,noreferrer");
+      });
+    }
+  }
+
+  function wireSettingsCountdownEditorOnce() {
+    var host = document.getElementById("settings-countdown-editor");
+    var addBtn = document.getElementById("settings-countdown-add");
+    if (host && !host.dataset.cdWired) {
+      host.dataset.cdWired = "1";
+      host.addEventListener("click", function (ev) {
+        var del = ev.target.closest("[data-cd-del]");
+        if (!del) return;
+        var id = del.getAttribute("data-cd-del");
+        state.meta.countdowns = (state.meta.countdowns || []).filter(function (x) {
+          return x.id !== id;
+        });
+        saveState(state);
+        refreshChrome();
+      });
+    }
+    if (addBtn && !addBtn.dataset.cdWired) {
+      addBtn.dataset.cdWired = "1";
+      addBtn.addEventListener("click", function () {
+        var li = document.getElementById("settings-countdown-label-inp");
+        var di = document.getElementById("settings-countdown-date-inp");
+        var lab = li ? String(li.value || "").trim().slice(0, 120) : "";
+        var d = di && di.value ? di.value : "";
+        if (!lab || !d || !/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
+        if (!state.meta.countdowns) state.meta.countdowns = [];
+        state.meta.countdowns.push({ id: uid(), label: lab, dateIso: d });
+        if (li) li.value = "";
+        if (di) di.value = "";
+        saveState(state);
+        refreshChrome();
+      });
+    }
+  }
+
   function initUI() {
     sortTasksStableDoneLast(state.todos.recurring);
     sortOneOffInPlace();
@@ -4761,6 +5513,9 @@
     buildSettingsMetricsPanel();
     wireSettingsMetricsDynamic();
     wireBriefTodoHomeClicksOnce();
+    initRecurringNewWeekStrip();
+    wireMiniCalendarOnce();
+    wireSettingsCountdownEditorOnce();
 
     document.querySelectorAll(".nav-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -4962,8 +5717,12 @@
       var inp = document.getElementById("input-recurring");
       var text = (inp.value || "").trim();
       if (!text) return;
-      state.todos.recurring.push({ id: uid(), text: text, done: false });
+      var wks = collectNewWeekdaysFromStrip();
+      var o = { id: uid(), text: text, done: false };
+      if (wks) o.weekdays = wks;
+      state.todos.recurring.push(o);
       inp.value = "";
+      resetNewWeekstripAllOn();
       saveState(state);
       refreshChrome();
     });
