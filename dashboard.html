@@ -259,7 +259,7 @@
     .main {
       flex: 1;
       min-height: 0;
-      padding: 1.5rem 1.15rem max(2.75rem, min(18dvh, 10rem));
+      padding: 24px 28px max(2rem, min(14dvh, 7rem));
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -551,16 +551,6 @@
       .home-agenda-grid {
         grid-template-columns: 1fr;
       }
-    }
-
-    .home-agenda-subtitle {
-      margin: 0 0 0.5rem;
-      font-family: var(--font-ui);
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
     }
 
     .mini-cal-head {
@@ -890,6 +880,35 @@
       border-radius: var(--radius);
       background: var(--bg-panel);
       box-shadow: var(--shadow-card);
+    }
+
+    .brief-block.brief-block--todo {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      padding: 12px 16px;
+      height: auto;
+      min-height: 0;
+    }
+
+    .brief-block.brief-block--todo .brief-block-title {
+      flex: none;
+      align-self: flex-start;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0.75;
+    }
+
+    .brief-block.brief-block--todo .brief-block-title:hover {
+      color: var(--progress);
+      opacity: 1;
+    }
+
+    .brief-block.brief-block--todo .brief-block-main {
+      width: 100%;
     }
 
     .brief-block-title {
@@ -1369,19 +1388,36 @@
       background: var(--bg-panel);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.15rem 1.25rem;
-      margin-bottom: 1rem;
+      padding: 1rem 1.15rem;
+      margin-bottom: 24px;
       box-shadow: var(--shadow-card);
+      min-height: 0;
     }
 
-    .card h2 {
+    .card h2,
+    .home-agenda-subtitle {
       font-family: var(--font-ui);
-      font-size: 0.72rem;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
-      margin: 0 0 0.85rem;
+      opacity: 0.5;
+      margin: 0 0 16px;
+    }
+
+    .quick-links-home--rail h2 {
+      opacity: 1;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .panel > h1 {
+      margin-bottom: 8px;
+    }
+
+    .panel > .subtitle {
+      margin: 0 0 24px;
     }
 
     /* modif: listes to-do / rappels */
@@ -1458,21 +1494,128 @@
 
     .task-item button.delete:hover { color: var(--danger); }
 
+    .task-item--recurring {
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .task-item--recurring .task-text {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .task-item--recurring .recurring-wk-strip {
+      flex: 0 0 auto;
+      margin-left: auto;
+      flex-wrap: nowrap;
+      gap: 2px;
+    }
+
+    .task-item--recurring .recurring-wk-btn {
+      min-width: 1.15rem;
+      width: 1.15rem;
+      height: 1.15rem;
+      padding: 0;
+      font-size: 0.52rem;
+    }
+
+    .task-item--recurring .recurring-wk-read {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .task-prio-badge {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      line-height: 1.25;
+      color: #fff;
+    }
+
+    .task-prio-badge--high {
+      background: #ef4444;
+    }
+
+    .task-prio-badge--medium {
+      background: #f59e0b;
+      color: #111;
+    }
+
+    .task-prio-badge--low {
+      background: #6b7280;
+    }
+
+    .task-item--oneoff {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .task-item--oneoff .task-item__top {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .task-item--oneoff .task-item__top .task-text {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .task-item--oneoff .task-item__oneoff-edit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: flex-end;
+      padding-left: calc(1.1rem + 10px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .task-item--oneoff .task-item__oneoff-edit .task-tag-pill {
+      max-width: 8rem;
+    }
+
     .row-input {
       display: flex;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
+      gap: 12px;
+      margin-top: 16px;
+      align-items: stretch;
     }
 
     .row-input input[type="text"] {
       flex: 1;
-      padding: 0.62rem 0.9rem;
+      min-height: 40px;
+      padding: 0 12px;
+      box-sizing: border-box;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
       background: var(--bg-elevated);
       color: var(--text);
       font-family: var(--font-ui);
       font-size: 0.9rem;
+    }
+
+    .btn.btn-add-unified {
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      width: auto;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .row-input .btn.btn-add-unified {
+      align-self: stretch;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .row-input input:focus {
@@ -1525,12 +1668,46 @@
     .metric {
       background: var(--bg-elevated);
       border-radius: var(--radius);
-      padding: 0.85rem 0.9rem 0.65rem;
+      padding: 0.75rem 0.85rem 0.65rem;
       border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       min-width: 0;
+      min-height: 0;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .metric-top-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 0.45rem;
+    }
+
+    .metric-top-row > label {
+      margin-bottom: 0 !important;
+      flex: 0 1 auto;
+      min-width: 0;
+    }
+
+    .metric-controls {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .metric .metric-mid {
+      margin: 0;
+      min-height: unset;
+    }
+
+    .metric .metric-footer {
+      margin: 0;
     }
 
     [data-theme="dark"] .metric {
@@ -1553,8 +1730,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.35rem;
-      margin: 0.1rem 0 0.55rem;
-      min-height: 2.5rem;
+      margin: 0;
+      min-height: unset;
     }
 
     .metric-value-input {
@@ -1687,25 +1864,17 @@
       font-weight: 500;
     }
 
+    .btn.secondary.btn-add-unified {
+      box-shadow: none;
+    }
+
     .row-input--split {
       flex-wrap: wrap;
     }
 
-    .oneoff-hint {
-      margin-bottom: 0.65rem;
-    }
-
     .oneoff-title-input {
       width: 100%;
-      box-sizing: border-box;
-      padding: 0.62rem 0.9rem;
-      margin-bottom: 0.55rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--bg-elevated);
-      color: var(--text);
-      font-family: var(--font-ui);
-      font-size: 0.88rem;
+      margin: 0;
     }
 
     .oneoff-add-toolbar {
@@ -1714,6 +1883,113 @@
       align-items: flex-end;
       gap: 0.65rem 0.85rem;
       margin-bottom: 0.75rem;
+    }
+
+    .oneoff-add-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(4.5rem, 6.5rem) auto auto;
+      align-items: end;
+      column-gap: 12px;
+      row-gap: 10px;
+    }
+
+    @media (max-width: 960px) {
+      .oneoff-add-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .oneoff-add-cell--main {
+        grid-column: 1 / -1;
+      }
+      .oneoff-add-cell--btn {
+        grid-column: 1 / -1;
+        justify-self: end;
+      }
+    }
+
+    .oneoff-add-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-width: 0;
+    }
+
+    .oneoff-add-cell--btn {
+      align-items: flex-end;
+    }
+
+    .field-label-above {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0.5;
+      margin: 0 0 6px;
+    }
+
+    .field-label-above--phantom {
+      visibility: hidden;
+      user-select: none;
+    }
+
+    .oneoff-input-unified {
+      min-height: 40px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+    }
+
+    input[type="date"].oneoff-input-unified {
+      padding: 0 8px;
+      min-width: 0;
+    }
+
+    .oneoff-prio-fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .oneoff-prio-fieldset legend.field-label-above {
+      padding: 0;
+      margin: 0 0 6px;
+    }
+
+    .card--oneoff-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .card--oneoff-head h2 {
+      margin-bottom: 0;
+    }
+
+    .oneoff-info-btn {
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: help;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 4px 6px;
+      border-radius: 6px;
+    }
+
+    .oneoff-info-btn:hover {
+      background: var(--bg-elevated);
+      color: var(--text);
     }
 
     .oneoff-mode-row {
@@ -1845,6 +2121,11 @@
 
     .oneoff-add-btn {
       align-self: flex-end;
+      min-width: 7.25rem;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .task-item--due-future:not(.done) {
@@ -2603,11 +2884,11 @@
         <h1 id="todo-title">To-do</h1>
         <p class="subtitle">Récurrentes (reset chaque nuit) : par défaut tous les jours ; tu peux limiter à certains jours de la semaine.</p>
         <div class="card">
-          <h2>Récurrentes (reset chaque jour)</h2>
+          <h2>Récurrentes</h2>
           <ul id="list-recurring" class="task-list"></ul>
           <div class="row-input">
             <input type="text" id="input-recurring" placeholder="Nouvelle habitude…" autocomplete="off" />
-            <button type="button" class="btn" id="add-recurring">Ajouter</button>
+            <button type="button" class="btn btn-add-unified" id="add-recurring">Ajouter</button>
           </div>
           <div class="recurring-add-wk-row" id="recurring-new-wk-row">
             <span class="recurring-add-wk-label">Jours (tous si tout coché)</span>
@@ -2615,40 +2896,51 @@
           </div>
         </div>
         <div class="card card--oneoff">
-          <h2>Ponctuelles</h2>
-          <p class="hint oneoff-hint">
-            <strong>Jour précis</strong> : la tâche est mise en avant pour cette date (aperçu futur, mini-cal) ; échéance future = ligne grisée.
-            <strong>En continu</strong> : la tâche reste dans la liste chaque jour jusqu’à cochage (sans date imposée).
-          </p>
+          <div class="card--oneoff-head">
+            <h2>Ponctuelles</h2>
+            <button
+              type="button"
+              class="oneoff-info-btn"
+              id="btn-oneoff-help"
+              aria-label="Aide : types de ponctuelles"
+              title="Jour précis : une date fixe — la tâche ressort ce jour-là (aperçu futur, mini-cal) ; une échéance future reste visible mais grisée. En continu : pas de date — la tâche apparaît chaque jour jusqu’à ce que tu la coches."
+            >
+              ℹ️
+            </button>
+          </div>
           <datalist id="oneoff-tag-datalist"></datalist>
-          <input
-            type="text"
-            id="input-oneoff"
-            class="oneoff-title-input"
-            placeholder="Nouvelle tâche ponctuelle…"
-            autocomplete="off"
-            aria-label="Libellé de la tâche ponctuelle"
-          />
           <div class="oneoff-mode-row" role="radiogroup" aria-label="Type de ponctuelle">
             <label class="oneoff-mode-opt">
               <input type="radio" name="oneoff-new-mode" value="fixed" checked />
-              Jour précis (date ci-dessous)
+              Jour précis
             </label>
             <label class="oneoff-mode-opt">
               <input type="radio" name="oneoff-new-mode" value="rolling" />
-              En continu (jusqu’à cochée)
+              En continu
             </label>
           </div>
-          <div class="oneoff-add-toolbar">
-            <div class="oneoff-field oneoff-new-date-wrap" id="oneoff-new-date-wrap">
-              <label for="input-oneoff-due">Date prévue</label>
-              <input type="date" id="input-oneoff-due" aria-label="Date prévue pour la ponctuelle" />
+          <div class="oneoff-add-toolbar oneoff-add-grid">
+            <div class="oneoff-add-cell oneoff-add-cell--main">
+              <label class="field-label-above" for="input-oneoff">Tâche</label>
+              <input
+                type="text"
+                id="input-oneoff"
+                class="oneoff-title-input oneoff-input-unified"
+                placeholder="Nouvelle tâche ponctuelle…"
+                autocomplete="off"
+                aria-label="Libellé de la tâche ponctuelle"
+              />
             </div>
-            <div class="oneoff-field">
-              <label for="input-oneoff-tag">Tag</label>
+            <div class="oneoff-add-cell oneoff-new-date-wrap" id="oneoff-new-date-wrap">
+              <label class="field-label-above" for="input-oneoff-due">Date prévue</label>
+              <input type="date" id="input-oneoff-due" class="oneoff-input-unified" aria-label="Date prévue pour la ponctuelle" />
+            </div>
+            <div class="oneoff-add-cell">
+              <label class="field-label-above" for="input-oneoff-tag">Tag</label>
               <input
                 type="text"
                 id="input-oneoff-tag"
+                class="oneoff-input-unified"
                 list="oneoff-tag-datalist"
                 maxlength="32"
                 placeholder="ex. admin"
@@ -2656,8 +2948,8 @@
                 aria-label="Tag"
               />
             </div>
-            <fieldset class="oneoff-field oneoff-prio-fieldset">
-              <legend>Priorité</legend>
+            <fieldset class="oneoff-add-cell oneoff-field oneoff-prio-fieldset">
+              <legend class="field-label-above">Priorité</legend>
               <div class="oneoff-prio-radios">
                 <label class="oneoff-prio-opt" title="Haute">
                   <input type="radio" name="oneoff-new-prio" value="high" aria-label="Priorité haute" />
@@ -2679,7 +2971,10 @@
                 </label>
               </div>
             </fieldset>
-            <button type="button" class="btn oneoff-add-btn" id="add-oneoff">Ajouter</button>
+            <div class="oneoff-add-cell oneoff-add-cell--btn">
+              <span class="field-label-above field-label-above--phantom" aria-hidden="true">&nbsp;</span>
+              <button type="button" class="btn btn-add-unified oneoff-add-btn" id="add-oneoff">Ajouter</button>
+            </div>
           </div>
           <ul id="list-oneoff" class="task-list"></ul>
         </div>
@@ -2692,79 +2987,91 @@
           <h2>Objectifs du jour</h2>
           <div class="metric-grid" id="metric-grid-sport">
             <div class="metric" data-metric-section="sport" data-metric-key="running">
-              <label>Running</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-running"
-                  data-metric-section="sport"
-                  data-metric-key="running"
-                  inputmode="decimal"
-                  autocomplete="off"
-                  aria-label="Running (km), saisie directe"
-                />
-                <span class="unit-inline">km</span>
+              <div class="metric-top-row">
+                <label for="metric-input-running">Running</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-running"
+                      data-metric-section="sport"
+                      data-metric-key="running"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      aria-label="Running (km), saisie directe"
+                    />
+                    <span class="unit-inline">km</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer le running">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter le running">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-running"></div>
                 <div class="progress-marker" id="marker-running" style="left:100%"></div>
               </div>
               <p class="metric-sub" id="metric-sub-running"></p>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer le running">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter le running">+</button>
-              </div>
             </div>
             <div class="metric" data-metric-section="sport" data-metric-key="muscu">
-              <label>Musculation</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-muscu"
-                  data-metric-section="sport"
-                  data-metric-key="muscu"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  aria-label="Musculation (séances)"
-                />
-                <span class="unit-inline">séances</span>
+              <div class="metric-top-row">
+                <label for="metric-input-muscu">Musculation</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-muscu"
+                      data-metric-section="sport"
+                      data-metric-key="muscu"
+                      inputmode="numeric"
+                      autocomplete="off"
+                      aria-label="Musculation (séances)"
+                    />
+                    <span class="unit-inline">séances</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer les séances">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter les séances">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-muscu"></div>
                 <div class="progress-marker" id="marker-muscu" style="left:100%"></div>
               </div>
               <p class="metric-sub" id="metric-sub-muscu"></p>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer les séances">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter les séances">+</button>
-              </div>
             </div>
             <div class="metric" data-metric-section="sport" data-metric-key="natation">
-              <label>Natation</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-natation"
-                  data-metric-section="sport"
-                  data-metric-key="natation"
-                  inputmode="decimal"
-                  autocomplete="off"
-                  aria-label="Natation (km)"
-                />
-                <span class="unit-inline">km</span>
+              <div class="metric-top-row">
+                <label for="metric-input-natation">Natation</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-natation"
+                      data-metric-section="sport"
+                      data-metric-key="natation"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      aria-label="Natation (km)"
+                    />
+                    <span class="unit-inline">km</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer la natation">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter la natation">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-natation"></div>
                 <div class="progress-marker" id="marker-natation" style="left:100%"></div>
               </div>
               <p class="metric-sub" id="metric-sub-natation"></p>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer la natation">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter la natation">+</button>
-              </div>
             </div>
           </div>
         </div>
@@ -2777,99 +3084,115 @@
           <h2>Suivi</h2>
           <div class="metric-grid" id="metric-grid-food">
             <div class="metric" data-metric-section="nutrition" data-metric-key="water">
-              <label>Eau</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-water"
-                  data-metric-section="nutrition"
-                  data-metric-key="water"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  aria-label="Eau (verres)"
-                />
-                <span class="unit-inline">verres</span>
+              <div class="metric-top-row">
+                <label for="metric-input-water">Eau</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-water"
+                      data-metric-section="nutrition"
+                      data-metric-key="water"
+                      inputmode="numeric"
+                      autocomplete="off"
+                      aria-label="Eau (verres)"
+                    />
+                    <span class="unit-inline">verres</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer l’eau">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter l’eau">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-water"></div>
                 <div class="progress-marker" id="marker-water" style="left:100%"></div>
               </div>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer l’eau">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter l’eau">+</button>
-              </div>
             </div>
             <div class="metric" data-metric-section="nutrition" data-metric-key="protein">
-              <label>Protéines</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-protein"
-                  data-metric-section="nutrition"
-                  data-metric-key="protein"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  aria-label="Protéines (g)"
-                />
-                <span class="unit-inline">g</span>
+              <div class="metric-top-row">
+                <label for="metric-input-protein">Protéines</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-protein"
+                      data-metric-section="nutrition"
+                      data-metric-key="protein"
+                      inputmode="numeric"
+                      autocomplete="off"
+                      aria-label="Protéines (g)"
+                    />
+                    <span class="unit-inline">g</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer les protéines">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter les protéines">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-protein"></div>
                 <div class="progress-marker" id="marker-protein" style="left:100%"></div>
               </div>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer les protéines">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter les protéines">+</button>
-              </div>
             </div>
             <div class="metric" data-metric-section="nutrition" data-metric-key="sleep">
-              <label>Sommeil</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-sleep"
-                  data-metric-section="nutrition"
-                  data-metric-key="sleep"
-                  inputmode="decimal"
-                  autocomplete="off"
-                  aria-label="Sommeil (h)"
-                />
-                <span class="unit-inline">h</span>
+              <div class="metric-top-row">
+                <label for="metric-input-sleep">Sommeil</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-sleep"
+                      data-metric-section="nutrition"
+                      data-metric-key="sleep"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      aria-label="Sommeil (h)"
+                    />
+                    <span class="unit-inline">h</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer le sommeil">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter le sommeil">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-sleep"></div>
                 <div class="progress-marker" id="marker-sleep" style="left:100%"></div>
               </div>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer le sommeil">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter le sommeil">+</button>
-              </div>
             </div>
             <div class="metric" data-metric-section="nutrition" data-metric-key="meals">
-              <label>Repas équilibrés</label>
-              <div class="metric-mid">
-                <input
-                  type="text"
-                  class="metric-value-input"
-                  id="metric-input-meals"
-                  data-metric-section="nutrition"
-                  data-metric-key="meals"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  aria-label="Repas équilibrés"
-                />
-                <span class="unit-inline">/ jour</span>
+              <div class="metric-top-row">
+                <label for="metric-input-meals">Repas équilibrés</label>
+                <div class="metric-controls">
+                  <div class="metric-mid">
+                    <input
+                      type="text"
+                      class="metric-value-input"
+                      id="metric-input-meals"
+                      data-metric-section="nutrition"
+                      data-metric-key="meals"
+                      inputmode="numeric"
+                      autocomplete="off"
+                      aria-label="Repas équilibrés"
+                    />
+                    <span class="unit-inline">/ jour</span>
+                  </div>
+                  <div class="metric-footer">
+                    <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer les repas">−</button>
+                    <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter les repas">+</button>
+                  </div>
+                </div>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="prog-meals"></div>
                 <div class="progress-marker" id="marker-meals" style="left:100%"></div>
-              </div>
-              <div class="metric-footer">
-                <button type="button" class="counter-btn" data-delta="-1" aria-label="Diminuer les repas">−</button>
-                <button type="button" class="counter-btn" data-delta="1" aria-label="Augmenter les repas">+</button>
               </div>
             </div>
           </div>
@@ -2884,7 +3207,7 @@
           <ul id="list-reminders" class="task-list"></ul>
           <div class="row-input">
             <input type="text" id="input-reminder" placeholder="Nouveau rappel…" autocomplete="off" />
-            <button type="button" class="btn" id="add-reminder">Ajouter</button>
+            <button type="button" class="btn btn-add-unified" id="add-reminder">Ajouter</button>
           </div>
         </div>
       </section>
@@ -2909,7 +3232,7 @@
           <div class="row-input quick-links-add-row" id="quick-links-add-row">
             <input type="text" id="quick-link-label-inp" class="quick-link-inp" placeholder="Libellé" autocomplete="off" aria-label="Libellé du lien" />
             <input type="text" id="quick-link-url-inp" class="quick-link-inp" placeholder="https://… ou mailto:…" autocomplete="off" aria-label="URL du lien" />
-            <button type="button" class="btn" id="quick-link-add-btn">Ajouter</button>
+            <button type="button" class="btn btn-add-unified" id="quick-link-add-btn">Ajouter</button>
           </div>
           <p class="hint">Schémas acceptés : http, https, mailto. Domaine seul : https ajouté automatiquement.</p>
         </div>
@@ -2954,7 +3277,7 @@
           <div class="settings-countdown-row" style="margin-top:0.35rem">
             <input type="text" id="settings-countdown-label-inp" placeholder="Libellé (ex. concours, rendu…)" maxlength="120" aria-label="Libellé échéance" />
             <input type="date" id="settings-countdown-date-inp" aria-label="Date échéance" />
-            <button type="button" class="btn" id="settings-countdown-add">Ajouter</button>
+            <button type="button" class="btn btn-add-unified" id="settings-countdown-add">Ajouter</button>
           </div>
           <label class="theme-label" for="settings-countdown-highlight" style="margin-top:0.65rem;display:block">Mise en avant des échéances (J‑X)</label>
           <p class="hint" style="margin:0.15rem 0 0.35rem">
@@ -2995,7 +3318,7 @@
             <select id="settings-metric-pool" class="settings-metric-pool" aria-label="Ajouter un objectif depuis la liste">
               <option value="">Ajouter un objectif…</option>
             </select>
-            <button type="button" class="btn secondary" id="settings-metric-add">Ajouter</button>
+            <button type="button" class="btn secondary btn-add-unified" id="settings-metric-add">Ajouter</button>
           </div>
           <p class="hint">Raccourci bureau : fichier <strong>HOME.webloc</strong> à côté de <code>dashboard.html</code>.</p>
         </div>
@@ -4147,6 +4470,16 @@
     if (state.todos.oneOff && state.todos.oneOff.sort) state.todos.oneOff.sort(oneOffSortCompare);
   }
 
+  function makeOneOffPrioBadge(priority) {
+    var pr = priority === "high" || priority === "low" ? priority : "medium";
+    var b = document.createElement("span");
+    b.className = "task-prio-badge task-prio-badge--" + pr;
+    b.textContent = pr === "high" ? "Haute" : pr === "low" ? "Basse" : "Moy.";
+    b.title =
+      pr === "high" ? "Priorité haute" : pr === "low" ? "Priorité basse" : "Priorité moyenne";
+    return b;
+  }
+
   function renderTasks(listEl, items, kind) {
     if (!listEl) return;
     var ro = !isViewingToday();
@@ -4252,72 +4585,60 @@
         });
       }
 
-      li.appendChild(cb);
-      li.appendChild(span);
+      var del = document.createElement("button");
+      del.type = "button";
+      del.className = "delete";
+      del.setAttribute("aria-label", "Supprimer");
+      del.textContent = "×";
+      del.addEventListener("click", function () {
+        if (ro) return;
+        if (kind === "recurring") {
+          state.todos.recurring = state.todos.recurring.filter(function (x) {
+            return x.id !== item.id;
+          });
+        } else if (kind === "oneoff") {
+          state.todos.oneOff = state.todos.oneOff.filter(function (x) {
+            return x.id !== item.id;
+          });
+        } else if (kind === "reminder") {
+          state.reminders = state.reminders.filter(function (x) {
+            return x.id !== item.id;
+          });
+        }
+        saveState(state);
+        renderStreak();
+        refreshChrome();
+      });
 
       if (kind === "recurring") {
-        var letters = ["L", "M", "M", "J", "V", "S", "D"];
-        var titles = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
-        if (ro) {
-          var wkRead = document.createElement("span");
-          wkRead.className = "recurring-wk-read";
-          wkRead.textContent = weekdaysLabel(item);
-          li.appendChild(wkRead);
-        } else {
-          var wkStrip = document.createElement("div");
-          wkStrip.className = "recurring-wk-strip";
-          wkStrip.setAttribute("role", "group");
-          wkStrip.setAttribute("aria-label", "Jours actifs (les sept = tous les jours)");
-          var baseSel = Array.isArray(item.weekdays) && item.weekdays.length ? item.weekdays : null;
-          for (var wi = 0; wi < 7; wi++) {
-            var on = baseSel === null || baseSel.indexOf(wi) >= 0;
-            var wb = document.createElement("button");
-            wb.type = "button";
-            wb.className = "recurring-wk-btn" + (on ? " is-on" : "");
-            wb.textContent = letters[wi];
-            wb.title = titles[wi];
-            wb.dataset.recWk = String(wi);
-            wb.addEventListener("click", function (ev) {
-              ev.stopPropagation();
-              ev.preventDefault();
-              this.classList.toggle("is-on");
-              var picked = [];
-              wkStrip.querySelectorAll(".recurring-wk-btn.is-on").forEach(function (b) {
-                picked.push(Number(b.dataset.recWk));
-              });
-              picked.sort(function (a, b) {
-                return a - b;
-              });
-              if (picked.length === 0 || picked.length === 7) delete item.weekdays;
-              else item.weekdays = picked;
-              ensureRecurringItemShape(item);
-              saveState(state);
-              refreshChrome();
-            });
-            wkStrip.appendChild(wb);
-          }
-          li.appendChild(wkStrip);
-        }
+        li.classList.add("task-item--recurring");
       }
 
       if (kind === "oneoff") {
+        li.classList.add("task-item--oneoff");
         var pr = item.priority === "high" || item.priority === "low" ? item.priority : "medium";
         var tagStr = (item.tag && String(item.tag).trim()) || "";
         var om = getOneOffDueMode(item);
 
-        var modeBad = document.createElement("span");
-        modeBad.className = "task-due-badge" + (om === "rolling" ? " task-mode-badge--rolling" : "");
-        modeBad.textContent =
-          om === "rolling" ? "En continu" : item.dueDate ? formatIsoShortFr(item.dueDate) : "Jour précis";
-        modeBad.title =
+        var topRow = document.createElement("div");
+        topRow.className = "task-item__top";
+        topRow.appendChild(cb);
+        topRow.appendChild(span);
+        span.title =
           om === "rolling"
-            ? "Affichée chaque jour jusqu’à cochée"
+            ? "En continu — affichée chaque jour jusqu’à cochée"
             : item.dueDate
-            ? "Prévue pour cette date"
-            : "Choisis une date ci-dessous (jour précis)";
-        li.appendChild(modeBad);
+            ? "Jour précis — " + formatIsoShortFr(item.dueDate)
+            : "Jour précis — choisis une date dans la ligne d’édition";
+
+        topRow.appendChild(makeOneOffPrioBadge(item.priority));
+        topRow.appendChild(del);
+        li.appendChild(topRow);
 
         if (!ro) {
+          var editRow = document.createElement("div");
+          editRow.className = "task-item__oneoff-edit";
+
           var tagInp = document.createElement("input");
           tagInp.type = "text";
           tagInp.className = "task-tag-pill";
@@ -4337,7 +4658,7 @@
             saveState(state);
             refreshChrome();
           });
-          li.appendChild(tagInp);
+          editRow.appendChild(tagInp);
 
           var prWrap = document.createElement("div");
           prWrap.className = "task-prio-inline";
@@ -4370,7 +4691,7 @@
             });
             prWrap.appendChild(lab);
           });
-          li.appendChild(prWrap);
+          editRow.appendChild(prWrap);
 
           var modeRow = document.createElement("div");
           modeRow.className = "oneoff-inline-mode";
@@ -4430,53 +4751,72 @@
             ml.appendChild(document.createTextNode(" " + pair[1]));
             modeRow.appendChild(ml);
           });
-          li.appendChild(modeRow);
-          li.appendChild(dueWrap);
+          editRow.appendChild(modeRow);
+          editRow.appendChild(dueWrap);
           syncOneoffRowModeUi();
-        } else {
-          var tagSpan = document.createElement("span");
-          tagSpan.className = "task-tag-pill";
-          tagSpan.textContent = tagStr || "—";
-          li.appendChild(tagSpan);
-          var dotRd = document.createElement("span");
-          dotRd.className = "prio-dot prio-dot--" + pr;
-          var prLabel =
-            pr === "high" ? "Priorité haute" : pr === "low" ? "Priorité basse" : "Priorité moyenne";
-          dotRd.title = prLabel;
-          dotRd.setAttribute("aria-label", prLabel);
-          li.appendChild(dotRd);
+          li.appendChild(editRow);
+        } else if (tagStr) {
+          var tagSpanRo = document.createElement("span");
+          tagSpanRo.className = "task-tag-pill";
+          tagSpanRo.textContent = tagStr;
+          var prioEl = topRow.querySelector(".task-prio-badge");
+          if (prioEl) topRow.insertBefore(tagSpanRo, prioEl);
+          else topRow.insertBefore(tagSpanRo, del);
         }
-      }
+        if (ro) {
+          span.title = (span.title ? span.title + " · " : "") + "Lecture seule";
+        }
+      } else {
+        li.appendChild(cb);
+        li.appendChild(span);
 
-      var del = document.createElement("button");
-      del.type = "button";
-      del.className = "delete";
-      del.setAttribute("aria-label", "Supprimer");
-      del.textContent = "×";
-      del.addEventListener("click", function () {
-        if (ro) return;
         if (kind === "recurring") {
-          state.todos.recurring = state.todos.recurring.filter(function (x) {
-            return x.id !== item.id;
-          });
-        } else if (kind === "oneoff") {
-          state.todos.oneOff = state.todos.oneOff.filter(function (x) {
-            return x.id !== item.id;
-          });
-        } else if (kind === "reminder") {
-          state.reminders = state.reminders.filter(function (x) {
-            return x.id !== item.id;
-          });
+          var letters = ["L", "M", "M", "J", "V", "S", "D"];
+          var titles = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
+          if (ro) {
+            var wkRead = document.createElement("span");
+            wkRead.className = "recurring-wk-read";
+            wkRead.textContent = weekdaysLabel(item);
+            li.appendChild(wkRead);
+          } else {
+            var wkStrip = document.createElement("div");
+            wkStrip.className = "recurring-wk-strip";
+            wkStrip.setAttribute("role", "group");
+            wkStrip.setAttribute("aria-label", "Jours actifs (les sept = tous les jours)");
+            var baseSel = Array.isArray(item.weekdays) && item.weekdays.length ? item.weekdays : null;
+            for (var wi = 0; wi < 7; wi++) {
+              var on = baseSel === null || baseSel.indexOf(wi) >= 0;
+              var wb = document.createElement("button");
+              wb.type = "button";
+              wb.className = "recurring-wk-btn" + (on ? " is-on" : "");
+              wb.textContent = letters[wi];
+              wb.title = titles[wi];
+              wb.dataset.recWk = String(wi);
+              wb.addEventListener("click", function (ev) {
+                ev.stopPropagation();
+                ev.preventDefault();
+                this.classList.toggle("is-on");
+                var picked = [];
+                wkStrip.querySelectorAll(".recurring-wk-btn.is-on").forEach(function (b) {
+                  picked.push(Number(b.dataset.recWk));
+                });
+                picked.sort(function (a, b) {
+                  return a - b;
+                });
+                if (picked.length === 0 || picked.length === 7) delete item.weekdays;
+                else item.weekdays = picked;
+                ensureRecurringItemShape(item);
+                saveState(state);
+                refreshChrome();
+              });
+              wkStrip.appendChild(wb);
+            }
+            li.appendChild(wkStrip);
+          }
         }
-        saveState(state);
-        if (kind === "recurring") renderTasks(listEl, state.todos.recurring, "recurring");
-        else if (kind === "oneoff") renderTasks(document.getElementById("list-oneoff"), state.todos.oneOff, "oneoff");
-        else renderTasks(document.getElementById("list-reminders"), state.reminders, "reminder");
-        renderStreak();
-        refreshChrome();
-      });
 
-      li.appendChild(del);
+        li.appendChild(del);
+      }
       listEl.appendChild(li);
     });
 
