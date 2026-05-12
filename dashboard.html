@@ -219,39 +219,82 @@
 
     .sidebar-spacer { flex: 1; min-height: 0.5rem; }
 
-    /* modif: badge score permanent bas sidebar */
-    .sidebar-score {
-      margin-top: 0.6rem;
-      padding: 0.9rem 0.85rem 0.65rem;
-      border-top: none;
-      background: var(--bg-elevated);
+    .sidebar-scroll-zone {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .sidebar-footer-sticky {
+      flex-shrink: 0;
+      position: sticky;
+      bottom: 0;
+      padding-top: 0.35rem;
+      margin-top: 0.25rem;
+      background: linear-gradient(to top, var(--bg-deep) 85%, transparent);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .nav-btn--sidebar-ql {
+      position: relative;
+    }
+
+    .nav-ql-badge {
+      margin-left: auto;
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding: 0 0.35rem;
+      border-radius: 999px;
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 1.35rem;
+      text-align: center;
+      background: var(--progress);
+      color: var(--btn-on-progress);
+    }
+
+    .sidebar-ql-popover {
+      position: fixed;
+      z-index: 400;
+      min-width: 12rem;
+      max-width: min(18rem, calc(100vw - 2rem));
+      padding: 0.5rem;
       border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
       box-shadow: var(--shadow-card);
     }
 
-    .sidebar-score-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      text-transform: lowercase;
-      color: var(--text-muted);
-      margin-bottom: 0.15rem;
+    .sidebar-ql-popover[hidden] {
+      display: none !important;
     }
 
-    .sidebar-score-num {
-      font-family: var(--font-display);
-      font-size: 2.15rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      color: var(--progress);
-      text-shadow: 0 0 18px var(--progress-glow);
+    .sidebar-ql-popover-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      max-height: min(50dvh, 22rem);
+      overflow-y: auto;
+      margin-bottom: 0.45rem;
     }
 
-    .sidebar-score-num.is-low {
-      color: var(--score-low);
-      text-shadow: none;
+    .sidebar-ql-popover .quick-link-chip {
+      width: 100%;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0.45rem 0.55rem;
+      font-size: 0.78rem;
+    }
+
+    .sidebar-ql-popover .btn {
+      width: 100%;
+      font-size: 0.75rem;
     }
 
     .nav-icon { display: none; }
@@ -266,26 +309,31 @@
       background: var(--bg-deep);
     }
 
-    /* modif: topbar = streak seul, pastilles 36px, une ligne */
+    /* modif: barre semaine compacte, alignée à gauche */
     .top-bar {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: fit-content;
+      max-width: 100%;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
       margin-bottom: 1.35rem;
-      padding: 0.65rem 1rem;
+      padding: 6px 12px;
+      min-height: 36px;
+      box-sizing: border-box;
       background: var(--bg-panel);
       border-radius: var(--radius);
       border: 1px solid var(--border);
       box-shadow: var(--shadow-card);
-      max-width: min(100%, 80rem);
     }
 
     .streak-bar-label {
-      margin-bottom: 0 !important;
+      margin: 0 !important;
       flex-shrink: 0;
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 10px;
+      opacity: 0.4;
       color: var(--text-muted);
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -293,11 +341,11 @@
 
     .streak-bar {
       display: flex;
-      flex: 1;
+      flex: 0 1 auto;
       min-width: 0;
       justify-content: flex-start;
-      gap: 0.4rem;
-      flex-wrap: wrap;
+      gap: 0.35rem;
+      flex-wrap: nowrap;
       margin: 0;
     }
 
@@ -379,10 +427,10 @@
     .readonly-strip {
       display: none;
       font-family: var(--font-ui);
-      font-size: 0.78rem;
+      font-size: 12px;
       color: var(--progress);
       margin: 0 0 0.75rem;
-      padding: 0.55rem 0.9rem;
+      padding: 6px 14px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--bg-panel);
@@ -393,7 +441,11 @@
     .main.main--readonly .readonly-strip { display: block; }
 
     .streak-wrap {
-      display: contents;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 0 0 auto;
     }
 
     /* modif: mode focus — panneau seul, Échap pour quitter */
@@ -488,8 +540,8 @@
     /* modif: vue d’ensemble type daily brief */
     .daily-brief {
       max-width: min(100%, 80rem);
-      margin-bottom: 1.25rem;
-      padding: 1.25rem 1.35rem;
+      margin-bottom: 24px;
+      padding: 12px 16px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--bg-panel);
@@ -498,29 +550,166 @@
 
     .daily-brief h1 {
       font-family: var(--font-display);
-      margin: 0 0 0.65rem;
-      font-size: 1.15rem;
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .daily-brief-row-compact {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 16px;
+    }
+
+    .daily-brief-task-line {
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--text);
+      flex: 1 1 10rem;
+      min-width: 0;
+    }
+
+    .daily-brief-mini-bar {
+      width: 88px;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .daily-brief-mini-bar > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: var(--progress);
+      transition: width 0.25s ease;
     }
 
     .daily-brief-prose {
       margin: 0;
       font-family: var(--font-ui);
-      font-size: 0.875rem;
-      line-height: 1.55;
-      color: var(--text);
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+      flex: 1 1 100%;
+      width: 100%;
     }
 
     .brief-blocks {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 24px;
       max-width: none;
+    }
+
+    .home-tasks-ech-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .home-tasks-ech-row .brief-todo-duo {
+      flex: 1 1 16rem;
+      min-width: 0;
+    }
+
+    .home-deadlines-card {
+      flex: 0 1 14rem;
+      min-width: min(100%, 12rem);
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-panel);
+      box-shadow: var(--shadow-card);
+      max-height: 320px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .home-deadlines-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    .home-deadlines-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .home-deadlines-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.8125rem;
+      line-height: 1.35;
+    }
+
+    .home-deadlines-list .home-dl-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .home-deadlines-list .home-dl-meta {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .home-deadlines-list .home-dl-meta.is-today {
+      color: var(--progress);
+    }
+
+    .home-deadlines-list .home-dl-meta.is-past {
+      opacity: 0.3;
+    }
+
+    .home-deadlines-list .home-dl-li--past {
+      opacity: 0.3;
+      order: 99;
+    }
+
+    .home-deadlines-empty {
+      font-size: 0.78rem;
+      opacity: 0.3;
+      font-style: italic;
+      margin: 0;
     }
 
     .brief-todo-duo {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
+      gap: 16px;
       width: 100%;
       align-items: stretch;
     }
@@ -640,10 +829,26 @@
       opacity: 0.85;
     }
 
-    .mini-cal-hint {
-      font-size: 0.62rem;
+    .mini-cal-hint-row {
+      display: flex;
+      justify-content: flex-end;
       margin: 0.35rem 0 0.5rem;
-      line-height: 1.35;
+    }
+
+    .mini-cal-info-btn {
+      border: none;
+      background: transparent;
+      cursor: help;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: var(--text-muted);
+    }
+
+    .mini-cal-info-btn:hover {
+      background: var(--bg-elevated);
+      color: var(--text);
     }
 
     .mini-cal-external-row {
@@ -686,9 +891,13 @@
       background: var(--bg-elevated);
     }
 
-    .countdown-list li.countdown-li--soon {
-      border-color: var(--progress);
-      background: rgba(48, 209, 88, 0.1);
+    .countdown-list li.countdown-li--past {
+      opacity: 0.3;
+    }
+
+    .countdown-list .cd-meta.cd-meta--today {
+      color: var(--progress);
+      font-weight: 600;
     }
 
     .countdown-list .cd-label {
@@ -795,15 +1004,11 @@
     }
 
     .home-layout {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+      display: block;
       max-width: min(100%, min(92vw, 92rem));
-      flex-wrap: wrap;
     }
 
     .home-main-col {
-      flex: 1 1 18rem;
       min-width: 0;
     }
 
@@ -811,63 +1016,13 @@
       max-width: none;
     }
 
-    .home-quick-column {
-      flex: 0 0 13.5rem;
-      width: 13.5rem;
-      max-width: 100%;
-      position: sticky;
-      top: 0.75rem;
-      align-self: flex-start;
-    }
-
-    .quick-links-home--rail {
-      margin: 0;
-      padding: 1rem 1rem 1.05rem;
-    }
-
-    .quick-links-home--rail h2 {
-      margin: 0 0 0.35rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-    }
-
-    .quick-links-home--rail .quick-links-hint {
-      font-size: 0.62rem;
-      margin: 0 0 0.65rem;
-      line-height: 1.4;
-    }
-
-    .quick-links-strip--column {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.4rem;
-      margin: 0 0 0.75rem;
-    }
-
-    .quick-links-strip--column .quick-link-chip {
-      width: 100%;
-      justify-content: flex-start;
-      border-radius: var(--radius-sm);
-      padding: 0.5rem 0.65rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .quick-links-home--rail .btn {
-      width: 100%;
-      font-size: 0.75rem;
-      padding: 0.5rem 0.75rem;
-    }
-
-    @media (max-width: 720px) {
-      .home-quick-column {
-        flex: 1 1 100%;
-        width: 100%;
-        position: static;
+    @media (max-width: 900px) {
+      .home-tasks-ech-row {
+        flex-direction: column;
+      }
+      .home-deadlines-card {
+        flex: 1 1 auto;
+        max-width: none;
       }
     }
 
@@ -894,12 +1049,13 @@
     .brief-block.brief-block--todo .brief-block-title {
       flex: none;
       align-self: flex-start;
-      font-size: 0.68rem;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-muted);
-      opacity: 0.75;
+      opacity: 0.4;
+      margin: 0 0 8px;
     }
 
     .brief-block.brief-block--todo .brief-block-title:hover {
@@ -955,28 +1111,56 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.42rem;
+      gap: 8px;
       font-family: var(--font-ui);
       font-size: 0.78rem;
       line-height: 1.38;
       color: var(--text-muted);
+      max-height: 280px;
+      overflow-y: auto;
+      min-height: 0;
     }
 
     .brief-todo-preview li.brief-todo-row {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.55rem;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
       flex-wrap: nowrap;
     }
 
-    .brief-todo-left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.28rem;
+    .brief-todo-preview li.brief-todo-row .brief-todo-label {
       flex: 1;
       min-width: 0;
+      color: var(--text);
+      text-align: left;
+    }
+
+    .brief-prio-badge {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      line-height: 1.25;
+      color: #fff;
+    }
+
+    .brief-prio-badge--high {
+      background: #ef4444;
+    }
+
+    .brief-prio-badge--medium {
+      background: #f59e0b;
+      color: #111;
+    }
+
+    .brief-prio-badge--low {
+      background: #6b7280;
+    }
+
+    .brief-todo-left {
+      display: none;
     }
 
     .brief-todo-preview li.brief-todo-row::before {
@@ -984,8 +1168,7 @@
     }
 
     .brief-todo-label {
-      flex: none;
-      width: 100%;
+      flex: 1 1 auto;
       min-width: 0;
       color: var(--text);
       white-space: normal;
@@ -1032,8 +1215,13 @@
 
     .brief-todo-preview .brief-todo-empty {
       font-style: italic;
-      padding-left: 0;
+      text-align: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.35rem 0;
       color: var(--text-muted);
+      opacity: 0.3;
+      list-style: none;
     }
 
     .brief-todo-preview .brief-todo-more::before {
@@ -1212,39 +1400,6 @@
       transition: width 0.45s ease-out;
     }
 
-    /* modif: toasts score */
-    .score-toast {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 200;
-      padding: 0.65rem 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--progress);
-      background: rgba(28, 28, 30, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .score-toast.is-on {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    [data-theme="light"] .score-toast {
-      background: #0a0a0a;
-      color: var(--progress);
-      border-color: var(--progress-muted);
-    }
-
     /* modif: réglages — interrupteur apparence */
     .settings-card .theme-row {
       display: flex;
@@ -1329,8 +1484,8 @@
     }
 
     .streak-day {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       padding: 0;
       margin: 0;
       border-radius: var(--radius-xs);
@@ -1339,7 +1494,7 @@
       align-items: center;
       justify-content: center;
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 12px;
       color: var(--text-muted);
       background: var(--bg-elevated);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
@@ -1406,13 +1561,7 @@
       margin: 0 0 16px;
     }
 
-    .quick-links-home--rail h2 {
-      opacity: 1;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-    }
-
-    .panel > h1 {
+    .panel > .subtitle {
       margin-bottom: 8px;
     }
 
@@ -2387,43 +2536,6 @@
       white-space: nowrap;
     }
 
-    .score-chart-wrap {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    .score-chart-wrap svg {
-      display: block;
-      width: 100%;
-      max-width: 640px;
-      height: auto;
-    }
-
-    .score-chart-axis {
-      font-family: var(--font-mono);
-      font-size: 8px;
-      fill: var(--text-muted);
-    }
-
-    .score-chart-line {
-      fill: none;
-      stroke: var(--progress);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 4px var(--progress-glow));
-    }
-
-    .score-chart-dot {
-      fill: var(--progress);
-    }
-
-    .score-chart-grid {
-      stroke: var(--border);
-      stroke-width: 0.5;
-      opacity: 0.6;
-    }
-
     .settings-week-btns {
       display: flex;
       flex-wrap: wrap;
@@ -2700,6 +2812,7 @@
       Quitter le focus
     </button>
     <aside class="sidebar" aria-label="Navigation">
+      <div class="sidebar-scroll-zone">
       <div class="brand">
         <img class="brand-mark brand-mark--custom" id="brand-mark-custom" alt="" width="38" height="38" decoding="async" hidden />
         <svg class="brand-mark brand-mark-default" id="brand-mark-default" viewBox="0 0 32 32" aria-hidden="true">
@@ -2743,11 +2856,21 @@
         <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17h2v4H3v-4zm4-6h2v10H7V11zm4-4h2v14h-2V7zm4-3h2v17h-2V4zm4-2h2v19h-2V2z"/></svg></span>
         <span class="nav-txt">Tendances</span>
       </button>
-      <button type="button" class="nav-btn" data-panel="links">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg></span>
-        <span class="nav-txt">Liens</span>
-      </button>
       <div class="sidebar-spacer" aria-hidden="true"></div>
+      </div>
+      <div class="sidebar-footer-sticky">
+      <button
+        type="button"
+        class="nav-btn nav-btn--sidebar-ql"
+        id="nav-sidebar-ql"
+        aria-expanded="false"
+        aria-controls="sidebar-ql-popover"
+        aria-haspopup="dialog"
+      >
+        <span class="nav-ico" aria-hidden="true">🔗</span>
+        <span class="nav-txt">Liens</span>
+        <span id="nav-ql-badge" class="nav-ql-badge" hidden>0</span>
+      </button>
       <button type="button" class="nav-btn nav-btn--focus" id="btn-focus">
         <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3v2h4V9h2V3h-6zM3 15v6h6v-2H5v-4H3zM3 4h2v4h4V6H5V4H3zm14 10h-4v2h6v-6h-2v4z"/></svg></span>
         <span class="nav-txt">Mode focus</span>
@@ -2756,11 +2879,13 @@
         <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .69.28 1.35.78 1.83.48.48 1.13.76 1.81.77H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
         <span class="nav-txt">Réglages</span>
       </button>
-      <div class="sidebar-score" aria-live="polite">
-        <span class="sidebar-score-label">score</span>
-        <span id="sidebar-daily-score" class="sidebar-score-num">0</span>
       </div>
     </aside>
+
+    <div id="sidebar-ql-popover" class="sidebar-ql-popover" hidden role="dialog" aria-label="Liens rapides">
+      <div id="sidebar-ql-popover-list" class="sidebar-ql-popover-inner"></div>
+      <button type="button" class="btn secondary btn-add-unified" id="sidebar-ql-manage">Gérer les liens</button>
+    </div>
 
     <main class="main" id="main-el">
       <p id="readonly-strip" class="readonly-strip" role="status">Journée archivée : saisie bloquée. Sélectionne « Aujourd’hui » ou un autre jour.</p>
@@ -2778,10 +2903,14 @@
           <div class="home-main-col">
             <div class="daily-brief">
               <h1 id="daily-brief-title">Aujourd’hui</h1>
-              <p id="daily-brief-prose" class="daily-brief-prose">—</p>
-              <p id="home-tasks-pill" class="home-tasks-pill" hidden aria-live="polite"></p>
+              <div class="daily-brief-row-compact">
+                <p id="daily-brief-task-line" class="daily-brief-task-line"></p>
+                <div class="daily-brief-mini-bar" aria-hidden="true"><span id="daily-brief-mini-bar-fill"></span></div>
+              </div>
+              <p id="daily-brief-prose" class="daily-brief-prose"></p>
             </div>
             <div class="brief-blocks">
+              <div class="home-tasks-ech-row">
               <div id="brief-todo-duo" class="brief-todo-duo">
                 <div class="brief-block brief-block--todo">
                   <button type="button" class="brief-block-title" data-go="todo">Récurrent</button>
@@ -2804,6 +2933,11 @@
                   </div>
                 </div>
               </div>
+              <aside class="home-deadlines-card" aria-label="Échéances">
+                <h2 class="home-deadlines-title">Échéances</h2>
+                <ul id="home-echeances-list" class="home-deadlines-list"></ul>
+              </aside>
+              </div>
               <div class="brief-block" id="brief-wrap-sport">
                 <button type="button" class="brief-block-title" data-go="sport">Sport</button>
                 <div class="brief-block-bars" id="brief-bars-sport"></div>
@@ -2823,11 +2957,16 @@
                     <button type="button" class="icon-btn" id="mini-cal-next" aria-label="Mois suivant">→</button>
                   </div>
                   <div id="mini-cal-grid" class="mini-cal-grid" aria-label="Mini-calendrier"></div>
-                  <p class="hint mini-cal-hint">
-                    Clic sur un jour : aperçu du journal (passé avec archive, aujourd’hui, ou jusqu’à ~24 mois dans le futur).
-                    Les pastilles viennent des habitudes et des échéances ci-dessous (stockées ici) — pas d’import automatique
-                    Google&nbsp;/ Apple sans serveur (OAuth). Le bouton ouvre ton lien agenda dans Réglages.
-                  </p>
+                  <div class="mini-cal-hint-row">
+                    <button
+                      type="button"
+                      class="mini-cal-info-btn"
+                      aria-label="Aide calendrier"
+                      title="Clic sur un jour : aperçu du journal (passé archivé, aujourd’hui, ou jusqu’à ~24 mois dans le futur). Pastilles : habitudes du jour, ponctuelles « en continu » non cochées, dates d’échéances (Réglages). Pas d’import Google/Apple sans serveur. « Ouvrir l’agenda » utilise l’URL définie dans Réglages."
+                    >
+                      ℹ️
+                    </button>
+                  </div>
                   <div class="mini-cal-external-row">
                     <button type="button" class="btn secondary" id="btn-home-open-agenda">Ouvrir l’agenda (lien Réglages)</button>
                   </div>
@@ -2839,14 +2978,6 @@
               </div>
             </div>
           </div>
-          <aside class="home-quick-column" aria-label="Liens rapides">
-            <div class="card quick-links-home quick-links-home--rail">
-              <h2>Liens rapides</h2>
-              <p class="hint quick-links-hint">Fenêtre nommée par lien : reclic pour actualiser.</p>
-              <div id="quick-links-home-strip" class="quick-links-strip quick-links-strip--column" aria-label="Liens rapides"></div>
-              <button type="button" class="btn secondary" id="btn-open-links-panel">Gérer les liens</button>
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -2870,13 +3001,10 @@
 
       <section id="panel-trends" class="panel" aria-labelledby="trends-title">
         <h1 id="trends-title">Tendances</h1>
-        <p class="subtitle">Courbe glissante sur 30 jours : archives locales + jour courant.</p>
+        <p class="subtitle">Vue d’ensemble de tes habitudes sur la durée (données locales).</p>
         <div class="card">
-          <h2>Évolution du score (%)</h2>
-          <div class="score-chart-wrap">
-            <svg id="score-chart-svg" viewBox="0 0 360 140" role="img" aria-label="Graphique score 30 jours"></svg>
-          </div>
-          <p class="hint">Sans saisie ce jour-là : point absent. Extrémité droite : aujourd’hui.</p>
+          <h2>À venir</h2>
+          <p class="hint">D’autres graphiques pourront s’ajouter ici (streaks, volumes, etc.).</p>
         </div>
       </section>
 
@@ -3269,30 +3397,13 @@
         </div>
         <div class="card settings-card">
           <h2>Échéances &amp; agenda</h2>
-          <p class="hint">
-            Comptes à rebours affichés dans la vue d’ensemble (J‑X = jours restants jusqu’à la date, par rapport à
-            <strong>aujourd’hui</strong>).
-          </p>
+          <p class="hint">Stockage <code>localStorage</code> clé <strong>home_echeances</strong> — affichage J‑X sur la vue d’ensemble.</p>
           <div id="settings-countdown-editor" class="settings-countdown-editor"></div>
           <div class="settings-countdown-row" style="margin-top:0.35rem">
             <input type="text" id="settings-countdown-label-inp" placeholder="Libellé (ex. concours, rendu…)" maxlength="120" aria-label="Libellé échéance" />
             <input type="date" id="settings-countdown-date-inp" aria-label="Date échéance" />
             <button type="button" class="btn btn-add-unified" id="settings-countdown-add">Ajouter</button>
           </div>
-          <label class="theme-label" for="settings-countdown-highlight" style="margin-top:0.65rem;display:block">Mise en avant des échéances (J‑X)</label>
-          <p class="hint" style="margin:0.15rem 0 0.35rem">
-            Les échéances à venir dans cette fenêtre (en jours) ressortent en vert dans la liste d’accueil.
-          </p>
-          <input
-            type="number"
-            id="settings-countdown-highlight"
-            min="1"
-            max="366"
-            step="1"
-            class="settings-calendar-url"
-            style="max-width: 6rem"
-            aria-label="Nombre de jours pour surligner les échéances proches"
-          />
           <p class="hint" style="margin-top:0.85rem">Lien ouvert par le bouton « Ouvrir l’agenda » sur la vue d’ensemble (Google, Apple iCloud web, etc.).</p>
           <label class="theme-label" for="settings-agenda-open-url">URL agenda</label>
           <input type="url" id="settings-agenda-open-url" class="settings-calendar-url" placeholder="https://calendar.google.com/calendar" autocomplete="url" />
@@ -3312,7 +3423,7 @@
         </div>
         <div class="card settings-card">
           <h2>Objectifs personnels</h2>
-          <p class="hint">Désactive les fiches inutiles : elles disparaissent des panneaux et du score agrégé. Il reste au moins une métrique.</p>
+          <p class="hint">Désactive les fiches inutiles : elles disparaissent des panneaux et des barres de progression. Il reste au moins une métrique.</p>
           <div id="settings-metrics-dynamic"></div>
           <div class="settings-add-metric-row">
             <select id="settings-metric-pool" class="settings-metric-pool" aria-label="Ajouter un objectif depuis la liste">
@@ -3334,8 +3445,6 @@
     </main>
   </div>
 
-  <div id="score-toast" class="score-toast" role="status" aria-live="polite"></div>
-
   <div class="kbd-hint" id="kbd-hint" aria-hidden="true">
     <span class="kbd-hint-title">Raccourcis</span> — touches 1–9 · focus : Échap ou bouton quitter
   </div>
@@ -3348,6 +3457,7 @@
   var STORAGE_KEY = "personalDashboardV2";
   var LEGACY_KEY = "personalDashboardV1";
   var THEME_KEY = "dashboardTheme";
+  var HOME_ECHEANCES_KEY = "home_echeances";
   var DAY_MS = 86400000;
   var STATE_VERSION = 6;
 
@@ -3355,7 +3465,6 @@
   var viewDateIso = todayIso;
   /* modif: première passe barres — animation 0→valeur 600ms */
   var firstBarRun = true;
-  var scoreToastPrev = null;
 
   var PANEL_SHORTCUTS = ["home", "todo", "sport", "food", "reminders", "notes", "history", "trends", "links"];
 
@@ -3494,9 +3603,7 @@
           "Préparer la semaine suivante"
         ],
         activeMetricKeys: ["running", "muscu", "natation", "water", "protein", "sleep", "meals"],
-        countdowns: [],
-        agendaOpenUrl: "https://calendar.google.com/calendar",
-        countdownHighlightDays: 30
+        agendaOpenUrl: "https://calendar.google.com/calendar"
       },
       history: {},
       todos: {
@@ -3762,21 +3869,6 @@
     return { done: done, total: total };
   }
 
-  function renderHomeTasksPill() {
-    var el = document.getElementById("home-tasks-pill");
-    if (!el) return;
-    if (!isViewingToday() && !getSnap() && !isViewingFuture()) {
-      el.setAttribute("hidden", "");
-      return;
-    }
-    var t = getTaskTotalsForView();
-    el.removeAttribute("hidden");
-    if (!t.total) el.textContent = "";
-    else
-      el.textContent =
-        t.done + "/" + t.total + " tâches cochées (récurrentes, ponctuelles, rappels)";
-  }
-
   function buildSnapshot(src) {
     return {
       sport: { running: src.sport.running, muscu: src.sport.muscu, natation: src.sport.natation },
@@ -3818,6 +3910,56 @@
     });
   }
 
+  function loadHomeEcheances() {
+    try {
+      var raw = localStorage.getItem(HOME_ECHEANCES_KEY);
+      if (raw == null || raw === "") return [];
+      var a = JSON.parse(raw);
+      if (!Array.isArray(a)) return [];
+      return a
+        .map(function (x) {
+          if (!x) return null;
+          var dt = x.date || x.dateIso;
+          if (!dt || !/^\d{4}-\d{2}-\d{2}$/.test(String(dt))) return null;
+          return {
+            id: String(x.id || uid()),
+            label: ((x.label && String(x.label).trim()) || "Échéance").slice(0, 120),
+            date: String(dt)
+          };
+        })
+        .filter(Boolean);
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveHomeEcheances(arr) {
+    try {
+      localStorage.setItem(HOME_ECHEANCES_KEY, JSON.stringify(arr || []));
+    } catch (e) { /* ignore */ }
+  }
+
+  function seedHomeEcheancesIfUnset(meta) {
+    try {
+      if (localStorage.getItem(HOME_ECHEANCES_KEY) != null) return;
+      var out = [];
+      if (meta && Array.isArray(meta.countdowns)) {
+        out = meta.countdowns
+          .filter(function (c) {
+            return c && c.dateIso && /^\d{4}-\d{2}-\d{2}$/.test(String(c.dateIso));
+          })
+          .map(function (c) {
+            return {
+              id: String(c.id || uid()),
+              label: ((c.label && String(c.label).trim()) || "Échéance").slice(0, 120),
+              date: String(c.dateIso)
+            };
+          });
+      }
+      saveHomeEcheances(out);
+    } catch (e) { /* ignore */ }
+  }
+
   function loadState() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
@@ -3827,12 +3969,14 @@
           var old = JSON.parse(legacy);
           old.history = {};
           old.version = STATE_VERSION;
+          seedHomeEcheancesIfUnset(old.meta);
           return migrateState(old);
         }
         return defaultState();
       }
       var data = JSON.parse(raw);
       if (!data) return defaultState();
+      seedHomeEcheancesIfUnset(data.meta);
       return migrateState(data);
     } catch (e) {
       return defaultState();
@@ -3851,21 +3995,9 @@
     ensureActiveMetricKeys(d.meta);
     delete d.meta.focusDayKind;
     delete d.meta.focusDayId;
-    if (!Array.isArray(d.meta.countdowns)) d.meta.countdowns = [];
-    d.meta.countdowns = d.meta.countdowns
-      .filter(function (x) {
-        return x && x.id && typeof x.dateIso === "string" && /^\d{4}-\d{2}-\d{2}$/.test(x.dateIso);
-      })
-      .map(function (x) {
-        return {
-          id: String(x.id),
-          label: (x.label && String(x.label).trim().slice(0, 120)) || "Échéance",
-          dateIso: x.dateIso
-        };
-      });
+    delete d.meta.countdowns;
+    delete d.meta.countdownHighlightDays;
     if (typeof d.meta.agendaOpenUrl !== "string") d.meta.agendaOpenUrl = "";
-    var chD = parseInt(d.meta.countdownHighlightDays, 10);
-    if (isNaN(chD) || chD < 1 || chD > 366) d.meta.countdownHighlightDays = 30;
     if (data.history && typeof data.history === "object") d.history = data.history;
     if (data.todos) d.todos = data.todos;
     if (data.targets) d.targets = Object.assign(d.targets, data.targets);
@@ -3910,19 +4042,13 @@
     } catch (eCk) { /* ignore */ }
   }
 
-  function dayScoreFromLive(st, dayIsoForRec) {
+  function dayRecurringCompletionRatio(st, dayIsoForRec) {
     var recIso = dayIsoForRec || todayIso;
-    var t = st.targets;
-    var sn = { sport: st.sport, nutrition: st.nutrition };
     var rec = filterRecurringForDay(st.todos.recurring, recIso);
-    var recRatio = rec.length ? rec.filter(function (x) { return x.done; }).length / rec.length : 1;
-    var ratios = [recRatio];
-    var keys = getActiveMetricKeysFromMeta(st.meta);
-    for (var i = 0; i < keys.length; i++) {
-      ratios.push(metricRatioForKey(keys[i], sn, t));
-    }
-    var sum = ratios.reduce(function (a, b) { return a + b; }, 0);
-    return sum / ratios.length;
+    if (!rec.length) return 1;
+    return rec.filter(function (x) {
+      return x.done;
+    }).length / rec.length;
   }
 
   function indexWeekdayFromMonday(dayIso) {
@@ -3949,7 +4075,7 @@
         st.meta.weekActivity = [false, false, false, false, false, false, false];
       } else {
         var idx = indexWeekdayFromMonday(last);
-        if (idx >= 0 && idx < 7 && dayScoreFromLive(st, last) >= 0.45) st.meta.weekActivity[idx] = true;
+        if (idx >= 0 && idx < 7 && dayRecurringCompletionRatio(st, last) >= 0.45) st.meta.weekActivity[idx] = true;
       }
     }
 
@@ -4076,46 +4202,6 @@
     return snap.notes != null ? snap.notes : "";
   }
 
-  function scorePercentFromSnapshot(dayIso, snap) {
-    if (!snap) return null;
-    var t = state.targets;
-    var rec = filterRecurringForDay(snap.recurring || [], dayIso);
-    var one = filterOneOffForDay(snap.oneOff || [], dayIso);
-    var rem = snap.reminders || [];
-    var sn = {
-      sport: snap.sport || { running: 0, muscu: 0, natation: 0 },
-      nutrition: snap.nutrition || { water: 0, protein: 0, sleep: 0, meals: 0 }
-    };
-    var recRatio = rec.length ? rec.filter(function (x) { return x.done; }).length / rec.length : 1;
-    var oneRatio = one.length ? one.filter(function (x) { return x.done; }).length / one.length : 1;
-    var remRatio = rem.length ? rem.filter(function (x) { return x.done; }).length / rem.length : 1;
-    var ratios = [recRatio, oneRatio, remRatio];
-    var keys = getActiveMetricKeysFromMeta(state.meta);
-    for (var i = 0; i < keys.length; i++) {
-      ratios.push(metricRatioForKey(keys[i], sn, t));
-    }
-    var sum = ratios.reduce(function (a, b) { return a + b; }, 0);
-    return Math.round((sum / ratios.length) * 100);
-  }
-
-  function scorePercentLiveToday() {
-    var t = state.targets;
-    var rec = filterRecurringForDay(state.todos.recurring, todayIso);
-    var one = state.todos.oneOff || [];
-    var rem = state.reminders;
-    var sn = { sport: state.sport, nutrition: state.nutrition };
-    var recRatio = rec.length ? rec.filter(function (x) { return x.done; }).length / rec.length : 1;
-    var oneRatio = one.length ? one.filter(function (x) { return x.done; }).length / one.length : 1;
-    var remRatio = rem.length ? rem.filter(function (x) { return x.done; }).length / rem.length : 1;
-    var ratios = [recRatio, oneRatio, remRatio];
-    var keys = getActiveMetricKeys();
-    for (var j = 0; j < keys.length; j++) {
-      ratios.push(metricRatioForKey(keys[j], sn, t));
-    }
-    var sum = ratios.reduce(function (a, b) { return a + b; }, 0);
-    return Math.round((sum / ratios.length) * 100);
-  }
-
   function getSportValueOnDay(dayIso, key) {
     if (dayIso === todayIso) return Number(state.sport[key]) || 0;
     var snap = state.history[dayIso];
@@ -4173,144 +4259,12 @@
     });
   }
 
-  function renderScoreChart30() {
-    var svg = document.getElementById("score-chart-svg");
-    if (!svg) return;
-    var w = 360;
-    var h = 140;
-    var padL = 28;
-    var padR = 8;
-    var padT = 12;
-    var padB = 22;
-    var innerW = w - padL - padR;
-    var innerH = h - padT - padB;
-    var pts = [];
-    var i;
-    for (i = 29; i >= 0; i--) {
-      var d = addDays(todayIso, -i);
-      var pct = null;
-      if (d === todayIso) {
-        pct = scorePercentLiveToday();
-      } else {
-        var sn = state.history[d];
-        pct = sn ? scorePercentFromSnapshot(d, sn) : null;
-      }
-      pts.push({ day: d, pct: pct });
-    }
-    var parts = [];
-    parts.push(
-      '<line class="score-chart-grid" x1="' +
-        padL +
-        '" y1="' +
-        (padT + innerH * 0.5) +
-        '" x2="' +
-        (w - padR) +
-        '" y2="' +
-        (padT + innerH * 0.5) +
-        '"/>'
-    );
-    parts.push(
-      '<text class="score-chart-axis" x="4" y="' +
-        (padT + 4) +
-        '">100</text>'
-    );
-    parts.push(
-      '<text class="score-chart-axis" x="4" y="' +
-        (padT + innerH * 0.5 + 3) +
-        '">50</text>'
-    );
-    parts.push(
-      '<text class="score-chart-axis" x="4" y="' +
-        (padT + innerH + 3) +
-        '">0</text>'
-    );
-    var pathParts = [];
-    var dotParts = [];
-    var started = false;
-    for (i = 0; i < pts.length; i++) {
-      var p = pts[i];
-      if (p.pct == null) {
-        started = false;
-        continue;
-      }
-      var x = padL + (i / 29) * innerW;
-      var y = padT + innerH * (1 - p.pct / 100);
-      pathParts.push((started ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1));
-      started = true;
-      dotParts.push('<circle class="score-chart-dot" cx="' + x + '" cy="' + y + '" r="2.5"/>');
-    }
-    if (pathParts.length) {
-      parts.push('<path class="score-chart-line" d="' + pathParts.join(" ") + '"/>');
-    }
-    parts.push(dotParts.join(""));
-    parts.push(
-      '<text class="score-chart-axis" x="' +
-        padL +
-        '" y="' +
-        (h - 4) +
-        '">−29j</text>'
-    );
-    parts.push(
-      '<text class="score-chart-axis" x="' +
-        (w - padR - 22) +
-        '" y="' +
-        (h - 4) +
-        '">0j</text>'
-    );
-    svg.innerHTML = parts.join("");
-  }
-
   function initialPanelFromClock() {
     if (viewDateIso !== todayIso) return;
     var hour = new Date().getHours();
     if (hour >= 6 && hour < 9) showPanel("todo");
     else if (hour >= 12 && hour < 14) showPanel("food");
     else if (hour >= 20) showPanel("home");
-  }
-
-  /* modif: score jour 0–100 (moyenne ratios), vert si >70 */
-  function journalScorePercent() {
-    if (!isViewingToday() && !getSnap() && !isViewingFuture()) return 0;
-    var t = state.targets;
-    var sn = getSportNutrition();
-    var rec = getRecurringItems();
-    var one = getOneOffItems();
-    var rem = getReminderItems();
-    var recRatio = rec.length ? rec.filter(function (x) { return x.done; }).length / rec.length : 1;
-    var oneRatio = one.length ? one.filter(function (x) { return x.done; }).length / one.length : 1;
-    var remRatio = rem.length ? rem.filter(function (x) { return x.done; }).length / rem.length : 1;
-    var ratios = [recRatio, oneRatio, remRatio];
-    var keys = getActiveMetricKeys();
-    for (var k = 0; k < keys.length; k++) {
-      ratios.push(metricRatioForKey(keys[k], sn, t));
-    }
-    var sum = ratios.reduce(function (a, b) { return a + b; }, 0);
-    return Math.round((sum / ratios.length) * 100);
-  }
-
-  function renderDailyScore() {
-    var el = document.getElementById("sidebar-daily-score");
-    if (!el) return;
-    var p = journalScorePercent();
-    el.textContent = String(p);
-    el.classList.toggle("is-low", p <= 70);
-  }
-
-  function maybeScoreToast(fromPct, toPct) {
-    if (!isViewingToday()) return;
-    var toast = document.getElementById("score-toast");
-    if (!toast) return;
-    var msg = null;
-    if (fromPct < 100 && toPct >= 100) msg = "→ Journée parfaite";
-    else if (fromPct < 75 && toPct >= 75) msg = "→ Belle journée";
-    else if (fromPct < 50 && toPct >= 50) msg = "→ 50% atteint";
-    if (!msg) return;
-    toast.textContent = msg;
-    toast.classList.add("is-on");
-    if (toast._hideT) clearTimeout(toast._hideT);
-    toast._hideT = setTimeout(function () {
-      toast.classList.remove("is-on");
-    }, 1500);
   }
 
   function countWords(s) {
@@ -4333,6 +4287,7 @@
   function setFocusMode(on) {
     var app = document.getElementById("app-root");
     if (app) app.classList.toggle("app--focus", !!on);
+    if (on) setSidebarQlPopoverOpen(false);
   }
 
   function isTypingInField(el) {
@@ -5116,6 +5071,21 @@
     );
   }
 
+  function briefPrioBadgeHtml(pr) {
+    pr = pr === "high" || pr === "low" ? pr : "medium";
+    var lab = pr === "high" ? "Haute" : pr === "low" ? "Basse" : "Moy.";
+    var title = pr === "high" ? "Priorité haute" : pr === "low" ? "Priorité basse" : "Priorité moyenne";
+    return (
+      '<span class="brief-prio-badge brief-prio-badge--' +
+      pr +
+      '" title="' +
+      escapeAttr(title) +
+      '">' +
+      escapeHtml(lab) +
+      "</span>"
+    );
+  }
+
   function fillBriefTodoHomeDuo() {
     var ulR = document.getElementById("brief-todo-recurring");
     var ulO = document.getElementById("brief-todo-oneoff");
@@ -5132,7 +5102,7 @@
     var totalAll = rawRec.length + one.length;
 
     function emptyBothNoData() {
-      var li = '<li class="brief-todo-empty">Aucune entrée — panneau To-do.</li>';
+      var li = '<li class="brief-todo-empty">Aucune tâche</li>';
       ulR.innerHTML = li;
       ulO.innerHTML = li;
     }
@@ -5151,41 +5121,42 @@
           var labelShown = rawLabel.length > 480 ? truncateText(rawLabel, 480) : rawLabel;
           var labelSafe = escapeHtml(labelShown);
           var ariaDone = "Marquer comme fait : " + truncateText(p.text, 200);
-          var meta = "";
-          if (kind === "oneoff") {
-            var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
-            var tg = p.userTag ? String(p.userTag).trim() : "";
-            var dueB = "";
-            if (p.schedMode === "rolling") {
-              dueB = '<span class="task-due-badge task-mode-badge--rolling">Continu</span>';
-            } else if (p.dueDate) {
-              dueB = '<span class="task-due-badge">' + escapeHtml(formatIsoShortFr(p.dueDate)) + "</span>";
-            } else {
-              dueB = '<span class="task-due-badge">Jour précis</span>';
-            }
-            meta =
-              '<span class="brief-todo-meta">' +
-              (tg ? '<span class="task-tag-pill" style="border:none">' + escapeHtml(tg) + "</span>" : "") +
-              prioDotHtml(pr) +
-              dueB +
-              "</span>";
+          var titleAttr = escapeAttr(rawLabel.length > 180 ? truncateText(rawLabel, 180) : rawLabel);
+          var rowCls = "brief-todo-row" + (kind === "oneoff" ? " brief-todo-row--oneoff" : " brief-todo-row--rec");
+          if (kind === "recurring") {
+            return (
+              '<li class="' +
+              rowCls +
+              '" title="' +
+              titleAttr +
+              '"><button type="button" class="brief-todo-check"' +
+              dis +
+              ' data-brief-id="' +
+              escapeAttr(p.id) +
+              '" data-brief-kind="recurring" aria-label="' +
+              escapeAttr(ariaDone) +
+              '"></button><span class="brief-todo-label">' +
+              labelSafe +
+              "</span></li>"
+            );
           }
+          var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
           return (
-            '<li class="brief-todo-row" title="' +
-            escapeAttr(rawLabel.length > 180 ? truncateText(rawLabel, 180) : rawLabel) +
-            '"><div class="brief-todo-left"><span class="brief-todo-label">' +
-            labelSafe +
-            "</span>" +
-            meta +
-            '</div><button type="button" class="brief-todo-check"' +
+            '<li class="' +
+            rowCls +
+            '" title="' +
+            titleAttr +
+            '"><button type="button" class="brief-todo-check"' +
             dis +
             ' data-brief-id="' +
             escapeAttr(p.id) +
-            '" data-brief-kind="' +
-            escapeAttr(kind) +
-            '" aria-label="' +
+            '" data-brief-kind="oneoff" aria-label="' +
             escapeAttr(ariaDone) +
-            '"></button></li>'
+            '"></button><span class="brief-todo-label">' +
+            labelSafe +
+            "</span>" +
+            briefPrioBadgeHtml(pr) +
+            "</li>"
           );
         })
         .join("");
@@ -5230,18 +5201,10 @@
       };
     });
 
-    var schedToday = filterRecurringForDay(rawRec, viewDateIso).length;
-    var emptyR =
-      schedToday === 0
-        ? '<li class="brief-todo-empty">Aucune récurrente prévue ce jour.</li>'
-        : '<li class="brief-todo-empty">Toutes les récurrentes prévues sont cochées.</li>';
-    var emptyO =
-      one.length === 0
-        ? '<li class="brief-todo-empty">Aucune tâche ponctuelle.</li>'
-        : '<li class="brief-todo-empty">Toutes les ponctuelles sont cochées.</li>';
+    var emptyCell = '<li class="brief-todo-empty">Aucune tâche</li>';
 
-    fillUl(ulR, recPend, "recurring", emptyR);
-    fillUl(ulO, onePend, "oneoff", emptyO);
+    fillUl(ulR, recPend, "recurring", emptyCell);
+    fillUl(ulO, onePend, "oneoff", emptyCell);
   }
 
   function toggleBriefTaskFromOverview(taskId, kind) {
@@ -5330,6 +5293,14 @@
     return Math.round((parseISODate(toIso).getTime() - parseISODate(fromIso).getTime()) / DAY_MS);
   }
 
+  function daysFromTodayToDateCeil(dateIso) {
+    var a = parseISODate(todayIso);
+    a.setHours(0, 0, 0, 0);
+    var b = parseISODate(dateIso);
+    b.setHours(0, 0, 0, 0);
+    return Math.ceil((b.getTime() - a.getTime()) / DAY_MS);
+  }
+
   function weekdaysLabel(task) {
     var w = task.weekdays;
     if (!Array.isArray(w) || !w.length) return "· tous les jours";
@@ -5353,64 +5324,119 @@
     return dayIso >= todayIso || !!state.history[dayIso];
   }
 
+  function renderHomeEcheancesList() {
+    var ul = document.getElementById("home-echeances-list");
+    if (!ul) return;
+    var raw = loadHomeEcheances();
+    if (!raw.length) {
+      ul.innerHTML = '<li class="home-deadlines-empty">Ajoute des échéances dans Réglages</li>';
+      return;
+    }
+    var enriched = raw.map(function (ev) {
+      return { ev: ev, d: daysFromTodayToDateCeil(ev.date) };
+    });
+    var upcoming = enriched.filter(function (x) {
+      return x.d >= 0;
+    });
+    upcoming.sort(function (a, b) {
+      return a.d - b.d;
+    });
+    var past = enriched.filter(function (x) {
+      return x.d < 0;
+    });
+    past.sort(function (a, b) {
+      return b.d - a.d;
+    });
+    var ordered = upcoming.concat(past);
+    ul.innerHTML = ordered
+      .map(function (x) {
+        var ev = x.ev;
+        var d = x.d;
+        var metaCls = "home-dl-meta";
+        var meta = "";
+        var liCls = "";
+        if (d < 0) {
+          liCls = "home-dl-li--past";
+          meta = "Passé";
+        } else if (d === 0) {
+          metaCls += " is-today";
+          meta = "Aujourd’hui";
+        } else {
+          meta = "J-" + d;
+        }
+        return (
+          '<li class="' +
+          escapeAttr(liCls) +
+          '"><span class="home-dl-label">' +
+          escapeHtml(ev.label) +
+          '</span><span class="' +
+          metaCls +
+          '">' +
+          escapeHtml(meta) +
+          "</span></li>"
+        );
+      })
+      .join("");
+  }
+
   function renderCountdownList() {
     var ul = document.getElementById("countdown-list");
     if (!ul) return;
-    var list = (state.meta.countdowns || []).slice().sort(function (a, b) {
-      return a.dateIso.localeCompare(b.dateIso);
-    });
+    var list = loadHomeEcheances()
+      .slice()
+      .sort(function (a, b) {
+        return a.date.localeCompare(b.date);
+      });
     if (!list.length) {
       ul.innerHTML =
-        '<li class="hint" style="list-style:none;border:none;background:none;padding:0;margin:0;">Aucune échéance — ajoute-en dans Réglages (elles s’affichent ici et sur le mini-calendrier).</li>';
+        '<li class="hint" style="list-style:none;border:none;background:none;padding:0;margin:0;opacity:0.35;font-style:italic;">Ajoute des échéances dans Réglages</li>';
       return;
     }
-    var horizon = parseInt(state.meta.countdownHighlightDays, 10);
-    if (isNaN(horizon) || horizon < 1 || horizon > 366) horizon = 30;
-    var onView = list.filter(function (c) {
-      return c.dateIso === viewDateIso;
+    var enriched = list.map(function (ev) {
+      return { ev: ev, d: daysFromTodayToDateCeil(ev.date) };
     });
-    var head =
-      onView.length && viewDateIso !== todayIso
-        ? '<li class="hint countdown-li--on-view" style="list-style:none;border-style:dashed;">' +
-          "Jour affiché (" +
-          escapeHtml(formatIsoShortFr(viewDateIso)) +
-          ") : " +
-          onView
-            .map(function (c) {
-              return "<strong>" + escapeHtml(c.label) + "</strong>";
-            })
-            .join(" · ") +
-          "</li>"
-        : "";
-    var listMain =
-      onView.length && viewDateIso !== todayIso
-        ? list.filter(function (c) {
-            return c.dateIso !== viewDateIso;
-          })
-        : list;
-    ul.innerHTML =
-      head +
-      listMain
-        .map(function (ev) {
-          var d = daysBetweenIso(todayIso, ev.dateIso);
-          var soon = d >= 0 && d <= horizon;
-          var meta;
-          if (d > 1) meta = "J-" + d + " · " + formatIsoShortFr(ev.dateIso);
-          else if (d === 1) meta = "Demain · " + formatIsoShortFr(ev.dateIso);
-          else if (d === 0) meta = "Aujourd’hui · " + formatIsoShortFr(ev.dateIso);
-          else if (d < 0) meta = "Passé (" + -d + " j) · " + formatIsoShortFr(ev.dateIso);
-          else meta = formatIsoShortFr(ev.dateIso);
-          return (
-            '<li class="' +
-            (soon ? "countdown-li--soon" : "") +
-            '"><span class="cd-label">' +
-            escapeHtml(ev.label) +
-            '</span><span class="cd-meta">' +
-            escapeHtml(meta) +
-            "</span></li>"
-          );
-        })
-        .join("");
+    var upcoming = enriched.filter(function (x) {
+      return x.d >= 0;
+    });
+    upcoming.sort(function (a, b) {
+      return a.d - b.d;
+    });
+    var past = enriched.filter(function (x) {
+      return x.d < 0;
+    });
+    past.sort(function (a, b) {
+      return b.d - a.d;
+    });
+    var ordered = upcoming.concat(past);
+    ul.innerHTML = ordered
+      .map(function (x) {
+        var ev = x.ev;
+        var d = x.d;
+        var metaCls = "cd-meta";
+        var meta = "";
+        var liCls = "";
+        if (d < 0) {
+          liCls = "countdown-li--past";
+          meta = "Passé";
+        } else if (d === 0) {
+          metaCls += " cd-meta--today";
+          meta = "Aujourd’hui";
+        } else {
+          meta = "J-" + d;
+        }
+        return (
+          '<li class="' +
+          escapeAttr(liCls) +
+          '"><span class="cd-label">' +
+          escapeHtml(ev.label) +
+          '</span><span class="' +
+          metaCls +
+          '">' +
+          escapeHtml(meta) +
+          "</span></li>"
+        );
+      })
+      .join("");
   }
 
   function renderMiniCalendar() {
@@ -5437,8 +5463,8 @@
       var beyondMax = dayIso > viewDateMaxIso();
       var pastNoSnap = dayIso < todayIso && !state.history[dayIso];
       var selectable = isCalDaySelectable(dayIso);
-      var hasCd = (state.meta.countdowns || []).some(function (c) {
-        return c.dateIso === dayIso;
+      var hasCd = loadHomeEcheances().some(function (c) {
+        return c.date === dayIso;
       });
       var hasRec = filterRecurringForDay(state.todos.recurring, dayIso).length > 0;
       var hasRollPending =
@@ -5497,7 +5523,7 @@
   function renderSettingsCountdownEditor() {
     var host = document.getElementById("settings-countdown-editor");
     if (!host) return;
-    var list = state.meta.countdowns || [];
+    var list = loadHomeEcheances();
     host.innerHTML = list
       .map(function (x) {
         return (
@@ -5507,10 +5533,10 @@
           escapeHtml(x.label) +
           "</span>" +
           '<span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted)">' +
-          escapeHtml(formatIsoShortFr(x.dateIso)) +
-          '</span><button type="button" class="btn secondary" data-cd-del="' +
+          escapeHtml(formatIsoShortFr(x.date)) +
+          '</span><button type="button" class="delete" data-cd-del="' +
           escapeAttr(x.id) +
-          '">Retirer</button></div>'
+          '" aria-label="Supprimer l’échéance">×</button></div>'
         );
       })
       .join("");
@@ -5518,15 +5544,19 @@
 
   function renderDailyBrief() {
     var proseEl = document.getElementById("daily-brief-prose");
-    if (!proseEl) return;
+    var taskLineEl = document.getElementById("daily-brief-task-line");
+    var barFill = document.getElementById("daily-brief-mini-bar-fill");
+    if (!proseEl || !taskLineEl || !barFill) return;
     var snap = getSnap();
     if (!isViewingToday() && !snap && !isViewingFuture()) {
+      taskLineEl.textContent = "—";
+      barFill.style.width = "0%";
       proseEl.textContent =
         "Aucune archive pour cette date : ouverture sur un autre jour sans passage de minuit ici.";
       fillBriefBars("brief-bars-sport", []);
       fillBriefBars("brief-bars-food", []);
       fillBriefTodoHomeDuo();
-      renderHomeTasksPill();
+      renderHomeEcheancesList();
       renderHomeAgenda();
       applyHomeOverviewVisibility();
       return;
@@ -5593,10 +5623,17 @@
     var futNote = isViewingFuture()
       ? "Aperçu futur (sport / alimentation à zéro tant que le jour n’est pas là). "
       : "";
-    var proseBits = [futNote + greet + taskPhrase];
-    if (state.meta.showBriefSport !== false) proseBits.push("Sport : " + pctSport + "%");
-    if (state.meta.showBriefFood !== false) proseBits.push(waterPhrase);
-    proseEl.textContent = proseBits.join(" · ");
+    var taskHead = futNote + greet + taskPhrase;
+    var tTot = getTaskTotalsForView();
+    if (tTot.total) taskHead += " · " + tTot.done + "/" + tTot.total + " cochées";
+    taskLineEl.textContent = taskHead;
+    var pctDone = !tTot.total ? 100 : Math.round((100 * tTot.done) / tTot.total);
+    barFill.style.width = pctDone + "%";
+
+    var detailBits = [];
+    if (state.meta.showBriefSport !== false) detailBits.push("Sport : " + pctSport + "%");
+    if (state.meta.showBriefFood !== false) detailBits.push(waterPhrase);
+    proseEl.textContent = detailBits.length ? detailBits.join(" · ") : "—";
 
     var briefSportLabels = { running: "Run", muscu: "Muscu", natation: "Natation" };
     if (state.meta.showBriefSport !== false) {
@@ -5621,7 +5658,7 @@
       fillBriefBars("brief-bars-food", []);
     }
     fillBriefTodoHomeDuo();
-    renderHomeTasksPill();
+    renderHomeEcheancesList();
     renderHomeAgenda();
     applyHomeOverviewVisibility();
   }
@@ -5685,12 +5722,47 @@
     }
   }
 
-  function renderQuickLinksHomeStripOnly() {
+  var __sidebarQlPopoverOpen = false;
+
+  function setSidebarQlPopoverOpen(on) {
+    __sidebarQlPopoverOpen = !!on;
+    var pop = document.getElementById("sidebar-ql-popover");
+    var nav = document.getElementById("nav-sidebar-ql");
+    if (!pop || !nav) return;
+    if (!on) {
+      pop.setAttribute("hidden", "");
+      nav.setAttribute("aria-expanded", "false");
+      return;
+    }
+    pop.removeAttribute("hidden");
+    nav.setAttribute("aria-expanded", "true");
+    var r = nav.getBoundingClientRect();
+    requestAnimationFrame(function () {
+      var pr = pop.getBoundingClientRect();
+      var w = pr.width || 200;
+      var left = r.right + 8;
+      if (left + w > window.innerWidth - 8) left = Math.max(8, r.left - w - 8);
+      if (left < 8) left = 8;
+      var top = Math.min(window.innerHeight - (pr.height || 120) - 8, Math.max(8, r.top));
+      pop.style.left = left + "px";
+      pop.style.top = top + "px";
+    });
+  }
+
+  function updateSidebarQuickLinksPopover() {
     var list = state.quickLinks && state.quickLinks.length ? state.quickLinks : [];
-    var strip = document.getElementById("quick-links-home-strip");
-    if (!strip) return;
-    strip.innerHTML = "";
-    list.slice(0, 10).forEach(function (item) {
+    var host = document.getElementById("sidebar-ql-popover-list");
+    var badge = document.getElementById("nav-ql-badge");
+    if (badge) {
+      if (!list.length) badge.setAttribute("hidden", "");
+      else {
+        badge.removeAttribute("hidden");
+        badge.textContent = String(list.length);
+      }
+    }
+    if (!host) return;
+    host.innerHTML = "";
+    list.forEach(function (item) {
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "quick-link-chip";
@@ -5698,19 +5770,21 @@
       btn.setAttribute("title", item.url);
       btn.addEventListener("click", function () {
         openQuickLinkWindow(item.url, item.id);
+        setSidebarQlPopoverOpen(false);
       });
-      strip.appendChild(btn);
+      host.appendChild(btn);
     });
     if (!list.length) {
       var em = document.createElement("span");
       em.className = "quick-links-empty";
-      em.textContent = "Aucun lien — panneau Liens pour en ajouter.";
-      strip.appendChild(em);
+      em.style.opacity = "0.55";
+      em.textContent = "Aucun lien — ouvre la section Liens pour en ajouter.";
+      host.appendChild(em);
     }
   }
 
   function renderQuickLinksUI() {
-    renderQuickLinksHomeStripOnly();
+    updateSidebarQuickLinksPopover();
 
     var list = state.quickLinks && state.quickLinks.length ? state.quickLinks : [];
     var ul = document.getElementById("quick-links-editor");
@@ -5800,21 +5874,15 @@
         else t.value = hit.url;
       }
       saveState(state);
-      renderQuickLinksHomeStripOnly();
+      updateSidebarQuickLinksPopover();
     });
   }
 
   function refreshChrome() {
     clampViewDateToBounds();
-    var curScore = journalScorePercent();
-    if (scoreToastPrev !== null && isViewingToday()) {
-      maybeScoreToast(scoreToastPrev, curScore);
-    }
-    scoreToastPrev = isViewingToday() ? curScore : null;
 
     applyViewMode();
     renderStreak();
-    renderDailyScore();
     renderDailyBrief();
     renderTasks(document.getElementById("list-recurring"), getRecurringItems(), "recurring");
     renderTasks(document.getElementById("list-oneoff"), getOneOffItems(), "oneoff");
@@ -5823,7 +5891,6 @@
     refreshMetrics();
     applyMetricVisibility();
     renderSportMetricSubs();
-    renderScoreChart30();
     updateNotesWordcount();
     renderTargetsInDOM();
     renderSettingsCountdownEditor();
@@ -5867,6 +5934,7 @@
   }
 
   function showPanel(panelId) {
+    setSidebarQlPopoverOpen(false);
     document.querySelectorAll(".nav-btn").forEach(function (b) {
       if (b.getAttribute("data-panel") === panelId) b.setAttribute("aria-current", "page");
       else b.removeAttribute("aria-current");
@@ -5893,13 +5961,6 @@
     var agUrl = document.getElementById("settings-agenda-open-url");
     if (agUrl && document.activeElement !== agUrl) {
       agUrl.value = state.meta.agendaOpenUrl != null ? String(state.meta.agendaOpenUrl) : "";
-    }
-    var chHl = document.getElementById("settings-countdown-highlight");
-    if (chHl && document.activeElement !== chHl) {
-      var cvd = state.meta.countdownHighlightDays;
-      var nhl =
-        cvd != null && !isNaN(Number(cvd)) ? Math.max(1, Math.min(366, Math.round(Number(cvd)))) : 30;
-      chHl.value = String(nhl);
     }
     syncSettingsLogoPreview();
   }
@@ -5972,20 +6033,6 @@
       agInp.addEventListener("change", function () {
         state.meta.agendaOpenUrl = String(agInp.value || "").trim();
         saveState(state);
-      });
-    }
-
-    var chHl = document.getElementById("settings-countdown-highlight");
-    if (chHl && !chHl.dataset.wiredCdHl) {
-      chHl.dataset.wiredCdHl = "1";
-      chHl.addEventListener("change", function () {
-        var n = parseInt(chHl.value, 10);
-        if (isNaN(n) || n < 1) n = 1;
-        if (n > 366) n = 366;
-        chHl.value = String(n);
-        state.meta.countdownHighlightDays = n;
-        saveState(state);
-        refreshChrome();
       });
     }
   }
@@ -6113,10 +6160,9 @@
         var del = ev.target.closest("[data-cd-del]");
         if (!del) return;
         var id = del.getAttribute("data-cd-del");
-        state.meta.countdowns = (state.meta.countdowns || []).filter(function (x) {
+        saveHomeEcheances(loadHomeEcheances().filter(function (x) {
           return x.id !== id;
-        });
-        saveState(state);
+        }));
         refreshChrome();
       });
     }
@@ -6128,13 +6174,46 @@
         var lab = li ? String(li.value || "").trim().slice(0, 120) : "";
         var d = di && di.value ? di.value : "";
         if (!lab || !d || !/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
-        if (!state.meta.countdowns) state.meta.countdowns = [];
-        state.meta.countdowns.push({ id: uid(), label: lab, dateIso: d });
+        var arr = loadHomeEcheances();
+        arr.push({ id: uid(), label: lab, date: d });
+        saveHomeEcheances(arr);
         if (li) li.value = "";
         if (di) di.value = "";
-        saveState(state);
         refreshChrome();
       });
+    }
+  }
+
+  function wireSidebarQuickLinksOnce() {
+    var nav = document.getElementById("nav-sidebar-ql");
+    var pop = document.getElementById("sidebar-ql-popover");
+    var man = document.getElementById("sidebar-ql-manage");
+    if (!nav || nav.dataset.qlSidebarWired) return;
+    nav.dataset.qlSidebarWired = "1";
+    nav.addEventListener("click", function (e) {
+      e.stopPropagation();
+      setSidebarQlPopoverOpen(!__sidebarQlPopoverOpen);
+      if (__sidebarQlPopoverOpen) updateSidebarQuickLinksPopover();
+    });
+    if (man) {
+      man.addEventListener("click", function (e) {
+        e.stopPropagation();
+        setSidebarQlPopoverOpen(false);
+        showPanel("links");
+      });
+    }
+    if (!document.documentElement.dataset.qlDocClose) {
+      document.documentElement.dataset.qlDocClose = "1";
+      document.addEventListener(
+        "mousedown",
+        function (e) {
+          if (!__sidebarQlPopoverOpen) return;
+          var t = e.target;
+          if (nav.contains(t) || (pop && pop.contains(t))) return;
+          setSidebarQlPopoverOpen(false);
+        },
+        false
+      );
     }
   }
 
@@ -6170,6 +6249,7 @@
     });
 
     wireQuickLinksPanelOnce();
+    wireSidebarQuickLinksOnce();
 
     var qlAdd = document.getElementById("quick-link-add-btn");
     if (qlAdd) {
@@ -6189,13 +6269,6 @@
         ur.value = "";
         saveState(state);
         renderQuickLinksUI();
-      });
-    }
-
-    var btnOpenLinks = document.getElementById("btn-open-links-panel");
-    if (btnOpenLinks) {
-      btnOpenLinks.addEventListener("click", function () {
-        showPanel("links");
       });
     }
 
@@ -6325,14 +6398,12 @@
         updateNotesWordcount();
         if (notesRender) notesRender.innerHTML = simpleMdToHtml(getNotesForView());
         renderDailyBrief();
-        renderDailyScore();
       });
       notes.addEventListener("input", function () {
         if (!isViewingToday()) return;
         state.notes = notes.value;
         saveState(state);
         updateNotesWordcount();
-        renderDailyScore();
         renderDailyBrief();
       });
     }
