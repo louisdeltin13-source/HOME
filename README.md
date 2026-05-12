@@ -2,6 +2,9 @@
 
 Application statique : `dashboard.html`, avec `manifest.json` pour installation PWA.
 
+- **`.gitignore`** : ignore les fichiers système / temporaires (`.DS_Store`, etc.).
+- **`LICENSE`** : MIT — tu peux la retirer ou la remplacer si tu préfères tout garder privé sans licence explicite.
+
 ## GitHub Pages
 
 1. Crée un dépôt vide sur GitHub (sans README généré, ou supprime le sien après coup).
