@@ -661,6 +661,15 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .brief-todo-left {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex: 1;
+      min-width: 0;
     }
 
     .brief-todo-preview li.brief-todo-row::before {
@@ -671,6 +680,10 @@
       flex: 1;
       min-width: 0;
       color: var(--text);
+    }
+
+    .brief-todo-left .brief-todo-label {
+      flex: 1 1 auto;
     }
 
     .brief-todo-check {
@@ -743,6 +756,250 @@
 
     .brief-todo-more-btn:hover {
       color: var(--text);
+    }
+
+    .home-tasks-pill {
+      margin: 0.55rem 0 0;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--progress);
+      letter-spacing: 0.02em;
+    }
+
+    .home-tasks-pill[hidden] {
+      display: none !important;
+    }
+
+    .focus-day-card {
+      margin: 0.85rem 0 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(48, 209, 88, 0.12), var(--bg-elevated));
+      box-shadow: var(--shadow-card);
+    }
+
+    .focus-day-card[hidden] {
+      display: none !important;
+    }
+
+    .focus-day-kicker {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .focus-day-line {
+      margin: 0 0 0.75rem;
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      font-weight: 650;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .focus-day-ctrl {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .brief-block--week-oneoff .brief-block-title-static {
+      flex: 0 0 5.5rem;
+      align-self: center;
+      display: block;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      font: inherit;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-align: left;
+      cursor: default;
+    }
+
+    .brief-oneoff-week-body {
+      display: flex;
+      gap: 0.35rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .oneoff-week-cell {
+      flex: 1 1 0;
+      min-width: 2rem;
+      max-width: 3.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.28rem;
+    }
+
+    .oneoff-week-bar {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--bar-track);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .oneoff-week-bar > span {
+      display: block;
+      width: 100%;
+      background: var(--progress);
+      opacity: 0.85;
+      transition: height 0.25s ease;
+      min-height: 0;
+    }
+
+    .oneoff-week-bar.is-empty > span {
+      height: 2px !important;
+      opacity: 0.2;
+    }
+
+    .oneoff-week-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+    }
+
+    .oneoff-week-cell--view .oneoff-week-label {
+      color: var(--progress);
+      font-weight: 700;
+    }
+
+    .oneoff-week-bar.is-future {
+      opacity: 0.38;
+    }
+
+    .brief-todo-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      flex-shrink: 0;
+      margin-left: 0.35rem;
+    }
+
+    .brief-todo-prio {
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.12rem 0.32rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .brief-todo-prio--high {
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.45);
+      background: rgba(255, 107, 107, 0.12);
+    }
+
+    .brief-todo-prio--normal {
+      color: var(--text-muted);
+    }
+
+    .brief-todo-prio--low {
+      color: var(--text-muted);
+      opacity: 0.75;
+    }
+
+    .brief-todo-est {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+    }
+
+    .task-drag {
+      cursor: grab;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0.15rem 0.1rem 0 0;
+      user-select: none;
+      flex-shrink: 0;
+      touch-action: none;
+    }
+
+    .task-drag:active {
+      cursor: grabbing;
+    }
+
+    .task-item--drag-over {
+      outline: 2px dashed var(--progress);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+
+    .task-item--dragging {
+      opacity: 0.55;
+    }
+
+    .task-priority-select {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      padding: 0.22rem 0.28rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      max-width: 6.8rem;
+      flex-shrink: 0;
+    }
+
+    .task-est-input {
+      width: 3.4rem;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.22rem 0.32rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+    }
+
+    .task-pin {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.95rem;
+      line-height: 1;
+      padding: 0.15rem 0.25rem;
+      border-radius: 4px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .task-pin:hover {
+      color: var(--progress);
+    }
+
+    .task-pin.is-active {
+      color: var(--progress);
+      text-shadow: 0 0 8px var(--progress-glow);
+    }
+
+    .task-item .task-text {
+      flex: 1 1 8rem;
+      min-width: 0;
     }
 
     .settings-logo-row {
@@ -981,6 +1238,7 @@
     .task-item {
       display: flex;
       align-items: flex-start;
+      flex-wrap: wrap;
       gap: 0.65rem;
       padding: 0.5rem 0;
       border-bottom: 1px solid var(--border);
@@ -1864,8 +2122,22 @@
             <div class="daily-brief">
               <h1 id="daily-brief-title">Aujourd’hui</h1>
               <p id="daily-brief-prose" class="daily-brief-prose">—</p>
+              <p id="home-tasks-pill" class="home-tasks-pill" hidden aria-live="polite"></p>
+            </div>
+            <div id="focus-day-card" class="focus-day-card" hidden>
+              <span class="focus-day-kicker">Focus du jour</span>
+              <p id="focus-day-line" class="focus-day-line"></p>
+              <div class="focus-day-ctrl">
+                <button type="button" class="btn" id="focus-day-done">Marquer fait</button>
+                <button type="button" class="btn secondary" id="focus-day-to-todo">Ouvrir To-do</button>
+                <button type="button" class="btn secondary" id="focus-day-unpin">Désépingler</button>
+              </div>
             </div>
             <div class="brief-blocks">
+              <div class="brief-block brief-block--week-oneoff" id="brief-oneoff-week-wrap">
+                <span class="brief-block-title-static">Ponctuelles · semaine</span>
+                <div id="brief-oneoff-week-body" class="brief-block-main brief-oneoff-week-body" aria-label="Progression ponctuelles sur 7 jours"></div>
+              </div>
               <div class="brief-block brief-block--todo">
                 <button type="button" class="brief-block-title" data-go="todo">To-do</button>
                 <div class="brief-block-main brief-block-main--todo">
@@ -1937,7 +2209,7 @@
         <div class="card card--oneoff">
           <h2>Ponctuelles</h2>
           <p class="hint oneoff-hint">
-            Date du sélecteur = jour d’entrée dans la liste principale. Au-delà d’aujourd’hui : section « Planifiées » jusqu’à échéance.
+            Date du sélecteur = jour d’entrée dans la liste ; au-delà d’aujourd’hui : « Planifiées ». Chaque ligne : priorité (Urgent / Normal / Faible), temps estimé (45m, 2h, 1h30), glisser ⋮⋮ pour l’ordre du jour, ◇ pour l’épingler en « Focus » sur la vue d’ensemble.
           </p>
           <div class="row-input row-input--oneoff-date-row">
             <div class="oneoff-date-wrap">
@@ -2269,7 +2541,7 @@
   var LEGACY_KEY = "personalDashboardV1";
   var THEME_KEY = "dashboardTheme";
   var DAY_MS = 86400000;
-  var STATE_VERSION = 2;
+  var STATE_VERSION = 3;
 
   var todayIso = isoDate(new Date());
   var viewDateIso = todayIso;
@@ -2393,6 +2665,8 @@
         brandLogoDataUrl: "",
         showBriefSport: true,
         showBriefFood: true,
+        focusDayKind: null,
+        focusDayId: null,
         recurringWeekTemplate: [
           "Étirements 10 min",
           "Planifier la journée",
@@ -2481,6 +2755,247 @@
     });
   }
 
+  function oneOffSortCompare(a, b) {
+    var ad = a.done ? 1 : 0;
+    var bd = b.done ? 1 : 0;
+    if (ad !== bd) return ad - bd;
+    var ao = typeof a.order === "number" ? a.order : 0;
+    var bo = typeof b.order === "number" ? b.order : 0;
+    if (ao !== bo) return ao - bo;
+    var pr = { high: 0, normal: 1, low: 2 };
+    var ap = pr[a.priority] != null ? pr[a.priority] : 1;
+    var bp = pr[b.priority] != null ? pr[b.priority] : 1;
+    if (ap !== bp) return ap - bp;
+    return 0;
+  }
+
+  function formatEstimateMin(mins) {
+    if (mins == null || isNaN(mins) || mins <= 0) return "";
+    var m = Math.round(Number(mins));
+    if (m < 60) return m + "m";
+    var h = Math.floor(m / 60);
+    var r = m % 60;
+    if (r === 0) return h + "h";
+    return h + "h" + r;
+  }
+
+  function parseEstimateString(raw) {
+    var s = String(raw || "")
+      .trim()
+      .toLowerCase()
+      .replace(",", ".");
+    if (!s) return null;
+    var hMatch = s.match(/^(\d+(?:\.\d+)?)\s*h$/);
+    if (hMatch) {
+      var hx = parseFloat(hMatch[1]);
+      if (!isNaN(hx) && hx >= 0) return Math.round(hx * 60);
+    }
+    var hm = s.match(/^(\d+)\s*h\s*(\d{1,2})$/);
+    if (hm) {
+      var ha = parseInt(hm[1], 10);
+      var mi = parseInt(hm[2], 10);
+      if (!isNaN(ha) && !isNaN(mi)) return Math.round(ha * 60 + mi);
+    }
+    var mMatch = s.match(/^(\d+)\s*m(?:in)?$/);
+    if (mMatch) {
+      var mm = parseInt(mMatch[1], 10);
+      if (!isNaN(mm) && mm >= 0) return mm;
+    }
+    var n = parseInt(s, 10);
+    if (!isNaN(n) && n >= 0) return n;
+    return null;
+  }
+
+  function ensureOneOffItemShape(x, idx) {
+    if (!x || typeof x !== "object") return;
+    if (x.priority !== "high" && x.priority !== "low") x.priority = "normal";
+    if (x.estimateMin != null) {
+      var em = Number(x.estimateMin);
+      x.estimateMin = isNaN(em) || em < 0 ? null : Math.round(em);
+    }
+    if (typeof x.order !== "number" || isNaN(x.order)) x.order = (idx + 1) * 100;
+  }
+
+  function ensureTodosShape(d) {
+    if (!d.todos || !Array.isArray(d.todos.oneOff)) return;
+    d.todos.oneOff.forEach(function (x, i) {
+      ensureOneOffItemShape(x, i);
+    });
+  }
+
+  function nextOneOffOrder() {
+    var m = -1;
+    (state.todos.oneOff || []).forEach(function (x) {
+      if (typeof x.order === "number" && x.order > m) m = x.order;
+    });
+    return m + 1;
+  }
+
+  function reorderIncompleteOneOffsAfterDrag(dragId, targetId) {
+    if (!isViewingToday() || dragId === targetId) return;
+    var inc = state.todos.oneOff.filter(function (t) {
+      if (t.done) return false;
+      if (t.showFrom && t.showFrom > todayIso) return false;
+      return !t.showFrom || t.showFrom <= todayIso;
+    });
+    inc.sort(oneOffSortCompare);
+    var ids = inc.map(function (x) {
+      return x.id;
+    });
+    var fi = ids.indexOf(dragId);
+    var ti = ids.indexOf(targetId);
+    if (fi < 0 || ti < 0) return;
+    ids.splice(fi, 1);
+    if (fi < ti) ti -= 1;
+    ids.splice(ti, 0, dragId);
+    ids.forEach(function (id, idx) {
+      for (var j = 0; j < state.todos.oneOff.length; j++) {
+        if (state.todos.oneOff[j].id === id) {
+          state.todos.oneOff[j].order = idx;
+          break;
+        }
+      }
+    });
+    saveState(state);
+    refreshChrome();
+  }
+
+  function getTaskTotalsForView() {
+    var rec = getRecurringItems();
+    var one = getOneOffItems();
+    var rem = getReminderItems();
+    var total = rec.length + one.length + rem.length;
+    var done =
+      rec.filter(function (x) {
+        return x.done;
+      }).length +
+      one.filter(function (x) {
+        return x.done;
+      }).length +
+      rem.filter(function (x) {
+        return x.done;
+      }).length;
+    return { done: done, total: total };
+  }
+
+  function getFocusDayTarget() {
+    var k = state.meta.focusDayKind;
+    var id = state.meta.focusDayId;
+    if ((k !== "recurring" && k !== "oneoff") || !id || typeof id !== "string") return null;
+    if (k === "recurring") {
+      for (var i = 0; i < state.todos.recurring.length; i++) {
+        if (state.todos.recurring[i].id === id) return { kind: "recurring", item: state.todos.recurring[i] };
+      }
+      return null;
+    }
+    for (var j = 0; j < state.todos.oneOff.length; j++) {
+      if (state.todos.oneOff[j].id === id) return { kind: "oneoff", item: state.todos.oneOff[j] };
+    }
+    return null;
+  }
+
+  function clearFocusDay() {
+    state.meta.focusDayKind = null;
+    state.meta.focusDayId = null;
+  }
+
+  function clearFocusDayIfMatch(taskId) {
+    if (state.meta.focusDayId === taskId) clearFocusDay();
+  }
+
+  function oneOffStatsForDay(dayIso) {
+    var raw;
+    if (dayIso === todayIso) raw = state.todos.oneOff;
+    else {
+      var snap = state.history[dayIso];
+      if (!snap) return { done: 0, total: 0 };
+      raw = snap.oneOff || [];
+    }
+    var list = filterOneOffForDay(raw, dayIso);
+    var total = list.length;
+    var done = list.filter(function (x) {
+      return x.done;
+    }).length;
+    return { done: done, total: total };
+  }
+
+  function renderHomeTasksPill() {
+    var el = document.getElementById("home-tasks-pill");
+    if (!el) return;
+    if (!isViewingToday() && !getSnap()) {
+      el.setAttribute("hidden", "");
+      return;
+    }
+    var t = getTaskTotalsForView();
+    el.removeAttribute("hidden");
+    if (!t.total) el.textContent = "";
+    else
+      el.textContent =
+        t.done + "/" + t.total + " tâches cochées (récurrentes, ponctuelles, rappels)";
+  }
+
+  function renderFocusDayCard() {
+    var card = document.getElementById("focus-day-card");
+    var line = document.getElementById("focus-day-line");
+    if (!card || !line) return;
+    if (!isViewingToday()) {
+      card.setAttribute("hidden", "");
+      return;
+    }
+    card.removeAttribute("hidden");
+    var ft = getFocusDayTarget();
+    if (!ft) {
+      line.textContent =
+        "Épingle la tâche la plus importante : bouton ◇ sur une ligne To-do.";
+      return;
+    }
+    if (ft.item.done) {
+      line.textContent =
+        "Le focus est terminé — désépingle ou choisis une autre tâche dans To-do.";
+      return;
+    }
+    var tag = ft.kind === "oneoff" ? "Ponctuelle" : "Récurrente";
+    line.textContent = tag + " · " + ft.item.text;
+  }
+
+  function renderBriefOneoffWeek() {
+    var host = document.getElementById("brief-oneoff-week-body");
+    if (!host) return;
+    var mon = weekMonday(viewDateIso);
+    var labels = weekDayLabels();
+    var parts = [];
+    for (var i = 0; i < 7; i++) {
+      var dayIso = addDays(mon, i);
+      var st = oneOffStatsForDay(dayIso);
+      var pct = st.total ? Math.round((st.done / st.total) * 100) : 0;
+      var future = dayIso > todayIso;
+      var isV = viewDateIso === dayIso;
+      parts.push(
+        '<div class="oneoff-week-cell' +
+          (isV ? " oneoff-week-cell--view" : "") +
+          '">' +
+          '<div class="oneoff-week-bar' +
+          (st.total ? "" : " is-empty") +
+          (future ? " is-future" : "") +
+          '"><span style="height:' +
+          (future ? 0 : pct) +
+          '%"></span></div>' +
+          '<span class="oneoff-week-label">' +
+          escapeHtml(labels[i]) +
+          "</span>" +
+          '<span class="oneoff-week-count">' +
+          (future ? "—" : st.total ? st.done + "/" + st.total : "—") +
+          "</span></div>"
+      );
+    }
+    parts.push(
+      '<p class="hint" style="margin:0.65rem 0 0;flex-basis:100%;width:100%;">Semaine du ' +
+        escapeHtml(formatIsoShortFr(mon)) +
+        " : chaque barre = ponctuelles prévues ce jour-là (archive ou aujourd’hui).</p>"
+    );
+    host.innerHTML = parts.join("");
+  }
+
   function buildSnapshot(src) {
     return {
       sport: { running: src.sport.running, muscu: src.sport.muscu, natation: src.sport.natation },
@@ -2496,6 +3011,11 @@
       oneOff: src.todos.oneOff.map(function (t) {
         var o = { id: t.id, text: t.text, done: t.done };
         if (t.showFrom) o.showFrom = t.showFrom;
+        if (t.priority === "high" || t.priority === "low" || t.priority === "normal") o.priority = t.priority;
+        if (t.estimateMin != null && typeof t.estimateMin === "number" && t.estimateMin >= 0) {
+          o.estimateMin = Math.round(t.estimateMin);
+        }
+        if (typeof t.order === "number") o.order = t.order;
         return o;
       }),
       reminders: src.reminders.map(function (r) {
@@ -2544,6 +3064,8 @@
       d.meta.recurringWeekTemplate = defaultState().meta.recurringWeekTemplate.slice();
     }
     ensureActiveMetricKeys(d.meta);
+    if (d.meta.focusDayKind !== "recurring" && d.meta.focusDayKind !== "oneoff") d.meta.focusDayKind = null;
+    if (typeof d.meta.focusDayId !== "string") d.meta.focusDayId = null;
     if (data.history && typeof data.history === "object") d.history = data.history;
     if (data.todos) d.todos = data.todos;
     if (data.targets) d.targets = Object.assign(d.targets, data.targets);
@@ -2569,6 +3091,7 @@
     } else {
       d.quickLinks = defaultQuickLinks();
     }
+    ensureTodosShape(d);
     d.version = STATE_VERSION;
     return d;
   }
@@ -3101,11 +3624,16 @@
     }
   }
 
+  function sortOneOffInPlace() {
+    if (state.todos.oneOff && state.todos.oneOff.sort) state.todos.oneOff.sort(oneOffSortCompare);
+  }
+
   function renderTasks(listEl, items, kind) {
     if (!listEl) return;
     var ro = !isViewingToday();
     var ordered = items.slice();
-    sortTasksStableDoneLast(ordered);
+    if (kind === "oneoff") ordered.sort(oneOffSortCompare);
+    else sortTasksStableDoneLast(ordered);
 
     var oldRects = {};
     if (!ro && listEl.children.length) {
@@ -3158,6 +3686,31 @@
       li.className = "task-item" + (item.done ? " done" : "");
       li.dataset.id = item.id;
 
+      if (kind === "oneoff" && !ro) {
+        var drag = document.createElement("span");
+        drag.className = "task-drag";
+        drag.setAttribute("aria-hidden", "true");
+        drag.textContent = "⋮⋮";
+        drag.title = "Glisser pour réordonner";
+        var canDrag =
+          !item.done && (!item.showFrom || item.showFrom <= todayIso);
+        if (canDrag) {
+          drag.setAttribute("draggable", "true");
+          drag.addEventListener("dragstart", function (ev) {
+            ev.dataTransfer.setData("text/plain", item.id);
+            ev.dataTransfer.effectAllowed = "move";
+            li.classList.add("task-item--dragging");
+          });
+          drag.addEventListener("dragend", function () {
+            li.classList.remove("task-item--dragging");
+            listEl.querySelectorAll(".task-item--drag-over").forEach(function (x) {
+              x.classList.remove("task-item--drag-over");
+            });
+          });
+        }
+        li.appendChild(drag);
+      }
+
       var cb = document.createElement("input");
       cb.type = "checkbox";
       cb.checked = item.done;
@@ -3168,13 +3721,14 @@
         var was = item.done;
         item.done = cb.checked;
         if (item.done && !was) {
+          clearFocusDayIfMatch(item.id);
           li.classList.add("task-check-anim");
           setTimeout(function () {
             li.classList.remove("task-check-anim");
           }, 300);
         }
         if (kind === "recurring") sortTasksStableDoneLast(state.todos.recurring);
-        else if (kind === "oneoff") sortTasksStableDoneLast(state.todos.oneOff);
+        else if (kind === "oneoff") sortOneOffInPlace();
         else if (kind === "reminder") sortTasksStableDoneLast(state.reminders);
         saveState(state);
         li.classList.toggle("done", item.done);
@@ -3192,6 +3746,108 @@
         });
       }
 
+      li.appendChild(cb);
+      li.appendChild(span);
+
+      if (kind === "oneoff") {
+        var pr = item.priority === "high" || item.priority === "low" ? item.priority : "normal";
+        if (!ro) {
+          var sel = document.createElement("select");
+          sel.className = "task-priority-select";
+          sel.setAttribute("aria-label", "Priorité");
+          [["high", "Urgent"], ["normal", "Normal"], ["low", "Faible"]].forEach(function (opt) {
+            var o = document.createElement("option");
+            o.value = opt[0];
+            o.textContent = opt[1];
+            if (opt[0] === pr) o.selected = true;
+            sel.appendChild(o);
+          });
+          sel.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+          sel.addEventListener("change", function () {
+            item.priority = sel.value;
+            sortOneOffInPlace();
+            saveState(state);
+            refreshChrome();
+          });
+          li.appendChild(sel);
+
+          var est = document.createElement("input");
+          est.type = "text";
+          est.className = "task-est-input";
+          est.placeholder = "45m";
+          est.setAttribute("aria-label", "Temps estimé");
+          est.value = formatEstimateMin(item.estimateMin) || "";
+          est.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+          est.addEventListener("keydown", function (e) {
+            e.stopPropagation();
+          });
+          est.addEventListener("blur", function () {
+            item.estimateMin = parseEstimateString(est.value);
+            est.value = formatEstimateMin(item.estimateMin) || "";
+            saveState(state);
+            refreshChrome();
+          });
+          li.appendChild(est);
+        } else {
+          var metaRo = document.createElement("span");
+          metaRo.className = "brief-todo-meta";
+          var b = document.createElement("span");
+          b.className =
+            "brief-todo-prio brief-todo-prio--" + (pr === "high" ? "high" : pr === "low" ? "low" : "normal");
+          b.textContent = pr === "high" ? "Urgent" : pr === "low" ? "Faible" : "Normal";
+          metaRo.appendChild(b);
+          var em = formatEstimateMin(item.estimateMin);
+          if (em) {
+            var es = document.createElement("span");
+            es.className = "brief-todo-est";
+            es.textContent = em;
+            metaRo.appendChild(es);
+          }
+          li.appendChild(metaRo);
+        }
+      }
+
+      if ((kind === "oneoff" || kind === "recurring") && !ro) {
+        var pin = document.createElement("button");
+        pin.type = "button";
+        pin.className =
+          "task-pin" +
+          (state.meta.focusDayId === item.id && state.meta.focusDayKind === kind ? " is-active" : "");
+        pin.setAttribute("aria-label", "Épingler comme focus du jour");
+        pin.textContent = "◇";
+        pin.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (ro) return;
+          state.meta.focusDayKind = kind;
+          state.meta.focusDayId = item.id;
+          saveState(state);
+          refreshChrome();
+        });
+        li.appendChild(pin);
+      }
+
+      if (kind === "oneoff" && !ro && !item.done && (!item.showFrom || item.showFrom <= todayIso)) {
+        li.addEventListener("dragover", function (ev) {
+          ev.preventDefault();
+        });
+        li.addEventListener("dragenter", function () {
+          li.classList.add("task-item--drag-over");
+        });
+        li.addEventListener("dragleave", function (ev) {
+          if (ev.target === li) li.classList.remove("task-item--drag-over");
+        });
+        li.addEventListener("drop", function (ev) {
+          ev.preventDefault();
+          li.classList.remove("task-item--drag-over");
+          var fromId = ev.dataTransfer.getData("text/plain");
+          reorderIncompleteOneOffsAfterDrag(fromId, item.id);
+        });
+      }
+
       var del = document.createElement("button");
       del.type = "button";
       del.className = "delete";
@@ -3199,12 +3855,19 @@
       del.textContent = "×";
       del.addEventListener("click", function () {
         if (ro) return;
+        clearFocusDayIfMatch(item.id);
         if (kind === "recurring") {
-          state.todos.recurring = state.todos.recurring.filter(function (x) { return x.id !== item.id; });
+          state.todos.recurring = state.todos.recurring.filter(function (x) {
+            return x.id !== item.id;
+          });
         } else if (kind === "oneoff") {
-          state.todos.oneOff = state.todos.oneOff.filter(function (x) { return x.id !== item.id; });
+          state.todos.oneOff = state.todos.oneOff.filter(function (x) {
+            return x.id !== item.id;
+          });
         } else if (kind === "reminder") {
-          state.reminders = state.reminders.filter(function (x) { return x.id !== item.id; });
+          state.reminders = state.reminders.filter(function (x) {
+            return x.id !== item.id;
+          });
         }
         saveState(state);
         if (kind === "recurring") renderTasks(listEl, state.todos.recurring, "recurring");
@@ -3214,8 +3877,6 @@
         refreshChrome();
       });
 
-      li.appendChild(cb);
-      li.appendChild(span);
       li.appendChild(del);
       listEl.appendChild(li);
     });
@@ -3593,19 +4254,27 @@
           id: x.id,
           text: x.text,
           tag: "récurrente",
-          taskKind: "recurring"
+          taskKind: "recurring",
+          priority: null,
+          estimateMin: null
         });
       }
     });
-    one.forEach(function (x) {
-      if (!x.done) {
-        pending.push({
-          id: x.id,
-          text: x.text,
-          tag: "ponctuelle",
-          taskKind: "oneoff"
-        });
-      }
+    var onePend = one
+      .filter(function (x) {
+        return !x.done;
+      })
+      .slice();
+    onePend.sort(oneOffSortCompare);
+    onePend.forEach(function (x) {
+      pending.push({
+        id: x.id,
+        text: x.text,
+        tag: "ponctuelle",
+        taskKind: "oneoff",
+        priority: x.priority,
+        estimateMin: x.estimateMin
+      });
     });
     if (pending.length === 0) {
       var total = rec.length + one.length;
@@ -3624,12 +4293,30 @@
         var labelShort = truncateText(p.text, 96);
         var ariaDone = "Marquer comme fait : " + truncateText(p.text, 120);
         var dis = canToggle ? "" : " disabled";
+        var meta = "";
+        if (p.taskKind === "oneoff") {
+          var pr = p.priority === "high" || p.priority === "low" ? p.priority : "normal";
+          var pl = pr === "high" ? "Urgent" : pr === "low" ? "Faible" : "Normal";
+          var em = formatEstimateMin(p.estimateMin);
+          meta =
+            '<span class="brief-todo-meta"><span class="brief-todo-prio brief-todo-prio--' +
+            escapeAttr(pr) +
+            '">' +
+            escapeHtml(pl) +
+            "</span>" +
+            (em
+              ? '<span class="brief-todo-est">' + escapeHtml(em) + "</span>"
+              : "") +
+            "</span>";
+        }
         return (
           '<li class="brief-todo-row" title="' +
           escapeAttr(p.tag) +
-          '"><span class="brief-todo-label">' +
+          '"><div class="brief-todo-left"><span class="brief-todo-label">' +
           escapeHtml(labelShort) +
-          '</span><button type="button" class="brief-todo-check"' +
+          "</span>" +
+          meta +
+          '</div><button type="button" class="brief-todo-check"' +
           dis +
           ' data-brief-id="' +
           escapeAttr(p.id) +
@@ -3665,8 +4352,9 @@
     }
     if (!item || item.done) return;
     item.done = true;
+    clearFocusDayIfMatch(taskId);
     if (kind === "recurring") sortTasksStableDoneLast(state.todos.recurring);
-    else sortTasksStableDoneLast(state.todos.oneOff);
+    else sortOneOffInPlace();
     saveState(state);
     renderStreak();
     refreshChrome();
@@ -3731,6 +4419,9 @@
       fillBriefBars("brief-bars-sport", []);
       fillBriefBars("brief-bars-food", []);
       fillBriefTodoPreview();
+      renderHomeTasksPill();
+      renderFocusDayCard();
+      renderBriefOneoffWeek();
       applyHomeOverviewVisibility();
       return;
     }
@@ -3821,6 +4512,9 @@
       fillBriefBars("brief-bars-food", []);
     }
     fillBriefTodoPreview();
+    renderHomeTasksPill();
+    renderFocusDayCard();
+    renderBriefOneoffWeek();
     applyHomeOverviewVisibility();
   }
 
@@ -4156,9 +4850,40 @@
     }
   }
 
+  function wireFocusDayCard() {
+    var fd = document.getElementById("focus-day-done");
+    if (!fd || fd.dataset.wiredFocus) return;
+    fd.dataset.wiredFocus = "1";
+    fd.addEventListener("click", function () {
+      var ft = getFocusDayTarget();
+      if (!ft || ft.item.done) return;
+      ft.item.done = true;
+      clearFocusDayIfMatch(ft.item.id);
+      if (ft.kind === "recurring") sortTasksStableDoneLast(state.todos.recurring);
+      else sortOneOffInPlace();
+      saveState(state);
+      renderStreak();
+      refreshChrome();
+    });
+    var un = document.getElementById("focus-day-unpin");
+    if (un) {
+      un.addEventListener("click", function () {
+        clearFocusDay();
+        saveState(state);
+        refreshChrome();
+      });
+    }
+    var tt = document.getElementById("focus-day-to-todo");
+    if (tt) {
+      tt.addEventListener("click", function () {
+        showPanel("todo");
+      });
+    }
+  }
+
   function initUI() {
     sortTasksStableDoneLast(state.todos.recurring);
-    sortTasksStableDoneLast(state.todos.oneOff);
+    sortOneOffInPlace();
     sortTasksStableDoneLast(state.reminders);
     saveState(state);
 
@@ -4166,6 +4891,7 @@
 
     buildSettingsMetricsPanel();
     wireSettingsMetricsDynamic();
+    wireFocusDayCard();
 
     document.querySelectorAll(".nav-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -4377,7 +5103,14 @@
       if (!isViewingToday()) return;
       var t = (text || "").trim();
       if (!t) return;
-      var item = { id: uid(), text: t, done: false };
+      var item = {
+        id: uid(),
+        text: t,
+        done: false,
+        priority: "normal",
+        estimateMin: null,
+        order: nextOneOffOrder()
+      };
       if (showFrom) item.showFrom = showFrom;
       state.todos.oneOff.push(item);
       saveState(state);
