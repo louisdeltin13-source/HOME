@@ -39,7 +39,8 @@
       --font-display: "Lilita One", ui-rounded, system-ui, sans-serif;
       --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       --font-mono: "DM Mono", ui-monospace, "SF Mono", monospace;
-      --sidebar-w: 200px;
+      --sidebar-w: 56px;
+      --sidebar-w-expanded: 180px;
       --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.35);
       --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.28);
       --btn-on-progress: #0a0a0a;
@@ -94,19 +95,41 @@
       flex-shrink: 0;
       background: var(--bg-deep);
       border-right: 1px solid var(--border);
-      padding: 1.25rem 0.65rem 1rem;
+      padding: 0.75rem 0.35rem 0.65rem;
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.15rem;
+      overflow-x: hidden;
+      transition: width 0.2s ease, padding 0.2s ease;
+      z-index: 20;
+    }
+
+    .sidebar:hover {
+      width: var(--sidebar-w-expanded);
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .sidebar-divider {
+      border: none;
+      height: 1px;
+      margin: 0.35rem 0.25rem 0.45rem;
+      background: var(--border);
+      flex-shrink: 0;
     }
 
     .brand {
       display: flex;
-      align-items: flex-start;
-      gap: 0.65rem;
-      padding: 0 0.75rem 1.1rem;
-      margin-bottom: 0.65rem;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0 0 0.65rem;
+      margin-bottom: 0.15rem;
       color: var(--text);
+    }
+
+    .sidebar:hover .brand {
+      justify-content: center;
     }
 
     .brand-mark {
@@ -137,39 +160,13 @@
       fill: var(--btn-on-progress);
     }
 
-    .brand-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      min-width: 0;
-    }
-
-    .brand-title {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 0.82rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      line-height: 1.2;
-    }
-
-    .brand #date-display {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-      text-transform: none;
-    }
-
     /* modif: nav pilules arrondies style Apple */
     .nav-btn {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       width: 100%;
-      padding: 0.45rem 0.75rem;
+      padding: 0.42rem 0.35rem;
       border: none;
       border-radius: var(--radius-sm);
       background: transparent;
@@ -179,7 +176,14 @@
       font-weight: 500;
       cursor: pointer;
       text-align: left;
+      justify-content: flex-start;
       transition: color 0.18s ease, background 0.18s ease, transform 0.15s ease;
+    }
+
+    .sidebar:not(:hover) .nav-btn:not(.nav-btn--sidebar-ql) {
+      justify-content: center;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
     }
 
     .nav-ico {
@@ -187,19 +191,51 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 1.15rem;
-      height: 1.15rem;
-      opacity: 0.85;
+      width: 22px;
+      height: 22px;
+      opacity: 0.88;
+      font-size: 18px;
+      line-height: 1;
     }
 
     .nav-ico svg {
-      width: 100%;
-      height: 100%;
+      width: 18px;
+      height: 18px;
       fill: currentColor;
       stroke: none;
     }
 
-    .nav-txt { flex: 1; min-width: 0; }
+    .nav-txt {
+      flex: 1;
+      min-width: 0;
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: max-width 0.2s ease, opacity 0.2s ease;
+    }
+
+    .sidebar:hover .nav-txt {
+      max-width: 140px;
+      opacity: 1;
+    }
+
+    .sidebar:not(:hover) .nav-btn--sidebar-ql {
+      justify-content: center;
+      position: relative;
+    }
+
+    .sidebar:not(:hover) .nav-btn--sidebar-ql .nav-ql-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      min-width: 0.95rem;
+      height: 0.95rem;
+      padding: 0 0.22rem;
+      font-size: 0.55rem;
+      line-height: 0.95rem;
+      margin-left: 0;
+    }
 
     .nav-btn:hover {
       background: var(--bg-hover);
@@ -210,6 +246,11 @@
       background: var(--bg-hover);
       color: var(--text);
       box-shadow: inset 0 0 0 1px rgba(48, 209, 88, 0.35);
+    }
+
+    .nav-btn[aria-current="page"] .nav-ico {
+      color: var(--accent);
+      opacity: 1;
     }
 
     [data-theme="light"] .nav-btn[aria-current="page"] {
@@ -537,69 +578,63 @@
       background: rgba(255, 255, 255, 0.92);
     }
 
-    /* modif: vue d’ensemble type daily brief */
-    .daily-brief {
-      max-width: min(100%, 80rem);
-      margin-bottom: 24px;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg-panel);
-      box-shadow: var(--shadow-card);
-    }
-
-    .daily-brief h1 {
-      font-family: var(--font-display);
-      margin: 0 0 8px;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .daily-brief-row-compact {
+    /* modif: bandeau jour — une ligne sous la semaine */
+    .home-daily-strip {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: row;
       align-items: center;
-      gap: 10px 16px;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 36px;
+      margin: 0 0 20px;
+      max-width: min(100%, 80rem);
+      padding: 0 2px;
+      box-sizing: border-box;
+      flex-wrap: nowrap;
     }
 
-    .daily-brief-task-line {
+    .home-daily-strip__date {
+      flex: 0 0 auto;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      line-height: 1.2;
+      opacity: 0.35;
+      color: var(--text-muted);
+      text-transform: capitalize;
+    }
+
+    .home-daily-strip__summary {
       margin: 0;
+      flex: 1 1 auto;
+      min-width: 0;
+      text-align: center;
       font-family: var(--font-ui);
       font-size: 0.875rem;
-      line-height: 1.45;
+      line-height: 1.35;
+      opacity: 0.6;
       color: var(--text);
-      flex: 1 1 10rem;
-      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .daily-brief-mini-bar {
-      width: 88px;
-      height: 6px;
+    .home-daily-strip__bar {
+      flex: 0 0 120px;
+      width: 120px;
+      height: 4px;
       border-radius: 99px;
       background: var(--bg-elevated);
       border: 1px solid var(--border);
       overflow: hidden;
-      flex-shrink: 0;
     }
 
-    .daily-brief-mini-bar > span {
+    .home-daily-strip__bar > span {
       display: block;
       height: 100%;
       width: 0%;
       border-radius: inherit;
       background: var(--progress);
       transition: width 0.25s ease;
-    }
-
-    .daily-brief-prose {
-      margin: 0;
-      font-family: var(--font-ui);
-      font-size: 0.8125rem;
-      line-height: 1.45;
-      color: var(--text-muted);
-      flex: 1 1 100%;
-      width: 100%;
     }
 
     .brief-blocks {
@@ -730,16 +765,48 @@
     }
 
     .home-agenda-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 1rem;
-      align-items: start;
+      display: block;
+      width: 100%;
     }
 
-    @media (max-width: 720px) {
-      .home-agenda-grid {
-        grid-template-columns: 1fr;
-      }
+    .mini-cal-wrap {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .mini-cal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .mini-cal-header-row .home-agenda-subtitle {
+      margin: 0;
+    }
+
+    .btn-ghost-agenda {
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      padding: 0.25rem 0;
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+      opacity: 0.5;
+      cursor: pointer;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-ghost-agenda:hover {
+      opacity: 1;
+      color: var(--text);
     }
 
     .mini-cal-head {
@@ -851,15 +918,7 @@
       color: var(--text);
     }
 
-    .mini-cal-external-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .settings-calendar-url,
-    .mini-cal-external-row .settings-calendar-url {
+    .settings-calendar-url {
       flex: 1 1 10rem;
       min-width: 0;
       padding: 0.45rem 0.55rem;
@@ -869,46 +928,6 @@
       color: var(--text);
       font-family: var(--font-ui);
       font-size: 0.78rem;
-    }
-
-    .countdown-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .countdown-list li {
-      font-family: var(--font-ui);
-      font-size: 0.78rem;
-      line-height: 1.35;
-      color: var(--text);
-      padding: 0.4rem 0.5rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--bg-elevated);
-    }
-
-    .countdown-list li.countdown-li--past {
-      opacity: 0.3;
-    }
-
-    .countdown-list .cd-meta.cd-meta--today {
-      color: var(--progress);
-      font-weight: 600;
-    }
-
-    .countdown-list .cd-label {
-      font-weight: 600;
-    }
-
-    .countdown-list .cd-meta {
-      display: block;
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      margin-top: 0.15rem;
     }
 
     .recurring-wk-strip {
@@ -1012,7 +1031,7 @@
       min-width: 0;
     }
 
-    .home-main-col .daily-brief {
+    .home-main-col .home-daily-strip {
       max-width: none;
     }
 
@@ -1184,29 +1203,53 @@
     .brief-todo-check {
       flex-shrink: 0;
       box-sizing: border-box;
-      width: 1.28rem;
-      height: 1.28rem;
+      width: 18px;
+      height: 18px;
       margin: 0;
       padding: 0;
-      border: 2px solid var(--progress);
-      border-radius: 50%;
+      border: 1.5px solid rgba(245, 245, 247, 0.3);
+      border-radius: 4px;
       background: transparent;
       cursor: pointer;
-      transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+      position: relative;
+      transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+    }
+
+    [data-theme="light"] .brief-todo-check {
+      border-color: rgba(28, 28, 30, 0.28);
     }
 
     .brief-todo-check:hover:not(:disabled) {
-      background: rgba(48, 209, 88, 0.15);
-      box-shadow: 0 0 0 1px rgba(48, 209, 88, 0.35);
+      border-color: var(--accent);
+      background: rgba(48, 209, 88, 0.12);
+      box-shadow: none;
     }
 
     .brief-todo-check:active:not(:disabled) {
-      transform: scale(0.92);
+      transform: scale(0.94);
     }
 
     .brief-todo-check:disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: default;
+    }
+
+    .brief-todo-check.brief-todo-check--checked {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .brief-todo-check.brief-todo-check--checked::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 9px;
+      border: solid var(--btn-on-progress);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      box-sizing: border-box;
     }
 
     .brief-todo-preview .brief-todo-empty::before {
@@ -1481,6 +1524,58 @@
       font-size: 0.8125rem;
       color: var(--text-muted);
       margin: 0 0 1.35rem;
+    }
+
+    .history-panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .history-panel-head #history-title {
+      margin-bottom: 0;
+    }
+
+    .history-subtabs {
+      display: inline-flex;
+      gap: 2px;
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+    }
+
+    .history-subtab {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: var(--radius-xs);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .history-subtab:hover {
+      color: var(--text);
+    }
+
+    .history-subtab.is-active {
+      background: var(--bg-elevated);
+      color: var(--text);
+    }
+
+    .history-sub-panel {
+      margin-top: 0.35rem;
+    }
+
+    .history-sub-panel[hidden] {
+      display: none !important;
     }
 
     .streak-day {
@@ -2778,19 +2873,48 @@
     @media (max-width: 720px) {
       .app { flex-direction: column; }
       .sidebar {
-        width: 100%;
+        width: 100% !important;
         flex-direction: row;
         flex-wrap: wrap;
         padding: 0.75rem;
         border-right: none;
         border-bottom: 1px solid var(--border);
+        overflow-x: visible;
+      }
+      .sidebar:hover {
+        width: 100% !important;
       }
       .brand {
-        width: 100%;
+        width: auto;
+        flex: 0 0 auto;
+        padding-bottom: 0;
         margin-bottom: 0;
-        padding-bottom: 0.75rem;
       }
-      .nav-btn { flex: 1 1 auto; min-width: 44%; justify-content: center; }
+      .sidebar-scroll-zone {
+        display: contents;
+      }
+      .sidebar-divider {
+        display: none;
+      }
+      .sidebar-spacer {
+        display: none;
+      }
+      .nav-btn {
+        flex: 1 1 auto;
+        min-width: 44%;
+        justify-content: flex-start !important;
+      }
+      .nav-txt {
+        max-width: 140px !important;
+        opacity: 1 !important;
+      }
+      .sidebar:not(:hover) .nav-btn--sidebar-ql .nav-ql-badge {
+        position: static;
+        margin-left: auto;
+      }
+      .sidebar-footer-sticky {
+        display: contents;
+      }
       .main { padding: 1rem; }
     }
   </style>
@@ -2819,45 +2943,39 @@
           <rect class="brand-mark-bg" width="32" height="32" rx="9" />
           <path class="brand-mark-fg" d="M6 10h3v12H6V10zm17 0h3v12h-3V10zM10 15.5h12v1H10v-1z" />
         </svg>
-        <div class="brand-copy">
-          <span class="brand-title">HOME</span>
-          <span id="date-display"></span>
-        </div>
       </div>
+      <hr class="sidebar-divider" aria-hidden="true" />
       <button type="button" class="nav-btn" data-panel="home" aria-current="page">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">🏠</span>
         <span class="nav-txt">Vue d’ensemble</span>
       </button>
       <button type="button" class="nav-btn" data-panel="todo">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zm0-8h14V7H7v2z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">✅</span>
         <span class="nav-txt">To-do</span>
       </button>
       <button type="button" class="nav-btn" data-panel="sport">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><g transform="matrix(0.025 0 0 0.025 0 24)"><path fill="currentColor" d="m550-84-42-42 142-142-382-382-142 142-42-42 56-58-56-56 85-85-42-42 42-42 43 41 84-84 56 56 58-56 42 42-142 142 382 382 142-142 42 42-56 58 56 56-86 86 42 42-42 42-42-42-84 84-56-56-58 56Z"/></g></svg></span>
+        <span class="nav-ico" aria-hidden="true">🏃</span>
         <span class="nav-txt">Sport</span>
       </button>
       <button type="button" class="nav-btn" data-panel="food">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><g transform="matrix(0.025 0 0 0.025 0 24)"><path fill="currentColor" d="M281.5-201.5Q200-283 200-400q0-100 61.5-176.5T420-674q-26-5-50-14.5T327-717q-28-29-37.5-67t-9.5-78v-18q86-2 148 56.5T489-680q14-43 39.5-80t57.5-69q9-9 21-9t21 9q9 9 9 21t-9 21q-25 25-45 54t-34 61q94 24 152.5 99.5T760-400q0 117-81.5 198.5T480-120q-117 0-198.5-81.5ZM636-244q64-64 64-156t-64-156q-64-64-156-64t-156 64q-64 64-64 156t64 156q64 64 156 64t156-64ZM480-400Z"/></g></svg></span>
+        <span class="nav-ico" aria-hidden="true">🍽</span>
         <span class="nav-txt">Alimentation</span>
       </button>
       <button type="button" class="nav-btn" data-panel="reminders">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">🔔</span>
         <span class="nav-txt">Rappels</span>
       </button>
       <button type="button" class="nav-btn" data-panel="notes">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8v-2zm0-4h8v2H8v-2zm0-4h5v2H8V7z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">📝</span>
         <span class="nav-txt">Notes</span>
       </button>
       <button type="button" class="nav-btn" data-panel="history">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">📅</span>
         <span class="nav-txt">Historique</span>
-      </button>
-      <button type="button" class="nav-btn" data-panel="trends">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17h2v4H3v-4zm4-6h2v10H7V11zm4-4h2v14h-2V7zm4-3h2v17h-2V4zm4-2h2v19h-2V2z"/></svg></span>
-        <span class="nav-txt">Tendances</span>
       </button>
       <div class="sidebar-spacer" aria-hidden="true"></div>
       </div>
+      <hr class="sidebar-divider" aria-hidden="true" />
       <div class="sidebar-footer-sticky">
       <button
         type="button"
@@ -2872,11 +2990,11 @@
         <span id="nav-ql-badge" class="nav-ql-badge" hidden>0</span>
       </button>
       <button type="button" class="nav-btn nav-btn--focus" id="btn-focus">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3v2h4V9h2V3h-6zM3 15v6h6v-2H5v-4H3zM3 4h2v4h4V6H5V4H3zm14 10h-4v2h6v-6h-2v4z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">⚡</span>
         <span class="nav-txt">Mode focus</span>
       </button>
       <button type="button" class="nav-btn" data-panel="settings">
-        <span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .69.28 1.35.78 1.83.48.48 1.13.76 1.81.77H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+        <span class="nav-ico" aria-hidden="true">⚙️</span>
         <span class="nav-txt">Réglages</span>
       </button>
       </div>
@@ -2901,13 +3019,10 @@
         <h1 id="home-title" class="visually-hidden">Vue d’ensemble</h1>
         <div class="home-layout">
           <div class="home-main-col">
-            <div class="daily-brief">
-              <h1 id="daily-brief-title">Aujourd’hui</h1>
-              <div class="daily-brief-row-compact">
-                <p id="daily-brief-task-line" class="daily-brief-task-line"></p>
-                <div class="daily-brief-mini-bar" aria-hidden="true"><span id="daily-brief-mini-bar-fill"></span></div>
-              </div>
-              <p id="daily-brief-prose" class="daily-brief-prose"></p>
+            <div id="home-daily-strip" class="home-daily-strip" aria-live="polite">
+              <span id="home-daily-strip-date" class="home-daily-strip__date"></span>
+              <p id="daily-brief-task-line" class="home-daily-strip__summary"></p>
+              <div class="home-daily-strip__bar" aria-hidden="true"><span id="daily-brief-mini-bar-fill"></span></div>
             </div>
             <div class="brief-blocks">
               <div class="home-tasks-ech-row">
@@ -2950,7 +3065,10 @@
             <div id="home-agenda-panel" class="home-agenda-panel" hidden>
               <div class="home-agenda-grid">
                 <div class="mini-cal-wrap">
-                  <h2 class="home-agenda-subtitle">Calendrier</h2>
+                  <div class="mini-cal-header-row">
+                    <h2 class="home-agenda-subtitle">Calendrier</h2>
+                    <button type="button" class="btn-ghost-agenda" id="btn-home-open-agenda">↗ Ouvrir l’agenda</button>
+                  </div>
                   <div class="mini-cal-head">
                     <button type="button" class="icon-btn" id="mini-cal-prev" aria-label="Mois précédent">←</button>
                     <span id="mini-cal-title" class="mini-cal-title"></span>
@@ -2967,13 +3085,6 @@
                       ℹ️
                     </button>
                   </div>
-                  <div class="mini-cal-external-row">
-                    <button type="button" class="btn secondary" id="btn-home-open-agenda">Ouvrir l’agenda (lien Réglages)</button>
-                  </div>
-                </div>
-                <div class="countdown-wrap">
-                  <h2 class="home-agenda-subtitle">Échéances</h2>
-                  <ul id="countdown-list" class="countdown-list" aria-label="Comptes à rebours"></ul>
                 </div>
               </div>
             </div>
@@ -2982,29 +3093,35 @@
       </section>
 
       <section id="panel-history" class="panel" aria-labelledby="history-title">
-        <h1 id="history-title">Historique</h1>
-        <p class="subtitle">Fichier local par date : lecture seule hors jour courant.</p>
-        <div class="card">
-          <h2>Jour affiché</h2>
-          <div class="date-nav">
-            <label for="view-date-input">Date</label>
-            <div class="date-nav-row">
-              <button type="button" class="icon-btn" id="date-prev" aria-label="Jour précédent">←</button>
-              <input type="date" id="view-date-input" aria-label="Choisir une date" />
-              <button type="button" class="icon-btn" id="date-next" aria-label="Jour suivant">→</button>
-              <span class="today-label" id="view-date-human" aria-live="polite"></span>
-              <button type="button" class="btn-today" id="date-today">Aujourd’hui</button>
+        <div class="history-panel-head">
+          <h1 id="history-title">Historique</h1>
+          <div class="history-subtabs" role="tablist" aria-label="Sections historique">
+            <button type="button" class="history-subtab is-active" data-history-tab="journal" role="tab" aria-selected="true" id="tab-history-journal">Journal</button>
+            <button type="button" class="history-subtab" data-history-tab="trends" role="tab" aria-selected="false" id="tab-history-trends">Tendances</button>
+          </div>
+        </div>
+        <div id="history-sub-journal" class="history-sub-panel" data-history-sub="journal">
+          <p class="subtitle">Fichier local par date : lecture seule hors jour courant.</p>
+          <div class="card">
+            <h2>Jour affiché</h2>
+            <div class="date-nav">
+              <label for="view-date-input">Date</label>
+              <div class="date-nav-row">
+                <button type="button" class="icon-btn" id="date-prev" aria-label="Jour précédent">←</button>
+                <input type="date" id="view-date-input" aria-label="Choisir une date" />
+                <button type="button" class="icon-btn" id="date-next" aria-label="Jour suivant">→</button>
+                <span class="today-label" id="view-date-human" aria-live="polite"></span>
+                <button type="button" class="btn-today" id="date-today">Aujourd’hui</button>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section id="panel-trends" class="panel" aria-labelledby="trends-title">
-        <h1 id="trends-title">Tendances</h1>
-        <p class="subtitle">Vue d’ensemble de tes habitudes sur la durée (données locales).</p>
-        <div class="card">
-          <h2>À venir</h2>
-          <p class="hint">D’autres graphiques pourront s’ajouter ici (streaks, volumes, etc.).</p>
+        <div id="history-sub-trends" class="history-sub-panel" data-history-sub="trends" hidden>
+          <p class="subtitle">Vue d’ensemble de tes habitudes sur la durée (données locales).</p>
+          <div class="card">
+            <h2>À venir</h2>
+            <p class="hint">D’autres graphiques pourront s’ajouter ici (streaks, volumes, etc.).</p>
+          </div>
         </div>
       </section>
 
@@ -3446,7 +3563,7 @@
   </div>
 
   <div class="kbd-hint" id="kbd-hint" aria-hidden="true">
-    <span class="kbd-hint-title">Raccourcis</span> — touches 1–9 · focus : Échap ou bouton quitter
+    <span class="kbd-hint-title">Raccourcis</span> — touches 1–8 · focus : Échap ou bouton quitter
   </div>
 
   <script>
@@ -3466,7 +3583,7 @@
   /* modif: première passe barres — animation 0→valeur 600ms */
   var firstBarRun = true;
 
-  var PANEL_SHORTCUTS = ["home", "todo", "sport", "food", "reminders", "notes", "history", "trends", "links"];
+  var PANEL_SHORTCUTS = ["home", "todo", "sport", "food", "reminders", "notes", "history", "links"];
 
   var DEFAULT_APP_ICON_DATA_URL =
     "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%20fill%3D%22%2362ff62%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22331%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%22224%22%20width%3D%22282%22%20height%3D%2262%22%20rx%3D%2231%22%20fill%3D%22%230a0a0a%22%2F%3E%3C%2Fsvg%3E";
@@ -3570,6 +3687,15 @@
   function formatIsoShortFr(iso) {
     var d = parseISODate(iso);
     return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  function formatCompactHeaderDateFr(iso) {
+    var d = parseISODate(iso);
+    return d.toLocaleDateString("fr-FR", {
+      weekday: "short",
+      day: "numeric",
+      month: "long"
+    });
   }
 
   function weekMonday(todayIso) {
@@ -5379,66 +5505,6 @@
       .join("");
   }
 
-  function renderCountdownList() {
-    var ul = document.getElementById("countdown-list");
-    if (!ul) return;
-    var list = loadHomeEcheances()
-      .slice()
-      .sort(function (a, b) {
-        return a.date.localeCompare(b.date);
-      });
-    if (!list.length) {
-      ul.innerHTML =
-        '<li class="hint" style="list-style:none;border:none;background:none;padding:0;margin:0;opacity:0.35;font-style:italic;">Ajoute des échéances dans Réglages</li>';
-      return;
-    }
-    var enriched = list.map(function (ev) {
-      return { ev: ev, d: daysFromTodayToDateCeil(ev.date) };
-    });
-    var upcoming = enriched.filter(function (x) {
-      return x.d >= 0;
-    });
-    upcoming.sort(function (a, b) {
-      return a.d - b.d;
-    });
-    var past = enriched.filter(function (x) {
-      return x.d < 0;
-    });
-    past.sort(function (a, b) {
-      return b.d - a.d;
-    });
-    var ordered = upcoming.concat(past);
-    ul.innerHTML = ordered
-      .map(function (x) {
-        var ev = x.ev;
-        var d = x.d;
-        var metaCls = "cd-meta";
-        var meta = "";
-        var liCls = "";
-        if (d < 0) {
-          liCls = "countdown-li--past";
-          meta = "Passé";
-        } else if (d === 0) {
-          metaCls += " cd-meta--today";
-          meta = "Aujourd’hui";
-        } else {
-          meta = "J-" + d;
-        }
-        return (
-          '<li class="' +
-          escapeAttr(liCls) +
-          '"><span class="cd-label">' +
-          escapeHtml(ev.label) +
-          '</span><span class="' +
-          metaCls +
-          '">' +
-          escapeHtml(meta) +
-          "</span></li>"
-        );
-      })
-      .join("");
-  }
-
   function renderMiniCalendar() {
     var title = document.getElementById("mini-cal-title");
     var grid = document.getElementById("mini-cal-grid");
@@ -5517,7 +5583,6 @@
     }
     panel.removeAttribute("hidden");
     renderMiniCalendar();
-    renderCountdownList();
   }
 
   function renderSettingsCountdownEditor() {
@@ -5543,16 +5608,20 @@
   }
 
   function renderDailyBrief() {
-    var proseEl = document.getElementById("daily-brief-prose");
+    var dateEl = document.getElementById("home-daily-strip-date");
     var taskLineEl = document.getElementById("daily-brief-task-line");
     var barFill = document.getElementById("daily-brief-mini-bar-fill");
-    if (!proseEl || !taskLineEl || !barFill) return;
+    if (!taskLineEl || !barFill) return;
+    if (dateEl) dateEl.textContent = formatCompactHeaderDateFr(viewDateIso);
+
     var snap = getSnap();
     if (!isViewingToday() && !snap && !isViewingFuture()) {
       taskLineEl.textContent = "—";
+      taskLineEl.setAttribute(
+        "title",
+        "Aucune archive pour cette date : ouverture sur un autre jour sans passage de minuit ici."
+      );
       barFill.style.width = "0%";
-      proseEl.textContent =
-        "Aucune archive pour cette date : ouverture sur un autre jour sans passage de minuit ici.";
       fillBriefBars("brief-bars-sport", []);
       fillBriefBars("brief-bars-food", []);
       fillBriefTodoHomeDuo();
@@ -5568,8 +5637,12 @@
     var sn = getSportNutrition();
     var fn = state.meta && state.meta.firstName ? String(state.meta.firstName).trim() : "";
 
-    var leftRec = rec.filter(function (x) { return !x.done; }).length;
-    var leftOne = one.filter(function (x) { return !x.done; }).length;
+    var leftRec = rec.filter(function (x) {
+      return !x.done;
+    }).length;
+    var leftOne = one.filter(function (x) {
+      return !x.done;
+    }).length;
     var totalLeft = leftRec + leftOne;
 
     var active = getActiveMetricKeys();
@@ -5595,11 +5668,6 @@
       waterWarn = t.water ? sn.nutrition.water >= t.water * 0.7 : false;
     }
 
-    var taskPhrase =
-      totalLeft === 0
-        ? "Tâches : aucune restante"
-        : "Tâches : " + totalLeft + " en attente";
-
     var waterPhrase =
       nutKs.indexOf("water") < 0
         ? nutKs.length
@@ -5619,21 +5687,24 @@
         ? "Hydratation : sous le seuil"
         : "Hydratation : en dessous du repère";
 
-    var greet = fn ? fn + ", " : "";
-    var futNote = isViewingFuture()
-      ? "Aperçu futur (sport / alimentation à zéro tant que le jour n’est pas là). "
-      : "";
-    var taskHead = futNote + greet + taskPhrase;
     var tTot = getTaskTotalsForView();
-    if (tTot.total) taskHead += " · " + tTot.done + "/" + tTot.total + " cochées";
-    taskLineEl.textContent = taskHead;
+    var parts = [];
+    if (totalLeft === 0) parts.push("0 tâche en attente");
+    else parts.push(totalLeft + " tâche" + (totalLeft > 1 ? "s" : "") + " en attente");
+    if (tTot.total) parts.push(tTot.done + "/" + tTot.total + " cochées");
+    taskLineEl.textContent = parts.join(" · ");
+
+    var tipBits = [];
+    if (isViewingFuture()) {
+      tipBits.push("Aperçu futur : sport / alimentation à zéro tant que le jour n’est pas là.");
+    }
+    if (fn) tipBits.push(fn);
+    if (state.meta.showBriefSport !== false) tipBits.push("Sport : " + pctSport + "%");
+    if (state.meta.showBriefFood !== false) tipBits.push(waterPhrase);
+    taskLineEl.setAttribute("title", tipBits.length ? tipBits.join(" — ") : "");
+
     var pctDone = !tTot.total ? 100 : Math.round((100 * tTot.done) / tTot.total);
     barFill.style.width = pctDone + "%";
-
-    var detailBits = [];
-    if (state.meta.showBriefSport !== false) detailBits.push("Sport : " + pctSport + "%");
-    if (state.meta.showBriefFood !== false) detailBits.push(waterPhrase);
-    proseEl.textContent = detailBits.length ? detailBits.join(" · ") : "—";
 
     var briefSportLabels = { running: "Run", muscu: "Muscu", natation: "Natation" };
     if (state.meta.showBriefSport !== false) {
@@ -5713,13 +5784,6 @@
 
     var nextBtn = document.getElementById("date-next");
     if (nextBtn) nextBtn.disabled = viewDateIso >= viewDateMaxIso();
-
-    var dbt = document.getElementById("daily-brief-title");
-    if (dbt) {
-      if (isViewingToday()) dbt.textContent = "Aujourd’hui";
-      else if (isViewingFuture()) dbt.textContent = "Aperçu · " + formatIsoShortFr(viewDateIso);
-      else dbt.textContent = formatIsoShortFr(viewDateIso);
-    }
   }
 
   var __sidebarQlPopoverOpen = false;
@@ -5933,15 +5997,52 @@
     }
   }
 
+  var __historySubTab = "journal";
+
+  function setHistorySubTab(tab) {
+    __historySubTab = tab === "trends" ? "trends" : "journal";
+    document.querySelectorAll(".history-subtab").forEach(function (b) {
+      var on = b.getAttribute("data-history-tab") === __historySubTab;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    document.querySelectorAll(".history-sub-panel").forEach(function (p) {
+      var sub = p.getAttribute("data-history-sub");
+      if (sub === __historySubTab) p.removeAttribute("hidden");
+      else p.setAttribute("hidden", "");
+    });
+  }
+
+  function wireHistorySubtabsOnce() {
+    var root = document.getElementById("panel-history");
+    if (!root || root.dataset.historyTabsWired) return;
+    root.dataset.historyTabsWired = "1";
+    root.addEventListener("click", function (e) {
+      var btn = e.target.closest(".history-subtab");
+      if (!btn) return;
+      var t = btn.getAttribute("data-history-tab");
+      if (!t) return;
+      setHistorySubTab(t);
+    });
+  }
+
   function showPanel(panelId) {
     setSidebarQlPopoverOpen(false);
+    if (panelId === "trends") {
+      __historySubTab = "trends";
+      panelId = "history";
+    }
     document.querySelectorAll(".nav-btn").forEach(function (b) {
-      if (b.getAttribute("data-panel") === panelId) b.setAttribute("aria-current", "page");
+      var pid = b.getAttribute("data-panel");
+      if (pid && pid === panelId) b.setAttribute("aria-current", "page");
       else b.removeAttribute("aria-current");
     });
-    document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+    document.querySelectorAll(".panel").forEach(function (p) {
+      p.classList.remove("active");
+    });
     var panel = document.getElementById("panel-" + panelId);
     if (panel) panel.classList.add("active");
+    if (panelId === "history") setHistorySubTab(__historySubTab || "journal");
   }
 
   function renderTargetsInDOM() {
@@ -6223,8 +6324,6 @@
     sortTasksStableDoneLast(state.reminders);
     saveState(state);
 
-    document.getElementById("date-display").textContent = "Màj · " + todayIso;
-
     buildSettingsMetricsPanel();
     wireSettingsMetricsDynamic();
     wireBriefTodoHomeClicksOnce();
@@ -6250,6 +6349,7 @@
 
     wireQuickLinksPanelOnce();
     wireSidebarQuickLinksOnce();
+    wireHistorySubtabsOnce();
 
     var qlAdd = document.getElementById("quick-link-add-btn");
     if (qlAdd) {
