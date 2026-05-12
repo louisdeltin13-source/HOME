@@ -912,8 +912,11 @@
       background: rgba(255, 107, 107, 0.12);
     }
 
-    .brief-todo-prio--normal {
-      color: var(--text-muted);
+    .brief-todo-prio--normal,
+    .brief-todo-prio--medium {
+      color: #e6c82d;
+      border-color: rgba(230, 200, 45, 0.4);
+      background: rgba(230, 200, 45, 0.1);
     }
 
     .brief-todo-prio--low {
@@ -1538,6 +1541,173 @@
       margin-bottom: 0.65rem;
     }
 
+    .oneoff-title-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.62rem 0.9rem;
+      margin-bottom: 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+    }
+
+    .oneoff-add-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 0.65rem 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .oneoff-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    .oneoff-field label,
+    .oneoff-prio-fieldset legend {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .oneoff-field input[type="text"],
+    .oneoff-field input[type="date"] {
+      padding: 0.45rem 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      min-width: 6.5rem;
+    }
+
+    .oneoff-prio-fieldset {
+      border: none;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    .oneoff-prio-fieldset legend {
+      padding: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .oneoff-prio-radios {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.65rem;
+    }
+
+    .oneoff-prio-opt {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .oneoff-prio-opt input {
+      accent-color: var(--progress);
+    }
+
+    .oneoff-add-btn {
+      align-self: flex-end;
+    }
+
+    .task-item--due-future:not(.done) {
+      opacity: 0.52;
+    }
+
+    .task-tag-pill {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      padding: 0.18rem 0.45rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      max-width: 7rem;
+    }
+
+    .task-due-badge {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 0.12rem 0.35rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .task-prio-inline {
+      display: inline-flex;
+      gap: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .task-prio-inline label {
+      cursor: pointer;
+      font-size: 0.72rem;
+      padding: 0.12rem 0.28rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      opacity: 0.45;
+    }
+
+    .task-prio-inline input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .task-prio-inline label.is-active {
+      opacity: 1;
+      border-color: var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .prio-pill {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.14rem 0.38rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .prio-pill--high {
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.45);
+      background: rgba(255, 107, 107, 0.12);
+    }
+
+    .prio-pill--medium {
+      color: #e6c82d;
+      border-color: rgba(230, 200, 45, 0.4);
+      background: rgba(230, 200, 45, 0.1);
+    }
+
+    .prio-pill--low {
+      color: var(--text-muted);
+    }
+
     .card--oneoff {
       overflow: visible;
     }
@@ -2134,10 +2304,6 @@
               </div>
             </div>
             <div class="brief-blocks">
-              <div class="brief-block brief-block--week-oneoff" id="brief-oneoff-week-wrap">
-                <span class="brief-block-title-static">Ponctuelles · semaine</span>
-                <div id="brief-oneoff-week-body" class="brief-block-main brief-oneoff-week-body" aria-label="Progression ponctuelles sur 7 jours"></div>
-              </div>
               <div class="brief-block brief-block--todo">
                 <button type="button" class="brief-block-title" data-go="todo">To-do</button>
                 <div class="brief-block-main brief-block-main--todo">
@@ -2151,6 +2317,10 @@
               <div class="brief-block" id="brief-wrap-food">
                 <button type="button" class="brief-block-title" data-go="food">Alimentation</button>
                 <div class="brief-block-bars" id="brief-bars-food"></div>
+              </div>
+              <div class="brief-block brief-block--week-oneoff" id="brief-oneoff-week-wrap">
+                <span class="brief-block-title-static">Ponctuelles · semaine</span>
+                <div id="brief-oneoff-week-body" class="brief-block-main brief-oneoff-week-body" aria-label="Progression ponctuelles sur 7 jours"></div>
               </div>
             </div>
           </div>
@@ -2209,24 +2379,51 @@
         <div class="card card--oneoff">
           <h2>Ponctuelles</h2>
           <p class="hint oneoff-hint">
-            Date du sélecteur = jour d’entrée dans la liste ; au-delà d’aujourd’hui : « Planifiées ». Chaque ligne : priorité (Urgent / Normal / Faible), temps estimé (45m, 2h, 1h30), glisser ⋮⋮ pour l’ordre du jour, ◇ pour l’épingler en « Focus » sur la vue d’ensemble.
+            Les ponctuelles ne sont pas effacées au minuit : elles restent jusqu’à cochage ou suppression. Échéance future = ligne grisée avec badge date. ◇ sur une ligne = focus sur la vue d’ensemble.
           </p>
-          <div class="row-input row-input--oneoff-date-row">
-            <div class="oneoff-date-wrap">
-              <label for="oneoff-plan-date" class="oneoff-date-label">Apparaît le</label>
-              <input type="date" id="oneoff-plan-date" aria-label="Premier jour d’affichage de la tâche" />
+          <datalist id="oneoff-tag-datalist"></datalist>
+          <input
+            type="text"
+            id="input-oneoff"
+            class="oneoff-title-input"
+            placeholder="Nouvelle tâche ponctuelle…"
+            autocomplete="off"
+            aria-label="Libellé de la tâche ponctuelle"
+          />
+          <div class="oneoff-add-toolbar">
+            <div class="oneoff-field">
+              <label for="input-oneoff-tag">Tag</label>
+              <input
+                type="text"
+                id="input-oneoff-tag"
+                list="oneoff-tag-datalist"
+                maxlength="32"
+                placeholder="ex. admin"
+                autocomplete="off"
+                aria-label="Tag"
+              />
             </div>
+            <fieldset class="oneoff-field oneoff-prio-fieldset">
+              <legend>Priorité</legend>
+              <div class="oneoff-prio-radios">
+                <label class="oneoff-prio-opt"
+                  ><input type="radio" name="oneoff-new-prio" value="high" /> <span>🔴 Haute</span></label
+                >
+                <label class="oneoff-prio-opt"
+                  ><input type="radio" name="oneoff-new-prio" value="medium" checked /> <span>🟡 Moyenne</span></label
+                >
+                <label class="oneoff-prio-opt"
+                  ><input type="radio" name="oneoff-new-prio" value="low" /> <span>🟢 Basse</span></label
+                >
+              </div>
+            </fieldset>
+            <div class="oneoff-field">
+              <label for="input-oneoff-due">Date (optionnel)</label>
+              <input type="date" id="input-oneoff-due" aria-label="Date d’échéance optionnelle" />
+            </div>
+            <button type="button" class="btn oneoff-add-btn" id="add-oneoff">Ajouter</button>
           </div>
           <ul id="list-oneoff" class="task-list"></ul>
-          <div class="row-input row-input--split row-input--oneoff-plan">
-            <input type="text" id="input-oneoff" placeholder="Nouvelle tâche…" autocomplete="off" />
-            <button type="button" class="btn" id="add-oneoff">Ajouter</button>
-          </div>
-          <div id="planned-oneoff-block" class="planned-oneoff-block" hidden>
-            <h3 class="planned-oneoff-title">Planifiées</h3>
-            <p class="planned-oneoff-sub hint">En attente de date : basculent dans la liste principale à l’échéance.</p>
-            <ul id="list-oneoff-planned" class="task-list"></ul>
-          </div>
         </div>
       </section>
 
@@ -2541,7 +2738,7 @@
   var LEGACY_KEY = "personalDashboardV1";
   var THEME_KEY = "dashboardTheme";
   var DAY_MS = 86400000;
-  var STATE_VERSION = 3;
+  var STATE_VERSION = 4;
 
   var todayIso = isoDate(new Date());
   var viewDateIso = todayIso;
@@ -2755,18 +2952,22 @@
     });
   }
 
+  function oneOffPriorityRank(p) {
+    if (p === "high") return 0;
+    if (p === "low") return 2;
+    return 1;
+  }
+
   function oneOffSortCompare(a, b) {
     var ad = a.done ? 1 : 0;
     var bd = b.done ? 1 : 0;
     if (ad !== bd) return ad - bd;
-    var ao = typeof a.order === "number" ? a.order : 0;
-    var bo = typeof b.order === "number" ? b.order : 0;
-    if (ao !== bo) return ao - bo;
-    var pr = { high: 0, normal: 1, low: 2 };
-    var ap = pr[a.priority] != null ? pr[a.priority] : 1;
-    var bp = pr[b.priority] != null ? pr[b.priority] : 1;
+    var ap = oneOffPriorityRank(a.priority);
+    var bp = oneOffPriorityRank(b.priority);
     if (ap !== bp) return ap - bp;
-    return 0;
+    var ac = typeof a.createdAt === "number" ? a.createdAt : 0;
+    var bc = typeof b.createdAt === "number" ? b.createdAt : 0;
+    return ac - bc;
   }
 
   function formatEstimateMin(mins) {
@@ -2806,14 +3007,38 @@
     return null;
   }
 
-  function ensureOneOffItemShape(x, idx) {
+  function migrateOneOffItemFields(x, idx) {
     if (!x || typeof x !== "object") return;
-    if (x.priority !== "high" && x.priority !== "low") x.priority = "normal";
+    if (x.showFrom && !x.dueDate) x.dueDate = x.showFrom;
+    if (Object.prototype.hasOwnProperty.call(x, "showFrom")) delete x.showFrom;
+    if (x.priority === "normal") x.priority = "medium";
+    if (x.priority !== "high" && x.priority !== "low" && x.priority !== "medium") x.priority = "medium";
+    if (typeof x.tag !== "string") x.tag = "";
+    else x.tag = String(x.tag).trim().slice(0, 32);
+    if (typeof x.createdAt !== "number" || isNaN(x.createdAt)) {
+      x.createdAt = Date.now() - (idx + 1) * 1000;
+    }
+    if (Object.prototype.hasOwnProperty.call(x, "order")) delete x.order;
     if (x.estimateMin != null) {
       var em = Number(x.estimateMin);
       x.estimateMin = isNaN(em) || em < 0 ? null : Math.round(em);
     }
-    if (typeof x.order !== "number" || isNaN(x.order)) x.order = (idx + 1) * 100;
+    if (x.dueDate && typeof x.dueDate === "string") x.dueDate = x.dueDate.trim() || null;
+  }
+
+  function migrateAllSnapshotsOneOffs(hist) {
+    if (!hist || typeof hist !== "object") return;
+    Object.keys(hist).forEach(function (k) {
+      var snap = hist[k];
+      if (!snap || !Array.isArray(snap.oneOff)) return;
+      snap.oneOff.forEach(function (x, i) {
+        migrateOneOffItemFields(x, i);
+      });
+    });
+  }
+
+  function ensureOneOffItemShape(x, idx) {
+    migrateOneOffItemFields(x, idx);
   }
 
   function ensureTodosShape(d) {
@@ -2821,43 +3046,23 @@
     d.todos.oneOff.forEach(function (x, i) {
       ensureOneOffItemShape(x, i);
     });
+    migrateAllSnapshotsOneOffs(d.history);
   }
 
-  function nextOneOffOrder() {
-    var m = -1;
+  function syncOneOffTagDatalist() {
+    var dl = document.getElementById("oneoff-tag-datalist");
+    if (!dl) return;
+    var tags = {};
     (state.todos.oneOff || []).forEach(function (x) {
-      if (typeof x.order === "number" && x.order > m) m = x.order;
+      var tg = x.tag ? String(x.tag).trim() : "";
+      if (tg) tags[tg.toLowerCase()] = tg;
     });
-    return m + 1;
-  }
-
-  function reorderIncompleteOneOffsAfterDrag(dragId, targetId) {
-    if (!isViewingToday() || dragId === targetId) return;
-    var inc = state.todos.oneOff.filter(function (t) {
-      if (t.done) return false;
-      if (t.showFrom && t.showFrom > todayIso) return false;
-      return !t.showFrom || t.showFrom <= todayIso;
-    });
-    inc.sort(oneOffSortCompare);
-    var ids = inc.map(function (x) {
-      return x.id;
-    });
-    var fi = ids.indexOf(dragId);
-    var ti = ids.indexOf(targetId);
-    if (fi < 0 || ti < 0) return;
-    ids.splice(fi, 1);
-    if (fi < ti) ti -= 1;
-    ids.splice(ti, 0, dragId);
-    ids.forEach(function (id, idx) {
-      for (var j = 0; j < state.todos.oneOff.length; j++) {
-        if (state.todos.oneOff[j].id === id) {
-          state.todos.oneOff[j].order = idx;
-          break;
-        }
-      }
-    });
-    saveState(state);
-    refreshChrome();
+    dl.innerHTML = Object.keys(tags)
+      .sort()
+      .map(function (k) {
+        return "<option value=\"" + escapeAttr(tags[k]) + "\"></option>";
+      })
+      .join("");
   }
 
   function getTaskTotalsForView() {
@@ -2911,7 +3116,8 @@
       if (!snap) return { done: 0, total: 0 };
       raw = snap.oneOff || [];
     }
-    var list = filterOneOffForDay(raw, dayIso);
+    var list =
+      dayIso === todayIso ? (raw || []).slice() : filterOneOffForDay(raw, dayIso);
     var total = list.length;
     var done = list.filter(function (x) {
       return x.done;
@@ -3010,12 +3216,13 @@
       }),
       oneOff: src.todos.oneOff.map(function (t) {
         var o = { id: t.id, text: t.text, done: t.done };
-        if (t.showFrom) o.showFrom = t.showFrom;
-        if (t.priority === "high" || t.priority === "low" || t.priority === "normal") o.priority = t.priority;
+        if (t.dueDate) o.dueDate = t.dueDate;
+        if (t.tag) o.tag = String(t.tag).trim().slice(0, 32);
+        if (t.priority === "high" || t.priority === "low" || t.priority === "medium") o.priority = t.priority;
+        if (typeof t.createdAt === "number") o.createdAt = t.createdAt;
         if (t.estimateMin != null && typeof t.estimateMin === "number" && t.estimateMin >= 0) {
           o.estimateMin = Math.round(t.estimateMin);
         }
-        if (typeof t.order === "number") o.order = t.order;
         return o;
       }),
       reminders: src.reminders.map(function (r) {
@@ -3195,14 +3402,10 @@
   }
 
   function getOneOffItems() {
-    var raw;
-    if (isViewingToday()) raw = state.todos.oneOff;
-    else {
-      var snap = state.history[viewDateIso];
-      if (!snap) return [];
-      raw = snap.oneOff || [];
-    }
-    return filterOneOffForDay(raw, viewDateIso);
+    if (isViewingToday()) return (state.todos.oneOff || []).slice();
+    var snap = state.history[viewDateIso];
+    if (!snap) return [];
+    return filterOneOffForDay(snap.oneOff || [], viewDateIso);
   }
 
   function getReminderItems() {
@@ -3259,7 +3462,7 @@
   function scorePercentLiveToday() {
     var t = state.targets;
     var rec = state.todos.recurring;
-    var one = filterOneOffForDay(state.todos.oneOff, todayIso);
+    var one = state.todos.oneOff || [];
     var rem = state.reminders;
     var sn = { sport: state.sport, nutrition: state.nutrition };
     var recRatio = rec.length ? rec.filter(function (x) { return x.done; }).length / rec.length : 1;
@@ -3662,17 +3865,9 @@
       var spE = document.createElement("span");
       spE.className = "task-text";
       spE.style.color = "var(--text-muted)";
-      var hasPlanned = false;
-      if (kind === "oneoff" && isViewingToday()) {
-        hasPlanned = state.todos.oneOff.some(function (t) {
-          return t.showFrom && t.showFrom > todayIso && !t.done;
-        });
-      }
       spE.textContent =
         kind === "oneoff"
-          ? hasPlanned
-            ? "Rien en ponctuel aujourd’hui — voir « Planifiées »."
-            : "Aucune ponctuelle : régler la date puis Ajouter."
+          ? "Aucune ponctuelle : utilise le formulaire ci-dessus."
           : kind === "recurring"
           ? "Aucune habitude — ajoute la première ci-dessous."
           : "Rien pour l’instant.";
@@ -3686,29 +3881,10 @@
       li.className = "task-item" + (item.done ? " done" : "");
       li.dataset.id = item.id;
 
-      if (kind === "oneoff" && !ro) {
-        var drag = document.createElement("span");
-        drag.className = "task-drag";
-        drag.setAttribute("aria-hidden", "true");
-        drag.textContent = "⋮⋮";
-        drag.title = "Glisser pour réordonner";
-        var canDrag =
-          !item.done && (!item.showFrom || item.showFrom <= todayIso);
-        if (canDrag) {
-          drag.setAttribute("draggable", "true");
-          drag.addEventListener("dragstart", function (ev) {
-            ev.dataTransfer.setData("text/plain", item.id);
-            ev.dataTransfer.effectAllowed = "move";
-            li.classList.add("task-item--dragging");
-          });
-          drag.addEventListener("dragend", function () {
-            li.classList.remove("task-item--dragging");
-            listEl.querySelectorAll(".task-item--drag-over").forEach(function (x) {
-              x.classList.remove("task-item--drag-over");
-            });
-          });
-        }
-        li.appendChild(drag);
+      if (kind === "oneoff") {
+        var pr0 = item.priority === "high" || item.priority === "low" ? item.priority : "medium";
+        var dueFut0 = !item.done && item.dueDate && String(item.dueDate) > todayIso;
+        if (dueFut0) li.classList.add("task-item--due-future");
       }
 
       var cb = document.createElement("input");
@@ -3750,64 +3926,93 @@
       li.appendChild(span);
 
       if (kind === "oneoff") {
-        var pr = item.priority === "high" || item.priority === "low" ? item.priority : "normal";
-        if (!ro) {
-          var sel = document.createElement("select");
-          sel.className = "task-priority-select";
-          sel.setAttribute("aria-label", "Priorité");
-          [["high", "Urgent"], ["normal", "Normal"], ["low", "Faible"]].forEach(function (opt) {
-            var o = document.createElement("option");
-            o.value = opt[0];
-            o.textContent = opt[1];
-            if (opt[0] === pr) o.selected = true;
-            sel.appendChild(o);
-          });
-          sel.addEventListener("click", function (e) {
-            e.stopPropagation();
-          });
-          sel.addEventListener("change", function () {
-            item.priority = sel.value;
-            sortOneOffInPlace();
-            saveState(state);
-            refreshChrome();
-          });
-          li.appendChild(sel);
+        var pr = item.priority === "high" || item.priority === "low" ? item.priority : "medium";
+        var tagStr = (item.tag && String(item.tag).trim()) || "";
 
-          var est = document.createElement("input");
-          est.type = "text";
-          est.className = "task-est-input";
-          est.placeholder = "45m";
-          est.setAttribute("aria-label", "Temps estimé");
-          est.value = formatEstimateMin(item.estimateMin) || "";
-          est.addEventListener("click", function (e) {
+        if (item.dueDate) {
+          var db = document.createElement("span");
+          db.className = "task-due-badge";
+          db.textContent = formatIsoShortFr(item.dueDate);
+          db.title = "Échéance";
+          li.appendChild(db);
+        }
+
+        if (!ro) {
+          var tagInp = document.createElement("input");
+          tagInp.type = "text";
+          tagInp.className = "task-tag-pill";
+          tagInp.setAttribute("list", "oneoff-tag-datalist");
+          tagInp.maxLength = 32;
+          tagInp.value = tagStr;
+          tagInp.placeholder = "tag";
+          tagInp.setAttribute("aria-label", "Tag");
+          tagInp.addEventListener("click", function (e) {
             e.stopPropagation();
           });
-          est.addEventListener("keydown", function (e) {
+          tagInp.addEventListener("keydown", function (e) {
             e.stopPropagation();
           });
-          est.addEventListener("blur", function () {
-            item.estimateMin = parseEstimateString(est.value);
-            est.value = formatEstimateMin(item.estimateMin) || "";
+          tagInp.addEventListener("blur", function () {
+            item.tag = String(tagInp.value || "").trim().slice(0, 32);
             saveState(state);
             refreshChrome();
           });
-          li.appendChild(est);
+          li.appendChild(tagInp);
+
+          var prWrap = document.createElement("div");
+          prWrap.className = "task-prio-inline";
+          prWrap.setAttribute("role", "group");
+          prWrap.setAttribute("aria-label", "Priorité");
+          [["high", "🔴"], ["medium", "🟡"], ["low", "🟢"]].forEach(function (pv) {
+            var lab = document.createElement("label");
+            if (pr === pv[0]) lab.className = "is-active";
+            var rad = document.createElement("input");
+            rad.type = "radio";
+            rad.name = "prio-" + item.id + "-" + viewDateIso;
+            rad.value = pv[0];
+            rad.checked = pr === pv[0];
+            var spn = document.createElement("span");
+            spn.textContent = pv[1];
+            lab.appendChild(rad);
+            lab.appendChild(spn);
+            lab.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+            rad.addEventListener("change", function () {
+              if (!rad.checked) return;
+              item.priority = rad.value;
+              sortOneOffInPlace();
+              saveState(state);
+              refreshChrome();
+            });
+            prWrap.appendChild(lab);
+          });
+          li.appendChild(prWrap);
+
+          var dueInp = document.createElement("input");
+          dueInp.type = "date";
+          dueInp.className = "task-est-input";
+          dueInp.title = "Échéance (optionnel)";
+          dueInp.value = item.dueDate || "";
+          dueInp.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+          dueInp.addEventListener("change", function () {
+            item.dueDate = dueInp.value && String(dueInp.value).trim() ? dueInp.value : null;
+            saveState(state);
+            refreshChrome();
+          });
+          li.appendChild(dueInp);
         } else {
-          var metaRo = document.createElement("span");
-          metaRo.className = "brief-todo-meta";
-          var b = document.createElement("span");
-          b.className =
-            "brief-todo-prio brief-todo-prio--" + (pr === "high" ? "high" : pr === "low" ? "low" : "normal");
-          b.textContent = pr === "high" ? "Urgent" : pr === "low" ? "Faible" : "Normal";
-          metaRo.appendChild(b);
-          var em = formatEstimateMin(item.estimateMin);
-          if (em) {
-            var es = document.createElement("span");
-            es.className = "brief-todo-est";
-            es.textContent = em;
-            metaRo.appendChild(es);
-          }
-          li.appendChild(metaRo);
+          var tagSpan = document.createElement("span");
+          tagSpan.className = "task-tag-pill";
+          tagSpan.textContent = tagStr || "—";
+          li.appendChild(tagSpan);
+          var pill = document.createElement("span");
+          pill.className = "prio-pill prio-pill--" + pr;
+          pill.textContent =
+            pr === "high" ? "🔴 Haute" : pr === "low" ? "🟢 Basse" : "🟡 Moyenne";
+          li.appendChild(pill);
         }
       }
 
@@ -3828,24 +4033,6 @@
           refreshChrome();
         });
         li.appendChild(pin);
-      }
-
-      if (kind === "oneoff" && !ro && !item.done && (!item.showFrom || item.showFrom <= todayIso)) {
-        li.addEventListener("dragover", function (ev) {
-          ev.preventDefault();
-        });
-        li.addEventListener("dragenter", function () {
-          li.classList.add("task-item--drag-over");
-        });
-        li.addEventListener("dragleave", function (ev) {
-          if (ev.target === li) li.classList.remove("task-item--drag-over");
-        });
-        li.addEventListener("drop", function (ev) {
-          ev.preventDefault();
-          li.classList.remove("task-item--drag-over");
-          var fromId = ev.dataTransfer.getData("text/plain");
-          reorderIncompleteOneOffsAfterDrag(fromId, item.id);
-        });
       }
 
       var del = document.createElement("button");
@@ -3902,80 +4089,6 @@
         }, 220);
       });
     }
-  }
-
-  function syncOneOffDatePickerBounds() {
-    var el = document.getElementById("oneoff-plan-date");
-    if (!el || !isViewingToday()) return;
-    el.min = todayIso;
-    el.max = addDays(todayIso, 365);
-    if (!el.value || el.value < todayIso) el.value = todayIso;
-  }
-
-  function renderPlannedOneOffs() {
-    var host = document.getElementById("planned-oneoff-block");
-    var ul = document.getElementById("list-oneoff-planned");
-    if (!host || !ul) return;
-    if (!isViewingToday()) {
-      host.setAttribute("hidden", "");
-      ul.innerHTML = "";
-      return;
-    }
-    var planned = state.todos.oneOff.filter(function (t) {
-      return t.showFrom && t.showFrom > todayIso && !t.done;
-    });
-    planned.sort(function (a, b) {
-      if (a.showFrom < b.showFrom) return -1;
-      if (a.showFrom > b.showFrom) return 1;
-      return 0;
-    });
-    if (!planned.length) {
-      host.setAttribute("hidden", "");
-      ul.innerHTML = "";
-      return;
-    }
-    host.removeAttribute("hidden");
-    ul.innerHTML = "";
-    planned.forEach(function (item) {
-      var li = document.createElement("li");
-      li.className = "task-item task-item--planned";
-
-      var sp0 = document.createElement("span");
-      sp0.className = "task-item-plan-spacer";
-      sp0.setAttribute("aria-hidden", "true");
-
-      var wrap = document.createElement("span");
-      wrap.className = "task-text-wrap";
-
-      var span = document.createElement("span");
-      span.className = "task-text";
-      span.textContent = item.text;
-
-      var badge = document.createElement("span");
-      badge.className = "task-plan-date";
-      badge.textContent = formatIsoShortFr(item.showFrom);
-
-      wrap.appendChild(span);
-      wrap.appendChild(badge);
-
-      var del = document.createElement("button");
-      del.type = "button";
-      del.className = "delete";
-      del.setAttribute("aria-label", "Supprimer cette tâche planifiée");
-      del.textContent = "×";
-      del.addEventListener("click", function () {
-        state.todos.oneOff = state.todos.oneOff.filter(function (x) {
-          return x.id !== item.id;
-        });
-        saveState(state);
-        refreshChrome();
-      });
-
-      li.appendChild(sp0);
-      li.appendChild(wrap);
-      li.appendChild(del);
-      ul.appendChild(li);
-    });
   }
 
   function setMetricUI(key, val) {
@@ -4253,10 +4366,9 @@
         pending.push({
           id: x.id,
           text: x.text,
-          tag: "récurrente",
+          cat: "récurrente",
           taskKind: "recurring",
-          priority: null,
-          estimateMin: null
+          priority: null
         });
       }
     });
@@ -4270,10 +4382,11 @@
       pending.push({
         id: x.id,
         text: x.text,
-        tag: "ponctuelle",
+        cat: "ponctuelle",
         taskKind: "oneoff",
         priority: x.priority,
-        estimateMin: x.estimateMin
+        userTag: x.tag,
+        dueDate: x.dueDate
       });
     });
     if (pending.length === 0) {
@@ -4295,23 +4408,30 @@
         var dis = canToggle ? "" : " disabled";
         var meta = "";
         if (p.taskKind === "oneoff") {
-          var pr = p.priority === "high" || p.priority === "low" ? p.priority : "normal";
-          var pl = pr === "high" ? "Urgent" : pr === "low" ? "Faible" : "Normal";
-          var em = formatEstimateMin(p.estimateMin);
+          var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
+          var pl = pr === "high" ? "🔴 Haute" : pr === "low" ? "🟢 Basse" : "🟡 Moyenne";
+          var tg = p.userTag ? String(p.userTag).trim() : "";
+          var dueB = "";
+          if (p.dueDate) {
+            dueB =
+              '<span class="task-due-badge">' + escapeHtml(formatIsoShortFr(p.dueDate)) + "</span>";
+          }
           meta =
-            '<span class="brief-todo-meta"><span class="brief-todo-prio brief-todo-prio--' +
+            '<span class="brief-todo-meta">' +
+            (tg
+              ? '<span class="task-tag-pill" style="border:none">' + escapeHtml(tg) + "</span>"
+              : "") +
+            '<span class="brief-todo-prio brief-todo-prio--' +
             escapeAttr(pr) +
             '">' +
             escapeHtml(pl) +
             "</span>" +
-            (em
-              ? '<span class="brief-todo-est">' + escapeHtml(em) + "</span>"
-              : "") +
+            dueB +
             "</span>";
         }
         return (
           '<li class="brief-todo-row" title="' +
-          escapeAttr(p.tag) +
+          escapeAttr(p.cat) +
           '"><div class="brief-todo-left"><span class="brief-todo-label">' +
           escapeHtml(labelShort) +
           "</span>" +
@@ -4693,8 +4813,7 @@
     renderDailyBrief();
     renderTasks(document.getElementById("list-recurring"), getRecurringItems(), "recurring");
     renderTasks(document.getElementById("list-oneoff"), getOneOffItems(), "oneoff");
-    syncOneOffDatePickerBounds();
-    renderPlannedOneOffs();
+    syncOneOffTagDatalist();
     renderTasks(document.getElementById("list-reminders"), getReminderItems(), "reminder");
     refreshMetrics();
     applyMetricVisibility();
@@ -4721,7 +4840,9 @@
       notes.disabled = !isViewingToday();
     }
 
-    var adds = document.querySelectorAll("#panel-todo .row-input, #panel-reminders .row-input");
+    var adds = document.querySelectorAll(
+      "#panel-todo .row-input, #panel-todo .oneoff-add-toolbar, #panel-todo .oneoff-title-input, #panel-reminders .row-input"
+    );
     adds.forEach(function (row) {
       row.style.display = isViewingToday() ? "" : "none";
     });
@@ -5099,29 +5220,28 @@
       refreshChrome();
     });
 
-    function addOneOffTask(text, showFrom) {
+    function addOneOffTask(text, tag, priority, dueIso) {
       if (!isViewingToday()) return;
       var t = (text || "").trim();
       if (!t) return;
+      var pr = priority === "high" || priority === "low" ? priority : "medium";
       var item = {
         id: uid(),
         text: t,
         done: false,
-        priority: "normal",
-        estimateMin: null,
-        order: nextOneOffOrder()
+        priority: pr,
+        tag: (tag && String(tag).trim().slice(0, 32)) || "",
+        dueDate: dueIso && String(dueIso).trim() ? dueIso : null,
+        createdAt: Date.now()
       };
-      if (showFrom) item.showFrom = showFrom;
       state.todos.oneOff.push(item);
       saveState(state);
       refreshChrome();
     }
 
-    function oneOffShowFromFromDatePicker() {
-      var el = document.getElementById("oneoff-plan-date");
-      if (!el || !el.value) return null;
-      if (el.value > todayIso) return el.value;
-      return null;
+    function selectedNewOneOffPriority() {
+      var r = document.querySelector('input[name="oneoff-new-prio"]:checked');
+      return r && r.value ? r.value : "medium";
     }
 
     document.getElementById("add-oneoff").addEventListener("click", function () {
@@ -5129,7 +5249,17 @@
       var text = (inp.value || "").trim();
       if (!text) return;
       inp.value = "";
-      addOneOffTask(text, oneOffShowFromFromDatePicker());
+      var tagInp = document.getElementById("input-oneoff-tag");
+      var tag = tagInp ? (tagInp.value || "").trim() : "";
+      if (tagInp) tagInp.value = "";
+      var dueEl = document.getElementById("input-oneoff-due");
+      var due = dueEl && dueEl.value ? dueEl.value : null;
+      if (dueEl) dueEl.value = "";
+      var pr = selectedNewOneOffPriority();
+      document.querySelectorAll('input[name="oneoff-new-prio"]').forEach(function (x) {
+        x.checked = x.value === "medium";
+      });
+      addOneOffTask(text, tag, pr, due);
     });
 
     var btnApplyWeek = document.getElementById("btn-apply-week-template");
