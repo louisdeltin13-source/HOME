@@ -1716,6 +1716,58 @@
       margin-bottom: 0.75rem;
     }
 
+    .oneoff-mode-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1.25rem;
+      width: 100%;
+      margin: 0 0 0.45rem;
+      padding: 0.35rem 0 0.15rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .oneoff-mode-opt {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .oneoff-mode-opt input {
+      accent-color: var(--progress);
+    }
+
+    .oneoff-inline-mode {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.65rem;
+      margin: 0.15rem 0 0 0.25rem;
+    }
+
+    .oneoff-inline-mode label {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      cursor: pointer;
+    }
+
+    .oneoff-row-due .task-est-input {
+      min-width: 7.5rem;
+    }
+
+    .task-mode-badge--rolling {
+      border-style: dashed;
+    }
+
     .oneoff-field {
       display: flex;
       flex-direction: column;
@@ -2565,7 +2617,8 @@
         <div class="card card--oneoff">
           <h2>Ponctuelles</h2>
           <p class="hint oneoff-hint">
-            Les ponctuelles ne sont pas effacées au minuit : elles restent jusqu’à cochage ou suppression. Échéance future = ligne grisée avec badge date.
+            <strong>Jour précis</strong> : la tâche est mise en avant pour cette date (aperçu futur, mini-cal) ; échéance future = ligne grisée.
+            <strong>En continu</strong> : la tâche reste dans la liste chaque jour jusqu’à cochage (sans date imposée).
           </p>
           <datalist id="oneoff-tag-datalist"></datalist>
           <input
@@ -2576,7 +2629,21 @@
             autocomplete="off"
             aria-label="Libellé de la tâche ponctuelle"
           />
+          <div class="oneoff-mode-row" role="radiogroup" aria-label="Type de ponctuelle">
+            <label class="oneoff-mode-opt">
+              <input type="radio" name="oneoff-new-mode" value="fixed" checked />
+              Jour précis (date ci-dessous)
+            </label>
+            <label class="oneoff-mode-opt">
+              <input type="radio" name="oneoff-new-mode" value="rolling" />
+              En continu (jusqu’à cochée)
+            </label>
+          </div>
           <div class="oneoff-add-toolbar">
+            <div class="oneoff-field oneoff-new-date-wrap" id="oneoff-new-date-wrap">
+              <label for="input-oneoff-due">Date prévue</label>
+              <input type="date" id="input-oneoff-due" aria-label="Date prévue pour la ponctuelle" />
+            </div>
             <div class="oneoff-field">
               <label for="input-oneoff-tag">Tag</label>
               <input
@@ -2612,10 +2679,6 @@
                 </label>
               </div>
             </fieldset>
-            <div class="oneoff-field">
-              <label for="input-oneoff-due">Date (optionnel)</label>
-              <input type="date" id="input-oneoff-due" aria-label="Date d’échéance optionnelle" />
-            </div>
             <button type="button" class="btn oneoff-add-btn" id="add-oneoff">Ajouter</button>
           </div>
           <ul id="list-oneoff" class="task-list"></ul>
@@ -3263,6 +3326,16 @@
       x.estimateMin = isNaN(em) || em < 0 ? null : Math.round(em);
     }
     if (x.dueDate && typeof x.dueDate === "string") x.dueDate = x.dueDate.trim() || null;
+    var hadExplicit = x.dueMode === "fixed" || x.dueMode === "rolling";
+    if (!hadExplicit) {
+      x.dueMode = x.dueDate ? "fixed" : "rolling";
+    }
+    if (!hadExplicit && x.dueMode === "fixed" && !x.dueDate) {
+      x.dueMode = "rolling";
+    }
+    if (x.dueMode === "rolling") {
+      x.dueDate = null;
+    }
   }
 
   function migrateAllSnapshotsOneOffs(hist) {
@@ -3278,6 +3351,13 @@
 
   function ensureOneOffItemShape(x, idx) {
     migrateOneOffItemFields(x, idx);
+  }
+
+  function getOneOffDueMode(t) {
+    if (!t || typeof t !== "object") return "rolling";
+    if (t.dueMode === "fixed") return "fixed";
+    if (t.dueMode === "rolling") return "rolling";
+    return t.dueDate ? "fixed" : "rolling";
   }
 
   function ensureRecurringItemShape(t) {
@@ -3391,6 +3471,7 @@
       oneOff: src.todos.oneOff.map(function (t) {
         var o = { id: t.id, text: t.text, done: t.done };
         if (t.dueDate) o.dueDate = t.dueDate;
+        o.dueMode = getOneOffDueMode(t);
         if (t.tag) o.tag = String(t.tag).trim().slice(0, 32);
         if (t.priority === "high" || t.priority === "low" || t.priority === "medium") o.priority = t.priority;
         if (typeof t.createdAt === "number") o.createdAt = t.createdAt;
@@ -3625,7 +3706,9 @@
     if (isViewingFuture()) {
       var srcFut = state.todos.oneOff || [];
       return filterOneOffForDay(srcFut, viewDateIso).filter(function (t) {
-        return !t.done && t.dueDate === viewDateIso;
+        if (t.done) return false;
+        if (getOneOffDueMode(t) === "rolling") return true;
+        return t.dueDate === viewDateIso;
       });
     }
     var snap = state.history[viewDateIso];
@@ -4089,7 +4172,7 @@
       var msgRo = "Pas de sauvegarde pour ce jour.";
       if (getSnap()) msgRo = "Aucune entrée pour cette liste.";
       else if (isViewingFuture()) {
-        if (kind === "oneoff") msgRo = "Aucune ponctuelle avec échéance ce jour (aperçu).";
+        if (kind === "oneoff") msgRo = "Aucune ponctuelle en aperçu pour ce jour (jour précis à cette date ou en continu).";
         else if (kind === "reminder") msgRo = "Les rappels ne s’affichent pas en aperçu futur.";
         else msgRo = "Aucune habitude prévue ce jour de la semaine.";
       }
@@ -4127,7 +4210,11 @@
 
       if (kind === "oneoff") {
         var pr0 = item.priority === "high" || item.priority === "low" ? item.priority : "medium";
-        var dueFut0 = !item.done && item.dueDate && String(item.dueDate) > todayIso;
+        var dueFut0 =
+          !item.done &&
+          getOneOffDueMode(item) === "fixed" &&
+          item.dueDate &&
+          String(item.dueDate) > todayIso;
         if (dueFut0) li.classList.add("task-item--due-future");
       }
 
@@ -4216,14 +4303,19 @@
       if (kind === "oneoff") {
         var pr = item.priority === "high" || item.priority === "low" ? item.priority : "medium";
         var tagStr = (item.tag && String(item.tag).trim()) || "";
+        var om = getOneOffDueMode(item);
 
-        if (item.dueDate) {
-          var db = document.createElement("span");
-          db.className = "task-due-badge";
-          db.textContent = formatIsoShortFr(item.dueDate);
-          db.title = "Échéance";
-          li.appendChild(db);
-        }
+        var modeBad = document.createElement("span");
+        modeBad.className = "task-due-badge" + (om === "rolling" ? " task-mode-badge--rolling" : "");
+        modeBad.textContent =
+          om === "rolling" ? "En continu" : item.dueDate ? formatIsoShortFr(item.dueDate) : "Jour précis";
+        modeBad.title =
+          om === "rolling"
+            ? "Affichée chaque jour jusqu’à cochée"
+            : item.dueDate
+            ? "Prévue pour cette date"
+            : "Choisis une date ci-dessous (jour précis)";
+        li.appendChild(modeBad);
 
         if (!ro) {
           var tagInp = document.createElement("input");
@@ -4280,20 +4372,67 @@
           });
           li.appendChild(prWrap);
 
+          var modeRow = document.createElement("div");
+          modeRow.className = "oneoff-inline-mode";
+          modeRow.setAttribute("role", "radiogroup");
+          modeRow.setAttribute("aria-label", "Type de ponctuelle");
+
+          var dueWrap = document.createElement("div");
+          dueWrap.className = "oneoff-row-due";
+
           var dueInp = document.createElement("input");
           dueInp.type = "date";
           dueInp.className = "task-est-input";
-          dueInp.title = "Échéance (optionnel)";
+          dueInp.title = "Date prévue (jour précis)";
           dueInp.value = item.dueDate || "";
           dueInp.addEventListener("click", function (e) {
             e.stopPropagation();
           });
           dueInp.addEventListener("change", function () {
             item.dueDate = dueInp.value && String(dueInp.value).trim() ? dueInp.value : null;
+            if (item.dueDate) item.dueMode = "fixed";
             saveState(state);
             refreshChrome();
           });
-          li.appendChild(dueInp);
+          dueWrap.appendChild(dueInp);
+
+          function syncOneoffRowModeUi() {
+            var m = getOneOffDueMode(item);
+            modeRow.querySelectorAll('input[data-oneoff-mode-inp="1"]').forEach(function (inp) {
+              inp.checked = inp.value === m;
+            });
+            dueWrap.style.display = m === "fixed" ? "" : "none";
+            dueInp.value = m === "fixed" ? item.dueDate || "" : "";
+          }
+
+          [["fixed", "Jour précis"], ["rolling", "Continu"]].forEach(function (pair) {
+            var ml = document.createElement("label");
+            var r = document.createElement("input");
+            r.type = "radio";
+            r.name = "oneoff-mode-" + item.id + "-" + viewDateIso;
+            r.value = pair[0];
+            r.setAttribute("data-oneoff-mode-inp", "1");
+            r.checked = getOneOffDueMode(item) === pair[0];
+            r.setAttribute("aria-label", pair[1]);
+            r.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+            r.addEventListener("change", function () {
+              if (!r.checked) return;
+              item.dueMode = pair[0];
+              if (pair[0] === "rolling") {
+                item.dueDate = null;
+              }
+              saveState(state);
+              refreshChrome();
+            });
+            ml.appendChild(r);
+            ml.appendChild(document.createTextNode(" " + pair[1]));
+            modeRow.appendChild(ml);
+          });
+          li.appendChild(modeRow);
+          li.appendChild(dueWrap);
+          syncOneoffRowModeUi();
         } else {
           var tagSpan = document.createElement("span");
           tagSpan.className = "task-tag-pill";
@@ -4677,8 +4816,12 @@
             var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
             var tg = p.userTag ? String(p.userTag).trim() : "";
             var dueB = "";
-            if (p.dueDate) {
+            if (p.schedMode === "rolling") {
+              dueB = '<span class="task-due-badge task-mode-badge--rolling">Continu</span>';
+            } else if (p.dueDate) {
               dueB = '<span class="task-due-badge">' + escapeHtml(formatIsoShortFr(p.dueDate)) + "</span>";
+            } else {
+              dueB = '<span class="task-due-badge">Jour précis</span>';
             }
             meta =
               '<span class="brief-todo-meta">' +
@@ -4742,7 +4885,8 @@
         text: x.text,
         priority: x.priority,
         userTag: x.tag,
-        dueDate: x.dueDate
+        dueDate: x.dueDate,
+        schedMode: getOneOffDueMode(x)
       };
     });
 
@@ -4957,7 +5101,12 @@
         return c.dateIso === dayIso;
       });
       var hasRec = filterRecurringForDay(state.todos.recurring, dayIso).length > 0;
-      var hasDot = hasCd || hasRec;
+      var hasRollPending =
+        dayIso === todayIso &&
+        (state.todos.oneOff || []).some(function (t) {
+          return !t.done && getOneOffDueMode(t) === "rolling";
+        });
+      var hasDot = hasCd || hasRec || hasRollPending;
       var cls = "mini-cal-cell";
       if (dayIso === todayIso) cls += " is-today";
       if (dayIso === viewDateIso) cls += " is-view";
@@ -5358,7 +5507,7 @@
     }
 
     var adds = document.querySelectorAll(
-      "#panel-todo .row-input, #panel-todo .oneoff-add-toolbar, #panel-todo .oneoff-title-input, #panel-todo #recurring-new-wk-row, #panel-reminders .row-input"
+      "#panel-todo .row-input, #panel-todo .oneoff-add-toolbar, #panel-todo .oneoff-title-input, #panel-todo .oneoff-mode-row, #panel-todo #recurring-new-wk-row, #panel-reminders .row-input"
     );
     adds.forEach(function (row) {
       row.style.display = isViewingToday() ? "" : "none";
@@ -5877,18 +6026,25 @@
       refreshChrome();
     });
 
-    function addOneOffTask(text, tag, priority, dueIso) {
+    function addOneOffTask(text, tag, priority, dueIso, dueModeIn) {
       if (!isViewingToday()) return;
       var t = (text || "").trim();
       if (!t) return;
       var pr = priority === "high" || priority === "low" ? priority : "medium";
+      var mode = dueModeIn === "rolling" ? "rolling" : "fixed";
+      var due = null;
+      if (mode === "fixed") {
+        due = dueIso && String(dueIso).trim() ? dueIso : null;
+        if (!due) return;
+      }
       var item = {
         id: uid(),
         text: t,
         done: false,
         priority: pr,
         tag: (tag && String(tag).trim().slice(0, 32)) || "",
-        dueDate: dueIso && String(dueIso).trim() ? dueIso : null,
+        dueMode: mode,
+        dueDate: due,
         createdAt: Date.now()
       };
       state.todos.oneOff.push(item);
@@ -5905,19 +6061,40 @@
       var inp = document.getElementById("input-oneoff");
       var text = (inp.value || "").trim();
       if (!text) return;
-      inp.value = "";
       var tagInp = document.getElementById("input-oneoff-tag");
       var tag = tagInp ? (tagInp.value || "").trim() : "";
-      if (tagInp) tagInp.value = "";
       var dueEl = document.getElementById("input-oneoff-due");
       var due = dueEl && dueEl.value ? dueEl.value : null;
+      var modeEl = document.querySelector('input[name="oneoff-new-mode"]:checked');
+      var mode = modeEl && modeEl.value === "rolling" ? "rolling" : "fixed";
+      if (mode === "fixed" && !due) {
+        alert("Pour « Jour précis », choisis une date dans le calendrier.");
+        return;
+      }
+      inp.value = "";
+      if (tagInp) tagInp.value = "";
       if (dueEl) dueEl.value = "";
       var pr = selectedNewOneOffPriority();
       document.querySelectorAll('input[name="oneoff-new-prio"]').forEach(function (x) {
         x.checked = x.value === "medium";
       });
-      addOneOffTask(text, tag, pr, due);
+      document.querySelectorAll('input[name="oneoff-new-mode"]').forEach(function (x) {
+        x.checked = x.value === "fixed";
+      });
+      syncOneoffNewFormMode();
+      addOneOffTask(text, tag, pr, due, mode);
     });
+
+    function syncOneoffNewFormMode() {
+      var wrap = document.getElementById("oneoff-new-date-wrap");
+      var sel = document.querySelector('input[name="oneoff-new-mode"]:checked');
+      var rolling = sel && sel.value === "rolling";
+      if (wrap) wrap.style.display = rolling ? "none" : "";
+    }
+    document.querySelectorAll('input[name="oneoff-new-mode"]').forEach(function (r) {
+      r.addEventListener("change", syncOneoffNewFormMode);
+    });
+    syncOneoffNewFormMode();
 
     var btnApplyWeek = document.getElementById("btn-apply-week-template");
     if (btnApplyWeek) {
