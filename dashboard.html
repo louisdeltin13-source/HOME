@@ -517,6 +517,20 @@
       max-width: none;
     }
 
+    .brief-todo-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    @media (max-width: 720px) {
+      .brief-todo-duo {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .home-layout {
       display: flex;
       align-items: flex-start;
@@ -771,123 +785,6 @@
       display: none !important;
     }
 
-    .focus-day-card {
-      margin: 0.85rem 0 1rem;
-      padding: 1rem 1.1rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: linear-gradient(145deg, rgba(48, 209, 88, 0.12), var(--bg-elevated));
-      box-shadow: var(--shadow-card);
-    }
-
-    .focus-day-card[hidden] {
-      display: none !important;
-    }
-
-    .focus-day-kicker {
-      display: block;
-      font-family: var(--font-ui);
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 0.35rem;
-    }
-
-    .focus-day-line {
-      margin: 0 0 0.75rem;
-      font-family: var(--font-ui);
-      font-size: 1.05rem;
-      font-weight: 650;
-      line-height: 1.35;
-      color: var(--text);
-    }
-
-    .focus-day-ctrl {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-    }
-
-    .brief-block--week-oneoff .brief-block-title-static {
-      flex: 0 0 5.5rem;
-      align-self: center;
-      display: block;
-      margin: 0;
-      padding: 0;
-      border: none;
-      background: none;
-      font: inherit;
-      font-family: var(--font-ui);
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      text-align: left;
-      cursor: default;
-    }
-
-    .brief-oneoff-week-body {
-      display: flex;
-      gap: 0.35rem;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .oneoff-week-cell {
-      flex: 1 1 0;
-      min-width: 2rem;
-      max-width: 3.25rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.28rem;
-    }
-
-    .oneoff-week-bar {
-      width: 100%;
-      height: 44px;
-      border-radius: var(--radius-sm);
-      background: var(--bar-track);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .oneoff-week-bar > span {
-      display: block;
-      width: 100%;
-      background: var(--progress);
-      opacity: 0.85;
-      transition: height 0.25s ease;
-      min-height: 0;
-    }
-
-    .oneoff-week-bar.is-empty > span {
-      height: 2px !important;
-      opacity: 0.2;
-    }
-
-    .oneoff-week-label {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      color: var(--text-muted);
-    }
-
-    .oneoff-week-cell--view .oneoff-week-label {
-      color: var(--progress);
-      font-weight: 700;
-    }
-
-    .oneoff-week-bar.is-future {
-      opacity: 0.38;
-    }
-
     .brief-todo-meta {
       display: inline-flex;
       align-items: center;
@@ -896,32 +793,29 @@
       margin-left: 0.35rem;
     }
 
-    .brief-todo-prio {
-      font-size: 0.58rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 0.12rem 0.32rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
+    .prio-dot {
+      display: inline-block;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-sizing: border-box;
     }
 
-    .brief-todo-prio--high {
-      color: #ff6b6b;
-      border-color: rgba(255, 107, 107, 0.45);
-      background: rgba(255, 107, 107, 0.12);
+    .prio-dot--high {
+      background: #d94848;
     }
 
-    .brief-todo-prio--normal,
-    .brief-todo-prio--medium {
-      color: #e6c82d;
-      border-color: rgba(230, 200, 45, 0.4);
-      background: rgba(230, 200, 45, 0.1);
+    .prio-dot--medium {
+      background: #c9a227;
     }
 
-    .brief-todo-prio--low {
-      color: var(--text-muted);
-      opacity: 0.75;
+    .prio-dot--low {
+      background: #6b6b70;
+    }
+
+    [data-theme="light"] .prio-dot--low {
+      background: #8e8e93;
     }
 
     .brief-todo-est {
@@ -977,27 +871,6 @@
       border: 1px solid var(--border);
       background: var(--bg-elevated);
       color: var(--text);
-    }
-
-    .task-pin {
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-size: 0.95rem;
-      line-height: 1;
-      padding: 0.15rem 0.25rem;
-      border-radius: 4px;
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-
-    .task-pin:hover {
-      color: var(--progress);
-    }
-
-    .task-pin.is-active {
-      color: var(--progress);
-      text-shadow: 0 0 8px var(--progress-glow);
     }
 
     .task-item .task-text {
@@ -1610,18 +1483,31 @@
     }
 
     .oneoff-prio-opt {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
-      font-family: var(--font-ui);
-      font-size: 0.78rem;
-      color: var(--text);
+      justify-content: center;
+      width: 1.55rem;
+      height: 1.55rem;
+      margin: 0;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid transparent;
       cursor: pointer;
       user-select: none;
     }
 
+    .oneoff-prio-opt:has(input:checked) {
+      border-color: var(--border);
+      background: var(--bg-elevated);
+    }
+
     .oneoff-prio-opt input {
-      accent-color: var(--progress);
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
     }
 
     .oneoff-add-btn {
@@ -1655,15 +1541,22 @@
 
     .task-prio-inline {
       display: inline-flex;
-      gap: 0.2rem;
+      gap: 0.25rem;
       flex-shrink: 0;
+      align-items: center;
     }
 
     .task-prio-inline label {
+      position: relative;
       cursor: pointer;
-      font-size: 0.72rem;
-      padding: 0.12rem 0.28rem;
-      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.45rem;
+      height: 1.45rem;
+      margin: 0;
+      padding: 0;
+      border-radius: 50%;
       border: 1px solid transparent;
       opacity: 0.45;
     }
@@ -1673,39 +1566,13 @@
       opacity: 0;
       width: 0;
       height: 0;
+      margin: 0;
     }
 
     .task-prio-inline label.is-active {
       opacity: 1;
       border-color: var(--border);
       background: var(--bg-elevated);
-    }
-
-    .prio-pill {
-      font-size: 0.62rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 0.14rem 0.38rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    .prio-pill--high {
-      color: #ff6b6b;
-      border-color: rgba(255, 107, 107, 0.45);
-      background: rgba(255, 107, 107, 0.12);
-    }
-
-    .prio-pill--medium {
-      color: #e6c82d;
-      border-color: rgba(230, 200, 45, 0.4);
-      background: rgba(230, 200, 45, 0.1);
-    }
-
-    .prio-pill--low {
-      color: var(--text-muted);
     }
 
     .card--oneoff {
@@ -2294,20 +2161,27 @@
               <p id="daily-brief-prose" class="daily-brief-prose">—</p>
               <p id="home-tasks-pill" class="home-tasks-pill" hidden aria-live="polite"></p>
             </div>
-            <div id="focus-day-card" class="focus-day-card" hidden>
-              <span class="focus-day-kicker">Focus du jour</span>
-              <p id="focus-day-line" class="focus-day-line"></p>
-              <div class="focus-day-ctrl">
-                <button type="button" class="btn" id="focus-day-done">Marquer fait</button>
-                <button type="button" class="btn secondary" id="focus-day-to-todo">Ouvrir To-do</button>
-                <button type="button" class="btn secondary" id="focus-day-unpin">Désépingler</button>
-              </div>
-            </div>
             <div class="brief-blocks">
-              <div class="brief-block brief-block--todo">
-                <button type="button" class="brief-block-title" data-go="todo">To-do</button>
-                <div class="brief-block-main brief-block-main--todo">
-                  <ul class="brief-todo-preview" id="brief-todo-preview" aria-label="Tâches à faire aujourd’hui"></ul>
+              <div id="brief-todo-duo" class="brief-todo-duo">
+                <div class="brief-block brief-block--todo">
+                  <button type="button" class="brief-block-title" data-go="todo">Récurrent</button>
+                  <div class="brief-block-main brief-block-main--todo">
+                    <ul
+                      class="brief-todo-preview"
+                      id="brief-todo-recurring"
+                      aria-label="Récurrentes à faire aujourd’hui"
+                    ></ul>
+                  </div>
+                </div>
+                <div class="brief-block brief-block--todo">
+                  <button type="button" class="brief-block-title" data-go="todo">Ponctuel</button>
+                  <div class="brief-block-main brief-block-main--todo">
+                    <ul
+                      class="brief-todo-preview"
+                      id="brief-todo-oneoff"
+                      aria-label="Ponctuelles à faire aujourd’hui"
+                    ></ul>
+                  </div>
                 </div>
               </div>
               <div class="brief-block" id="brief-wrap-sport">
@@ -2317,10 +2191,6 @@
               <div class="brief-block" id="brief-wrap-food">
                 <button type="button" class="brief-block-title" data-go="food">Alimentation</button>
                 <div class="brief-block-bars" id="brief-bars-food"></div>
-              </div>
-              <div class="brief-block brief-block--week-oneoff" id="brief-oneoff-week-wrap">
-                <span class="brief-block-title-static">Ponctuelles · semaine</span>
-                <div id="brief-oneoff-week-body" class="brief-block-main brief-oneoff-week-body" aria-label="Progression ponctuelles sur 7 jours"></div>
               </div>
             </div>
           </div>
@@ -2379,7 +2249,7 @@
         <div class="card card--oneoff">
           <h2>Ponctuelles</h2>
           <p class="hint oneoff-hint">
-            Les ponctuelles ne sont pas effacées au minuit : elles restent jusqu’à cochage ou suppression. Échéance future = ligne grisée avec badge date. ◇ sur une ligne = focus sur la vue d’ensemble.
+            Les ponctuelles ne sont pas effacées au minuit : elles restent jusqu’à cochage ou suppression. Échéance future = ligne grisée avec badge date.
           </p>
           <datalist id="oneoff-tag-datalist"></datalist>
           <input
@@ -2406,15 +2276,24 @@
             <fieldset class="oneoff-field oneoff-prio-fieldset">
               <legend>Priorité</legend>
               <div class="oneoff-prio-radios">
-                <label class="oneoff-prio-opt"
-                  ><input type="radio" name="oneoff-new-prio" value="high" /> <span>🔴 Haute</span></label
-                >
-                <label class="oneoff-prio-opt"
-                  ><input type="radio" name="oneoff-new-prio" value="medium" checked /> <span>🟡 Moyenne</span></label
-                >
-                <label class="oneoff-prio-opt"
-                  ><input type="radio" name="oneoff-new-prio" value="low" /> <span>🟢 Basse</span></label
-                >
+                <label class="oneoff-prio-opt" title="Haute">
+                  <input type="radio" name="oneoff-new-prio" value="high" aria-label="Priorité haute" />
+                  <span class="prio-dot prio-dot--high" aria-hidden="true"></span>
+                </label>
+                <label class="oneoff-prio-opt" title="Moyenne">
+                  <input
+                    type="radio"
+                    name="oneoff-new-prio"
+                    value="medium"
+                    checked
+                    aria-label="Priorité moyenne"
+                  />
+                  <span class="prio-dot prio-dot--medium" aria-hidden="true"></span>
+                </label>
+                <label class="oneoff-prio-opt" title="Basse">
+                  <input type="radio" name="oneoff-new-prio" value="low" aria-label="Priorité basse" />
+                  <span class="prio-dot prio-dot--low" aria-hidden="true"></span>
+                </label>
               </div>
             </fieldset>
             <div class="oneoff-field">
@@ -2862,8 +2741,6 @@
         brandLogoDataUrl: "",
         showBriefSport: true,
         showBriefFood: true,
-        focusDayKind: null,
-        focusDayId: null,
         recurringWeekTemplate: [
           "Étirements 10 min",
           "Planifier la journée",
@@ -3083,48 +2960,6 @@
     return { done: done, total: total };
   }
 
-  function getFocusDayTarget() {
-    var k = state.meta.focusDayKind;
-    var id = state.meta.focusDayId;
-    if ((k !== "recurring" && k !== "oneoff") || !id || typeof id !== "string") return null;
-    if (k === "recurring") {
-      for (var i = 0; i < state.todos.recurring.length; i++) {
-        if (state.todos.recurring[i].id === id) return { kind: "recurring", item: state.todos.recurring[i] };
-      }
-      return null;
-    }
-    for (var j = 0; j < state.todos.oneOff.length; j++) {
-      if (state.todos.oneOff[j].id === id) return { kind: "oneoff", item: state.todos.oneOff[j] };
-    }
-    return null;
-  }
-
-  function clearFocusDay() {
-    state.meta.focusDayKind = null;
-    state.meta.focusDayId = null;
-  }
-
-  function clearFocusDayIfMatch(taskId) {
-    if (state.meta.focusDayId === taskId) clearFocusDay();
-  }
-
-  function oneOffStatsForDay(dayIso) {
-    var raw;
-    if (dayIso === todayIso) raw = state.todos.oneOff;
-    else {
-      var snap = state.history[dayIso];
-      if (!snap) return { done: 0, total: 0 };
-      raw = snap.oneOff || [];
-    }
-    var list =
-      dayIso === todayIso ? (raw || []).slice() : filterOneOffForDay(raw, dayIso);
-    var total = list.length;
-    var done = list.filter(function (x) {
-      return x.done;
-    }).length;
-    return { done: done, total: total };
-  }
-
   function renderHomeTasksPill() {
     var el = document.getElementById("home-tasks-pill");
     if (!el) return;
@@ -3138,68 +2973,6 @@
     else
       el.textContent =
         t.done + "/" + t.total + " tâches cochées (récurrentes, ponctuelles, rappels)";
-  }
-
-  function renderFocusDayCard() {
-    var card = document.getElementById("focus-day-card");
-    var line = document.getElementById("focus-day-line");
-    if (!card || !line) return;
-    if (!isViewingToday()) {
-      card.setAttribute("hidden", "");
-      return;
-    }
-    card.removeAttribute("hidden");
-    var ft = getFocusDayTarget();
-    if (!ft) {
-      line.textContent =
-        "Épingle la tâche la plus importante : bouton ◇ sur une ligne To-do.";
-      return;
-    }
-    if (ft.item.done) {
-      line.textContent =
-        "Le focus est terminé — désépingle ou choisis une autre tâche dans To-do.";
-      return;
-    }
-    var tag = ft.kind === "oneoff" ? "Ponctuelle" : "Récurrente";
-    line.textContent = tag + " · " + ft.item.text;
-  }
-
-  function renderBriefOneoffWeek() {
-    var host = document.getElementById("brief-oneoff-week-body");
-    if (!host) return;
-    var mon = weekMonday(viewDateIso);
-    var labels = weekDayLabels();
-    var parts = [];
-    for (var i = 0; i < 7; i++) {
-      var dayIso = addDays(mon, i);
-      var st = oneOffStatsForDay(dayIso);
-      var pct = st.total ? Math.round((st.done / st.total) * 100) : 0;
-      var future = dayIso > todayIso;
-      var isV = viewDateIso === dayIso;
-      parts.push(
-        '<div class="oneoff-week-cell' +
-          (isV ? " oneoff-week-cell--view" : "") +
-          '">' +
-          '<div class="oneoff-week-bar' +
-          (st.total ? "" : " is-empty") +
-          (future ? " is-future" : "") +
-          '"><span style="height:' +
-          (future ? 0 : pct) +
-          '%"></span></div>' +
-          '<span class="oneoff-week-label">' +
-          escapeHtml(labels[i]) +
-          "</span>" +
-          '<span class="oneoff-week-count">' +
-          (future ? "—" : st.total ? st.done + "/" + st.total : "—") +
-          "</span></div>"
-      );
-    }
-    parts.push(
-      '<p class="hint" style="margin:0.65rem 0 0;flex-basis:100%;width:100%;">Semaine du ' +
-        escapeHtml(formatIsoShortFr(mon)) +
-        " : chaque barre = ponctuelles prévues ce jour-là (archive ou aujourd’hui).</p>"
-    );
-    host.innerHTML = parts.join("");
   }
 
   function buildSnapshot(src) {
@@ -3271,8 +3044,8 @@
       d.meta.recurringWeekTemplate = defaultState().meta.recurringWeekTemplate.slice();
     }
     ensureActiveMetricKeys(d.meta);
-    if (d.meta.focusDayKind !== "recurring" && d.meta.focusDayKind !== "oneoff") d.meta.focusDayKind = null;
-    if (typeof d.meta.focusDayId !== "string") d.meta.focusDayId = null;
+    delete d.meta.focusDayKind;
+    delete d.meta.focusDayId;
     if (data.history && typeof data.history === "object") d.history = data.history;
     if (data.todos) d.todos = data.todos;
     if (data.targets) d.targets = Object.assign(d.targets, data.targets);
@@ -3897,7 +3670,6 @@
         var was = item.done;
         item.done = cb.checked;
         if (item.done && !was) {
-          clearFocusDayIfMatch(item.id);
           li.classList.add("task-check-anim");
           setTimeout(function () {
             li.classList.remove("task-check-anim");
@@ -3963,16 +3735,19 @@
           prWrap.className = "task-prio-inline";
           prWrap.setAttribute("role", "group");
           prWrap.setAttribute("aria-label", "Priorité");
-          [["high", "🔴"], ["medium", "🟡"], ["low", "🟢"]].forEach(function (pv) {
+          [["high", "Priorité haute"], ["medium", "Priorité moyenne"], ["low", "Priorité basse"]].forEach(function (pv) {
             var lab = document.createElement("label");
             if (pr === pv[0]) lab.className = "is-active";
+            lab.title = pv[1];
             var rad = document.createElement("input");
             rad.type = "radio";
             rad.name = "prio-" + item.id + "-" + viewDateIso;
             rad.value = pv[0];
             rad.checked = pr === pv[0];
+            rad.setAttribute("aria-label", pv[1]);
             var spn = document.createElement("span");
-            spn.textContent = pv[1];
+            spn.className = "prio-dot prio-dot--" + pv[0];
+            spn.setAttribute("aria-hidden", "true");
             lab.appendChild(rad);
             lab.appendChild(spn);
             lab.addEventListener("click", function (e) {
@@ -4008,31 +3783,14 @@
           tagSpan.className = "task-tag-pill";
           tagSpan.textContent = tagStr || "—";
           li.appendChild(tagSpan);
-          var pill = document.createElement("span");
-          pill.className = "prio-pill prio-pill--" + pr;
-          pill.textContent =
-            pr === "high" ? "🔴 Haute" : pr === "low" ? "🟢 Basse" : "🟡 Moyenne";
-          li.appendChild(pill);
+          var dotRd = document.createElement("span");
+          dotRd.className = "prio-dot prio-dot--" + pr;
+          var prLabel =
+            pr === "high" ? "Priorité haute" : pr === "low" ? "Priorité basse" : "Priorité moyenne";
+          dotRd.title = prLabel;
+          dotRd.setAttribute("aria-label", prLabel);
+          li.appendChild(dotRd);
         }
-      }
-
-      if ((kind === "oneoff" || kind === "recurring") && !ro) {
-        var pin = document.createElement("button");
-        pin.type = "button";
-        pin.className =
-          "task-pin" +
-          (state.meta.focusDayId === item.id && state.meta.focusDayKind === kind ? " is-active" : "");
-        pin.setAttribute("aria-label", "Épingler comme focus du jour");
-        pin.textContent = "◇";
-        pin.addEventListener("click", function (e) {
-          e.stopPropagation();
-          if (ro) return;
-          state.meta.focusDayKind = kind;
-          state.meta.focusDayId = item.id;
-          saveState(state);
-          refreshChrome();
-        });
-        li.appendChild(pin);
       }
 
       var del = document.createElement("button");
@@ -4042,7 +3800,6 @@
       del.textContent = "×";
       del.addEventListener("click", function () {
         if (ro) return;
-        clearFocusDayIfMatch(item.id);
         if (kind === "recurring") {
           state.todos.recurring = state.todos.recurring.filter(function (x) {
             return x.id !== item.id;
@@ -4350,114 +4107,138 @@
     return t.slice(0, Math.max(0, maxLen - 1)) + "…";
   }
 
-  function fillBriefTodoPreview() {
-    var ul = document.getElementById("brief-todo-preview");
-    if (!ul) return;
+  function prioDotHtml(pr) {
+    pr = pr === "high" || pr === "low" ? pr : "medium";
+    var title = pr === "high" ? "Priorité haute" : pr === "low" ? "Priorité basse" : "Priorité moyenne";
+    return (
+      '<span class="prio-dot prio-dot--' +
+      pr +
+      '" title="' +
+      escapeAttr(title) +
+      '" aria-label="' +
+      escapeAttr(title) +
+      '"></span>'
+    );
+  }
+
+  function fillBriefTodoHomeDuo() {
+    var ulR = document.getElementById("brief-todo-recurring");
+    var ulO = document.getElementById("brief-todo-oneoff");
+    if (!ulR || !ulO) return;
     if (!isViewingToday() && !getSnap()) {
-      ul.innerHTML = "";
+      ulR.innerHTML = "";
+      ulO.innerHTML = "";
       return;
     }
     var rec = getRecurringItems();
     var one = getOneOffItems();
     var canToggle = isViewingToday();
-    var pending = [];
-    rec.forEach(function (x) {
-      if (!x.done) {
-        pending.push({
-          id: x.id,
-          text: x.text,
-          cat: "récurrente",
-          taskKind: "recurring",
-          priority: null
-        });
+    var totalAll = rec.length + one.length;
+
+    function emptyBothNoData() {
+      var li = '<li class="brief-todo-empty">Aucune entrée — panneau To-do.</li>';
+      ulR.innerHTML = li;
+      ulO.innerHTML = li;
+    }
+
+    function fillUl(ul, rows, kind, emptyHtml) {
+      if (rows.length === 0) {
+        ul.innerHTML = emptyHtml;
+        return;
       }
-    });
+      var slice = rows.slice(0, BRIEF_TODO_PREVIEW_MAX);
+      var rest = rows.length - slice.length;
+      var dis = canToggle ? "" : " disabled";
+      ul.innerHTML = slice
+        .map(function (p) {
+          var labelShort = truncateText(p.text, 96);
+          var ariaDone = "Marquer comme fait : " + truncateText(p.text, 120);
+          var meta = "";
+          if (kind === "oneoff") {
+            var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
+            var tg = p.userTag ? String(p.userTag).trim() : "";
+            var dueB = "";
+            if (p.dueDate) {
+              dueB = '<span class="task-due-badge">' + escapeHtml(formatIsoShortFr(p.dueDate)) + "</span>";
+            }
+            meta =
+              '<span class="brief-todo-meta">' +
+              (tg ? '<span class="task-tag-pill" style="border:none">' + escapeHtml(tg) + "</span>" : "") +
+              prioDotHtml(pr) +
+              dueB +
+              "</span>";
+          }
+          var titleAttr = kind === "recurring" ? "Récurrente" : "Ponctuelle";
+          return (
+            '<li class="brief-todo-row" title="' +
+            escapeAttr(titleAttr) +
+            '"><div class="brief-todo-left"><span class="brief-todo-label">' +
+            escapeHtml(labelShort) +
+            "</span>" +
+            meta +
+            '</div><button type="button" class="brief-todo-check"' +
+            dis +
+            ' data-brief-id="' +
+            escapeAttr(p.id) +
+            '" data-brief-kind="' +
+            escapeAttr(kind) +
+            '" aria-label="' +
+            escapeAttr(ariaDone) +
+            '"></button></li>'
+          );
+        })
+        .join("");
+      if (rest > 0) {
+        ul.insertAdjacentHTML(
+          "beforeend",
+          '<li class="brief-todo-more"><button type="button" class="brief-todo-more-btn" data-go-todo="1">+' +
+            rest +
+            " autre" +
+            (rest > 1 ? "s" : "") +
+            " — voir To-do</button></li>"
+        );
+      }
+    }
+
+    if (totalAll === 0) {
+      emptyBothNoData();
+      return;
+    }
+
+    var recPend = rec
+      .filter(function (x) {
+        return !x.done;
+      })
+      .map(function (x) {
+        return { id: x.id, text: x.text };
+      });
     var onePend = one
       .filter(function (x) {
         return !x.done;
       })
       .slice();
     onePend.sort(oneOffSortCompare);
-    onePend.forEach(function (x) {
-      pending.push({
+    onePend = onePend.map(function (x) {
+      return {
         id: x.id,
         text: x.text,
-        cat: "ponctuelle",
-        taskKind: "oneoff",
         priority: x.priority,
         userTag: x.tag,
         dueDate: x.dueDate
-      });
+      };
     });
-    if (pending.length === 0) {
-      var total = rec.length + one.length;
-      if (total === 0) {
-        ul.innerHTML =
-          '<li class="brief-todo-empty">Aucune entrée — panneau To-do.</li>';
-      } else {
-        ul.innerHTML = '<li class="brief-todo-empty">Boucle complète pour ce jour.</li>';
-      }
-      return;
-    }
-    var slice = pending.slice(0, BRIEF_TODO_PREVIEW_MAX);
-    var rest = pending.length - slice.length;
-    ul.innerHTML = slice
-      .map(function (p) {
-        var labelShort = truncateText(p.text, 96);
-        var ariaDone = "Marquer comme fait : " + truncateText(p.text, 120);
-        var dis = canToggle ? "" : " disabled";
-        var meta = "";
-        if (p.taskKind === "oneoff") {
-          var pr = p.priority === "high" || p.priority === "low" ? p.priority : "medium";
-          var pl = pr === "high" ? "🔴 Haute" : pr === "low" ? "🟢 Basse" : "🟡 Moyenne";
-          var tg = p.userTag ? String(p.userTag).trim() : "";
-          var dueB = "";
-          if (p.dueDate) {
-            dueB =
-              '<span class="task-due-badge">' + escapeHtml(formatIsoShortFr(p.dueDate)) + "</span>";
-          }
-          meta =
-            '<span class="brief-todo-meta">' +
-            (tg
-              ? '<span class="task-tag-pill" style="border:none">' + escapeHtml(tg) + "</span>"
-              : "") +
-            '<span class="brief-todo-prio brief-todo-prio--' +
-            escapeAttr(pr) +
-            '">' +
-            escapeHtml(pl) +
-            "</span>" +
-            dueB +
-            "</span>";
-        }
-        return (
-          '<li class="brief-todo-row" title="' +
-          escapeAttr(p.cat) +
-          '"><div class="brief-todo-left"><span class="brief-todo-label">' +
-          escapeHtml(labelShort) +
-          "</span>" +
-          meta +
-          '</div><button type="button" class="brief-todo-check"' +
-          dis +
-          ' data-brief-id="' +
-          escapeAttr(p.id) +
-          '" data-brief-kind="' +
-          escapeAttr(p.taskKind) +
-          '" aria-label="' +
-          escapeAttr(ariaDone) +
-          '"></button></li>'
-        );
-      })
-      .join("");
-    if (rest > 0) {
-      ul.insertAdjacentHTML(
-        "beforeend",
-        '<li class="brief-todo-more"><button type="button" class="brief-todo-more-btn" data-go-todo="1">+' +
-          rest +
-          " autre" +
-          (rest > 1 ? "s" : "") +
-          " — voir To-do</button></li>"
-      );
-    }
+
+    var emptyR =
+      rec.length === 0
+        ? '<li class="brief-todo-empty">Aucune habitude récurrente.</li>'
+        : '<li class="brief-todo-empty">Toutes les récurrentes sont cochées.</li>';
+    var emptyO =
+      one.length === 0
+        ? '<li class="brief-todo-empty">Aucune tâche ponctuelle.</li>'
+        : '<li class="brief-todo-empty">Toutes les ponctuelles sont cochées.</li>';
+
+    fillUl(ulR, recPend, "recurring", emptyR);
+    fillUl(ulO, onePend, "oneoff", emptyO);
   }
 
   function toggleBriefTaskFromOverview(taskId, kind) {
@@ -4472,7 +4253,6 @@
     }
     if (!item || item.done) return;
     item.done = true;
-    clearFocusDayIfMatch(taskId);
     if (kind === "recurring") sortTasksStableDoneLast(state.todos.recurring);
     else sortOneOffInPlace();
     saveState(state);
@@ -4538,10 +4318,8 @@
         "Aucune archive pour cette date : ouverture sur un autre jour sans passage de minuit ici.";
       fillBriefBars("brief-bars-sport", []);
       fillBriefBars("brief-bars-food", []);
-      fillBriefTodoPreview();
+      fillBriefTodoHomeDuo();
       renderHomeTasksPill();
-      renderFocusDayCard();
-      renderBriefOneoffWeek();
       applyHomeOverviewVisibility();
       return;
     }
@@ -4631,10 +4409,8 @@
     } else {
       fillBriefBars("brief-bars-food", []);
     }
-    fillBriefTodoPreview();
+    fillBriefTodoHomeDuo();
     renderHomeTasksPill();
-    renderFocusDayCard();
-    renderBriefOneoffWeek();
     applyHomeOverviewVisibility();
   }
 
@@ -4949,57 +4725,29 @@
       });
     }
 
-    var briefTodoPrev = document.getElementById("brief-todo-preview");
-    if (briefTodoPrev) {
-      briefTodoPrev.addEventListener("click", function (ev) {
-        var t = ev.target;
-        if (t && t.getAttribute && t.getAttribute("data-go-todo") === "1") {
-          ev.preventDefault();
-          showPanel("todo");
-          return;
-        }
-        var btn = t && t.closest ? t.closest(".brief-todo-check") : null;
-        if (btn && !btn.disabled) {
-          var bid = btn.getAttribute("data-brief-id");
-          var bk = btn.getAttribute("data-brief-kind");
-          if (bid && (bk === "recurring" || bk === "oneoff")) {
-            ev.preventDefault();
-            toggleBriefTaskFromOverview(bid, bk);
-          }
-        }
-      });
-    }
   }
 
-  function wireFocusDayCard() {
-    var fd = document.getElementById("focus-day-done");
-    if (!fd || fd.dataset.wiredFocus) return;
-    fd.dataset.wiredFocus = "1";
-    fd.addEventListener("click", function () {
-      var ft = getFocusDayTarget();
-      if (!ft || ft.item.done) return;
-      ft.item.done = true;
-      clearFocusDayIfMatch(ft.item.id);
-      if (ft.kind === "recurring") sortTasksStableDoneLast(state.todos.recurring);
-      else sortOneOffInPlace();
-      saveState(state);
-      renderStreak();
-      refreshChrome();
-    });
-    var un = document.getElementById("focus-day-unpin");
-    if (un) {
-      un.addEventListener("click", function () {
-        clearFocusDay();
-        saveState(state);
-        refreshChrome();
-      });
-    }
-    var tt = document.getElementById("focus-day-to-todo");
-    if (tt) {
-      tt.addEventListener("click", function () {
+  function wireBriefTodoHomeClicksOnce() {
+    var wrap = document.getElementById("brief-todo-duo");
+    if (!wrap || wrap.dataset.briefTodoWired) return;
+    wrap.dataset.briefTodoWired = "1";
+    wrap.addEventListener("click", function (ev) {
+      var t = ev.target;
+      if (t && t.getAttribute && t.getAttribute("data-go-todo") === "1") {
+        ev.preventDefault();
         showPanel("todo");
-      });
-    }
+        return;
+      }
+      var btn = t && t.closest ? t.closest(".brief-todo-check") : null;
+      if (btn && !btn.disabled) {
+        var bid = btn.getAttribute("data-brief-id");
+        var bk = btn.getAttribute("data-brief-kind");
+        if (bid && (bk === "recurring" || bk === "oneoff")) {
+          ev.preventDefault();
+          toggleBriefTaskFromOverview(bid, bk);
+        }
+      }
+    });
   }
 
   function initUI() {
@@ -5012,7 +4760,7 @@
 
     buildSettingsMetricsPanel();
     wireSettingsMetricsDynamic();
-    wireFocusDayCard();
+    wireBriefTodoHomeClicksOnce();
 
     document.querySelectorAll(".nav-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
