@@ -39,7 +39,7 @@
       --font-display: "Lilita One", ui-rounded, system-ui, sans-serif;
       --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       --font-mono: "DM Mono", ui-monospace, "SF Mono", monospace;
-      --sidebar-w: 232px;
+      --sidebar-w: 200px;
       --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.35);
       --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.28);
       --btn-on-progress: #0a0a0a;
@@ -259,7 +259,7 @@
     .main {
       flex: 1;
       min-height: 0;
-      padding: 1.5rem 2rem max(2.75rem, min(18dvh, 10rem));
+      padding: 1.5rem 1.15rem max(2.75rem, min(18dvh, 10rem));
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -278,7 +278,7 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       box-shadow: var(--shadow-card);
-      max-width: 920px;
+      max-width: min(100%, 80rem);
     }
 
     .streak-bar-label {
@@ -387,7 +387,7 @@
       border-radius: var(--radius);
       background: var(--bg-panel);
       box-shadow: var(--shadow-card);
-      max-width: 920px;
+      max-width: min(100%, 80rem);
     }
 
     .main.main--readonly .readonly-strip { display: block; }
@@ -403,7 +403,7 @@
     }
 
     .app--focus .main {
-      max-width: 48rem;
+      max-width: 56rem;
       margin: 0 auto;
       padding: 2rem min(4vw, 2.5rem) 3rem;
     }
@@ -487,7 +487,7 @@
 
     /* modif: vue d’ensemble type daily brief */
     .daily-brief {
-      max-width: 920px;
+      max-width: min(100%, 80rem);
       margin-bottom: 1.25rem;
       padding: 1.25rem 1.35rem;
       border: 1px solid var(--border);
@@ -634,6 +634,10 @@
       opacity: 0.55;
     }
 
+    .mini-cal-cell.is-future {
+      opacity: 0.88;
+    }
+
     .mini-cal-cell .mini-cal-dot {
       position: absolute;
       bottom: 3px;
@@ -690,6 +694,11 @@
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
       background: var(--bg-elevated);
+    }
+
+    .countdown-list li.countdown-li--soon {
+      border-color: var(--progress);
+      background: rgba(48, 209, 88, 0.1);
     }
 
     .countdown-list .cd-label {
@@ -799,7 +808,7 @@
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      max-width: min(100%, 1200px);
+      max-width: min(100%, min(92vw, 92rem));
       flex-wrap: wrap;
     }
 
@@ -1273,7 +1282,7 @@
 
     .panel {
       display: none;
-      max-width: min(100%, 56rem);
+      max-width: min(100%, 80rem);
       animation: fadeIn 0.2s ease;
     }
 
@@ -2482,9 +2491,9 @@
                   </div>
                   <div id="mini-cal-grid" class="mini-cal-grid" aria-label="Mini-calendrier"></div>
                   <p class="hint mini-cal-hint">
-                    Clic sur un jour : affiche ce journal. Synchronisation Google&nbsp;/ Apple en lecture-écriture
-                    depuis cette page seule n’est pas possible sans serveur (OAuth) : utilise le lien ou l’app
-                    Agenda.
+                    Clic sur un jour : aperçu du journal (passé avec archive, aujourd’hui, ou jusqu’à ~24 mois dans le futur).
+                    Les pastilles viennent des habitudes et des échéances ci-dessous (stockées ici) — pas d’import automatique
+                    Google&nbsp;/ Apple sans serveur (OAuth). Le bouton ouvre ton lien agenda dans Réglages.
                   </p>
                   <div class="mini-cal-external-row">
                     <button type="button" class="btn secondary" id="btn-home-open-agenda">Ouvrir l’agenda (lien Réglages)</button>
@@ -2884,6 +2893,20 @@
             <input type="date" id="settings-countdown-date-inp" aria-label="Date échéance" />
             <button type="button" class="btn" id="settings-countdown-add">Ajouter</button>
           </div>
+          <label class="theme-label" for="settings-countdown-highlight" style="margin-top:0.65rem;display:block">Mise en avant des échéances (J‑X)</label>
+          <p class="hint" style="margin:0.15rem 0 0.35rem">
+            Les échéances à venir dans cette fenêtre (en jours) ressortent en vert dans la liste d’accueil.
+          </p>
+          <input
+            type="number"
+            id="settings-countdown-highlight"
+            min="1"
+            max="366"
+            step="1"
+            class="settings-calendar-url"
+            style="max-width: 6rem"
+            aria-label="Nombre de jours pour surligner les échéances proches"
+          />
           <p class="hint" style="margin-top:0.85rem">Lien ouvert par le bouton « Ouvrir l’agenda » sur la vue d’ensemble (Google, Apple iCloud web, etc.).</p>
           <label class="theme-label" for="settings-agenda-open-url">URL agenda</label>
           <input type="url" id="settings-agenda-open-url" class="settings-calendar-url" placeholder="https://calendar.google.com/calendar" autocomplete="url" />
@@ -2940,7 +2963,7 @@
   var LEGACY_KEY = "personalDashboardV1";
   var THEME_KEY = "dashboardTheme";
   var DAY_MS = 86400000;
-  var STATE_VERSION = 5;
+  var STATE_VERSION = 6;
 
   var todayIso = isoDate(new Date());
   var viewDateIso = todayIso;
@@ -3026,6 +3049,19 @@
     return isoDate(d);
   }
 
+  var VIEW_DATE_RANGE_DAYS = 730;
+
+  function viewDateMaxIso() {
+    return addDays(todayIso, VIEW_DATE_RANGE_DAYS);
+  }
+
+  function clampViewDateToBounds() {
+    var lo = addDays(todayIso, -VIEW_DATE_RANGE_DAYS);
+    var hi = viewDateMaxIso();
+    if (viewDateIso < lo) viewDateIso = lo;
+    if (viewDateIso > hi) viewDateIso = hi;
+  }
+
   function formatHumanFr(iso) {
     var d = parseISODate(iso);
     return d.toLocaleDateString("fr-FR", {
@@ -3073,7 +3109,8 @@
         ],
         activeMetricKeys: ["running", "muscu", "natation", "water", "protein", "sleep", "meals"],
         countdowns: [],
-        agendaOpenUrl: "https://calendar.google.com/calendar"
+        agendaOpenUrl: "https://calendar.google.com/calendar",
+        countdownHighlightDays: 30
       },
       history: {},
       todos: {
@@ -3325,7 +3362,7 @@
   function renderHomeTasksPill() {
     var el = document.getElementById("home-tasks-pill");
     if (!el) return;
-    if (!isViewingToday() && !getSnap()) {
+    if (!isViewingToday() && !getSnap() && !isViewingFuture()) {
       el.setAttribute("hidden", "");
       return;
     }
@@ -3423,6 +3460,8 @@
         };
       });
     if (typeof d.meta.agendaOpenUrl !== "string") d.meta.agendaOpenUrl = "";
+    var chD = parseInt(d.meta.countdownHighlightDays, 10);
+    if (isNaN(chD) || chD < 1 || chD > 366) d.meta.countdownHighlightDays = 30;
     if (data.history && typeof data.history === "object") d.history = data.history;
     if (data.todos) d.todos = data.todos;
     if (data.targets) d.targets = Object.assign(d.targets, data.targets);
@@ -3533,6 +3572,10 @@
     return viewDateIso === todayIso;
   }
 
+  function isViewingFuture() {
+    return viewDateIso > todayIso;
+  }
+
   function getSnap() {
     if (isViewingToday()) return null;
     return state.history[viewDateIso] || null;
@@ -3560,7 +3603,7 @@
   }
 
   function getRawRecurringForView() {
-    if (isViewingToday()) return state.todos.recurring || [];
+    if (isViewingToday() || isViewingFuture()) return state.todos.recurring || [];
     var snap = state.history[viewDateIso];
     if (!snap) return [];
     return snap.recurring || [];
@@ -3579,6 +3622,12 @@
 
   function getOneOffItems() {
     if (isViewingToday()) return (state.todos.oneOff || []).slice();
+    if (isViewingFuture()) {
+      var srcFut = state.todos.oneOff || [];
+      return filterOneOffForDay(srcFut, viewDateIso).filter(function (t) {
+        return !t.done && t.dueDate === viewDateIso;
+      });
+    }
     var snap = state.history[viewDateIso];
     if (!snap) return [];
     return filterOneOffForDay(snap.oneOff || [], viewDateIso);
@@ -3586,6 +3635,7 @@
 
   function getReminderItems() {
     if (isViewingToday()) return state.reminders;
+    if (isViewingFuture()) return [];
     var snap = state.history[viewDateIso];
     if (!snap) return [];
     return snap.reminders || [];
@@ -3593,6 +3643,12 @@
 
   function getSportNutrition() {
     if (isViewingToday()) return { sport: state.sport, nutrition: state.nutrition };
+    if (isViewingFuture()) {
+      return {
+        sport: { running: 0, muscu: 0, natation: 0 },
+        nutrition: { water: 0, protein: 0, sleep: 0, meals: 0 }
+      };
+    }
     var snap = state.history[viewDateIso];
     if (!snap) {
       return {
@@ -3608,6 +3664,7 @@
 
   function getNotesForView() {
     if (isViewingToday()) return state.notes;
+    if (isViewingFuture()) return "";
     var snap = state.history[viewDateIso];
     if (!snap) return "";
     return snap.notes != null ? snap.notes : "";
@@ -3807,7 +3864,7 @@
 
   /* modif: score jour 0–100 (moyenne ratios), vert si >70 */
   function journalScorePercent() {
-    if (!isViewingToday() && !getSnap()) return 0;
+    if (!isViewingToday() && !getSnap() && !isViewingFuture()) return 0;
     var t = state.targets;
     var sn = getSportNutrition();
     var rec = getRecurringItems();
@@ -4029,7 +4086,14 @@
       var sp0 = document.createElement("span");
       sp0.className = "task-text";
       sp0.style.color = "var(--text-muted)";
-      sp0.textContent = getSnap() ? "Aucune entrée pour cette liste." : "Pas de sauvegarde pour ce jour.";
+      var msgRo = "Pas de sauvegarde pour ce jour.";
+      if (getSnap()) msgRo = "Aucune entrée pour cette liste.";
+      else if (isViewingFuture()) {
+        if (kind === "oneoff") msgRo = "Aucune ponctuelle avec échéance ce jour (aperçu).";
+        else if (kind === "reminder") msgRo = "Les rappels ne s’affichent pas en aperçu futur.";
+        else msgRo = "Aucune habitude prévue ce jour de la semaine.";
+      }
+      sp0.textContent = msgRo;
       li0.appendChild(sp0);
       listEl.appendChild(li0);
       return;
@@ -4577,7 +4641,7 @@
     var ulR = document.getElementById("brief-todo-recurring");
     var ulO = document.getElementById("brief-todo-oneoff");
     if (!ulR || !ulO) return;
-    if (!isViewingToday() && !getSnap()) {
+    if (!isViewingToday() && !getSnap() && !isViewingFuture()) {
       ulR.innerHTML = "";
       ulO.innerHTML = "";
       return;
@@ -4800,6 +4864,11 @@
     );
   }
 
+  function isCalDaySelectable(dayIso) {
+    if (dayIso > viewDateMaxIso()) return false;
+    return dayIso >= todayIso || !!state.history[dayIso];
+  }
+
   function renderCountdownList() {
     var ul = document.getElementById("countdown-list");
     if (!ul) return;
@@ -4808,27 +4877,56 @@
     });
     if (!list.length) {
       ul.innerHTML =
-        '<li class="hint" style="list-style:none;border:none;background:none;padding:0;margin:0;">Aucune échéance — ajoute-en dans Réglages.</li>';
+        '<li class="hint" style="list-style:none;border:none;background:none;padding:0;margin:0;">Aucune échéance — ajoute-en dans Réglages (elles s’affichent ici et sur le mini-calendrier).</li>';
       return;
     }
-    ul.innerHTML = list
-      .map(function (ev) {
-        var d = daysBetweenIso(todayIso, ev.dateIso);
-        var meta;
-        if (d > 1) meta = "J-" + d + " · " + formatIsoShortFr(ev.dateIso);
-        else if (d === 1) meta = "Demain · " + formatIsoShortFr(ev.dateIso);
-        else if (d === 0) meta = "Aujourd’hui · " + formatIsoShortFr(ev.dateIso);
-        else if (d < 0) meta = "Passé (" + -d + " j) · " + formatIsoShortFr(ev.dateIso);
-        else meta = formatIsoShortFr(ev.dateIso);
-        return (
-          '<li><span class="cd-label">' +
-          escapeHtml(ev.label) +
-          '</span><span class="cd-meta">' +
-          escapeHtml(meta) +
-          "</span></li>"
-        );
-      })
-      .join("");
+    var horizon = parseInt(state.meta.countdownHighlightDays, 10);
+    if (isNaN(horizon) || horizon < 1 || horizon > 366) horizon = 30;
+    var onView = list.filter(function (c) {
+      return c.dateIso === viewDateIso;
+    });
+    var head =
+      onView.length && viewDateIso !== todayIso
+        ? '<li class="hint countdown-li--on-view" style="list-style:none;border-style:dashed;">' +
+          "Jour affiché (" +
+          escapeHtml(formatIsoShortFr(viewDateIso)) +
+          ") : " +
+          onView
+            .map(function (c) {
+              return "<strong>" + escapeHtml(c.label) + "</strong>";
+            })
+            .join(" · ") +
+          "</li>"
+        : "";
+    var listMain =
+      onView.length && viewDateIso !== todayIso
+        ? list.filter(function (c) {
+            return c.dateIso !== viewDateIso;
+          })
+        : list;
+    ul.innerHTML =
+      head +
+      listMain
+        .map(function (ev) {
+          var d = daysBetweenIso(todayIso, ev.dateIso);
+          var soon = d >= 0 && d <= horizon;
+          var meta;
+          if (d > 1) meta = "J-" + d + " · " + formatIsoShortFr(ev.dateIso);
+          else if (d === 1) meta = "Demain · " + formatIsoShortFr(ev.dateIso);
+          else if (d === 0) meta = "Aujourd’hui · " + formatIsoShortFr(ev.dateIso);
+          else if (d < 0) meta = "Passé (" + -d + " j) · " + formatIsoShortFr(ev.dateIso);
+          else meta = formatIsoShortFr(ev.dateIso);
+          return (
+            '<li class="' +
+            (soon ? "countdown-li--soon" : "") +
+            '"><span class="cd-label">' +
+            escapeHtml(ev.label) +
+            '</span><span class="cd-meta">' +
+            escapeHtml(meta) +
+            "</span></li>"
+          );
+        })
+        .join("");
   }
 
   function renderMiniCalendar() {
@@ -4852,25 +4950,27 @@
     }
     for (var day = 1; day <= dim; day++) {
       var dayIso = monthFirst.slice(0, 8) + String(day).padStart(2, "0");
-      var fut = dayIso > todayIso;
-      var hasSnap = dayIso === todayIso || !!state.history[dayIso];
+      var beyondMax = dayIso > viewDateMaxIso();
+      var pastNoSnap = dayIso < todayIso && !state.history[dayIso];
+      var selectable = isCalDaySelectable(dayIso);
       var hasCd = (state.meta.countdowns || []).some(function (c) {
         return c.dateIso === dayIso;
       });
-      var hasRec = !fut && filterRecurringForDay(state.todos.recurring, dayIso).length > 0;
+      var hasRec = filterRecurringForDay(state.todos.recurring, dayIso).length > 0;
       var hasDot = hasCd || hasRec;
       var cls = "mini-cal-cell";
       if (dayIso === todayIso) cls += " is-today";
       if (dayIso === viewDateIso) cls += " is-view";
-      if (fut) cls += " is-muted";
+      if (beyondMax || pastNoSnap) cls += " is-muted";
+      else if (dayIso > todayIso) cls += " is-future";
       var dot = hasDot ? '<span class="mini-cal-dot" aria-hidden="true"></span>' : "";
       var inner = "<span>" + day + "</span>" + dot;
-      if (fut || !hasSnap) {
+      if (!selectable) {
         html +=
           '<div class="' +
           cls +
           '"' +
-          (fut ? ' aria-disabled="true"' : "") +
+          (beyondMax ? ' aria-disabled="true"' : "") +
           ">" +
           inner +
           "</div>";
@@ -4886,12 +4986,17 @@
       }
     }
     grid.innerHTML = html;
+    var loIso = addDays(todayIso, -VIEW_DATE_RANGE_DAYS);
+    var pNav = document.getElementById("mini-cal-prev");
+    var nNav = document.getElementById("mini-cal-next");
+    if (pNav) pNav.disabled = addMonthsKeepDay(viewDateIso, -1) < loIso;
+    if (nNav) nNav.disabled = firstDayOfMonthIso(addMonthsKeepDay(viewDateIso, 1)) > viewDateMaxIso();
   }
 
   function renderHomeAgenda() {
     var panel = document.getElementById("home-agenda-panel");
     if (!panel) return;
-    if (!isViewingToday() && !getSnap()) {
+    if (!isViewingToday() && !getSnap() && !isViewingFuture()) {
       panel.setAttribute("hidden", "");
       return;
     }
@@ -4926,7 +5031,7 @@
     var proseEl = document.getElementById("daily-brief-prose");
     if (!proseEl) return;
     var snap = getSnap();
-    if (!isViewingToday() && !snap) {
+    if (!isViewingToday() && !snap && !isViewingFuture()) {
       proseEl.textContent =
         "Aucune archive pour cette date : ouverture sur un autre jour sans passage de minuit ici.";
       fillBriefBars("brief-bars-sport", []);
@@ -4935,6 +5040,7 @@
       renderHomeTasksPill();
       renderHomeAgenda();
       applyHomeOverviewVisibility();
+      return;
     }
 
     var t = state.targets;
@@ -4995,7 +5101,10 @@
         : "Hydratation : en dessous du repère";
 
     var greet = fn ? fn + ", " : "";
-    var proseBits = [greet + taskPhrase];
+    var futNote = isViewingFuture()
+      ? "Aperçu futur (sport / alimentation à zéro tant que le jour n’est pas là). "
+      : "";
+    var proseBits = [futNote + greet + taskPhrase];
     if (state.meta.showBriefSport !== false) proseBits.push("Sport : " + pctSport + "%");
     if (state.meta.showBriefFood !== false) proseBits.push(waterPhrase);
     proseEl.textContent = proseBits.join(" · ");
@@ -5052,22 +5161,38 @@
     var main = document.getElementById("main-el");
     if (main) main.classList.toggle("main--readonly", !isViewingToday());
 
+    var strip = document.getElementById("readonly-strip");
+    if (strip) {
+      if (isViewingFuture()) {
+        strip.textContent =
+          "Jour futur : aperçu (habitudes, ponctuelles à échéance ce jour, échéances). Les données sport / alimentation restent à zéro. Tu ne peux cocher ou modifier que pour aujourd’hui.";
+      } else if (!isViewingToday()) {
+        strip.textContent =
+          "Journée archivée : saisie bloquée. Sélectionne « Aujourd’hui » ou un jour avec archive.";
+      } else {
+        strip.textContent =
+          "Journée archivée : saisie bloquée. Sélectionne « Aujourd’hui » ou un autre jour.";
+      }
+    }
+
     var inp = document.getElementById("view-date-input");
     if (inp) {
       inp.value = viewDateIso;
-      inp.max = todayIso;
-      inp.min = addDays(todayIso, -730);
+      inp.max = viewDateMaxIso();
+      inp.min = addDays(todayIso, -VIEW_DATE_RANGE_DAYS);
     }
 
     var human = document.getElementById("view-date-human");
     if (human) human.textContent = formatHumanFr(viewDateIso);
 
     var nextBtn = document.getElementById("date-next");
-    if (nextBtn) nextBtn.disabled = viewDateIso >= todayIso;
+    if (nextBtn) nextBtn.disabled = viewDateIso >= viewDateMaxIso();
 
     var dbt = document.getElementById("daily-brief-title");
     if (dbt) {
-      dbt.textContent = isViewingToday() ? "Aujourd’hui" : formatIsoShortFr(viewDateIso);
+      if (isViewingToday()) dbt.textContent = "Aujourd’hui";
+      else if (isViewingFuture()) dbt.textContent = "Aperçu · " + formatIsoShortFr(viewDateIso);
+      else dbt.textContent = formatIsoShortFr(viewDateIso);
     }
   }
 
@@ -5191,6 +5316,7 @@
   }
 
   function refreshChrome() {
+    clampViewDateToBounds();
     var curScore = journalScorePercent();
     if (scoreToastPrev !== null && isViewingToday()) {
       maybeScoreToast(scoreToastPrev, curScore);
@@ -5279,6 +5405,13 @@
     if (agUrl && document.activeElement !== agUrl) {
       agUrl.value = state.meta.agendaOpenUrl != null ? String(state.meta.agendaOpenUrl) : "";
     }
+    var chHl = document.getElementById("settings-countdown-highlight");
+    if (chHl && document.activeElement !== chHl) {
+      var cvd = state.meta.countdownHighlightDays;
+      var nhl =
+        cvd != null && !isNaN(Number(cvd)) ? Math.max(1, Math.min(366, Math.round(Number(cvd)))) : 30;
+      chHl.value = String(nhl);
+    }
     syncSettingsLogoPreview();
   }
 
@@ -5350,6 +5483,20 @@
       agInp.addEventListener("change", function () {
         state.meta.agendaOpenUrl = String(agInp.value || "").trim();
         saveState(state);
+      });
+    }
+
+    var chHl = document.getElementById("settings-countdown-highlight");
+    if (chHl && !chHl.dataset.wiredCdHl) {
+      chHl.dataset.wiredCdHl = "1";
+      chHl.addEventListener("change", function () {
+        var n = parseInt(chHl.value, 10);
+        if (isNaN(n) || n < 1) n = 1;
+        if (n > 366) n = 366;
+        chHl.value = String(n);
+        state.meta.countdownHighlightDays = n;
+        saveState(state);
+        refreshChrome();
       });
     }
   }
@@ -5438,7 +5585,7 @@
       next.dataset.calWired = "1";
       next.addEventListener("click", function () {
         var n = addMonthsKeepDay(viewDateIso, 1);
-        if (n <= todayIso) {
+        if (firstDayOfMonthIso(n) <= viewDateMaxIso()) {
           viewDateIso = n;
           saveState(state);
           refreshChrome();
@@ -5451,8 +5598,8 @@
         var btn = ev.target.closest("[data-cal-day]");
         if (!btn) return;
         var iso = btn.getAttribute("data-cal-day");
-        if (!iso || iso > todayIso) return;
-        if (iso !== todayIso && !state.history[iso]) return;
+        if (!iso || iso > viewDateMaxIso()) return;
+        if (iso < todayIso && !state.history[iso]) return;
         viewDateIso = iso;
         saveState(state);
         refreshChrome();
@@ -5634,7 +5781,10 @@
       vIn.addEventListener("change", function () {
         var v = vIn.value;
         if (!v) return;
-        if (v > todayIso) v = todayIso;
+        var lo = addDays(todayIso, -VIEW_DATE_RANGE_DAYS);
+        var hi = viewDateMaxIso();
+        if (v < lo) v = lo;
+        if (v > hi) v = hi;
         viewDateIso = v;
         refreshChrome();
       });
@@ -5652,7 +5802,7 @@
     if (dateNext) {
       dateNext.addEventListener("click", function () {
         var n = addDays(viewDateIso, 1);
-        if (n <= todayIso) viewDateIso = n;
+        if (n <= viewDateMaxIso()) viewDateIso = n;
         refreshChrome();
       });
     }
