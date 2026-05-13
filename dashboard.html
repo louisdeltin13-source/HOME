@@ -140,9 +140,9 @@
 
     .sidebar-divider {
       border: none;
-      height: 1px;
-      margin: 0.35rem 0.25rem 0.45rem;
-      background: var(--border);
+      height: 0;
+      margin: 24px 0.25rem;
+      background: transparent;
       flex-shrink: 0;
     }
 
@@ -697,6 +697,7 @@
       font-size: 0.8125rem;
       line-height: 1.35;
       color: var(--text);
+      position: relative;
     }
 
     .home-prio-item__badge {
@@ -2122,7 +2123,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
       gap: 0.65rem;
-      padding: 0.5rem 0;
+      padding: 4px 0;
       border-bottom: 1px solid var(--border);
       transition: transform 0.2s ease;
       will-change: transform;
@@ -2189,9 +2190,12 @@
     }
 
     .task-item input[type="checkbox"] {
-      width: 1.1rem;
-      height: 1.1rem;
-      margin-top: 0.2rem;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 13px;
+      box-sizing: content-box;
+      margin: -13px 10px -13px -13px;
       accent-color: var(--progress);
       cursor: pointer;
       flex-shrink: 0;
@@ -2215,7 +2219,7 @@
       white-space: normal;
       word-break: break-word;
       overflow-wrap: anywhere;
-      line-height: 1.45;
+      line-height: 1.6;
     }
 
     .task-item.done .task-text {
@@ -2399,10 +2403,25 @@
     }
 
     .btn.secondary {
-      background: var(--bg-elevated);
+      background: transparent;
       color: var(--text);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(48, 209, 88, 0.45);
       box-shadow: none;
+    }
+
+    [data-theme="light"] .btn.secondary {
+      border: 1px solid rgba(52, 199, 89, 0.55);
+      color: var(--text);
+    }
+
+    .btn.secondary:hover:not(:disabled) {
+      background: rgba(48, 209, 88, 0.08);
+      filter: none;
+      transform: none;
+    }
+
+    [data-theme="light"] .btn.secondary:hover:not(:disabled) {
+      background: rgba(52, 199, 89, 0.1);
     }
 
     .btn:disabled {
@@ -3732,6 +3751,410 @@
         padding-bottom: 1rem;
       }
     }
+
+    /* ===== UX / accessibilité : rattrapage dismiss, badges, clair-sombre, densité ===== */
+    [data-theme="dark"] body {
+      background: #111;
+    }
+
+    [data-theme="dark"] .sidebar {
+      background: #0d0d0d;
+      border-right: none;
+    }
+
+    [data-theme="dark"] .main {
+      background: #111;
+    }
+
+    [data-theme="dark"] .card {
+      box-shadow: none;
+    }
+
+    [data-theme="light"] .card {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="light"] .brief-block {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="light"] .home-priorities {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .card > *:first-child {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
+
+    .card .row-input input[type="text"],
+    .card .row-input .btn,
+    .card .metric,
+    .card .settings-metric-row,
+    .card textarea,
+    .card input:not([type="checkbox"]):not([type="radio"]) {
+      border-radius: var(--radius-sm);
+    }
+
+    .date-nav label,
+    .home-priorities__title,
+    .home-prio-item__badge,
+    .home-deadlines-title,
+    .gcal-quick-add-field label,
+    .recurring-add-wk-label,
+    .card h2,
+    .home-agenda-subtitle,
+    .metric label,
+    .field-label-above,
+    .oneoff-field label,
+    .oneoff-prio-fieldset legend,
+    .settings-targets-grid label {
+      text-transform: none !important;
+    }
+
+    .panel h1 {
+      letter-spacing: -0.02em;
+    }
+
+    .card h2,
+    .home-priorities__title,
+    .home-deadlines-title {
+      letter-spacing: -0.02em;
+    }
+
+    .home-priorities__title {
+      opacity: 1;
+      color: var(--text);
+      font-size: 0.8125rem;
+    }
+
+    .home-deadlines-title {
+      opacity: 1;
+      color: var(--text);
+      font-size: 0.72rem;
+    }
+
+    .brief-block.brief-block--todo .brief-block-title {
+      text-transform: none !important;
+      font-size: 0.72rem;
+      letter-spacing: -0.02em;
+      opacity: 1;
+      color: var(--text);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(48, 209, 88, 0.35);
+      background: rgba(48, 209, 88, 0.12);
+    }
+
+    [data-theme="light"] .brief-block.brief-block--todo .brief-block-title {
+      border-color: rgba(52, 199, 89, 0.45);
+      background: rgba(52, 199, 89, 0.12);
+      color: #14532d;
+    }
+
+    .brief-block.brief-block--todo .brief-block-title:hover {
+      background: rgba(48, 209, 88, 0.2);
+      color: var(--progress);
+    }
+
+    [data-theme="dark"] .home-prio-item__badge--late {
+      background: rgba(255, 69, 58, 0.15);
+      border: 1px solid rgba(255, 69, 58, 0.4);
+      color: #ff9a93;
+    }
+
+    [data-theme="dark"] .home-prio-item__badge--today {
+      background: rgba(48, 209, 88, 0.15);
+      border: 1px solid rgba(48, 209, 88, 0.4);
+      color: #62ff62;
+    }
+
+    [data-theme="dark"] .home-prio-item__badge--catchup {
+      background: rgba(48, 209, 88, 0.15);
+      border: 1px solid rgba(48, 209, 88, 0.4);
+      color: #62ff62;
+    }
+
+    [data-theme="dark"] .home-prio-item__badge--deadline {
+      background: rgba(10, 132, 255, 0.15);
+      border: 1px solid rgba(10, 132, 255, 0.4);
+      color: #7ec8ff;
+    }
+
+    [data-theme="light"] .home-prio-item__badge--late {
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      color: #991b1b;
+    }
+
+    [data-theme="light"] .home-prio-item__badge--today {
+      background: rgba(52, 199, 89, 0.12);
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      color: #14532d;
+    }
+
+    [data-theme="light"] .home-prio-item__badge--catchup {
+      background: rgba(234, 88, 12, 0.12);
+      border: 1px solid rgba(234, 88, 12, 0.35);
+      color: #9a3412;
+    }
+
+    [data-theme="light"] .home-prio-item__badge--deadline {
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(37, 99, 235, 0.35);
+      color: #1e3a8a;
+    }
+
+    [data-theme="dark"] .brief-prio-badge--high {
+      background: rgba(255, 69, 58, 0.15);
+      border: 1px solid rgba(255, 69, 58, 0.45);
+      color: #ff9a93;
+    }
+
+    [data-theme="dark"] .brief-prio-badge--medium {
+      background: rgba(48, 209, 88, 0.15);
+      border: 1px solid rgba(48, 209, 88, 0.4);
+      color: #62ff62;
+    }
+
+    [data-theme="dark"] .brief-prio-badge--low {
+      background: rgba(142, 142, 147, 0.18);
+      border: 1px solid rgba(142, 142, 147, 0.45);
+      color: #e5e5ea;
+    }
+
+    [data-theme="light"] .brief-prio-badge--high {
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      color: #991b1b;
+    }
+
+    [data-theme="light"] .brief-prio-badge--medium {
+      background: rgba(52, 199, 89, 0.12);
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      color: #14532d;
+    }
+
+    [data-theme="light"] .brief-prio-badge--low {
+      background: rgba(107, 114, 128, 0.14);
+      border: 1px solid rgba(107, 114, 128, 0.35);
+      color: #374151;
+    }
+
+    .brief-prio-badge {
+      border: 1px solid transparent;
+    }
+
+    [data-theme="dark"] .task-prio-badge--high {
+      background: rgba(255, 69, 58, 0.15);
+      border: 1px solid rgba(255, 69, 58, 0.45);
+      color: #ff9a93;
+    }
+
+    [data-theme="dark"] .task-prio-badge--medium {
+      background: rgba(48, 209, 88, 0.15);
+      border: 1px solid rgba(48, 209, 88, 0.4);
+      color: #62ff62;
+    }
+
+    [data-theme="dark"] .task-prio-badge--low {
+      background: rgba(142, 142, 147, 0.18);
+      border: 1px solid rgba(142, 142, 147, 0.45);
+      color: #e5e5ea;
+    }
+
+    [data-theme="light"] .task-prio-badge--high {
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      color: #991b1b;
+    }
+
+    [data-theme="light"] .task-prio-badge--medium {
+      background: rgba(52, 199, 89, 0.12);
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      color: #14532d;
+    }
+
+    [data-theme="light"] .task-prio-badge--low {
+      background: rgba(107, 114, 128, 0.14);
+      border: 1px solid rgba(107, 114, 128, 0.35);
+      color: #374151;
+    }
+
+    .task-prio-badge {
+      border: 1px solid transparent;
+    }
+
+    [data-theme="dark"] .nav-ql-badge {
+      background: rgba(48, 209, 88, 0.2);
+      border: 1px solid rgba(48, 209, 88, 0.45);
+      color: #62ff62;
+    }
+
+    [data-theme="light"] .nav-ql-badge {
+      background: rgba(52, 199, 89, 0.18);
+      border: 1px solid rgba(52, 199, 89, 0.45);
+      color: #14532d;
+    }
+
+    [data-theme="dark"] .task-tag-pill {
+      background: rgba(48, 209, 88, 0.1);
+      border: 1px solid rgba(48, 209, 88, 0.35);
+      color: #b8ffcc;
+    }
+
+    [data-theme="light"] .task-tag-pill {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: rgba(52, 199, 89, 0.08);
+      color: #1c1c1e;
+    }
+
+    [data-theme="light"] .task-due-badge {
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      color: #3a3a3c;
+    }
+
+    [data-theme="dark"] .task-due-badge {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #d1d1d6;
+    }
+
+    .home-prio-item__btn {
+      flex: 1 1 auto;
+      min-width: 0;
+      width: auto !important;
+    }
+
+    .home-prio-item--dismissable .home-prio-item__btn {
+      padding-right: 2rem;
+    }
+
+    .home-prio-item__dismiss {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: var(--radius-xs);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 150ms ease, color 120ms ease, background 120ms ease;
+      z-index: 2;
+    }
+
+    .home-prio-item--dismissable:hover .home-prio-item__dismiss,
+    .home-prio-item__dismiss:focus-visible {
+      opacity: 1;
+    }
+
+    .home-prio-item__dismiss:hover {
+      color: var(--danger);
+      background: rgba(255, 69, 58, 0.12);
+    }
+
+    .nav-btn,
+    .home-prio-item__btn,
+    .brief-todo-more-btn,
+    .streak-day,
+    .history-subtab,
+    .mobile-nav-sheet__link,
+    .quick-link-chip {
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .nav-btn:hover:not(:disabled),
+    .home-prio-item__btn:hover,
+    .brief-todo-more-btn:hover,
+    .streak-day:hover:not(:disabled),
+    .history-subtab:hover,
+    .mobile-nav-sheet__link:hover,
+    .quick-link-chip:hover {
+      background: rgba(48, 209, 88, 0.08);
+    }
+
+    [data-theme="light"] .nav-btn:hover:not(:disabled),
+    [data-theme="light"] .home-prio-item__btn:hover,
+    [data-theme="light"] .brief-todo-more-btn:hover,
+    [data-theme="light"] .streak-day:hover:not(:disabled),
+    [data-theme="light"] .history-subtab:hover,
+    [data-theme="light"] .mobile-nav-sheet__link:hover,
+    [data-theme="light"] .quick-link-chip:hover {
+      background: rgba(52, 199, 89, 0.08);
+    }
+
+    .brief-todo-preview li.brief-todo-row {
+      padding: 4px 0;
+    }
+
+    .quick-link-edit-row {
+      padding: 4px 0;
+    }
+
+    .notes-wordcount {
+      right: 0.75rem;
+      text-align: right;
+      width: auto;
+      max-width: 45%;
+      opacity: 0.45;
+    }
+
+    .main::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .main::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    [data-theme="dark"] .main::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+    }
+
+    [data-theme="light"] .main::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 6px;
+    }
+
+    [data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    [data-theme="light"] textarea,
+    [data-theme="light"] select {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="light"] ::placeholder {
+      opacity: 0.55;
+    }
+
+    [data-theme="light"] input:focus-visible,
+    [data-theme="light"] textarea:focus-visible,
+    [data-theme="light"] select:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 2px var(--progress);
+    }
+
+    [data-theme="dark"] input:focus-visible,
+    [data-theme="dark"] textarea:focus-visible,
+    [data-theme="dark"] select:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 2px var(--progress);
+    }
+
+    .task-item.done .task-text {
+      transition: color 200ms ease, text-decoration-color 200ms ease;
+    }
+
+    .brief-todo-check {
+      transition: border-color 200ms ease, background 200ms ease, color 200ms ease, transform 0.12s ease;
+    }
   </style>
 </head>
 <body>
@@ -4478,6 +4901,7 @@
   var LEGACY_KEY = "personalDashboardV1";
   var THEME_KEY = "dashboardTheme";
   var HOME_ECHEANCES_KEY = "home_echeances";
+  var HOME_DISMISSED_PREFIX = "home_dismissed_";
   var DAY_MS = 86400000;
   var STATE_VERSION = 7;
 
@@ -5872,6 +6296,8 @@
   function applyDailyReset(st, calToday) {
     var last = st.meta.lastResetDate;
     if (last === calToday) return st;
+
+    pruneHomeDismissedPrioritiesBefore(calToday);
 
     if (last) {
       if (!st.history) st.history = {};
@@ -7895,6 +8321,15 @@
     if (!ul || ul.dataset.wired) return;
     ul.dataset.wired = "1";
     ul.addEventListener("click", function (e) {
+      var dx = e.target.closest(".home-prio-item__dismiss[data-dismiss-id]");
+      if (dx) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rid = dx.getAttribute("data-dismiss-id");
+        if (rid) dismissHomeCatchupForDay(todayIso, rid);
+        buildHomePrioritiesList();
+        return;
+      }
       var row = e.target.closest(".home-prio-item__btn[data-go-panel]");
       if (!row) return;
       var pid = row.getAttribute("data-go-panel");
@@ -7920,6 +8355,45 @@
     return Math.round((b - a) / DAY_MS);
   }
 
+  function homeDismissedStorageKey(dayIso) {
+    return HOME_DISMISSED_PREFIX + dayIso;
+  }
+
+  function loadDismissedHomeCatchups(dayIso) {
+    if (!dayIso || !/^\d{4}-\d{2}-\d{2}$/.test(String(dayIso))) return [];
+    try {
+      var raw = localStorage.getItem(homeDismissedStorageKey(dayIso));
+      if (!raw) return [];
+      var a = JSON.parse(raw);
+      return Array.isArray(a) ? a : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function dismissHomeCatchupForDay(dayIso, rowId) {
+    if (!rowId || !dayIso) return;
+    var list = loadDismissedHomeCatchups(dayIso);
+    if (list.indexOf(rowId) >= 0) return;
+    list.push(rowId);
+    try {
+      localStorage.setItem(homeDismissedStorageKey(dayIso), JSON.stringify(list));
+    } catch (e2) { /* ignore */ }
+  }
+
+  function pruneHomeDismissedPrioritiesBefore(keepDayIso) {
+    if (!keepDayIso || !/^\d{4}-\d{2}-\d{2}$/.test(String(keepDayIso))) return;
+    try {
+      var pre = HOME_DISMISSED_PREFIX;
+      for (var i = localStorage.length - 1; i >= 0; i--) {
+        var k = localStorage.key(i);
+        if (!k || k.indexOf(pre) !== 0) continue;
+        var d = k.slice(pre.length);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(d) && d < keepDayIso) localStorage.removeItem(k);
+      }
+    } catch (e) { /* ignore */ }
+  }
+
   function buildHomePrioritiesList() {
     var ul = document.getElementById("home-priorities-list");
     var more = document.getElementById("home-priorities-more");
@@ -7932,7 +8406,7 @@
     var dls = [];
     var seen = {};
 
-    function pushRow(bucket, id, text, badge, badgeMod, panel) {
+    function pushRow(bucket, id, text, badge, badgeMod, panel, dismissable) {
       if (seen[id]) return;
       seen[id] = true;
       var row = {
@@ -7940,7 +8414,8 @@
         text: text,
         badge: badge,
         badgeMod: badgeMod,
-        panel: panel || "home"
+        panel: panel || "home",
+        dismissable: !!dismissable
       };
       bucket.push(row);
     }
@@ -7973,7 +8448,8 @@
             "Objectif « " + lab + " » (hier " + formatMetricValue(key, val) + " / " + formatMetricValue(key, tgt) + ")",
             "À rattraper",
             "catchup",
-            METRIC_SPORT[key] ? "sport" : "food"
+            METRIC_SPORT[key] ? "sport" : "food",
+            true
           );
         }
       });
@@ -7984,6 +8460,11 @@
       if (di != null && di >= 0 && di <= 3) {
         pushRow(dls, "cd-" + cd.id, cd.label, "Échéance proche", "deadline", "settings");
       }
+    });
+
+    var dismissedCatch = loadDismissedHomeCatchups(todayIso);
+    catchup = catchup.filter(function (r) {
+      return dismissedCatch.indexOf(r.id) < 0;
     });
 
     var rows = late.concat(today).concat(catchup).concat(dls);
@@ -8002,8 +8483,18 @@
     ul.innerHTML = rows
       .slice(0, limit)
       .map(function (r) {
+        var dismiss =
+          r.dismissable ?
+            '<button type="button" class="home-prio-item__dismiss" data-dismiss-id="' +
+            escapeAttr(r.id) +
+            '" aria-label="Masquer ce rappel pour aujourd’hui" title="Masquer pour aujourd’hui">×</button>' :
+            "";
+        var cls = "home-prio-item" + (r.dismissable ? " home-prio-item--dismissable" : "");
         return (
-          '<li class="home-prio-item">' +
+          '<li class="' +
+          cls +
+          '">' +
+          dismiss +
           '<span class="home-prio-item__badge home-prio-item__badge--' +
           r.badgeMod +
           '">' +
