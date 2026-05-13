@@ -592,64 +592,6 @@
     }
 
     /* modif: bandeau jour — une ligne sous la semaine */
-    .home-daily-strip {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      min-height: 36px;
-      margin: 0 0 20px;
-      max-width: min(100%, 80rem);
-      padding: 0 2px;
-      box-sizing: border-box;
-      flex-wrap: nowrap;
-    }
-
-    .home-daily-strip__date {
-      flex: 0 0 auto;
-      font-family: var(--font-ui);
-      font-size: 12px;
-      line-height: 1.2;
-      opacity: 0.35;
-      color: var(--text-muted);
-      text-transform: capitalize;
-    }
-
-    .home-daily-strip__summary {
-      margin: 0;
-      flex: 1 1 auto;
-      min-width: 0;
-      text-align: center;
-      font-family: var(--font-ui);
-      font-size: 0.875rem;
-      line-height: 1.35;
-      opacity: 0.6;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .home-daily-strip__bar {
-      flex: 0 0 120px;
-      width: 120px;
-      height: 4px;
-      border-radius: 99px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .home-daily-strip__bar > span {
-      display: block;
-      height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: var(--progress);
-      transition: width 0.25s ease;
-    }
-
     .brief-blocks {
       display: flex;
       flex-direction: column;
@@ -796,10 +738,72 @@
       margin: 0 0 0.75rem;
     }
 
+    .gcal-agenda-header--week {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
     .gcal-agenda-header .home-agenda-subtitle {
       margin: 0;
       flex: 1 1 auto;
       min-width: 0;
+    }
+
+    .gcal-week-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 10px;
+      width: 100%;
+    }
+
+    .gcal-week-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .gcal-week-nav__btn {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gcal-week-nav__btn:hover {
+      border-color: var(--accent);
+    }
+
+    .gcal-week-nav__title {
+      flex: 1 1 auto;
+      min-width: 0;
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: capitalize;
+    }
+
+    .gcal-week-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
     }
 
     .gcal-agenda-toolbar {
@@ -892,77 +896,210 @@
       flex-shrink: 0;
     }
 
-    .gcal-agenda-section {
-      margin-bottom: 1rem;
+    .gcal-week-mount {
+      margin-top: 0.35rem;
+      width: 100%;
+      min-width: 0;
     }
 
-    .gcal-agenda-section:last-child {
-      margin-bottom: 0;
+    .gcal-week-shell {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-elevated);
+      overflow: hidden;
     }
 
-    .gcal-agenda-day-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.4;
+    .gcal-week-shell.is-disconnected .gcal-week-cols {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .gcal-week-disconnect-msg {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-muted);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .gcal-week-shell.is-disconnected .gcal-week-disconnect-msg {
+      display: flex;
+    }
+
+    .gcal-week-multi {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: 22px;
+      gap: 3px 0;
+      padding: 6px 4px 8px;
+      max-height: 88px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.08);
+      box-sizing: border-box;
+    }
+
+    .gcal-week-multi:empty {
+      display: none;
+      padding: 0;
+      max-height: 0;
+      border-bottom: 0;
+    }
+
+    .gcal-week-cols {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      width: 100%;
+      min-width: 0;
+    }
+
+    .gcal-week-col {
+      min-width: 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gcal-week-col:last-child {
+      border-right: 0;
+    }
+
+    .gcal-week-col__head {
+      padding: 8px 4px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.12);
+      font-family: var(--font-ui);
+      font-size: 11px;
+      line-height: 1.2;
+      color: var(--text-muted);
+    }
+
+    .gcal-week-col__head.is-today {
+      color: var(--accent);
+    }
+
+    .gcal-week-col__dow {
+      opacity: 0.75;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .gcal-week-col__num {
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .gcal-week-col__num.is-today {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      margin: 4px auto 0;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      box-sizing: border-box;
+    }
+
+    .gcal-week-col__body {
+      height: 200px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 6px 4px 8px;
+      box-sizing: border-box;
+    }
+
+    .gcal-week-pill {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      line-height: 1.25;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      margin: 0 0 4px;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gcal-week-pill--span {
+      margin: 0;
+      height: 20px;
+      box-sizing: border-box;
+    }
+
+    .gcal-week-pill__dot {
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-right: 5px;
+      background: currentColor;
+      opacity: 0.85;
+    }
+
+    .gcal-week-popover {
+      position: fixed;
+      z-index: 12000;
+      min-width: 220px;
+      max-width: min(92vw, 340px);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .gcal-week-popover__title {
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+
+    .gcal-week-popover__time {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      line-height: 1.35;
       color: var(--text-muted);
       margin: 0 0 8px;
     }
 
-    .gcal-event-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .gcal-event-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
+    .gcal-week-popover__desc {
       font-family: var(--font-ui);
-      font-size: 0.8125rem;
-      line-height: 1.35;
+      font-size: 12px;
+      line-height: 1.45;
       color: var(--text);
-    }
-
-    .gcal-event-row.is-past {
-      opacity: 0.4;
-    }
-
-    .gcal-event-dot {
-      flex-shrink: 0;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      margin-top: 0.35em;
-      background: var(--accent);
-    }
-
-    .gcal-event-time {
-      flex-shrink: 0;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      min-width: 3.2rem;
-    }
-
-    .gcal-event-title {
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .gcal-event-more {
-      font-size: 0.72rem;
-      opacity: 0.55;
-      margin: 2px 0 0;
+      opacity: 0.85;
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 180px;
+      overflow-y: auto;
     }
 
     .gcal-empty {
@@ -1141,10 +1278,6 @@
       min-width: 0;
     }
 
-    .home-main-col .home-daily-strip {
-      max-width: none;
-    }
-
     @media (max-width: 900px) {
       .home-tasks-ech-row {
         flex-direction: column;
@@ -1232,6 +1365,65 @@
       flex-direction: column;
       gap: 0.65rem;
       justify-content: center;
+    }
+
+    .brief-block.brief-block--collapsible {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.65rem;
+    }
+
+    .brief-block.brief-block--collapsible.is-collapsed {
+      gap: 0;
+      padding-top: 0.45rem;
+      padding-bottom: 0.45rem;
+    }
+
+    .brief-block.brief-block--collapsible .brief-block-heading {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      min-height: 40px;
+      width: 100%;
+    }
+
+    .brief-block.brief-block--collapsible .brief-block-title {
+      flex: 1 1 auto;
+      align-self: center;
+      min-width: 0;
+    }
+
+    .brief-block-collapse-btn {
+      flex: 0 0 auto;
+      border: none;
+      background: transparent;
+      padding: 0.25rem 0.45rem;
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      line-height: 1;
+      color: var(--text-muted);
+      opacity: 0.55;
+      cursor: pointer;
+      border-radius: var(--radius-xs);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .brief-block-collapse-btn:hover {
+      opacity: 1;
+      color: var(--text);
+    }
+
+    .brief-block.brief-block--collapsible.is-collapsed .brief-block-bars-wrap {
+      display: none;
+    }
+
+    .brief-block-bars-wrap {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
     }
 
     .brief-todo-preview {
@@ -3129,11 +3321,6 @@
         <h1 id="home-title" class="visually-hidden">Vue d’ensemble</h1>
         <div class="home-layout">
           <div class="home-main-col">
-            <div id="home-daily-strip" class="home-daily-strip" aria-live="polite">
-              <span id="home-daily-strip-date" class="home-daily-strip__date"></span>
-              <p id="daily-brief-task-line" class="home-daily-strip__summary"></p>
-              <div class="home-daily-strip__bar" aria-hidden="true"><span id="daily-brief-mini-bar-fill"></span></div>
-            </div>
             <div class="brief-blocks">
               <div class="home-tasks-ech-row">
               <div id="brief-todo-duo" class="brief-todo-duo">
@@ -3163,24 +3350,41 @@
                 <ul id="home-echeances-list" class="home-deadlines-list"></ul>
               </aside>
               </div>
-              <div class="brief-block" id="brief-wrap-sport">
-                <button type="button" class="brief-block-title" data-go="sport">Sport</button>
-                <div class="brief-block-bars" id="brief-bars-sport"></div>
+              <div class="brief-block brief-block--collapsible" id="brief-wrap-sport">
+                <div class="brief-block-heading">
+                  <button type="button" class="brief-block-title" data-go="sport">Sport</button>
+                  <button type="button" class="brief-block-collapse-btn" id="btn-brief-sport-collapse" aria-expanded="true" aria-controls="brief-wrap-sport-body" aria-label="Replier le bloc Sport">▾</button>
+                </div>
+                <div class="brief-block-bars-wrap" id="brief-wrap-sport-body">
+                  <div class="brief-block-bars" id="brief-bars-sport"></div>
+                </div>
               </div>
-              <div class="brief-block" id="brief-wrap-food">
-                <button type="button" class="brief-block-title" data-go="food">Alimentation</button>
-                <div class="brief-block-bars" id="brief-bars-food"></div>
+              <div class="brief-block brief-block--collapsible" id="brief-wrap-food">
+                <div class="brief-block-heading">
+                  <button type="button" class="brief-block-title" data-go="food">Alimentation</button>
+                  <button type="button" class="brief-block-collapse-btn" id="btn-brief-alim-collapse" aria-expanded="true" aria-controls="brief-wrap-food-body" aria-label="Replier le bloc Alimentation">▾</button>
+                </div>
+                <div class="brief-block-bars-wrap" id="brief-wrap-food-body">
+                  <div class="brief-block-bars" id="brief-bars-food"></div>
+                </div>
               </div>
             </div>
             <div id="home-agenda-panel" class="home-agenda-panel" hidden>
               <div class="home-agenda-grid">
                 <div class="gcal-agenda-wrap">
-                  <div class="gcal-agenda-header">
-                    <h2 class="home-agenda-subtitle">Agenda</h2>
-                    <div class="gcal-agenda-toolbar">
-                      <button type="button" class="btn-ghost-agenda" id="btn-gcal-refresh" title="Actualiser">🔄</button>
-                      <button type="button" class="btn-ghost-agenda" id="btn-gcal-add-toggle">+ Événement</button>
-                      <button type="button" class="btn-ghost-agenda" id="btn-home-open-agenda">↗ Ouvrir</button>
+                  <div class="gcal-agenda-header gcal-agenda-header--week">
+                    <h2 class="home-agenda-subtitle visually-hidden">Agenda</h2>
+                    <div class="gcal-week-toolbar">
+                      <div class="gcal-week-nav">
+                        <button type="button" class="gcal-week-nav__btn" id="gcal-week-prev" aria-label="Semaine précédente">←</button>
+                        <div class="gcal-week-nav__title" id="gcal-week-month-title"></div>
+                        <button type="button" class="gcal-week-nav__btn" id="gcal-week-next" aria-label="Semaine suivante">→</button>
+                      </div>
+                      <div class="gcal-week-actions">
+                        <button type="button" class="btn-ghost-agenda" id="btn-gcal-refresh" title="Actualiser">🔄</button>
+                        <button type="button" class="btn-ghost-agenda" id="btn-gcal-add-toggle">+ Événement</button>
+                        <button type="button" class="btn-ghost-agenda" id="btn-home-open-agenda">↗ Ouvrir Google Calendar</button>
+                      </div>
                     </div>
                   </div>
                   <div id="gcal-quick-add" class="gcal-quick-add">
@@ -3205,11 +3409,12 @@
                     <p id="gcal-quick-add-error" class="gcal-quick-add-error" hidden></p>
                   </div>
                   <p id="gcal-agenda-status" class="gcal-agenda-status" aria-live="polite"></p>
-                  <div class="gcal-agenda-section">
-                    <h3 class="gcal-agenda-day-label">Aujourd’hui</h3>
-                    <ul id="gcal-agenda-today-list" class="gcal-event-list" aria-label="Événements du jour"></ul>
+                  <div id="gcal-week-mount" class="gcal-week-mount" aria-label="Semaine"></div>
+                  <div id="gcal-week-popover" class="gcal-week-popover" role="dialog" aria-modal="false" hidden>
+                    <p id="gcal-week-popover-title" class="gcal-week-popover__title"></p>
+                    <p id="gcal-week-popover-time" class="gcal-week-popover__time"></p>
+                    <p id="gcal-week-popover-desc" class="gcal-week-popover__desc"></p>
                   </div>
-                  <div id="gcal-agenda-upcoming" class="gcal-agenda-section" aria-label="Prochains jours"></div>
                 </div>
               </div>
             </div>
@@ -3730,6 +3935,10 @@
   var GCAL_POLL_MS = 5 * 60 * 1000;
   var __gcalTokenClient = null;
   var __gcalPollTimer = null;
+  var __gcalViewWeekStartIso = null;
+  var __gcalWeekEventById = {};
+  var HOME_SPORT_COLLAPSED_KEY = "home_sport_collapsed";
+  var HOME_ALIM_COLLAPSED_KEY = "home_alim_collapsed";
   var __gcalScriptsReady = false;
 
   function gcalColorFromColorId(cid) {
@@ -3893,35 +4102,10 @@
     }
   }
 
-  function eventDayIsoLocal(ev) {
-    if (!ev || !ev.start) return null;
-    if (ev.start.date) return ev.start.date;
-    if (ev.start.dateTime) return isoDate(new Date(ev.start.dateTime));
-    return null;
-  }
-
   function eventSortKey(ev) {
     if (!ev || !ev.start) return "";
     if (ev.start.date) return ev.start.date + "T00:00:00";
     return ev.start.dateTime || "";
-  }
-
-  function formatGcalEventClock(ev) {
-    if (!ev || !ev.start) return "";
-    if (ev.start.date) return "Journée";
-    if (ev.start.dateTime) {
-      var d = new Date(ev.start.dateTime);
-      return d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
-    }
-    return "";
-  }
-
-  function eventIsPast(ev) {
-    var end = ev.end && (ev.end.dateTime || ev.end.date);
-    if (!end) return false;
-    if (ev.end.dateTime) return new Date(ev.end.dateTime).getTime() < Date.now();
-    if (ev.end.date) return ev.end.date < todayIso;
-    return false;
   }
 
   function setGcalAgendaStatus(msg, isErr) {
@@ -3950,70 +4134,273 @@
     else el.textContent = "Non connecté — les événements ne s’affichent pas.";
   }
 
-  function renderGcalEventRow(ev) {
-    var hex = ev.colorId ? gcalColorFromColorId(ev.colorId) : null;
-    var dotBg = hex && hex.indexOf("#") === 0 ? hex : "var(--accent)";
-    var past = eventIsPast(ev) ? " is-past" : "";
+  function hexToRgba(hex, a) {
+    var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+    if (!m) return "rgba(128,128,128," + a + ")";
     return (
-      '<li class="gcal-event-row' +
-      past +
-      '"><span class="gcal-event-dot" style="background:' +
-      dotBg +
-      '"></span><span class="gcal-event-time">' +
-      escapeHtml(formatGcalEventClock(ev)) +
-      '</span><span class="gcal-event-title">' +
-      escapeHtml(ev.summary || "(Sans titre)") +
-      "</span></li>"
+      "rgba(" +
+      parseInt(m[1], 16) +
+      "," +
+      parseInt(m[2], 16) +
+      "," +
+      parseInt(m[3], 16) +
+      "," +
+      a +
+      ")"
     );
   }
 
-  function renderGcalAgendaFromItems(items) {
-    var todayUl = document.getElementById("gcal-agenda-today-list");
-    var upHost = document.getElementById("gcal-agenda-upcoming");
-    if (!todayUl || !upHost) return;
-    var todayEvs = items
-      .filter(function (ev) {
-        return eventDayIsoLocal(ev) === todayIso;
-      })
-      .sort(function (a, b) {
+  function gcalPillStyles(ev) {
+    var hex = ev.colorId ? gcalColorFromColorId(ev.colorId) : null;
+    if (!hex || hex.indexOf("#") !== 0) {
+      return {
+        fg: "var(--text)",
+        bg: "rgba(48,209,88,0.22)",
+        bd: "rgba(48,209,88,0.45)"
+      };
+    }
+    return { fg: "var(--text)", bg: hexToRgba(hex, 0.24), bd: hex };
+  }
+
+  function closeGcalWeekPopover() {
+    var pop = document.getElementById("gcal-week-popover");
+    if (!pop) return;
+    pop.setAttribute("hidden", "");
+    pop.style.left = "";
+    pop.style.top = "";
+  }
+
+  function openGcalWeekPopoverNear(anchorRect, ev) {
+    var pop = document.getElementById("gcal-week-popover");
+    var tEl = document.getElementById("gcal-week-popover-title");
+    var timeEl = document.getElementById("gcal-week-popover-time");
+    var dEl = document.getElementById("gcal-week-popover-desc");
+    if (!pop || !tEl || !timeEl || !dEl) return;
+    tEl.textContent = ev.summary || "(Sans titre)";
+    timeEl.textContent = formatGcalEventRangeFr(ev) || "—";
+    var desc = ev.description ? String(ev.description).trim() : "";
+    if (desc) {
+      dEl.textContent = desc;
+      dEl.removeAttribute("hidden");
+    } else {
+      dEl.textContent = "";
+      dEl.setAttribute("hidden", "");
+    }
+    pop.removeAttribute("hidden");
+    requestAnimationFrame(function () {
+      var pr = pop.getBoundingClientRect();
+      var w = pr.width || 260;
+      var h = pr.height || 120;
+      var left = anchorRect.left + anchorRect.width / 2 - w / 2;
+      var top = anchorRect.bottom + 6;
+      if (left < 8) left = 8;
+      if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+      if (top + h > window.innerHeight - 8) top = Math.max(8, anchorRect.top - h - 6);
+      pop.style.left = left + "px";
+      pop.style.top = top + "px";
+    });
+  }
+
+  function formatGcalEventRangeFr(ev) {
+    if (!ev || !ev.start) return "";
+    if (ev.start.date) {
+      var s = ev.start.date;
+      var eIncl = ev.end && ev.end.date ? addDays(ev.end.date, -1) : s;
+      if (!eIncl || eIncl < s) eIncl = s;
+      if (s === eIncl) return "Journée entière · " + formatIsoShortFr(s);
+      return "Journée entière · " + formatIsoShortFr(s) + " → " + formatIsoShortFr(eIncl);
+    }
+    if (ev.start.dateTime) {
+      var d1 = new Date(ev.start.dateTime);
+      var d2 = ev.end && ev.end.dateTime ? new Date(ev.end.dateTime) : d1;
+      var o1 = { dateStyle: "short", timeStyle: "short" };
+      return d1.toLocaleString("fr-FR", o1) + " → " + d2.toLocaleString("fr-FR", o1);
+    }
+    return "";
+  }
+
+  function gcalAllDayInclusiveEnd(ev) {
+    if (!ev.start || !ev.start.date) return null;
+    if (ev.end && ev.end.date) return addDays(ev.end.date, -1);
+    return ev.start.date;
+  }
+
+  function gcalDaysDiffIso(fromIso, toIso) {
+    return Math.round((parseISODate(toIso).getTime() - parseISODate(fromIso).getTime()) / 86400000);
+  }
+
+  function clipEventWeekSlice(ev, weekMon) {
+    if (!ev || !ev.start) return null;
+    var wLast = addDays(weekMon, 6);
+    var s;
+    var e;
+    if (ev.start.date) {
+      s = ev.start.date;
+      e = gcalAllDayInclusiveEnd(ev) || s;
+    } else if (ev.start.dateTime) {
+      s = isoDate(new Date(ev.start.dateTime));
+      e = ev.end && ev.end.dateTime ? isoDate(new Date(ev.end.dateTime)) : s;
+    } else return null;
+    if (e < s) e = s;
+    if (e < weekMon || s > wLast) return null;
+    var c0 = gcalDaysDiffIso(weekMon, s);
+    var c1 = gcalDaysDiffIso(weekMon, e);
+    if (c0 < 0) c0 = 0;
+    if (c1 > 6) c1 = 6;
+    if (c1 < c0) return null;
+    return { c0: c0, c1: c1, span: c1 - c0 + 1, ev: ev };
+  }
+
+  function buildGcalWeekPillButton(ev, extraStyle, isSpan) {
+    var st = gcalPillStyles(ev);
+    var id = ev.id ? escapeAttr(String(ev.id)) : "";
+    var cls = "gcal-week-pill" + (isSpan ? " gcal-week-pill--span" : "");
+    var title = escapeHtml(ev.summary || "(Sans titre)");
+    var ex = extraStyle ? extraStyle + ";" : "";
+    return (
+      '<button type="button" class="' +
+      cls +
+      '" data-gcal-id="' +
+      id +
+      '" style="' +
+      ex +
+      "color:" +
+      st.fg +
+      ";background:" +
+      st.bg +
+      ";border-color:" +
+      st.bd +
+      '"><span class="gcal-week-pill__dot" aria-hidden="true"></span><span class="gcal-week-pill__txt">' +
+      title +
+      "</span></button>"
+    );
+  }
+
+  function renderGcalWeekFromItems(items, connected) {
+    var mount = document.getElementById("gcal-week-mount");
+    if (!mount) return;
+    if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
+    var weekMon = __gcalViewWeekStartIso;
+
+    __gcalWeekEventById = {};
+    (items || []).forEach(function (ev) {
+      if (ev && ev.id) __gcalWeekEventById[String(ev.id)] = ev;
+    });
+
+    var titleEl = document.getElementById("gcal-week-month-title");
+    if (titleEl) {
+      var cap = parseISODate(weekMon).toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+      titleEl.textContent = cap.charAt(0).toUpperCase() + cap.slice(1);
+    }
+
+    var dowLab = weekDayLabels();
+    var shellCl = "gcal-week-shell" + (connected ? "" : " is-disconnected");
+    var colsHtml = "";
+    var i;
+
+    for (i = 0; i < 7; i++) {
+      var dayIso = addDays(weekMon, i);
+      var isTd = dayIso === todayIso;
+      colsHtml += '<div class="gcal-week-col"><div class="gcal-week-col__head' + (isTd ? " is-today" : "") + '">';
+      colsHtml += '<div class="gcal-week-col__dow">' + escapeHtml(dowLab[i]) + "</div>";
+      colsHtml +=
+        '<div class="gcal-week-col__num' +
+        (isTd ? " is-today" : "") +
+        '">' +
+        String(parseISODate(dayIso).getDate()) +
+        "</div></div>";
+      colsHtml += '<div class="gcal-week-col__body" data-day-iso="' + escapeAttr(dayIso) + '">';
+      colsHtml += "</div></div>";
+    }
+
+    if (!connected) {
+      mount.innerHTML =
+        '<div id="gcal-week-shell" class="' +
+        shellCl +
+        '"><div class="gcal-week-disconnect-msg" aria-live="polite">Connecte Google Calendar dans Réglages</div>' +
+        '<div class="gcal-week-multi" id="gcal-week-multi"></div><div class="gcal-week-cols">' +
+        colsHtml +
+        "</div></div>";
+      closeGcalWeekPopover();
+      return;
+    }
+
+    var clips = [];
+    (items || []).forEach(function (ev) {
+      var c = clipEventWeekSlice(ev, weekMon);
+      if (c) clips.push(c);
+    });
+    var multi = [];
+    var singles = [[], [], [], [], [], [], []];
+    clips.forEach(function (c) {
+      if (c.span > 1) multi.push(c);
+      else singles[c.c0].push(c.ev);
+    });
+    multi.sort(function (a, b) {
+      if (a.c0 !== b.c0) return a.c0 - b.c0;
+      return b.span - a.span;
+    });
+    var laneEnd = [];
+    multi.forEach(function (b) {
+      var L = 0;
+      for (; L < laneEnd.length; L++) {
+        if (laneEnd[L] < b.c0) {
+          laneEnd[L] = b.c1;
+          b.lane = L;
+          return;
+        }
+      }
+      laneEnd.push(b.c1);
+      b.lane = laneEnd.length - 1;
+    });
+    multi.sort(function (a, b) {
+      if (a.lane !== b.lane) return a.lane - b.lane;
+      if (a.c0 !== b.c0) return a.c0 - b.c0;
+      return a.c1 - b.c1;
+    });
+    var multiHtml = "";
+    multi.forEach(function (c) {
+      var gc = c.c0 + 1;
+      var gs = c.span;
+      var gr = c.lane + 1;
+      var extra = "grid-column:" + gc + " / span " + gs + ";grid-row:" + gr;
+      multiHtml += buildGcalWeekPillButton(c.ev, extra, true);
+    });
+
+    colsHtml = "";
+    for (i = 0; i < 7; i++) {
+      dayIso = addDays(weekMon, i);
+      isTd = dayIso === todayIso;
+      colsHtml += '<div class="gcal-week-col"><div class="gcal-week-col__head' + (isTd ? " is-today" : "") + '">';
+      colsHtml += '<div class="gcal-week-col__dow">' + escapeHtml(dowLab[i]) + "</div>";
+      colsHtml +=
+        '<div class="gcal-week-col__num' +
+        (isTd ? " is-today" : "") +
+        '">' +
+        String(parseISODate(dayIso).getDate()) +
+        "</div></div>";
+      colsHtml += '<div class="gcal-week-col__body" data-day-iso="' + escapeAttr(dayIso) + '">';
+      var dayEvs = singles[i].slice().sort(function (a, b) {
         return eventSortKey(a).localeCompare(eventSortKey(b));
       });
-    if (!todayEvs.length) {
-      todayUl.innerHTML = '<li class="gcal-empty">Aucun événement</li>';
-    } else {
-      todayUl.innerHTML = todayEvs.map(renderGcalEventRow).join("");
-    }
-    var html = "";
-    var d;
-    for (d = 1; d <= 3; d++) {
-      var dayIso = addDays(todayIso, d);
-      var dayEvs = items
-        .filter(function (ev) {
-          return eventDayIsoLocal(ev) === dayIso;
+      colsHtml += dayEvs
+        .map(function (ev) {
+          return buildGcalWeekPillButton(ev, "", false);
         })
-        .sort(function (a, b) {
-          return eventSortKey(a).localeCompare(eventSortKey(b));
-        });
-      var label = parseISODate(dayIso).toLocaleDateString("fr-FR", {
-        weekday: "short",
-        day: "numeric",
-        month: "short"
-      });
-      label = label.charAt(0).toUpperCase() + label.slice(1);
-      html += '<div class="gcal-agenda-section"><h3 class="gcal-agenda-day-label">' + escapeHtml(label) + "</h3>";
-      if (!dayEvs.length) {
-        html += '<p class="gcal-empty">Aucun événement</p></div>';
-        continue;
-      }
-      var show = dayEvs.slice(0, 3);
-      var rest = dayEvs.length - show.length;
-      html += '<ul class="gcal-event-list">';
-      html += show.map(renderGcalEventRow).join("");
-      html += "</ul>";
-      if (rest > 0) html += '<p class="gcal-event-more">+' + rest + " autre" + (rest > 1 ? "s" : "") + "</p>";
-      html += "</div>";
+        .join("");
+      colsHtml += "</div></div>";
     }
-    upHost.innerHTML = html;
+
+    mount.innerHTML =
+      '<div id="gcal-week-shell" class="' +
+      shellCl +
+      '"><div class="gcal-week-disconnect-msg" aria-live="polite">Connecte Google Calendar dans Réglages</div>' +
+      '<div class="gcal-week-multi" id="gcal-week-multi">' +
+      multiHtml +
+      '</div><div class="gcal-week-cols">' +
+      colsHtml +
+      "</div></div>";
+    closeGcalWeekPopover();
   }
 
   function fetchGcalEventsWindow(timeMinIso, timeMaxIso) {
@@ -4050,25 +4437,24 @@
   function fetchGcalAndRender(showLoading) {
     var panel = document.getElementById("home-agenda-panel");
     if (!panel || panel.hasAttribute("hidden")) return;
+    if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
+    var weekMon = __gcalViewWeekStartIso;
     var token = getValidGcalAccessToken();
     if (!token) {
-      setGcalAgendaStatus("Connecte Google dans Réglages pour voir l’agenda.", true);
-      var tUl = document.getElementById("gcal-agenda-today-list");
-      var uH = document.getElementById("gcal-agenda-upcoming");
-      if (tUl) tUl.innerHTML = '<li class="gcal-empty">Aucun événement</li>';
-      if (uH) uH.innerHTML = "";
+      setGcalAgendaStatus("", false);
+      renderGcalWeekFromItems([], false);
       return;
     }
     if (showLoading) setGcalAgendaStatus("Chargement…", false);
-    var p0 = todayIso.split("-").map(Number);
-    var startD = new Date(p0[0], p0[1] - 1, p0[2], 0, 0, 0, 0);
-    var endD = new Date(p0[0], p0[1] - 1, p0[2] + 4, 0, 0, 0, 0);
+    var p = weekMon.split("-").map(Number);
+    var startD = new Date(p[0], p[1] - 1, p[2], 0, 0, 0, 0);
+    var endD = new Date(p[0], p[1] - 1, p[2] + 7, 0, 0, 0, 0);
     var timeMin = startD.toISOString();
     var timeMax = endD.toISOString();
     fetchGcalEventsWindow(timeMin, timeMax)
       .then(function (data) {
         var items = (data && data.items) || [];
-        renderGcalAgendaFromItems(items);
+        renderGcalWeekFromItems(items, true);
         setGcalAgendaStatus("", false);
       })
       .catch(function (err) {
@@ -4246,6 +4632,52 @@
           });
       });
     }
+    var prevW = document.getElementById("gcal-week-prev");
+    var nextW = document.getElementById("gcal-week-next");
+    if (prevW && !prevW.dataset.weekWired) {
+      prevW.dataset.weekWired = "1";
+      prevW.addEventListener("click", function () {
+        if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
+        __gcalViewWeekStartIso = addDays(__gcalViewWeekStartIso, -7);
+        fetchGcalAndRender(true);
+      });
+    }
+    if (nextW && !nextW.dataset.weekWired) {
+      nextW.dataset.weekWired = "1";
+      nextW.addEventListener("click", function () {
+        if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
+        __gcalViewWeekStartIso = addDays(__gcalViewWeekStartIso, 7);
+        fetchGcalAndRender(true);
+      });
+    }
+    var wMount = document.getElementById("gcal-week-mount");
+    if (wMount && !wMount.dataset.weekPopWired) {
+      wMount.dataset.weekPopWired = "1";
+      wMount.addEventListener("click", function (ev) {
+        var btn = ev.target.closest(".gcal-week-pill");
+        if (!btn) return;
+        var gid = btn.getAttribute("data-gcal-id");
+        if (!gid) return;
+        var gev = __gcalWeekEventById[gid];
+        if (!gev) return;
+        openGcalWeekPopoverNear(btn.getBoundingClientRect(), gev);
+        ev.stopPropagation();
+      });
+    }
+    if (!document.documentElement.dataset.gcalWeekPopoverGlob) {
+      document.documentElement.dataset.gcalWeekPopoverGlob = "1";
+      document.addEventListener(
+        "mousedown",
+        function (ev) {
+          var pop = document.getElementById("gcal-week-popover");
+          if (!pop || pop.hasAttribute("hidden")) return;
+          if (ev.target.closest("#gcal-week-popover")) return;
+          if (ev.target.closest(".gcal-week-pill")) return;
+          closeGcalWeekPopover();
+        },
+        true
+      );
+    }
   }
 
   function bootGoogleCalendarIfReady() {
@@ -4257,6 +4689,8 @@
     if (getValidGcalAccessToken()) {
       fetchGcalAndRender(true);
       startGcalPolling();
+    } else {
+      fetchGcalAndRender(false);
     }
   }
 
@@ -6245,20 +6679,8 @@
   }
 
   function renderDailyBrief() {
-    var dateEl = document.getElementById("home-daily-strip-date");
-    var taskLineEl = document.getElementById("daily-brief-task-line");
-    var barFill = document.getElementById("daily-brief-mini-bar-fill");
-    if (!taskLineEl || !barFill) return;
-    if (dateEl) dateEl.textContent = formatCompactHeaderDateFr(viewDateIso);
-
     var snap = getSnap();
     if (!isViewingToday() && !snap && !isViewingFuture()) {
-      taskLineEl.textContent = "—";
-      taskLineEl.setAttribute(
-        "title",
-        "Aucune archive pour cette date : ouverture sur un autre jour sans passage de minuit ici."
-      );
-      barFill.style.width = "0%";
       fillBriefBars("brief-bars-sport", []);
       fillBriefBars("brief-bars-food", []);
       fillBriefTodoHomeDuo();
@@ -6269,18 +6691,7 @@
     }
 
     var t = state.targets;
-    var rec = getRecurringItems();
-    var one = getOneOffItems();
     var sn = getSportNutrition();
-    var fn = state.meta && state.meta.firstName ? String(state.meta.firstName).trim() : "";
-
-    var leftRec = rec.filter(function (x) {
-      return !x.done;
-    }).length;
-    var leftOne = one.filter(function (x) {
-      return !x.done;
-    }).length;
-    var totalLeft = leftRec + leftOne;
 
     var active = getActiveMetricKeys();
     var sportKs = active.filter(function (k) {
@@ -6289,59 +6700,6 @@
     var nutKs = active.filter(function (k) {
       return !METRIC_SPORT[k];
     });
-    var pctSport = 100;
-    if (sportKs.length) {
-      var sSum = 0;
-      sportKs.forEach(function (k) {
-        sSum += t[k] ? Math.min(1, sn.sport[k] / t[k]) : 0;
-      });
-      pctSport = Math.round((sSum / sportKs.length) * 100);
-    }
-
-    var waterOk = false;
-    var waterWarn = false;
-    if (nutKs.indexOf("water") >= 0) {
-      waterOk = t.water ? sn.nutrition.water >= t.water : false;
-      waterWarn = t.water ? sn.nutrition.water >= t.water * 0.7 : false;
-    }
-
-    var waterPhrase =
-      nutKs.indexOf("water") < 0
-        ? nutKs.length
-          ? "Nutrition " +
-            Math.round(
-              (nutKs.reduce(function (acc, k) {
-                return acc + (t[k] ? Math.min(1, sn.nutrition[k] / t[k]) : 0);
-              }, 0) /
-                nutKs.length) *
-                100
-            ) +
-            "%"
-          : "—"
-        : waterOk
-        ? "Hydratation : objectif atteint"
-        : waterWarn
-        ? "Hydratation : sous le seuil"
-        : "Hydratation : en dessous du repère";
-
-    var tTot = getTaskTotalsForView();
-    var parts = [];
-    if (totalLeft === 0) parts.push("0 tâche en attente");
-    else parts.push(totalLeft + " tâche" + (totalLeft > 1 ? "s" : "") + " en attente");
-    if (tTot.total) parts.push(tTot.done + "/" + tTot.total + " cochées");
-    taskLineEl.textContent = parts.join(" · ");
-
-    var tipBits = [];
-    if (isViewingFuture()) {
-      tipBits.push("Aperçu futur : sport / alimentation à zéro tant que le jour n’est pas là.");
-    }
-    if (fn) tipBits.push(fn);
-    if (state.meta.showBriefSport !== false) tipBits.push("Sport : " + pctSport + "%");
-    if (state.meta.showBriefFood !== false) tipBits.push(waterPhrase);
-    taskLineEl.setAttribute("title", tipBits.length ? tipBits.join(" — ") : "");
-
-    var pctDone = !tTot.total ? 100 : Math.round((100 * tTot.done) / tTot.total);
-    barFill.style.width = pctDone + "%";
 
     var briefSportLabels = { running: "Run", muscu: "Muscu", natation: "Natation" };
     if (state.meta.showBriefSport !== false) {
@@ -6371,11 +6729,70 @@
     applyHomeOverviewVisibility();
   }
 
+  function applyBriefBlockCollapseState() {
+    var sport = document.getElementById("brief-wrap-sport");
+    var food = document.getElementById("brief-wrap-food");
+    var bSport = document.getElementById("btn-brief-sport-collapse");
+    var bFood = document.getElementById("btn-brief-alim-collapse");
+    try {
+      if (sport) {
+        var cS = localStorage.getItem(HOME_SPORT_COLLAPSED_KEY) === "1";
+        sport.classList.toggle("is-collapsed", cS);
+        if (bSport) {
+          bSport.setAttribute("aria-expanded", cS ? "false" : "true");
+          bSport.textContent = cS ? "▸" : "▾";
+        }
+      }
+      if (food) {
+        var cF = localStorage.getItem(HOME_ALIM_COLLAPSED_KEY) === "1";
+        food.classList.toggle("is-collapsed", cF);
+        if (bFood) {
+          bFood.setAttribute("aria-expanded", cF ? "false" : "true");
+          bFood.textContent = cF ? "▸" : "▾";
+        }
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function wireBriefCollapsiblesOnce() {
+    if (document.documentElement.dataset.briefCollapseWired) return;
+    document.documentElement.dataset.briefCollapseWired = "1";
+    var bSport = document.getElementById("btn-brief-sport-collapse");
+    var bFood = document.getElementById("btn-brief-alim-collapse");
+    if (bSport) {
+      bSport.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var sport = document.getElementById("brief-wrap-sport");
+        var on = sport && sport.classList.contains("is-collapsed");
+        var next = !on;
+        try {
+          localStorage.setItem(HOME_SPORT_COLLAPSED_KEY, next ? "1" : "0");
+        } catch (e2) { /* ignore */ }
+        applyBriefBlockCollapseState();
+      });
+    }
+    if (bFood) {
+      bFood.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var food = document.getElementById("brief-wrap-food");
+        var on = food && food.classList.contains("is-collapsed");
+        var next = !on;
+        try {
+          localStorage.setItem(HOME_ALIM_COLLAPSED_KEY, next ? "1" : "0");
+        } catch (e2) { /* ignore */ }
+        applyBriefBlockCollapseState();
+      });
+    }
+  }
+
   function applyHomeOverviewVisibility() {
     var s = document.getElementById("brief-wrap-sport");
     var f = document.getElementById("brief-wrap-food");
     if (s) s.style.display = state.meta.showBriefSport === false ? "none" : "";
     if (f) f.style.display = state.meta.showBriefFood === false ? "none" : "";
+    applyBriefBlockCollapseState();
   }
 
   function applyThemeMeta() {
@@ -6923,6 +7340,7 @@
     buildSettingsMetricsPanel();
     wireSettingsMetricsDynamic();
     wireBriefTodoHomeClicksOnce();
+    wireBriefCollapsiblesOnce();
     initRecurringNewWeekStrip();
     wireMiniCalendarOnce();
     wireSettingsCountdownEditorOnce();
