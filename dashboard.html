@@ -420,6 +420,16 @@
       color: var(--text-muted);
       white-space: nowrap;
       padding-left: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .next-reset-badge svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      color: currentColor;
     }
 
     .next-reset-badge.is-soon {
@@ -428,7 +438,7 @@
 
     .next-reset-badge.is-archive {
       color: var(--text-muted);
-      opacity: 0.55;
+      opacity: 1;
       font-weight: 500;
     }
 
@@ -979,6 +989,16 @@
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
       transition: opacity 0.15s ease, color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-ghost-agenda svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      color: currentColor;
     }
 
     .btn-ghost-agenda:hover {
@@ -1139,7 +1159,7 @@
     }
 
     .gcal-week-col__dow {
-      opacity: 0.75;
+      opacity: 0.85;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
@@ -1147,29 +1167,63 @@
     .gcal-week-col__num {
       margin-top: 2px;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 500;
+      opacity: 1;
       color: var(--text);
     }
 
     .gcal-week-col__num.is-today {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      margin: 4px auto 0;
-      border-radius: 999px;
-      border: 2px solid var(--accent);
       color: var(--accent);
-      box-sizing: border-box;
+      font-weight: 600;
     }
 
     .gcal-week-col__body {
       height: 200px;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 6px 4px 8px;
+      padding: 6px 4px 14px;
       box-sizing: border-box;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    [data-theme="dark"] .gcal-week-col__body {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+
+    [data-theme="light"] .gcal-week-col__body {
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07);
+    }
+
+    [data-theme="dark"] .gcal-week-col__body:hover {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    [data-theme="light"] .gcal-week-col__body:hover {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    .gcal-week-col__body.is-today {
+      background: color-mix(in srgb, var(--accent) 20%, transparent);
+      box-shadow: inset 0 0 0 1px var(--accent), inset 0 0 0 2px transparent;
+    }
+
+    .gcal-week-col__body.is-today:hover {
+      background: color-mix(in srgb, var(--accent) 28%, transparent);
+    }
+
+    .gcal-week-col__body--has-archive::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      width: 4px;
+      height: 4px;
+      margin-left: -2px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
     }
 
     .gcal-week-pill {
@@ -1263,12 +1317,32 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 0.65rem;
+      align-items: center;
     }
 
     .settings-gcal-status {
       margin-top: 0.5rem;
       font-size: 0.8125rem;
       color: var(--text-muted);
+    }
+
+    .settings-gcal-status.is-error {
+      color: var(--danger);
+    }
+
+    .settings-gcal-account {
+      flex: 1 1 140px;
+      min-width: 0;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+      align-self: center;
+    }
+
+    .settings-gcal-connect-hint {
+      margin: 0.35rem 0 0;
+      font-size: 0.78rem;
+      color: var(--danger);
     }
 
     .task-gcal-sync {
@@ -2151,7 +2225,15 @@
     }
 
     .task-item--prio-low .task-text {
-      opacity: 0.65;
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .task-item--prio-low {
+      border-left: 3px solid var(--progress);
+      padding-left: 10px;
+      background: var(--progress-muted);
+      border-radius: var(--radius-xs);
     }
 
     .task-drag-handle {
@@ -2179,10 +2261,6 @@
       flex-wrap: wrap;
       gap: 0.45rem;
       width: 100%;
-    }
-
-    .task-item--oneoff.task-item--prio-high .task-text::before {
-      content: "⚡ ";
     }
 
     .sortable-ghost {
@@ -2283,12 +2361,22 @@
 
     .task-prio-badge {
       flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
       font-size: 11px;
       font-weight: 600;
       padding: 2px 8px;
       border-radius: 4px;
       line-height: 1.25;
       color: #fff;
+    }
+
+    .task-prio-badge svg {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      color: currentColor;
     }
 
     .task-prio-badge--high {
@@ -2301,7 +2389,9 @@
     }
 
     .task-prio-badge--low {
-      background: #6b7280;
+      background: var(--progress-muted);
+      color: var(--accent);
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
     }
 
     .task-item--oneoff {
@@ -3958,9 +4048,9 @@
     }
 
     [data-theme="dark"] .task-prio-badge--low {
-      background: rgba(142, 142, 147, 0.18);
-      border: 1px solid rgba(142, 142, 147, 0.45);
-      color: #e5e5ea;
+      background: rgba(48, 209, 88, 0.12);
+      border: 1px solid rgba(98, 255, 98, 0.45);
+      color: #b8ffcc;
     }
 
     [data-theme="light"] .task-prio-badge--high {
@@ -3976,9 +4066,9 @@
     }
 
     [data-theme="light"] .task-prio-badge--low {
-      background: rgba(107, 114, 128, 0.14);
-      border: 1px solid rgba(107, 114, 128, 0.35);
-      color: #374151;
+      background: rgba(52, 199, 89, 0.12);
+      border: 1px solid rgba(52, 199, 89, 0.45);
+      color: #14532d;
     }
 
     .task-prio-badge {
@@ -4354,9 +4444,9 @@
                         <button type="button" class="gcal-week-nav__btn" id="gcal-week-next" aria-label="Semaine suivante">→</button>
                       </div>
                       <div class="gcal-week-actions">
-                        <button type="button" class="btn-ghost-agenda" id="btn-gcal-refresh" title="Actualiser">🔄</button>
+                        <button type="button" class="btn-ghost-agenda" id="btn-gcal-refresh" title="Actualiser" aria-label="Actualiser"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></button>
                         <button type="button" class="btn-ghost-agenda" id="btn-gcal-add-toggle">+ Événement</button>
-                        <button type="button" class="btn-ghost-agenda" id="btn-home-open-agenda">↗ Ouvrir Google Calendar</button>
+                        <button type="button" class="btn-ghost-agenda" id="btn-home-open-agenda"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Ouvrir Google Calendar</button>
                       </div>
                     </div>
                   </div>
@@ -4841,10 +4931,16 @@
         </div>
         <div class="card settings-card">
           <h2>Google Calendar</h2>
-          <p class="hint">Connexion OAuth côté navigateur (token en session). Restreins l’API key et l’ID client aux origines GitHub Pages dans la console Google Cloud.</p>
+          <p class="hint">OAuth côté navigateur (GIS ou fragment <code>#access_token=…</code> en session). <code>redirect_uri</code> = URL exacte de cette page (ex. GitHub Pages). Scopes : calendrier + userinfo.</p>
+          <label class="theme-label" for="settings-gcal-client-id">Client ID OAuth</label>
+          <input type="text" id="settings-gcal-client-id" class="settings-calendar-url" placeholder="xxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false" />
+          <label class="theme-label" for="settings-gcal-api-key" style="margin-top:0.5rem">Clé API (Calendar)</label>
+          <input type="text" id="settings-gcal-api-key" class="settings-calendar-url" placeholder="AIza…" autocomplete="off" spellcheck="false" />
+          <p id="settings-gcal-connect-hint" class="settings-gcal-connect-hint" hidden>Configure d’abord ton client_id dans les réglages</p>
           <div class="settings-gcal-btns">
             <button type="button" class="btn btn-add-unified" id="settings-gcal-connect">Connecter Google Calendar</button>
             <button type="button" class="btn secondary" id="settings-gcal-disconnect">Déconnecter</button>
+            <span id="settings-gcal-account" class="settings-gcal-account" hidden></span>
           </div>
           <p id="settings-gcal-status" class="settings-gcal-status" aria-live="polite"></p>
         </div>
@@ -4925,19 +5021,35 @@
   };
 
   var SIDEBAR_PIN_KEY = "home_sidebar_rail_pinned";
-    "991264215858-8m0r80ed4bqt6l4c6kpgnr0lvbs8p7lr.apps.googleusercontent.com";
-  var GCAL_API_KEY = "AIzaSyC5EjL6mVgSD1AUl5DZi2UdJeQZyK0yPB0";
-  var GCAL_SCOPE = "https://www.googleapis.com/auth/calendar";
+  var GCAL_CLIENT_ID_EMBEDDED = "991264215858-8m0r80ed4bqt6l4c6kpgnr0lvbs8p7lr.apps.googleusercontent.com";
+  var GCAL_API_KEY_EMBEDDED = "AIzaSyC5EjL6mVgSD1AUl5DZi2UdJeQZyK0yPB0";
+  /* Lecture + création d’événements + profil (userinfo). calendar.readonly inclus pour alignement OAuth « implicit » / console Google. */
+  var GCAL_SCOPE =
+    "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
   var GCAL_TOKEN_STORAGE_KEY = "gcal_token";
   var GCAL_TASK_MAP_KEY = "home_gcal_task_events";
   var GCAL_POLL_MS = 5 * 60 * 1000;
   var __gcalTokenClient = null;
+  var __gcalTokenClientClientId = null;
   var __gcalPollTimer = null;
   var __gcalViewWeekStartIso = null;
   var __gcalWeekEventById = {};
   var HOME_SPORT_COLLAPSED_KEY = "home_sport_collapsed";
   var HOME_ALIM_COLLAPSED_KEY = "home_alim_collapsed";
   var __gcalScriptsReady = false;
+
+  var UI_ICON_SVG = {
+    clock:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+    folder:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>',
+    zap:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>',
+    refresh:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>',
+    external:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>'
+  };
 
   function gcalColorFromColorId(cid) {
     var map = {
@@ -4968,15 +5080,85 @@
     }
   }
 
+  function buildGcalOAuthImplicitAuthUrl() {
+    var cid = typeof getEffectiveGcalClientId === "function" ? getEffectiveGcalClientId() : "";
+    if (!cid) return "";
+    var path = (window.location.pathname || "").split("?")[0] || "/";
+    var redirect_uri = window.location.origin + path;
+    var params = new URLSearchParams({
+      client_id: cid,
+      redirect_uri: redirect_uri,
+      response_type: "token",
+      scope: GCAL_SCOPE,
+      include_granted_scopes: "true"
+    });
+    return "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+  }
+
+  function tryConsumeOAuthImplicitTokenFromHash() {
+    try {
+      var h = window.location.hash || "";
+      if (!h || (h.indexOf("access_token=") < 0 && h.indexOf("error=") < 0)) return false;
+      var q = h.charAt(0) === "#" ? h.slice(1) : h;
+      var params = new URLSearchParams(q);
+      var oerr = params.get("error");
+      if (oerr) {
+        try {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        } catch (e0) { /* ignore */ }
+        return false;
+      }
+      var tok = params.get("access_token");
+      if (!tok) return false;
+      var ei = parseInt(params.get("expires_in") || "3600", 10);
+      saveGcalToken(tok, ei);
+      try {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      } catch (e1) { /* ignore */ }
+      return true;
+    } catch (eH) {
+      return false;
+    }
+  }
+
+  function refreshGcalUserLabelForToken(access_token) {
+    if (!access_token) return;
+    fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: "Bearer " + access_token }
+    })
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (j) {
+        if (!j) return;
+        var rec = getGcalTokenRecord();
+        if (!rec || rec.access_token !== access_token) return;
+        var label =
+          (j.email && String(j.email).trim()) ||
+          (j.name && String(j.name).trim()) ||
+          (j.given_name && String(j.given_name).trim()) ||
+          "";
+        if (!label) return;
+        rec.user_label = label;
+        try {
+          sessionStorage.setItem(GCAL_TOKEN_STORAGE_KEY, JSON.stringify(rec));
+        } catch (e2) { /* ignore */ }
+        updateGcalSettingsStatus();
+      })
+      .catch(function () { /* ignore */ });
+  }
+
   function saveGcalToken(access_token, expires_in) {
     var sec = typeof expires_in === "number" && expires_in > 60 ? expires_in : 3600;
     var rec = {
       access_token: access_token,
-      expires_at: Date.now() + (sec - 120) * 1000
+      expires_at: Date.now() + (sec - 120) * 1000,
+      user_label: ""
     };
     try {
       sessionStorage.setItem(GCAL_TOKEN_STORAGE_KEY, JSON.stringify(rec));
     } catch (e2) { /* ignore */ }
+    refreshGcalUserLabelForToken(access_token);
   }
 
   function clearGcalToken() {
@@ -5042,13 +5224,29 @@
   }
 
   function ensureGcalTokenClient() {
-    if (__gcalTokenClient) return __gcalTokenClient;
+    var cid = typeof getEffectiveGcalClientId === "function" ? getEffectiveGcalClientId() : "";
+    if (!cid) {
+      __gcalTokenClient = null;
+      __gcalTokenClientClientId = null;
+      return null;
+    }
+    if (__gcalTokenClient && __gcalTokenClientClientId === cid) return __gcalTokenClient;
+    __gcalTokenClient = null;
+    __gcalTokenClientClientId = null;
     if (typeof google === "undefined" || !google.accounts || !google.accounts.oauth2) return null;
     __gcalTokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: GCAL_CLIENT_ID,
+      client_id: cid,
       scope: GCAL_SCOPE,
       callback: function (resp) {
-        if (!resp || resp.error) return;
+        if (!resp || resp.error) {
+          var el = document.getElementById("settings-gcal-status");
+          if (el && resp && resp.error) {
+            var msg = (resp.error_description && String(resp.error_description)) || String(resp.error);
+            el.textContent = "Connexion Google refusée : " + msg;
+            el.classList.add("is-error");
+          }
+          return;
+        }
         if (resp.access_token) {
           saveGcalToken(resp.access_token, resp.expires_in);
           updateGcalSettingsStatus();
@@ -5057,10 +5255,19 @@
         }
       }
     });
+    __gcalTokenClientClientId = cid;
     return __gcalTokenClient;
   }
 
   function requestGcalAccessToken(promptVal) {
+    if (typeof getEffectiveGcalClientId !== "function" || typeof getEffectiveGcalApiKey !== "function") {
+      alert("Chargement en cours — réessaie dans une seconde.");
+      return;
+    }
+    if (!getEffectiveGcalClientId() || !getEffectiveGcalApiKey()) {
+      updateGcalSettingsStatus();
+      return;
+    }
     var c = ensureGcalTokenClient();
     if (!c) {
       alert("Chargement Google en cours — réessaie dans une seconde.");
@@ -5127,9 +5334,45 @@
 
   function updateGcalSettingsStatus() {
     var el = document.getElementById("settings-gcal-status");
+    var acc = document.getElementById("settings-gcal-account");
+    var hint = document.getElementById("settings-gcal-connect-hint");
+    var btn = document.getElementById("settings-gcal-connect");
+    var cid = typeof getEffectiveGcalClientId === "function" ? getEffectiveGcalClientId() : "";
+    var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+    var missingCred = !cid || !apiKey;
+    if (hint) {
+      hint.hidden = !missingCred;
+    }
+    if (btn) {
+      btn.disabled = missingCred;
+      btn.setAttribute("aria-disabled", missingCred ? "true" : "false");
+    }
+    if (acc) {
+      if (getValidGcalAccessToken()) {
+        var r = getGcalTokenRecord();
+        var lab = r && r.user_label ? String(r.user_label) : "";
+        acc.textContent = lab;
+        acc.hidden = !lab;
+      } else {
+        acc.textContent = "";
+        acc.hidden = true;
+      }
+    }
     if (!el) return;
-    if (getValidGcalAccessToken()) el.textContent = "Connecté à Google Calendar.";
-    else el.textContent = "Non connecté — les événements ne s’affichent pas.";
+    if (missingCred) {
+      el.textContent =
+        "Configure d’abord ton client_id et ta clé API dans les champs ci-dessus (origine GitHub Pages autorisée dans Google Cloud).";
+      el.classList.add("is-error");
+      return;
+    }
+    el.classList.remove("is-error");
+    if (getValidGcalAccessToken()) {
+      var rec = getGcalTokenRecord();
+      var who = rec && rec.user_label ? " — " + rec.user_label : "";
+      el.textContent = "Connecté à Google Calendar" + who + ".";
+      return;
+    }
+    el.textContent = "Non connecté — les événements ne s’affichent pas. Utilise « Connecter » ou reviens avec un jeton dans l’URL (#access_token=…).";
   }
 
   function hexToRgba(hex, a) {
@@ -5280,6 +5523,14 @@
     if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
     var weekMon = __gcalViewWeekStartIso;
 
+    function gcalDayHasArchive(iso) {
+      try {
+        return !!(state && state.history && state.history[iso]);
+      } catch (e) {
+        return false;
+      }
+    }
+
     __gcalWeekEventById = {};
     (items || []).forEach(function (ev) {
       if (ev && ev.id) __gcalWeekEventById[String(ev.id)] = ev;
@@ -5299,6 +5550,10 @@
     for (i = 0; i < 7; i++) {
       var dayIso = addDays(weekMon, i);
       var isTd = dayIso === todayIso;
+      var hasArch = gcalDayHasArchive(dayIso);
+      var bodyCls = "gcal-week-col__body";
+      if (isTd) bodyCls += " is-today";
+      if (hasArch) bodyCls += " gcal-week-col__body--has-archive";
       colsHtml += '<div class="gcal-week-col"><div class="gcal-week-col__head' + (isTd ? " is-today" : "") + '">';
       colsHtml += '<div class="gcal-week-col__dow">' + escapeHtml(dowLab[i]) + "</div>";
       colsHtml +=
@@ -5307,7 +5562,7 @@
         '">' +
         String(parseISODate(dayIso).getDate()) +
         "</div></div>";
-      colsHtml += '<div class="gcal-week-col__body" data-day-iso="' + escapeAttr(dayIso) + '">';
+      colsHtml += '<div class="' + bodyCls + '" data-day-iso="' + escapeAttr(dayIso) + '">';
       colsHtml += "</div></div>";
     }
 
@@ -5369,6 +5624,10 @@
     for (i = 0; i < 7; i++) {
       dayIso = addDays(weekMon, i);
       isTd = dayIso === todayIso;
+      var hasArch2 = gcalDayHasArchive(dayIso);
+      var bodyCls2 = "gcal-week-col__body";
+      if (isTd) bodyCls2 += " is-today";
+      if (hasArch2) bodyCls2 += " gcal-week-col__body--has-archive";
       colsHtml += '<div class="gcal-week-col"><div class="gcal-week-col__head' + (isTd ? " is-today" : "") + '">';
       colsHtml += '<div class="gcal-week-col__dow">' + escapeHtml(dowLab[i]) + "</div>";
       colsHtml +=
@@ -5377,7 +5636,7 @@
         '">' +
         String(parseISODate(dayIso).getDate()) +
         "</div></div>";
-      colsHtml += '<div class="gcal-week-col__body" data-day-iso="' + escapeAttr(dayIso) + '">';
+      colsHtml += '<div class="' + bodyCls2 + '" data-day-iso="' + escapeAttr(dayIso) + '">';
       var dayEvs = singles[i].slice().sort(function (a, b) {
         return eventSortKey(a).localeCompare(eventSortKey(b));
       });
@@ -5403,7 +5662,13 @@
 
   function fetchGcalEventsWindow(timeMinIso, timeMaxIso) {
     var token = getValidGcalAccessToken();
-    if (!token) return Promise.reject(new Error("non connecté"));
+    if (!token) {
+      return Promise.reject(new Error("Jeton d’accès absent — connecte Google Calendar dans Réglages."));
+    }
+    var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+    if (!apiKey) {
+      return Promise.reject(new Error("Clé API Google absente — renseigne-la dans Réglages."));
+    }
     var q = new URLSearchParams({
       singleEvents: "true",
       orderBy: "startTime",
@@ -5415,15 +5680,23 @@
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?" +
         q.toString() +
         "&key=" +
-        encodeURIComponent(GCAL_API_KEY),
+        encodeURIComponent(apiKey),
       {
         headers: { Authorization: "Bearer " + token }
       }
     ).then(function (res) {
-      if (res.status === 401) {
-        clearGcalToken();
-        updateGcalSettingsStatus();
-        return Promise.reject(new Error("Session expirée — reconnecte Google."));
+      if (res.status === 401 || res.status === 403) {
+        if (res.status === 401) {
+          clearGcalToken();
+          updateGcalSettingsStatus();
+        }
+        return Promise.reject(
+          new Error(
+            res.status === 403 ?
+              "Accès refusé (403) — vérifie les scopes OAuth et les restrictions de la clé API." :
+              "Session expirée ou non autorisée (401) — reconnecte Google."
+          )
+        );
       }
       if (!res.ok) return res.text().then(function (t) {
         throw new Error(t || "Erreur " + res.status);
@@ -5439,7 +5712,13 @@
     var weekMon = __gcalViewWeekStartIso;
     var token = getValidGcalAccessToken();
     if (!token) {
-      setGcalAgendaStatus("", false);
+      var cid0 = typeof getEffectiveGcalClientId === "function" ? getEffectiveGcalClientId() : "";
+      var key0 = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+      if (!cid0 || !key0) {
+        setGcalAgendaStatus("Configure d’abord ton client_id et ta clé API dans Réglages.", true);
+      } else {
+        setGcalAgendaStatus("Jeton d’accès absent — connecte Google Calendar dans Réglages.", true);
+      }
       renderGcalWeekFromItems([], false);
       return;
     }
@@ -5462,10 +5741,12 @@
 
   function postGcalEvent(body) {
     var token = getValidGcalAccessToken();
-    if (!token) return Promise.reject(new Error("Non connecté"));
+    if (!token) return Promise.reject(new Error("Jeton d’accès absent — connecte Google Calendar dans Réglages."));
+    var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+    if (!apiKey) return Promise.reject(new Error("Clé API Google absente — renseigne-la dans Réglages."));
     return fetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=" +
-        encodeURIComponent(GCAL_API_KEY),
+        encodeURIComponent(apiKey),
       {
         method: "POST",
         headers: {
@@ -5475,10 +5756,18 @@
         body: JSON.stringify(body)
       }
     ).then(function (res) {
-      if (res.status === 401) {
-        clearGcalToken();
-        updateGcalSettingsStatus();
-        return Promise.reject(new Error("Session expirée."));
+      if (res.status === 401 || res.status === 403) {
+        if (res.status === 401) {
+          clearGcalToken();
+          updateGcalSettingsStatus();
+        }
+        return Promise.reject(
+          new Error(
+            res.status === 403 ?
+              "Accès refusé (403) — vérifie les scopes OAuth et la clé API." :
+              "Session expirée ou non autorisée (401) — reconnecte Google."
+          )
+        );
       }
       if (!res.ok) return res.text().then(function (t) {
         throw new Error(t || "Erreur " + res.status);
@@ -5604,6 +5893,8 @@
       sd.dataset.gcalWired = "1";
       sd.addEventListener("click", function () {
         clearGcalToken();
+        __gcalTokenClient = null;
+        __gcalTokenClientClientId = null;
         updateGcalSettingsStatus();
         fetchGcalAndRender(false);
       });
@@ -5692,8 +5983,10 @@
     }
   }
 
-  var DEFAULT_APP_ICON_DATA_URL =
-    "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%20fill%3D%22%2362ff62%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22331%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%22224%22%20width%3D%22282%22%20height%3D%2262%22%20rx%3D%2231%22%20fill%3D%22%230a0a0a%22%2F%3E%3C%2Fsvg%3E";
+  var HOME_DEFAULT_LOGO =
+    "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMyIgZmlsbD0iIzYyZmY2MiIvPgogIDxyZWN0IHg9IjExNSIgeT0iOTIiIHdpZHRoPSI2NiIgaGVpZ2h0PSIzMjgiIHJ4PSIzMyIgZmlsbD0iIzBhMGEwYSIvPgogIDxyZWN0IHg9IjMzMSIgeT0iOTIiIHdpZHRoPSI2NiIgaGVpZ2h0PSIzMjgiIHJ4PSIzMyIgZmlsbD0iIzBhMGEwYSIvPgogIDxyZWN0IHg9IjExNSIgeT0iMjI0IiB3aWR0aD0iMjgyIiBoZWlnaHQ9IjYyIiByeD0iMzEiIGZpbGw9IiMwYTBhMGEiLz4KPC9zdmc+Cg==";
+
+  var DEFAULT_APP_ICON_DATA_URL = HOME_DEFAULT_LOGO;
   var BRIEF_TODO_PREVIEW_MAX = 8;
   var BRAND_LOGO_MAX_BYTES = 800 * 1024;
 
@@ -5836,7 +6129,9 @@
           "Préparer la semaine suivante"
         ],
         activeMetricKeys: ["running", "muscu", "natation", "water", "protein", "sleep", "meals"],
-        agendaOpenUrl: "https://calendar.google.com/calendar"
+        agendaOpenUrl: "https://calendar.google.com/calendar",
+        gcalClientId: GCAL_CLIENT_ID_EMBEDDED,
+        gcalApiKey: GCAL_API_KEY_EMBEDDED
       },
       history: {},
       todos: {
@@ -6233,6 +6528,8 @@
     delete d.meta.countdowns;
     delete d.meta.countdownHighlightDays;
     if (typeof d.meta.agendaOpenUrl !== "string") d.meta.agendaOpenUrl = "";
+    if (typeof d.meta.gcalClientId !== "string") d.meta.gcalClientId = "";
+    if (typeof d.meta.gcalApiKey !== "string") d.meta.gcalApiKey = "";
     if (data.history && typeof data.history === "object") d.history = data.history;
     if (data.todos) d.todos = data.todos;
     if (data.targets) d.targets = Object.assign(d.targets, data.targets);
@@ -6327,6 +6624,9 @@
   }
 
   var state = loadState();
+  if (!state.meta.brandLogoDataUrl || !String(state.meta.brandLogoDataUrl).trim()) {
+    state.meta.brandLogoDataUrl = HOME_DEFAULT_LOGO;
+  }
   state = applyDailyReset(state, todayIso);
   saveState(state);
   try {
@@ -6334,6 +6634,24 @@
       localStorage.removeItem(LEGACY_KEY);
     }
   } catch (e2) { /* ignore */ }
+
+  function getEffectiveGcalClientId() {
+    try {
+      return state && state.meta ? String(state.meta.gcalClientId || "").trim() : "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function getEffectiveGcalApiKey() {
+    try {
+      return state && state.meta ? String(state.meta.gcalApiKey || "").trim() : "";
+    } catch (e2) {
+      return "";
+    }
+  }
+
+  tryConsumeOAuthImplicitTokenFromHash();
 
   function isViewingToday() {
     return viewDateIso === todayIso;
@@ -6688,7 +7006,12 @@
     var pr = priority === "high" || priority === "low" ? priority : "medium";
     var b = document.createElement("span");
     b.className = "task-prio-badge task-prio-badge--" + pr;
-    b.textContent = pr === "high" ? "Haute" : pr === "low" ? "Basse" : "Moy.";
+    if (pr === "high") {
+      b.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg><span>Haute</span>';
+    } else {
+      b.textContent = pr === "low" ? "Basse" : "Moy.";
+    }
     b.title =
       pr === "high" ? "Priorité haute" : pr === "low" ? "Priorité basse" : "Priorité moyenne";
     return b;
@@ -8513,7 +8836,7 @@
     var el = document.getElementById("next-reset-badge");
     if (!el) return;
     if (viewDateIso !== todayIso) {
-      el.textContent = "📁 Archive";
+      el.innerHTML = UI_ICON_SVG.folder + '<span>Archive</span>';
       el.classList.add("is-archive");
       el.classList.remove("is-soon");
       return;
@@ -8525,7 +8848,7 @@
     if (ms < 0) ms = 0;
     var h = Math.floor(ms / 3600000);
     var m = Math.floor((ms % 3600000) / 60000);
-    el.textContent = "⏳ " + h + "h " + m + "m";
+    el.innerHTML = UI_ICON_SVG.clock + "<span>" + h + "h " + m + "m</span>";
     el.classList.toggle("is-soon", ms < 3600000);
   }
 
@@ -8737,6 +9060,14 @@
     if (agUrl && document.activeElement !== agUrl) {
       agUrl.value = state.meta.agendaOpenUrl != null ? String(state.meta.agendaOpenUrl) : "";
     }
+    var gcid = document.getElementById("settings-gcal-client-id");
+    if (gcid && document.activeElement !== gcid) {
+      gcid.value = state.meta.gcalClientId != null ? String(state.meta.gcalClientId) : "";
+    }
+    var gApi = document.getElementById("settings-gcal-api-key");
+    if (gApi && document.activeElement !== gApi) {
+      gApi.value = state.meta.gcalApiKey != null ? String(state.meta.gcalApiKey) : "";
+    }
     syncSettingsLogoPreview();
   }
 
@@ -8794,7 +9125,7 @@
     var clrLogo = document.getElementById("btn-clear-brand-logo");
     if (clrLogo) {
       clrLogo.addEventListener("click", function () {
-        state.meta.brandLogoDataUrl = "";
+        state.meta.brandLogoDataUrl = HOME_DEFAULT_LOGO;
         saveState(state);
         applyBrandMark();
         syncFaviconFromBrand();
@@ -8808,6 +9139,27 @@
       agInp.addEventListener("change", function () {
         state.meta.agendaOpenUrl = String(agInp.value || "").trim();
         saveState(state);
+      });
+    }
+
+    var gcidInp = document.getElementById("settings-gcal-client-id");
+    if (gcidInp && !gcidInp.dataset.wiredGcalCre) {
+      gcidInp.dataset.wiredGcalCre = "1";
+      gcidInp.addEventListener("input", function () {
+        state.meta.gcalClientId = String(gcidInp.value || "").trim();
+        __gcalTokenClient = null;
+        __gcalTokenClientClientId = null;
+        saveState(state);
+        updateGcalSettingsStatus();
+      });
+    }
+    var gApiInp = document.getElementById("settings-gcal-api-key");
+    if (gApiInp && !gApiInp.dataset.wiredGcalCre) {
+      gApiInp.dataset.wiredGcalCre = "1";
+      gApiInp.addEventListener("input", function () {
+        state.meta.gcalApiKey = String(gApiInp.value || "").trim();
+        saveState(state);
+        updateGcalSettingsStatus();
       });
     }
   }
