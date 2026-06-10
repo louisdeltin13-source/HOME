@@ -7,7 +7,7 @@
   <meta name="description" content="Tableau de bord local : habitudes, charge du jour, sport, nutrition, rappels." />
   <title>HOME</title>
   <link rel="icon" id="app-favicon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%20fill%3D%22%2362ff62%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22331%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%22224%22%20width%3D%22282%22%20height%3D%2262%22%20rx%3D%2231%22%20fill%3D%22%230a0a0a%22%2F%3E%3C%2Fsvg%3E" type="image/svg+xml" sizes="any" />
-  <link rel="apple-touch-icon" id="app-apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%20fill%3D%22%2362ff62%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22331%22%20y%3D%2292%22%20width%3D%2266%22%20height%3D%22328%22%20rx%3D%2233%22%20fill%3D%22%230a0a0a%22%2F%3E%3Crect%20x%3D%22115%22%20y%3D%22224%22%20width%3D%22282%22%20height%3D%2262%22%20rx%3D%2231%22%20fill%3D%22%230a0a0a%22%2F%3E%3C%2Fsvg%3E" />
+  <link rel="apple-touch-icon" id="app-apple-touch-icon" href="./home-icon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Lilita+One&display=swap" rel="stylesheet" />
@@ -411,8 +411,45 @@
       box-shadow: var(--shadow-card);
     }
 
-    .next-reset-badge {
+    .command-palette-trigger {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
       margin-left: auto;
+      padding: 0.25rem 0.55rem;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .command-palette-trigger:hover {
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+      background: var(--bg-hover);
+    }
+
+    .command-palette-trigger svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .command-palette-trigger__key {
+      opacity: 0.75;
+    }
+
+    .next-reset-badge {
+      margin-left: 0;
       flex-shrink: 0;
       font-family: var(--font-mono);
       font-size: 11px;
@@ -640,8 +677,15 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
       opacity: 0.92;
+      transition: opacity 0.15s ease, border-color 0.15s ease;
+    }
+
+    .kbd-hint:hover {
+      opacity: 1;
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
     }
 
     .kbd-hint-title {
@@ -651,6 +695,180 @@
 
     [data-theme="light"] .kbd-hint {
       background: rgba(255, 255, 255, 0.92);
+    }
+
+    .command-palette {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: min(10vh, 5rem) 1rem 1rem;
+      box-sizing: border-box;
+    }
+
+    .command-palette[hidden] {
+      display: none !important;
+    }
+
+    .command-palette__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .command-palette__dialog {
+      position: relative;
+      width: min(34rem, 100%);
+      max-height: min(70vh, 28rem);
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .command-palette__input {
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+    }
+
+    .command-palette__input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.75;
+    }
+
+    .command-palette__list {
+      list-style: none;
+      margin: 0;
+      padding: 0.35rem 0;
+      overflow-y: auto;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .command-palette__item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      color: var(--text);
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      box-sizing: border-box;
+    }
+
+    .command-palette__item:hover,
+    .command-palette__item.is-active {
+      background: var(--bg-hover);
+    }
+
+    .command-palette__item.is-active {
+      box-shadow: inset 2px 0 0 var(--accent);
+    }
+
+    .command-palette__badge {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      min-width: 2.5rem;
+      text-align: center;
+    }
+
+    .command-palette__badge--nav {
+      color: var(--accent);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: var(--progress-muted);
+    }
+
+    .command-palette__badge--create {
+      color: #ff9f0a;
+      border-color: rgba(255, 159, 10, 0.35);
+      background: rgba(255, 159, 10, 0.1);
+    }
+
+    .command-palette__badge--note {
+      color: #64d2ff;
+      border-color: rgba(100, 210, 255, 0.35);
+      background: rgba(100, 210, 255, 0.08);
+    }
+
+    .command-palette__badge--act {
+      color: var(--text-muted);
+    }
+
+    .command-palette__body {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .command-palette__label {
+      display: block;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .command-palette__hint {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .command-palette__empty {
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .command-palette__footer {
+      margin: 0;
+      padding: 0.5rem 1rem;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+    }
+
+    .command-palette__footer kbd {
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
     }
 
     /* modif: bandeau jour — une ligne sous la semaine */
@@ -1016,6 +1234,53 @@
 
     .gcal-agenda-status.is-error {
       color: var(--danger);
+    }
+
+    .gcal-session-expired {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.75rem;
+      margin: 0 0 0.65rem;
+    }
+
+    .gcal-session-expired[hidden] {
+      display: none !important;
+    }
+
+    .gcal-session-expired__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--danger);
+      background: rgba(255, 69, 58, 0.12);
+      border: 1px solid rgba(255, 69, 58, 0.35);
+    }
+
+    .gcal-week-popover__actions {
+      margin-top: 0.65rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .gcal-week-popover__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .gcal-week-popover__link:hover {
+      text-decoration: underline;
     }
 
     .gcal-quick-add {
@@ -2103,6 +2368,411 @@
       display: none !important;
     }
 
+    .sport-sub-panel[hidden] {
+      display: none !important;
+    }
+
+    .sport-plan-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem 1rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .sport-plan-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .sport-plan-nav__btn {
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text);
+      border-radius: var(--radius-xs);
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+    }
+
+    .sport-plan-nav__btn:hover {
+      background: var(--bg-elevated);
+    }
+
+    .sport-plan-nav__title {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 600;
+      min-width: 8rem;
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    .sport-plan-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: flex-end;
+    }
+
+    .sport-plan-week-shell {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-elevated);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sport-plan-week-cols {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(4.5rem, 1fr));
+      min-width: 36rem;
+      width: 100%;
+    }
+
+    .sport-plan-col__head {
+      padding: 0.45rem 0.35rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .sport-plan-col__head.is-today {
+      background: rgba(48, 209, 88, 0.12);
+      box-shadow: inset 0 -2px 0 var(--progress);
+    }
+
+    .sport-plan-col__dow {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .sport-plan-col__num {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .sport-plan-col__body {
+      min-height: 6rem;
+      padding: 0.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .sport-plan-col:last-child .sport-plan-col__body {
+      border-right: none;
+    }
+
+    .sport-plan-col__body.is-today {
+      background: rgba(48, 209, 88, 0.06);
+    }
+
+    .sport-plan-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-deep);
+      padding: 0.4rem 0.45rem;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      line-height: 1.35;
+    }
+
+    .sport-plan-card--prevue {
+      border-color: rgba(255, 159, 10, 0.55);
+      background: rgba(255, 159, 10, 0.08);
+    }
+
+    .sport-plan-card--faite {
+      border-color: rgba(48, 209, 88, 0.55);
+      background: rgba(48, 209, 88, 0.1);
+    }
+
+    .sport-plan-card--manquee {
+      border-color: rgba(255, 69, 58, 0.55);
+      background: rgba(255, 69, 58, 0.08);
+    }
+
+    .sport-plan-card__head {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .sport-plan-card__icon {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      opacity: 0.85;
+    }
+
+    .sport-plan-card__title {
+      font-weight: 600;
+      font-size: 0.72rem;
+      word-break: break-word;
+    }
+
+    .sport-plan-card__meta {
+      color: var(--text-muted);
+      font-size: 0.64rem;
+    }
+
+    .sport-plan-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.35rem;
+    }
+
+    .sport-plan-card__btn {
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .sport-plan-card__btn:hover {
+      color: var(--text);
+    }
+
+    .sport-plan-card__badge {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 600;
+      padding: 0.1rem 0.35rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .sport-plan-card__badge--nosync {
+      color: var(--text-muted);
+      background: rgba(128, 128, 128, 0.15);
+    }
+
+    .sport-plan-template-days {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .sport-plan-tpl-day {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.65rem;
+      background: var(--bg-deep);
+    }
+
+    .sport-plan-tpl-day__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .sport-plan-tpl-day__label {
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .sport-plan-tpl-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.5rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.72rem;
+    }
+
+    .sport-plan-tpl-row select,
+    .sport-plan-tpl-row input[type="time"],
+    .sport-plan-tpl-row input[type="number"],
+    .sport-plan-tpl-row input[type="text"] {
+      height: 32px;
+      padding: 0 8px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+    }
+
+    .sport-plan-form-mount .gcal-quick-add-field input,
+    .sport-plan-form-mount .gcal-quick-add-field select,
+    .sport-plan-form-mount .gcal-quick-add-field textarea {
+      height: 36px;
+      padding: 0 10px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+    }
+
+    .sport-plan-form-mount .gcal-quick-add-field textarea {
+      height: auto;
+      min-height: 56px;
+      padding: 8px 10px;
+      resize: vertical;
+    }
+
+    .trends-mount {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .trends-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0 0 0.5rem;
+    }
+
+    .trends-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .trend-card {
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      box-shadow: var(--shadow-card);
+    }
+
+    .trend-card__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .trend-card__label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .trend-card__streak {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .trend-card__streak.is-zero {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .trend-card__spark {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .trend-card__spark svg {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 36px;
+      display: block;
+    }
+
+    .trend-card__meta {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin: 0.35rem 0 0;
+      font-family: var(--font-mono);
+    }
+
+    .global-quick-add {
+      margin: 0 0 1rem;
+      padding: 0 0 0.15rem;
+    }
+
+    .global-quick-add__input {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 38px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+    }
+
+    .global-quick-add__input:focus {
+      outline: none;
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+      box-shadow: 0 0 0 2px var(--progress-muted);
+    }
+
+    .global-quick-add__hint {
+      margin: 0.35rem 0 0;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .global-quick-add__hint.is-ok {
+      color: var(--accent);
+    }
+
+    .global-quick-add__hint.is-err {
+      color: var(--danger);
+    }
+
+    .settings-backup-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 0.65rem;
+      align-items: center;
+    }
+
+    .settings-backup-status {
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      min-height: 1.1rem;
+    }
+
+    .settings-backup-status.is-error {
+      color: var(--danger);
+    }
+
+    .settings-backup-status.is-ok {
+      color: var(--accent);
+    }
+
     .streak-day {
       width: 28px;
       height: 28px;
@@ -2255,14 +2925,6 @@
       cursor: grabbing;
     }
 
-    .task-item--oneoff .task-item__top {
-      display: flex;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      width: 100%;
-    }
-
     .sortable-ghost {
       opacity: 0.45;
     }
@@ -2397,34 +3059,110 @@
     .task-item--oneoff {
       flex-direction: column;
       align-items: stretch;
-      gap: 10px;
+      gap: 0;
+      padding: 8px 0;
     }
 
     .task-item--oneoff .task-item__top {
       display: flex;
       flex-direction: row;
-      align-items: flex-start;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .task-item--oneoff .task-item__top .task-text {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .task-item--oneoff .task-item__oneoff-edit {
-      display: flex;
       flex-wrap: wrap;
-      gap: 10px 14px;
-      align-items: flex-end;
-      padding-left: calc(1.1rem + 10px);
+      align-items: center;
+      gap: 8px 10px;
       width: 100%;
       box-sizing: border-box;
     }
 
+    .task-item--oneoff .task-item__top .task-text {
+      flex: 1 1 8rem;
+      min-width: 0;
+      margin: 0;
+    }
+
+    .task-item--oneoff input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 0;
+      flex: 0 0 18px;
+      align-self: center;
+    }
+
+    .task-item--oneoff .task-drag-handle {
+      margin-top: 0;
+      align-self: center;
+    }
+
+    .task-item--oneoff .task-edit-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: var(--radius-xs);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      opacity: 0.65;
+      transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .task-item--oneoff .task-edit-btn:hover {
+      opacity: 1;
+      color: var(--text);
+      background: var(--bg-hover);
+    }
+
+    .task-item--oneoff .task-edit-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .task-item--oneoff.is-editing .task-edit-btn {
+      opacity: 1;
+      color: var(--accent);
+      background: var(--progress-muted);
+    }
+
+    .task-item--oneoff .task-item__oneoff-edit {
+      display: none;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .task-item--oneoff.is-editing .task-item__oneoff-edit {
+      display: flex;
+    }
+
     .task-item--oneoff .task-item__oneoff-edit .task-tag-pill {
-      max-width: 8rem;
+      max-width: 9rem;
+      min-width: 5rem;
+      flex: 0 1 auto;
+    }
+
+    .task-item--oneoff .task-item__oneoff-edit .task-prio-inline {
+      flex: 0 0 auto;
+    }
+
+    .task-item--oneoff .task-item__oneoff-edit .oneoff-inline-mode {
+      flex: 0 0 auto;
+      margin: 0;
+    }
+
+    .task-item--oneoff .task-item__oneoff-edit .oneoff-row-due {
+      flex: 0 0 auto;
     }
 
     .row-input {
@@ -4370,8 +5108,32 @@
           <span id="streak-bar-today" class="streak-bar-today" aria-label="Date du jour"></span>
           <div id="streak-days" class="streak-bar"></div>
         </div>
+        <button
+          type="button"
+          class="command-palette-trigger"
+          id="btn-command-palette-open"
+          title="Palette de commandes"
+          aria-keyshortcuts="Meta+K Control+K"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="command-palette-trigger__key" id="command-palette-trigger-key">⌘K</span>
+        </button>
         <span id="next-reset-badge" class="next-reset-badge" role="status" aria-live="polite"></span>
       </header>
+
+      <div class="global-quick-add" role="search">
+        <label class="visually-hidden" for="global-quick-add-input">Ajout rapide</label>
+        <input
+          type="text"
+          id="global-quick-add-input"
+          class="global-quick-add__input"
+          placeholder="Ajout rapide… ex. appeler Lia demain #admin !haute"
+          autocomplete="off"
+          spellcheck="true"
+          maxlength="240"
+        />
+        <p id="global-quick-add-hint" class="global-quick-add__hint" hidden aria-live="polite"></p>
+      </div>
 
       <section id="panel-home" class="panel active" aria-labelledby="home-title">
         <h1 id="home-title" class="visually-hidden">Vue d’ensemble</h1>
@@ -4446,6 +5208,7 @@
                       <div class="gcal-week-actions">
                         <button type="button" class="btn-ghost-agenda" id="btn-gcal-refresh" title="Actualiser" aria-label="Actualiser"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></button>
                         <button type="button" class="btn-ghost-agenda" id="btn-gcal-add-toggle">+ Événement</button>
+                        <button type="button" class="btn-ghost-agenda" id="btn-gcal-export-ics" title="Exporter la semaine en .ics">Exporter la semaine en .ics</button>
                         <button type="button" class="btn-ghost-agenda" id="btn-home-open-agenda"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Ouvrir Google Calendar</button>
                       </div>
                     </div>
@@ -4471,12 +5234,19 @@
                     <button type="button" class="btn btn-add-unified" id="gcal-quick-add-submit">Ajouter</button>
                     <p id="gcal-quick-add-error" class="gcal-quick-add-error" hidden></p>
                   </div>
+                  <div id="gcal-session-expired" class="gcal-session-expired" hidden>
+                    <span class="gcal-session-expired__badge">Session Calendar expirée</span>
+                    <button type="button" class="btn-ghost-agenda" id="btn-gcal-reconnect">Reconnecter Google Calendar</button>
+                  </div>
                   <p id="gcal-agenda-status" class="gcal-agenda-status" aria-live="polite"></p>
                   <div id="gcal-week-mount" class="gcal-week-mount" aria-label="Semaine"></div>
                   <div id="gcal-week-popover" class="gcal-week-popover" role="dialog" aria-modal="false" hidden>
                     <p id="gcal-week-popover-title" class="gcal-week-popover__title"></p>
                     <p id="gcal-week-popover-time" class="gcal-week-popover__time"></p>
                     <p id="gcal-week-popover-desc" class="gcal-week-popover__desc"></p>
+                    <div id="gcal-week-popover-actions" class="gcal-week-popover__actions">
+                      <a id="gcal-week-popover-gcal-link" class="gcal-week-popover__link" href="#" target="_blank" rel="noopener noreferrer">Ajouter à Google Calendar</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -4510,11 +5280,8 @@
           </div>
         </div>
         <div id="history-sub-trends" class="history-sub-panel" data-history-sub="trends" hidden>
-          <p class="subtitle">Vue d’ensemble de tes habitudes sur la durée (données locales).</p>
-          <div class="card">
-            <h2>À venir</h2>
-            <p class="hint">D’autres graphiques pourront s’ajouter ici (streaks, volumes, etc.).</p>
-          </div>
+          <p class="subtitle">30 derniers jours — séries d’objectifs atteints et volumes (données locales).</p>
+          <div id="trends-mount" class="trends-mount" aria-live="polite"></div>
         </div>
       </section>
 
@@ -4620,10 +5387,16 @@
 
       <section id="panel-sport" class="panel" aria-labelledby="sport-title">
         <h1 id="sport-title">Sport</h1>
-        <p class="subtitle">Compteurs séance : saisie centrale ou pas à pas, dépassement autorisé.</p>
-        <div class="card">
-          <h2>Objectifs du jour</h2>
-          <div class="metric-grid" id="metric-grid-sport">
+        <div class="history-subtabs sport-subtabs" role="tablist" aria-label="Sections sport">
+          <button type="button" class="history-subtab is-active" data-sport-tab="objectifs" role="tab" aria-selected="true" id="tab-sport-objectifs">Objectifs</button>
+          <button type="button" class="history-subtab" data-sport-tab="planning" role="tab" aria-selected="false" id="tab-sport-planning">Planning</button>
+        </div>
+
+        <div id="sport-sub-objectifs" class="sport-sub-panel" data-sport-sub="objectifs">
+          <p class="subtitle">Compteurs séance : saisie centrale ou pas à pas, dépassement autorisé.</p>
+          <div class="card">
+            <h2>Objectifs du jour</h2>
+            <div class="metric-grid" id="metric-grid-sport">
             <div class="metric" data-metric-section="sport" data-metric-key="running">
               <div class="metric-top-row">
                 <label for="metric-input-running">Running</label>
@@ -4711,6 +5484,35 @@
               </div>
               <p class="metric-sub" id="metric-sub-natation"></p>
             </div>
+          </div>
+          </div>
+        </div>
+
+        <div id="sport-sub-planning" class="sport-sub-panel" data-sport-sub="planning" hidden>
+          <p class="subtitle">Séances planifiées de la semaine — sync Google Calendar optionnelle.</p>
+          <div class="card">
+            <div class="sport-plan-toolbar">
+              <div class="sport-plan-nav">
+                <button type="button" class="sport-plan-nav__btn" id="sport-plan-week-prev" aria-label="Semaine précédente">←</button>
+                <div class="sport-plan-nav__title" id="sport-plan-week-title"></div>
+                <button type="button" class="sport-plan-nav__btn" id="sport-plan-week-next" aria-label="Semaine suivante">→</button>
+                <button type="button" class="btn secondary" id="sport-plan-week-today">Cette semaine</button>
+              </div>
+              <div class="sport-plan-actions">
+                <button type="button" class="btn" id="btn-sport-plan-add">+ Séance</button>
+                <button type="button" class="btn secondary" id="btn-sport-plan-sync-all">Synchroniser</button>
+                <button type="button" class="btn secondary" id="btn-sport-plan-export-ics">Exporter la semaine en .ics</button>
+              </div>
+            </div>
+            <div id="sport-plan-form-mount" class="sport-plan-form-mount"></div>
+            <p id="sport-plan-status" class="gcal-agenda-status" aria-live="polite"></p>
+            <div id="sport-plan-week-mount" class="sport-plan-week-mount" aria-label="Planning sport semaine"></div>
+          </div>
+          <div class="card">
+            <h2>Semaine type sport</h2>
+            <p class="hint">Définis un gabarit récurrent par jour (L→D), puis applique-le à la semaine affichée.</p>
+            <div id="sport-plan-template-editor" class="sport-plan-template-days"></div>
+            <button type="button" class="btn" id="btn-sport-apply-template">Appliquer à la semaine affichée</button>
           </div>
         </div>
       </section>
@@ -4918,7 +5720,7 @@
         </div>
         <div class="card settings-card">
           <h2>Échéances &amp; agenda</h2>
-          <p class="hint">Stockage <code>localStorage</code> clé <strong>home_echeances</strong> — affichage J‑X sur la vue d’ensemble.</p>
+          <p class="hint">Échéances intégrées à l’état v8 — affichage J‑X sur la vue d’ensemble (incluses dans l’export JSON).</p>
           <div id="settings-countdown-editor" class="settings-countdown-editor"></div>
           <div class="settings-countdown-row" style="margin-top:0.35rem">
             <input type="text" id="settings-countdown-label-inp" placeholder="Libellé (ex. concours, rendu…)" maxlength="120" aria-label="Libellé échéance" />
@@ -4970,6 +5772,18 @@
           <p class="hint">Raccourci bureau : fichier <strong>HOME.webloc</strong> à côté de <code>dashboard.html</code>.</p>
         </div>
         <div class="card settings-card">
+          <h2>Sauvegarde &amp; restauration</h2>
+          <p class="hint">Exporte toutes tes données locales (état v<span id="settings-state-version-label"></span>, échéances, préférences) en JSON. Garde ce fichier avant une grosse mise à jour.</p>
+          <div class="settings-backup-row">
+            <button type="button" class="btn btn-add-unified" id="btn-export-backup">Exporter JSON</button>
+            <label class="btn secondary" style="cursor:pointer;margin:0">
+              Importer JSON
+              <input type="file" id="input-import-backup" accept="application/json,.json" hidden />
+            </label>
+          </div>
+          <p id="settings-backup-status" class="settings-backup-status" aria-live="polite"></p>
+        </div>
+        <div class="card settings-card">
           <h2>Apparence</h2>
           <div class="theme-row">
             <span class="theme-label" id="theme-label">Mode sombre</span>
@@ -4981,8 +5795,33 @@
     </main>
   </div>
 
+  <div id="command-palette" class="command-palette" hidden>
+    <div class="command-palette__backdrop" id="command-palette-backdrop" aria-hidden="true"></div>
+    <div
+      class="command-palette__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="command-palette-title"
+    >
+      <label id="command-palette-title" class="visually-hidden">Palette de commandes</label>
+      <input
+        type="text"
+        id="command-palette-input"
+        class="command-palette__input"
+        placeholder="Naviguer, créer, chercher…  (> tâche · r: rappel · ? notes)"
+        autocomplete="off"
+        spellcheck="false"
+        aria-autocomplete="list"
+        aria-controls="command-palette-list"
+        aria-activedescendant=""
+      />
+      <ul id="command-palette-list" class="command-palette__list" role="listbox"></ul>
+      <p class="command-palette__footer" id="command-palette-footer"></p>
+    </div>
+  </div>
+
   <div class="kbd-hint" id="kbd-hint" aria-hidden="true">
-    <span class="kbd-hint-title">Raccourcis</span> — touches 1–8 · focus : Échap ou bouton quitter
+    <span class="kbd-hint-title">Raccourcis</span> — <span id="kbd-hint-cmdk"></span> · touches 1–8 · Échap
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -4999,7 +5838,8 @@
   var HOME_ECHEANCES_KEY = "home_echeances";
   var HOME_DISMISSED_PREFIX = "home_dismissed_";
   var DAY_MS = 86400000;
-  var STATE_VERSION = 7;
+  var STATE_VERSION = 8;
+  var BACKUP_FORMAT_VERSION = 1;
 
   var todayIso = isoDate(new Date());
   var viewDateIso = todayIso;
@@ -5034,6 +5874,10 @@
   var __gcalPollTimer = null;
   var __gcalViewWeekStartIso = null;
   var __gcalWeekEventById = {};
+  var __gcalLastWeekItems = [];
+  var __gcalSessionExpired = false;
+  var __gcalTokenRefreshWaiters = [];
+  var __gcalSilentRefreshPromise = null;
   var HOME_SPORT_COLLAPSED_KEY = "home_sport_collapsed";
   var HOME_ALIM_COLLAPSED_KEY = "home_alim_collapsed";
   var __gcalScriptsReady = false;
@@ -5158,10 +6002,12 @@
     try {
       sessionStorage.setItem(GCAL_TOKEN_STORAGE_KEY, JSON.stringify(rec));
     } catch (e2) { /* ignore */ }
+    __gcalSessionExpired = false;
+    updateGcalSessionExpiredUI();
     refreshGcalUserLabelForToken(access_token);
   }
 
-  function clearGcalToken() {
+  function clearGcalToken(resetSessionExpired) {
     var r = getGcalTokenRecord();
     try {
       if (
@@ -5179,19 +6025,162 @@
       sessionStorage.removeItem(GCAL_TOKEN_STORAGE_KEY);
     } catch (e2) { /* ignore */ }
     stopGcalPolling();
+    if (resetSessionExpired !== false) {
+      __gcalSessionExpired = false;
+      updateGcalSessionExpiredUI();
+    }
+  }
+
+  function setGcalSessionExpired(expired) {
+    __gcalSessionExpired = !!expired;
+    if (expired) {
+      clearGcalToken(false);
+      updateGcalSettingsStatus();
+    }
+    updateGcalSessionExpiredUI();
+  }
+
+  function updateGcalSessionExpiredUI() {
+    var el = document.getElementById("gcal-session-expired");
+    if (!el) return;
+    if (__gcalSessionExpired) {
+      el.removeAttribute("hidden");
+    } else {
+      el.setAttribute("hidden", "");
+    }
+  }
+
+  function handleGcalTokenClientCallback(resp) {
+    if (__gcalTokenRefreshWaiters.length) {
+      var waiters = __gcalTokenRefreshWaiters.slice();
+      __gcalTokenRefreshWaiters = [];
+      if (resp && resp.access_token && !resp.error) {
+        saveGcalToken(resp.access_token, resp.expires_in);
+        __gcalSessionExpired = false;
+        updateGcalSessionExpiredUI();
+        updateGcalSettingsStatus();
+        waiters.forEach(function (w) {
+          w.resolve(resp.access_token);
+        });
+      } else {
+        var refreshErr =
+          resp && resp.error ?
+            new Error(String(resp.error)) :
+            new Error("Renouvellement silencieux refusé");
+        waiters.forEach(function (w) {
+          w.reject(refreshErr);
+        });
+      }
+      return true;
+    }
+    return false;
+  }
+
+  function requestGcalSilentTokenRefresh() {
+    if (__gcalSilentRefreshPromise) return __gcalSilentRefreshPromise;
+    __gcalSilentRefreshPromise = new Promise(function (resolve, reject) {
+      var c = ensureGcalTokenClient();
+      if (!c) {
+        __gcalSilentRefreshPromise = null;
+        reject(new Error("Client OAuth indisponible"));
+        return;
+      }
+      var settled = false;
+      var timeout = setTimeout(function () {
+        if (settled) return;
+        settled = true;
+        __gcalTokenRefreshWaiters = [];
+        __gcalSilentRefreshPromise = null;
+        reject(new Error("Délai de renouvellement dépassé"));
+      }, 10000);
+      __gcalTokenRefreshWaiters.push({
+        resolve: function (tok) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          resolve(tok);
+        },
+        reject: function (err) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          reject(err);
+        }
+      });
+      try {
+        c.requestAccessToken({ prompt: "" });
+      } catch (eReq) {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timeout);
+          __gcalTokenRefreshWaiters = [];
+          __gcalSilentRefreshPromise = null;
+          reject(eReq);
+        }
+      }
+    }).finally(function () {
+      __gcalSilentRefreshPromise = null;
+    });
+    return __gcalSilentRefreshPromise;
+  }
+
+  function gcalMarkSessionExpiredReject() {
+    setGcalSessionExpired(true);
+    return Promise.reject(new Error("Session Calendar expirée — reconnecte-toi."));
+  }
+
+  function gcalAuthorizedFetch(url, options, didRefresh) {
+    didRefresh = !!didRefresh;
+    options = options || {};
+
+    function withToken(token) {
+      var headers = Object.assign({}, options.headers || {}, { Authorization: "Bearer " + token });
+      return fetch(url, Object.assign({}, options, { headers: headers }));
+    }
+
+    function refreshThenRetry(retryFn) {
+      return requestGcalSilentTokenRefresh()
+        .then(function () {
+          var tok = getValidGcalAccessToken();
+          if (!tok) return gcalMarkSessionExpiredReject();
+          return retryFn(tok);
+        })
+        .catch(function () {
+          return gcalMarkSessionExpiredReject();
+        });
+    }
+
+    var token = getValidGcalAccessToken();
+    if (!token) {
+      if (__gcalSessionExpired || didRefresh) return gcalMarkSessionExpiredReject();
+      return refreshThenRetry(function () {
+        return gcalAuthorizedFetch(url, options, true);
+      });
+    }
+
+    return withToken(token).then(function (res) {
+      if (res.status !== 401) return res;
+      if (didRefresh) return gcalMarkSessionExpiredReject();
+      return refreshThenRetry(function (tok) {
+        return withToken(tok).then(function (res2) {
+          if (res2.status === 401) return gcalMarkSessionExpiredReject();
+          return res2;
+        });
+      });
+    });
   }
 
   function getValidGcalAccessToken() {
     var r = getGcalTokenRecord();
     if (!r || !r.access_token) return null;
-    if (r.expires_at && Date.now() > r.expires_at) {
-      clearGcalToken();
-      return null;
-    }
+    if (r.expires_at && Date.now() > r.expires_at) return null;
     return r.access_token;
   }
 
   function loadGcalTaskMap() {
+    if (state && state.meta && state.meta.gcalTaskMap && typeof state.meta.gcalTaskMap === "object") {
+      return state.meta.gcalTaskMap;
+    }
     try {
       var raw = localStorage.getItem(GCAL_TASK_MAP_KEY);
       if (!raw) return {};
@@ -5203,9 +6192,18 @@
   }
 
   function saveGcalTaskMap(map) {
-    try {
-      localStorage.setItem(GCAL_TASK_MAP_KEY, JSON.stringify(map));
-    } catch (e2) { /* ignore */ }
+    var next = map && typeof map === "object" ? map : {};
+    if (typeof state !== "undefined" && state && state.meta) {
+      state.meta.gcalTaskMap = next;
+      saveState(state);
+      try {
+        localStorage.removeItem(GCAL_TASK_MAP_KEY);
+      } catch (e2) { /* ignore */ }
+    } else {
+      try {
+        localStorage.setItem(GCAL_TASK_MAP_KEY, JSON.stringify(next));
+      } catch (eLs) { /* ignore */ }
+    }
   }
 
   function stopGcalPolling() {
@@ -5238,6 +6236,7 @@
       client_id: cid,
       scope: GCAL_SCOPE,
       callback: function (resp) {
+        if (handleGcalTokenClientCallback(resp)) return;
         if (!resp || resp.error) {
           var el = document.getElementById("settings-gcal-status");
           if (el && resp && resp.error) {
@@ -5249,6 +6248,8 @@
         }
         if (resp.access_token) {
           saveGcalToken(resp.access_token, resp.expires_in);
+          __gcalSessionExpired = false;
+          updateGcalSessionExpiredUI();
           updateGcalSettingsStatus();
           fetchGcalAndRender(true);
           startGcalPolling();
@@ -5411,11 +6412,150 @@
     pop.style.top = "";
   }
 
+  function formatGcalTemplateFromDate(d) {
+    return (
+      d.getFullYear() +
+      pad2g(d.getMonth() + 1) +
+      pad2g(d.getDate()) +
+      "T" +
+      pad2g(d.getHours()) +
+      pad2g(d.getMinutes()) +
+      pad2g(d.getSeconds())
+    );
+  }
+
+  function gcalEventToTemplateUrl(ev) {
+    var params = new URLSearchParams();
+    params.set("action", "TEMPLATE");
+    params.set("text", (ev && ev.summary) || "(Sans titre)");
+    if (ev && ev.description) params.set("details", String(ev.description));
+    params.set("ctz", userTimeZone());
+    if (ev && ev.start && ev.start.date) {
+      var s = ev.start.date.replace(/-/g, "");
+      var e = ev.end && ev.end.date ? ev.end.date.replace(/-/g, "") : s;
+      params.set("dates", s + "/" + e);
+    } else if (ev && ev.start && ev.start.dateTime) {
+      var d1 = new Date(ev.start.dateTime);
+      var d2 =
+        ev.end && ev.end.dateTime ?
+          new Date(ev.end.dateTime) :
+          new Date(d1.getTime() + 3600000);
+      params.set("dates", formatGcalTemplateFromDate(d1) + "/" + formatGcalTemplateFromDate(d2));
+    }
+    return "https://calendar.google.com/calendar/render?" + params.toString();
+  }
+
+  function buildTaskGcalTemplateUrl(title, dueIso) {
+    return gcalEventToTemplateUrl({
+      summary: title,
+      description: "Créé depuis HOME",
+      start: { dateTime: localNaiveDateTime(dueIso, 9, 0) },
+      end: { dateTime: localNaiveDateTime(dueIso, 10, 0) }
+    });
+  }
+
+  function icsEscapeText(s) {
+    return String(s || "")
+      .replace(/\\/g, "\\\\")
+      .replace(/;/g, "\\;")
+      .replace(/,/g, "\\,")
+      .replace(/\r?\n/g, "\\n");
+  }
+
+  function formatIcsUtc(d) {
+    return (
+      d.getUTCFullYear() +
+      pad2g(d.getUTCMonth() + 1) +
+      pad2g(d.getUTCDate()) +
+      "T" +
+      pad2g(d.getUTCHours()) +
+      pad2g(d.getUTCMinutes()) +
+      pad2g(d.getUTCSeconds()) +
+      "Z"
+    );
+  }
+
+  function gcalEventToIcsVevent(ev) {
+    var lines = [];
+    var evUid = (ev && ev.id ? String(ev.id) : "home-" + Date.now()) + "@home-dashboard";
+    lines.push("BEGIN:VEVENT");
+    lines.push("UID:" + evUid);
+    lines.push("DTSTAMP:" + formatIcsUtc(new Date()));
+    if (ev.start && ev.start.date) {
+      lines.push("DTSTART;VALUE=DATE:" + ev.start.date.replace(/-/g, ""));
+      var endDate =
+        ev.end && ev.end.date ? ev.end.date : addDays(ev.start.date, 1);
+      lines.push("DTEND;VALUE=DATE:" + endDate.replace(/-/g, ""));
+    } else if (ev.start && ev.start.dateTime) {
+      lines.push("DTSTART:" + formatIcsUtc(new Date(ev.start.dateTime)));
+      var endDt =
+        ev.end && ev.end.dateTime ?
+          new Date(ev.end.dateTime) :
+          new Date(new Date(ev.start.dateTime).getTime() + 3600000);
+      lines.push("DTEND:" + formatIcsUtc(endDt));
+    }
+    lines.push("SUMMARY:" + icsEscapeText(ev.summary || ""));
+    if (ev.description) lines.push("DESCRIPTION:" + icsEscapeText(ev.description));
+    lines.push("END:VEVENT");
+    return lines.join("\r\n");
+  }
+
+  function buildWeekIcs(events) {
+    var body = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//HOME Dashboard//FR",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH"
+    ];
+    (events || []).forEach(function (ev) {
+      body.push(gcalEventToIcsVevent(ev));
+    });
+    body.push("END:VCALENDAR");
+    return body.join("\r\n");
+  }
+
+  function getGcalWeekExportEvents() {
+    var out = [];
+    var seen = {};
+    Object.keys(__gcalWeekEventById || {}).forEach(function (id) {
+      var ev = __gcalWeekEventById[id];
+      if (ev && !seen[id]) {
+        seen[id] = true;
+        out.push(ev);
+      }
+    });
+    if (!out.length && __gcalLastWeekItems && __gcalLastWeekItems.length) {
+      out = __gcalLastWeekItems.slice();
+    }
+    return out;
+  }
+
+  function downloadGcalWeekIcs() {
+    var events = getGcalWeekExportEvents();
+    if (!events.length) {
+      setGcalAgendaStatus("Aucun événement à exporter pour cette semaine.", true);
+      return;
+    }
+    var weekMon = __gcalViewWeekStartIso || weekMonday(todayIso);
+    var blob = new Blob([buildWeekIcs(events)], { type: "text/calendar;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "home-semaine-" + weekMon + ".ics";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    setGcalAgendaStatus("", false);
+  }
+
   function openGcalWeekPopoverNear(anchorRect, ev) {
     var pop = document.getElementById("gcal-week-popover");
     var tEl = document.getElementById("gcal-week-popover-title");
     var timeEl = document.getElementById("gcal-week-popover-time");
     var dEl = document.getElementById("gcal-week-popover-desc");
+    var linkEl = document.getElementById("gcal-week-popover-gcal-link");
     if (!pop || !tEl || !timeEl || !dEl) return;
     tEl.textContent = ev.summary || "(Sans titre)";
     timeEl.textContent = formatGcalEventRangeFr(ev) || "—";
@@ -5426,6 +6566,9 @@
     } else {
       dEl.textContent = "";
       dEl.setAttribute("hidden", "");
+    }
+    if (linkEl) {
+      linkEl.href = gcalEventToTemplateUrl(ev);
     }
     pop.removeAttribute("hidden");
     requestAnimationFrame(function () {
@@ -5522,6 +6665,9 @@
     if (!mount) return;
     if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
     var weekMon = __gcalViewWeekStartIso;
+    if (items && items.length) {
+      __gcalLastWeekItems = items.slice();
+    }
 
     function gcalDayHasArchive(iso) {
       try {
@@ -5661,10 +6807,6 @@
   }
 
   function fetchGcalEventsWindow(timeMinIso, timeMaxIso) {
-    var token = getValidGcalAccessToken();
-    if (!token) {
-      return Promise.reject(new Error("Jeton d’accès absent — connecte Google Calendar dans Réglages."));
-    }
     var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
     if (!apiKey) {
       return Promise.reject(new Error("Clé API Google absente — renseigne-la dans Réglages."));
@@ -5676,25 +6818,16 @@
       timeMax: timeMaxIso,
       maxResults: "100"
     });
-    return fetch(
+    return gcalAuthorizedFetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?" +
         q.toString() +
         "&key=" +
-        encodeURIComponent(apiKey),
-      {
-        headers: { Authorization: "Bearer " + token }
-      }
+        encodeURIComponent(apiKey)
     ).then(function (res) {
-      if (res.status === 401 || res.status === 403) {
-        if (res.status === 401) {
-          clearGcalToken();
-          updateGcalSettingsStatus();
-        }
+      if (res.status === 403) {
         return Promise.reject(
           new Error(
-            res.status === 403 ?
-              "Accès refusé (403) — vérifie les scopes OAuth et les restrictions de la clé API." :
-              "Session expirée ou non autorisée (401) — reconnecte Google."
+            "Accès refusé (403) — vérifie les scopes OAuth et les restrictions de la clé API."
           )
         );
       }
@@ -5710,69 +6843,123 @@
     if (!panel || panel.hasAttribute("hidden")) return;
     if (!__gcalViewWeekStartIso) __gcalViewWeekStartIso = weekMonday(todayIso);
     var weekMon = __gcalViewWeekStartIso;
-    var token = getValidGcalAccessToken();
-    if (!token) {
-      var cid0 = typeof getEffectiveGcalClientId === "function" ? getEffectiveGcalClientId() : "";
-      var key0 = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
-      if (!cid0 || !key0) {
-        setGcalAgendaStatus("Configure d’abord ton client_id et ta clé API dans Réglages.", true);
-      } else {
-        setGcalAgendaStatus("Jeton d’accès absent — connecte Google Calendar dans Réglages.", true);
-      }
+    var cid0 = typeof getEffectiveGcalClientId === "function" ? getEffectiveGcalClientId() : "";
+    var key0 = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+    if (!cid0 || !key0) {
+      setGcalAgendaStatus("Configure d’abord ton client_id et ta clé API dans Réglages.", true);
       renderGcalWeekFromItems([], false);
       return;
     }
-    if (showLoading) setGcalAgendaStatus("Chargement…", false);
+    if (__gcalSessionExpired && !getValidGcalAccessToken()) {
+      setGcalAgendaStatus("", false);
+      renderGcalWeekFromItems(__gcalLastWeekItems || [], false);
+      return;
+    }
     var p = weekMon.split("-").map(Number);
     var startD = new Date(p[0], p[1] - 1, p[2], 0, 0, 0, 0);
     var endD = new Date(p[0], p[1] - 1, p[2] + 7, 0, 0, 0, 0);
     var timeMin = startD.toISOString();
     var timeMax = endD.toISOString();
-    fetchGcalEventsWindow(timeMin, timeMax)
-      .then(function (data) {
-        var items = (data && data.items) || [];
-        renderGcalWeekFromItems(items, true);
-        setGcalAgendaStatus("", false);
+
+    function loadGcalWeek() {
+      if (showLoading) setGcalAgendaStatus("Chargement…", false);
+      fetchGcalEventsWindow(timeMin, timeMax)
+        .then(function (data) {
+          var items = (data && data.items) || [];
+          renderGcalWeekFromItems(items, true);
+          setGcalAgendaStatus("", false);
+        })
+        .catch(function (err) {
+          if (__gcalSessionExpired) {
+            renderGcalWeekFromItems(__gcalLastWeekItems || [], false);
+            setGcalAgendaStatus("", false);
+            return;
+          }
+          setGcalAgendaStatus(err.message || String(err), true);
+        });
+    }
+
+    if (getValidGcalAccessToken()) {
+      loadGcalWeek();
+      return;
+    }
+
+    if (showLoading) setGcalAgendaStatus("Chargement…", false);
+    requestGcalSilentTokenRefresh()
+      .then(function () {
+        loadGcalWeek();
       })
-      .catch(function (err) {
-        setGcalAgendaStatus(err.message || String(err), true);
+      .catch(function () {
+        setGcalSessionExpired(true);
+        renderGcalWeekFromItems(__gcalLastWeekItems || [], false);
+        setGcalAgendaStatus("", false);
       });
   }
 
   function postGcalEvent(body) {
-    var token = getValidGcalAccessToken();
-    if (!token) return Promise.reject(new Error("Jeton d’accès absent — connecte Google Calendar dans Réglages."));
     var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
     if (!apiKey) return Promise.reject(new Error("Clé API Google absente — renseigne-la dans Réglages."));
-    return fetch(
+    return gcalAuthorizedFetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=" +
         encodeURIComponent(apiKey),
       {
         method: "POST",
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       }
     ).then(function (res) {
-      if (res.status === 401 || res.status === 403) {
-        if (res.status === 401) {
-          clearGcalToken();
-          updateGcalSettingsStatus();
-        }
+      if (res.status === 403) {
         return Promise.reject(
-          new Error(
-            res.status === 403 ?
-              "Accès refusé (403) — vérifie les scopes OAuth et la clé API." :
-              "Session expirée ou non autorisée (401) — reconnecte Google."
-          )
+          new Error("Accès refusé (403) — vérifie les scopes OAuth et la clé API.")
         );
       }
       if (!res.ok) return res.text().then(function (t) {
         throw new Error(t || "Erreur " + res.status);
       });
       return res.json();
+    });
+  }
+
+  function patchGcalEvent(eventId, body) {
+    var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+    if (!apiKey || !eventId) return Promise.reject(new Error("Événement ou clé API manquante."));
+    return gcalAuthorizedFetch(
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events/" +
+        encodeURIComponent(eventId) +
+        "?key=" +
+        encodeURIComponent(apiKey),
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }
+    ).then(function (res) {
+      if (res.status === 403) {
+        return Promise.reject(new Error("Accès refusé (403)."));
+      }
+      if (!res.ok) return res.text().then(function (t) {
+        throw new Error(t || "Erreur " + res.status);
+      });
+      return res.json();
+    });
+  }
+
+  function deleteGcalEvent(eventId) {
+    var apiKey = typeof getEffectiveGcalApiKey === "function" ? getEffectiveGcalApiKey() : "";
+    if (!apiKey || !eventId) return Promise.reject(new Error("Événement ou clé API manquante."));
+    return gcalAuthorizedFetch(
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events/" +
+        encodeURIComponent(eventId) +
+        "?key=" +
+        encodeURIComponent(apiKey),
+      { method: "DELETE" }
+    ).then(function (res) {
+      if (res.status === 204 || res.status === 200 || res.status === 410) return true;
+      if (res.status === 403) return Promise.reject(new Error("Accès refusé (403)."));
+      if (!res.ok) return res.text().then(function (t) {
+        throw new Error(t || "Erreur " + res.status);
+      });
+      return true;
     });
   }
 
@@ -5817,8 +7004,6 @@
   function syncOneOffTaskToGcal(taskId, title, dueIso) {
     var map = loadGcalTaskMap();
     if (map[taskId]) return Promise.resolve({ skipped: true });
-    var token = getValidGcalAccessToken();
-    if (!token) return Promise.reject(new Error("non connecté"));
     var tz = userTimeZone();
     var body = {
       summary: title,
@@ -5843,6 +7028,20 @@
     if (ref) {
       ref.addEventListener("click", function () {
         fetchGcalAndRender(true);
+      });
+    }
+    var expIcs = document.getElementById("btn-gcal-export-ics");
+    if (expIcs && !expIcs.dataset.gcalWired) {
+      expIcs.dataset.gcalWired = "1";
+      expIcs.addEventListener("click", function () {
+        downloadGcalWeekIcs();
+      });
+    }
+    var reconn = document.getElementById("btn-gcal-reconnect");
+    if (reconn && !reconn.dataset.gcalWired) {
+      reconn.dataset.gcalWired = "1";
+      reconn.addEventListener("click", function () {
+        requestGcalAccessToken("consent");
       });
     }
     var addT = document.getElementById("btn-gcal-add-toggle");
@@ -5909,7 +7108,7 @@
         var due = btn.getAttribute("data-task-gcal-due") || "";
         if (!id || !due) return;
         if (!getValidGcalAccessToken()) {
-          requestGcalAccessToken("consent");
+          window.open(buildTaskGcalTemplateUrl(title, due), "_blank", "noopener,noreferrer");
           return;
         }
         syncOneOffTaskToGcal(id, title, due)
@@ -5917,6 +7116,10 @@
             refreshChrome();
           })
           .catch(function (err) {
+            if (__gcalSessionExpired) {
+              window.open(buildTaskGcalTemplateUrl(title, due), "_blank", "noopener,noreferrer");
+              return;
+            }
             alert(err.message || String(err));
           });
       });
@@ -5974,13 +7177,10 @@
     if (typeof google === "undefined" || !google.accounts || !google.accounts.oauth2) return;
     __gcalScriptsReady = true;
     wireGoogleAgendaPanelOnce();
+    updateGcalSessionExpiredUI();
     updateGcalSettingsStatus();
-    if (getValidGcalAccessToken()) {
-      fetchGcalAndRender(true);
-      startGcalPolling();
-    } else {
-      fetchGcalAndRender(false);
-    }
+    fetchGcalAndRender(true);
+    startGcalPolling();
   }
 
   var HOME_DEFAULT_LOGO =
@@ -6110,6 +7310,877 @@
     return ["L", "M", "M", "J", "V", "S", "D"];
   }
 
+  var SPORT_PLANNING_STORAGE_KEY = "home_sport_v1";
+  var SPORT_PLANNING_VERSION = 1;
+  var SPORT_ICS_TZ = "Europe/Paris";
+  var __sportPlanWeekStart = null;
+  var __sportSubTab = "objectifs";
+  var SPORT_TYPE_LABELS = {
+    muscu: "Musculation",
+    running: "Running",
+    natation: "Natation",
+    autre: "Autre"
+  };
+  var SPORT_TYPE_ICONS = {
+    muscu:
+      '<svg class="sport-plan-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 4v16"/><path d="M18 4v16"/><path d="M6 12h12"/></svg>',
+    running:
+      '<svg class="sport-plan-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="14" cy="4" r="2"/><path d="M11 22 9 12l-2 2-3-3"/><path d="m15 12 2 3 4-1-3 6"/></svg>',
+    natation:
+      '<svg class="sport-plan-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 16c2-1 4 1 6 0s4-1 6 0 4 1 6 0"/><path d="M5 12c2-1 4 1 6 0s4-1 6 0"/></svg>',
+    autre:
+      '<svg class="sport-plan-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>'
+  };
+  var SPORT_STATUS_LABELS = { prevue: "Prévue", faite: "Faite", manquee: "Manquée" };
+  var SPORT_WEEKDAY_NAMES = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+
+  function sportUuid() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+    return uid();
+  }
+
+  function defaultSportPlanningData() {
+    return {
+      version: SPORT_PLANNING_VERSION,
+      plannedSessions: [],
+      loggedSessions: [],
+      exerciseLibrary: [],
+      weekTemplate: [[], [], [], [], [], [], []]
+    };
+  }
+
+  function normalizeSportPlanningData(raw) {
+    var d = raw && typeof raw === "object" ? raw : defaultSportPlanningData();
+    if (!Array.isArray(d.plannedSessions)) d.plannedSessions = [];
+    if (!Array.isArray(d.loggedSessions)) d.loggedSessions = [];
+    if (!Array.isArray(d.exerciseLibrary)) d.exerciseLibrary = [];
+    if (!Array.isArray(d.weekTemplate) || d.weekTemplate.length !== 7) {
+      d.weekTemplate = [[], [], [], [], [], [], []];
+    } else {
+      d.weekTemplate = d.weekTemplate.map(function (day) {
+        return Array.isArray(day) ? day : [];
+      });
+    }
+    d.version = SPORT_PLANNING_VERSION;
+    d.plannedSessions = d.plannedSessions.map(function (s) {
+      return {
+        id: s.id || sportUuid(),
+        type: s.type && SPORT_TYPE_LABELS[s.type] ? s.type : "autre",
+        title: String(s.title || "").trim(),
+        date: /^\d{4}-\d{2}-\d{2}$/.test(String(s.date || "")) ? s.date : todayIso,
+        startTime: /^\d{2}:\d{2}$/.test(String(s.startTime || "")) ? s.startTime : "09:00",
+        durationMin: Math.max(1, parseInt(s.durationMin, 10) || 60),
+        note: s.note ? String(s.note) : "",
+        status: s.status === "faite" || s.status === "manquee" ? s.status : "prevue",
+        gcalEventId: s.gcalEventId ? String(s.gcalEventId) : null
+      };
+    });
+    return d;
+  }
+
+  function migrateSportData() {
+    try {
+      var raw = localStorage.getItem(SPORT_PLANNING_STORAGE_KEY);
+      if (!raw) {
+        localStorage.setItem(
+          SPORT_PLANNING_STORAGE_KEY,
+          JSON.stringify(defaultSportPlanningData())
+        );
+        return;
+      }
+      var parsed = JSON.parse(raw);
+      var normalized = normalizeSportPlanningData(parsed);
+      if (!parsed.version || parsed.version < SPORT_PLANNING_VERSION) {
+        normalized.version = SPORT_PLANNING_VERSION;
+      }
+      localStorage.setItem(SPORT_PLANNING_STORAGE_KEY, JSON.stringify(normalized));
+    } catch (eM) {
+      try {
+        localStorage.setItem(
+          SPORT_PLANNING_STORAGE_KEY,
+          JSON.stringify(defaultSportPlanningData())
+        );
+      } catch (e2) { /* ignore */ }
+    }
+  }
+
+  function loadSportPlanningData() {
+    migrateSportData();
+    try {
+      var raw = localStorage.getItem(SPORT_PLANNING_STORAGE_KEY);
+      if (!raw) return defaultSportPlanningData();
+      return normalizeSportPlanningData(JSON.parse(raw));
+    } catch (eL) {
+      return defaultSportPlanningData();
+    }
+  }
+
+  function saveSportPlanningData(data) {
+    var next = normalizeSportPlanningData(data || loadSportPlanningData());
+    try {
+      localStorage.setItem(SPORT_PLANNING_STORAGE_KEY, JSON.stringify(next));
+    } catch (eS) { /* ignore */ }
+    return next;
+  }
+
+  function getSportPlanningData() {
+    return loadSportPlanningData();
+  }
+
+  function setSportPlanStatus(msg, isErr) {
+    var el = document.getElementById("sport-plan-status");
+    if (!el) return;
+    el.textContent = msg || "";
+    el.classList.toggle("is-error", !!isErr);
+  }
+
+  function sportTimeParts(timeStr) {
+    var p = String(timeStr || "09:00").split(":");
+    return { h: parseInt(p[0], 10) || 0, m: parseInt(p[1], 10) || 0 };
+  }
+
+  function sportSessionEndParts(session) {
+    var tp = sportTimeParts(session.startTime);
+    var total = tp.h * 60 + tp.m + (session.durationMin || 60);
+    return { h: Math.floor(total / 60) % 24, m: total % 60 };
+  }
+
+  function sportSessionEndMs(session) {
+    var p = String(session.date).split("-").map(Number);
+    var ep = sportSessionEndParts(session);
+    return new Date(p[0], p[1] - 1, p[2], ep.h, ep.m, 0, 0).getTime();
+  }
+
+  function dateTimeInZoneToUtc(dateIso, hh, mm, timeZone) {
+    var guessUtc = Date.UTC(
+      parseInt(dateIso.slice(0, 4), 10),
+      parseInt(dateIso.slice(5, 7), 10) - 1,
+      parseInt(dateIso.slice(8, 10), 10),
+      hh,
+      mm || 0,
+      0
+    );
+    var inv = new Date(new Date(guessUtc).toLocaleString("en-US", { timeZone: "UTC" }));
+    var loc = new Date(new Date(guessUtc).toLocaleString("en-US", { timeZone: timeZone }));
+    return new Date(guessUtc - (loc.getTime() - inv.getTime()));
+  }
+
+  function sportSessionToGcalBody(session) {
+    var tp = sportTimeParts(session.startTime);
+    var ep = sportSessionEndParts(session);
+    var tz = userTimeZone();
+    var typeLabel = SPORT_TYPE_LABELS[session.type] || session.type;
+    var desc = "Créé depuis HOME Sport";
+    if (session.note) desc = session.note + "\n\n" + desc;
+    return {
+      summary: session.title || typeLabel,
+      description: desc,
+      start: { dateTime: localNaiveDateTime(session.date, tp.h, tp.m), timeZone: tz },
+      end: { dateTime: localNaiveDateTime(session.date, ep.h, ep.m), timeZone: tz }
+    };
+  }
+
+  function sportSessionToTemplateUrl(session) {
+    var tp = sportTimeParts(session.startTime);
+    var ep = sportSessionEndParts(session);
+    return gcalEventToTemplateUrl({
+      summary: session.title || SPORT_TYPE_LABELS[session.type] || "Séance sport",
+      description: session.note || "Créé depuis HOME Sport",
+      start: { dateTime: localNaiveDateTime(session.date, tp.h, tp.m) },
+      end: { dateTime: localNaiveDateTime(session.date, ep.h, ep.m) }
+    });
+  }
+
+  function sportSessionDuplicateKey(session) {
+    return (
+      String(session.type) +
+      "|" +
+      String(session.date) +
+      "|" +
+      String(session.startTime)
+    );
+  }
+
+  function autoMarkMissedSportSessions() {
+    var data = getSportPlanningData();
+    var now = Date.now();
+    var changed = false;
+    data.plannedSessions.forEach(function (s) {
+      if (s.status !== "prevue") return;
+      if (sportSessionEndMs(s) < now) {
+        s.status = "manquee";
+        changed = true;
+      }
+    });
+    if (changed) saveSportPlanningData(data);
+  }
+
+  function sportSessionsInWeek(weekMon) {
+    var wLast = addDays(weekMon, 6);
+    return getSportPlanningData().plannedSessions.filter(function (s) {
+      return s.date >= weekMon && s.date <= wLast;
+    });
+  }
+
+  function nextSportSessionStatus(cur) {
+    if (cur === "prevue") return "faite";
+    if (cur === "faite") return "manquee";
+    return "prevue";
+  }
+
+  function canSyncSportToGcal() {
+    return !!getValidGcalAccessToken() && !__gcalSessionExpired;
+  }
+
+  function trySyncSportSessionToGcal(session) {
+    if (!canSyncSportToGcal()) return Promise.resolve(false);
+    try {
+      var body = sportSessionToGcalBody(session);
+      var p =
+        session.gcalEventId ?
+          patchGcalEvent(session.gcalEventId, body) :
+          postGcalEvent(body);
+      return p
+        .then(function (res) {
+          var data = getSportPlanningData();
+          var idx = data.plannedSessions.findIndex(function (x) {
+            return x.id === session.id;
+          });
+          if (idx >= 0 && res && res.id) data.plannedSessions[idx].gcalEventId = res.id;
+          saveSportPlanningData(data);
+          return true;
+        })
+        .catch(function () {
+          return false;
+        });
+    } catch (eSync) {
+      return Promise.resolve(false);
+    }
+  }
+
+  function tryDeleteSportSessionFromGcal(session) {
+    if (!session || !session.gcalEventId || !canSyncSportToGcal()) return Promise.resolve(false);
+    return deleteGcalEvent(session.gcalEventId)
+      .then(function () {
+        return true;
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+
+  function upsertSportPlannedSession(payload) {
+    var data = getSportPlanningData();
+    var idx = data.plannedSessions.findIndex(function (s) {
+      return s.id === payload.id;
+    });
+    var session = {
+      id: payload.id || sportUuid(),
+      type: payload.type || "autre",
+      title: String(payload.title || "").trim(),
+      date: payload.date,
+      startTime: payload.startTime || "09:00",
+      durationMin: Math.max(1, parseInt(payload.durationMin, 10) || 60),
+      note: payload.note ? String(payload.note) : "",
+      status: payload.status === "faite" || payload.status === "manquee" ? payload.status : "prevue",
+      gcalEventId: payload.gcalEventId || null
+    };
+    if (idx >= 0) {
+      session.gcalEventId = data.plannedSessions[idx].gcalEventId || session.gcalEventId;
+      data.plannedSessions[idx] = session;
+    } else {
+      data.plannedSessions.push(session);
+    }
+    saveSportPlanningData(data);
+    renderSportPlanningWeek();
+    var saved = data.plannedSessions.find(function (x) {
+      return x.id === session.id;
+    });
+    trySyncSportSessionToGcal(saved || session).then(function (ok) {
+      if (!ok && canSyncSportToGcal()) {
+        setSportPlanStatus("Séance enregistrée localement — sync Calendar indisponible.", true);
+      } else {
+        setSportPlanStatus("", false);
+      }
+      renderSportPlanningWeek();
+    });
+    return session;
+  }
+
+  function deleteSportPlannedSession(id) {
+    var data = getSportPlanningData();
+    var session = data.plannedSessions.find(function (s) {
+      return s.id === id;
+    });
+    data.plannedSessions = data.plannedSessions.filter(function (s) {
+      return s.id !== id;
+    });
+    saveSportPlanningData(data);
+    if (session) {
+      tryDeleteSportSessionFromGcal(session).finally(function () {
+        renderSportPlanningWeek();
+      });
+    } else {
+      renderSportPlanningWeek();
+    }
+  }
+
+  function updateSportSessionStatus(id, status) {
+    var data = getSportPlanningData();
+    var session = data.plannedSessions.find(function (s) {
+      return s.id === id;
+    });
+    if (!session) return;
+    session.status = status;
+    saveSportPlanningData(data);
+    renderSportPlanningWeek();
+  }
+
+  function cycleSportSessionStatus(id) {
+    var data = getSportPlanningData();
+    var session = data.plannedSessions.find(function (s) {
+      return s.id === id;
+    });
+    if (!session) return;
+    session.status = nextSportSessionStatus(session.status);
+    saveSportPlanningData(data);
+    renderSportPlanningWeek();
+  }
+
+  function applySportWeekTemplate(weekMon) {
+    var data = getSportPlanningData();
+    var existing = {};
+    data.plannedSessions.forEach(function (s) {
+      existing[sportSessionDuplicateKey(s)] = true;
+    });
+    var added = 0;
+    var newSessions = [];
+    data.weekTemplate.forEach(function (dayItems, dow) {
+      (dayItems || []).forEach(function (tpl) {
+        var dateIso = addDays(weekMon, dow);
+        var session = {
+          id: sportUuid(),
+          type: tpl.type || "autre",
+          title: String(tpl.title || SPORT_TYPE_LABELS[tpl.type] || "Séance").trim(),
+          date: dateIso,
+          startTime: tpl.startTime || "09:00",
+          durationMin: Math.max(1, parseInt(tpl.durationMin, 10) || 60),
+          note: "",
+          status: "prevue",
+          gcalEventId: null
+        };
+        var key = sportSessionDuplicateKey(session);
+        if (existing[key]) return;
+        existing[key] = true;
+        data.plannedSessions.push(session);
+        newSessions.push(session);
+        added++;
+      });
+    });
+    saveSportPlanningData(data);
+    newSessions.forEach(function (s) {
+      trySyncSportSessionToGcal(s);
+    });
+    setSportPlanStatus(
+      added ? added + " séance(s) ajoutée(s) depuis la semaine type." : "Aucune nouvelle séance (doublons ignorés).",
+      false
+    );
+    renderSportPlanningWeek();
+  }
+
+  function syncAllUnsyncedSportSessions() {
+    if (!canSyncSportToGcal()) {
+      setSportPlanStatus("Connecte Google Calendar pour synchroniser.", true);
+      return;
+    }
+    var data = getSportPlanningData();
+    var pending = data.plannedSessions.filter(function (s) {
+      return !s.gcalEventId;
+    });
+    if (!pending.length) {
+      setSportPlanStatus("Toutes les séances sont déjà synchronisées.", false);
+      return;
+    }
+    var chain = Promise.resolve();
+    var okN = 0;
+    pending.forEach(function (s) {
+      chain = chain.then(function () {
+        return trySyncSportSessionToGcal(s).then(function (ok) {
+          if (ok) okN++;
+        });
+      });
+    });
+    chain.finally(function () {
+      setSportPlanStatus(
+        okN ?
+          okN + " séance(s) synchronisée(s)." :
+          "Sync impossible — séances conservées localement.",
+        okN ? false : true
+      );
+      renderSportPlanningWeek();
+    });
+  }
+
+  function sportSessionToIcsVevent(session) {
+    var tp = sportTimeParts(session.startTime);
+    var ep = sportSessionEndParts(session);
+    var startUtc = dateTimeInZoneToUtc(session.date, tp.h, tp.m, SPORT_ICS_TZ);
+    var endUtc = dateTimeInZoneToUtc(session.date, ep.h, ep.m, SPORT_ICS_TZ);
+    var lines = [];
+    lines.push("BEGIN:VEVENT");
+    lines.push("UID:" + session.id + "@home-sport");
+    lines.push("DTSTAMP:" + formatIcsUtc(new Date()));
+    lines.push("DTSTART:" + formatIcsUtc(startUtc));
+    lines.push("DTEND:" + formatIcsUtc(endUtc));
+    lines.push(
+      "SUMMARY:" +
+        icsEscapeText(session.title || SPORT_TYPE_LABELS[session.type] || "Séance sport")
+    );
+    if (session.note) lines.push("DESCRIPTION:" + icsEscapeText(session.note));
+    lines.push("END:VEVENT");
+    return lines.join("\r\n");
+  }
+
+  function buildSportWeekIcs(sessions) {
+    var body = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//HOME Sport//FR",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH"
+    ];
+    (sessions || []).forEach(function (s) {
+      body.push(sportSessionToIcsVevent(s));
+    });
+    body.push("END:VCALENDAR");
+    return body.join("\r\n");
+  }
+
+  function downloadSportWeekIcs() {
+    if (!__sportPlanWeekStart) __sportPlanWeekStart = weekMonday(todayIso);
+    var sessions = sportSessionsInWeek(__sportPlanWeekStart);
+    if (!sessions.length) {
+      setSportPlanStatus("Aucune séance à exporter pour cette semaine.", true);
+      return;
+    }
+    var blob = new Blob([buildSportWeekIcs(sessions)], { type: "text/calendar;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "home-sport-" + __sportPlanWeekStart + ".ics";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    setSportPlanStatus("", false);
+  }
+
+  function renderSportPlanSessionCard(session) {
+    var st = session.status || "prevue";
+    var syncBadge =
+      session.gcalEventId ?
+        "" :
+        '<span class="sport-plan-card__badge sport-plan-card__badge--nosync">non sync</span>';
+    var tplUrl = sportSessionToTemplateUrl(session);
+    return (
+      '<article class="sport-plan-card sport-plan-card--' +
+      escapeAttr(st) +
+      '" data-sport-session-id="' +
+      escapeAttr(session.id) +
+      '"><div class="sport-plan-card__head">' +
+      (SPORT_TYPE_ICONS[session.type] || SPORT_TYPE_ICONS.autre) +
+      '<div><div class="sport-plan-card__title">' +
+      escapeHtml(session.title || SPORT_TYPE_LABELS[session.type] || "Séance") +
+      '</div><div class="sport-plan-card__meta">' +
+      escapeHtml(session.startTime) +
+      " · " +
+      escapeHtml(String(session.durationMin)) +
+      " min</div></div></div>" +
+      syncBadge +
+      '<div class="sport-plan-card__actions">' +
+      '<button type="button" class="sport-plan-card__btn" data-sport-action="status">' +
+      escapeHtml(SPORT_STATUS_LABELS[st] || st) +
+      "</button>" +
+      (session.gcalEventId ?
+        "" :
+        '<button type="button" class="sport-plan-card__btn" data-sport-action="sync">Synchroniser</button>') +
+      '<a class="sport-plan-card__btn" href="' +
+      escapeAttr(tplUrl) +
+      '" target="_blank" rel="noopener noreferrer">Ajouter à Google Calendar</a>' +
+      '<button type="button" class="sport-plan-card__btn" data-sport-action="edit">Modifier</button>' +
+      '<button type="button" class="sport-plan-card__btn" data-sport-action="delete">Supprimer</button>' +
+      "</div></article>"
+    );
+  }
+
+  function renderSportPlanningWeek() {
+    var mount = document.getElementById("sport-plan-week-mount");
+    if (!mount) return;
+    autoMarkMissedSportSessions();
+    if (!__sportPlanWeekStart) __sportPlanWeekStart = weekMonday(todayIso);
+    var weekMon = __sportPlanWeekStart;
+    var titleEl = document.getElementById("sport-plan-week-title");
+    if (titleEl) {
+      var cap = parseISODate(weekMon).toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+      titleEl.textContent = cap.charAt(0).toUpperCase() + cap.slice(1);
+    }
+    var sessions = sportSessionsInWeek(weekMon);
+    var byDay = [[], [], [], [], [], [], []];
+    sessions.forEach(function (s) {
+      var idx = Math.round((parseISODate(s.date).getTime() - parseISODate(weekMon).getTime()) / 86400000);
+      if (idx >= 0 && idx < 7) byDay[idx].push(s);
+    });
+    byDay.forEach(function (list) {
+      list.sort(function (a, b) {
+        return String(a.startTime).localeCompare(String(b.startTime));
+      });
+    });
+    var dowLab = weekDayLabels();
+    var cols = "";
+    var i;
+    for (i = 0; i < 7; i++) {
+      var dayIso = addDays(weekMon, i);
+      var isTd = dayIso === todayIso;
+      cols +=
+        '<div class="sport-plan-col"><div class="sport-plan-col__head' +
+        (isTd ? " is-today" : "") +
+        '"><div class="sport-plan-col__dow">' +
+        escapeHtml(dowLab[i]) +
+        '</div><div class="sport-plan-col__num">' +
+        String(parseISODate(dayIso).getDate()) +
+        '</div></div><div class="sport-plan-col__body' +
+        (isTd ? " is-today" : "") +
+        '" data-sport-day="' +
+        escapeAttr(dayIso) +
+        '">' +
+        byDay[i].map(renderSportPlanSessionCard).join("") +
+        "</div></div>";
+    }
+    mount.innerHTML = '<div class="sport-plan-week-shell"><div class="sport-plan-week-cols">' + cols + "</div></div>";
+  }
+
+  function renderSportPlanTemplateEditor() {
+    var host = document.getElementById("sport-plan-template-editor");
+    if (!host) return;
+    var data = getSportPlanningData();
+    host.innerHTML = data.weekTemplate
+      .map(function (dayItems, dow) {
+        var rows = (dayItems || [])
+          .map(function (item, idx) {
+            return (
+              '<div class="sport-plan-tpl-row" data-sport-tpl-dow="' +
+              dow +
+              '" data-sport-tpl-idx="' +
+              idx +
+              '"><select data-sport-tpl-field="type">' +
+              Object.keys(SPORT_TYPE_LABELS)
+                .map(function (k) {
+                  return (
+                    '<option value="' +
+                    escapeAttr(k) +
+                    '"' +
+                    (item.type === k ? " selected" : "") +
+                    ">" +
+                    escapeHtml(SPORT_TYPE_LABELS[k]) +
+                    "</option>"
+                  );
+                })
+                .join("") +
+              '</select><input type="time" data-sport-tpl-field="startTime" value="' +
+              escapeAttr(item.startTime || "09:00") +
+              '" /><input type="number" min="1" step="5" data-sport-tpl-field="durationMin" value="' +
+              escapeAttr(String(item.durationMin || 60)) +
+              '" aria-label="Durée minutes" /><input type="text" data-sport-tpl-field="title" placeholder="Titre" value="' +
+              escapeAttr(item.title || "") +
+              '" /><button type="button" class="btn secondary" data-sport-tpl-remove>×</button></div>'
+            );
+          })
+          .join("");
+        return (
+          '<div class="sport-plan-tpl-day" data-sport-tpl-day="' +
+          dow +
+          '"><div class="sport-plan-tpl-day__head"><span class="sport-plan-tpl-day__label">' +
+          escapeHtml(SPORT_WEEKDAY_NAMES[dow]) +
+          '</span><button type="button" class="btn secondary" data-sport-tpl-add>Ajouter</button></div>' +
+          rows +
+          "</div>"
+        );
+      })
+      .join("");
+  }
+
+  function collectSportTemplateFromDom() {
+    var data = getSportPlanningData();
+    var next = [[], [], [], [], [], [], []];
+    document.querySelectorAll(".sport-plan-tpl-day").forEach(function (dayEl) {
+      var dow = parseInt(dayEl.getAttribute("data-sport-tpl-day"), 10);
+      if (dow < 0 || dow > 6) return;
+      dayEl.querySelectorAll(".sport-plan-tpl-row").forEach(function (row) {
+        var typeEl = row.querySelector('[data-sport-tpl-field="type"]');
+        var timeEl = row.querySelector('[data-sport-tpl-field="startTime"]');
+        var durEl = row.querySelector('[data-sport-tpl-field="durationMin"]');
+        var titleEl = row.querySelector('[data-sport-tpl-field="title"]');
+        next[dow].push({
+          type: typeEl ? typeEl.value : "autre",
+          startTime: timeEl && timeEl.value ? timeEl.value : "09:00",
+          durationMin: Math.max(1, parseInt(durEl && durEl.value, 10) || 60),
+          title: titleEl ? String(titleEl.value || "").trim() : ""
+        });
+      });
+    });
+    data.weekTemplate = next;
+    saveSportPlanningData(data);
+  }
+
+  function openSportPlanSessionForm(editSession, defaultDate) {
+    var mount = document.getElementById("sport-plan-form-mount");
+    if (!mount) return;
+    var formId = sportUuid();
+    var isEdit = !!editSession;
+    var s = editSession || {
+      type: "muscu",
+      title: "",
+      date: defaultDate || todayIso,
+      startTime: "09:00",
+      durationMin: 60,
+      note: ""
+    };
+    mount.innerHTML =
+      '<div class="gcal-quick-add is-open" id="sport-plan-form-' +
+      escapeAttr(formId) +
+      '"><button type="button" class="icon-btn" id="sport-plan-form-close-' +
+      escapeAttr(formId) +
+      '" aria-label="Fermer">×</button>' +
+      '<div class="gcal-quick-add-field"><label for="sport-plan-type-' +
+      escapeAttr(formId) +
+      '">Type</label><select id="sport-plan-type-' +
+      escapeAttr(formId) +
+      '">' +
+      Object.keys(SPORT_TYPE_LABELS)
+        .map(function (k) {
+          return (
+            '<option value="' +
+            escapeAttr(k) +
+            '"' +
+            (s.type === k ? " selected" : "") +
+            ">" +
+            escapeHtml(SPORT_TYPE_LABELS[k]) +
+            "</option>"
+          );
+        })
+        .join("") +
+      '</select></div><div class="gcal-quick-add-field"><label for="sport-plan-title-' +
+      escapeAttr(formId) +
+      '">Titre</label><input type="text" id="sport-plan-title-' +
+      escapeAttr(formId) +
+      '" maxlength="200" value="' +
+      escapeAttr(s.title || "") +
+      '" /></div><div class="gcal-quick-add-field"><label for="sport-plan-date-' +
+      escapeAttr(formId) +
+      '">Date</label><input type="date" id="sport-plan-date-' +
+      escapeAttr(formId) +
+      '" value="' +
+      escapeAttr(s.date || todayIso) +
+      '" /></div><div class="gcal-quick-add-field"><label for="sport-plan-start-' +
+      escapeAttr(formId) +
+      '">Heure début</label><input type="time" id="sport-plan-start-' +
+      escapeAttr(formId) +
+      '" value="' +
+      escapeAttr(s.startTime || "09:00") +
+      '" /></div><div class="gcal-quick-add-field"><label for="sport-plan-dur-' +
+      escapeAttr(formId) +
+      '">Durée (min)</label><input type="number" min="1" step="5" id="sport-plan-dur-' +
+      escapeAttr(formId) +
+      '" value="' +
+      escapeAttr(String(s.durationMin || 60)) +
+      '" /></div><div class="gcal-quick-add-field" style="flex:1;min-width:10rem"><label for="sport-plan-note-' +
+      escapeAttr(formId) +
+      '">Note</label><textarea id="sport-plan-note-' +
+      escapeAttr(formId) +
+      '" rows="2" maxlength="500">' +
+      escapeHtml(s.note || "") +
+      '</textarea></div><button type="button" class="btn btn-add-unified" id="sport-plan-submit-' +
+      escapeAttr(formId) +
+      '">' +
+      (isEdit ? "Enregistrer" : "Ajouter") +
+      '</button><p id="sport-plan-form-error-' +
+      escapeAttr(formId) +
+      '" class="gcal-quick-add-error" hidden></p></div>';
+    var closeBtn = document.getElementById("sport-plan-form-close-" + formId);
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        mount.innerHTML = "";
+      });
+    }
+    var submitBtn = document.getElementById("sport-plan-submit-" + formId);
+    if (submitBtn) {
+      submitBtn.addEventListener("click", function () {
+        var errEl = document.getElementById("sport-plan-form-error-" + formId);
+        var titleVal = document.getElementById("sport-plan-title-" + formId);
+        var dateVal = document.getElementById("sport-plan-date-" + formId);
+        var title = titleVal ? String(titleVal.value || "").trim() : "";
+        var date = dateVal && dateVal.value ? dateVal.value : "";
+        if (!title || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+          if (errEl) {
+            errEl.textContent = "Titre et date obligatoires.";
+            errEl.removeAttribute("hidden");
+          }
+          return;
+        }
+        upsertSportPlannedSession({
+          id: isEdit ? editSession.id : sportUuid(),
+          type: document.getElementById("sport-plan-type-" + formId).value,
+          title: title,
+          date: date,
+          startTime: document.getElementById("sport-plan-start-" + formId).value || "09:00",
+          durationMin: parseInt(document.getElementById("sport-plan-dur-" + formId).value, 10) || 60,
+          note: document.getElementById("sport-plan-note-" + formId).value || "",
+          status: isEdit ? editSession.status : "prevue",
+          gcalEventId: isEdit ? editSession.gcalEventId : null
+        });
+        mount.innerHTML = "";
+      });
+    }
+  }
+
+  function setSportSubTab(tab) {
+    __sportSubTab = tab === "planning" ? "planning" : "objectifs";
+    document.querySelectorAll("[data-sport-tab]").forEach(function (b) {
+      var on = b.getAttribute("data-sport-tab") === __sportSubTab;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    document.querySelectorAll(".sport-sub-panel").forEach(function (p) {
+      var sub = p.getAttribute("data-sport-sub");
+      if (sub === __sportSubTab) p.removeAttribute("hidden");
+      else p.setAttribute("hidden", "");
+    });
+    if (__sportSubTab === "planning") {
+      renderSportPlanningWeek();
+      renderSportPlanTemplateEditor();
+    }
+  }
+
+  function wireSportPlanningOnce() {
+    var root = document.getElementById("panel-sport");
+    if (!root || root.dataset.sportPlanWired) return;
+    root.dataset.sportPlanWired = "1";
+    migrateSportData();
+
+    root.addEventListener("click", function (e) {
+      var tabBtn = e.target.closest("[data-sport-tab]");
+      if (tabBtn) {
+        setSportSubTab(tabBtn.getAttribute("data-sport-tab"));
+        return;
+      }
+      var cardBtn = e.target.closest("[data-sport-action]");
+      if (cardBtn) {
+        var card = cardBtn.closest("[data-sport-session-id]");
+        if (!card) return;
+        var sid = card.getAttribute("data-sport-session-id");
+        var action = cardBtn.getAttribute("data-sport-action");
+        var data = getSportPlanningData();
+        var session = data.plannedSessions.find(function (s) {
+          return s.id === sid;
+        });
+        if (!session) return;
+        if (action === "status") cycleSportSessionStatus(sid);
+        else if (action === "sync") {
+          trySyncSportSessionToGcal(session).then(function (ok) {
+            setSportPlanStatus(
+              ok ? "Séance synchronisée." : "Sync impossible — réessaie plus tard.",
+              !ok
+            );
+            renderSportPlanningWeek();
+          });
+        } else if (action === "edit") openSportPlanSessionForm(session);
+        else if (action === "delete") {
+          if (window.confirm("Supprimer cette séance planifiée ?")) deleteSportPlannedSession(sid);
+        }
+        return;
+      }
+      var tplAdd = e.target.closest("[data-sport-tpl-add]");
+      if (tplAdd) {
+        collectSportTemplateFromDom();
+        var dayEl = tplAdd.closest("[data-sport-tpl-day]");
+        var dow = dayEl ? parseInt(dayEl.getAttribute("data-sport-tpl-day"), 10) : 0;
+        var dataTpl = getSportPlanningData();
+        if (!dataTpl.weekTemplate[dow]) dataTpl.weekTemplate[dow] = [];
+        dataTpl.weekTemplate[dow].push({
+          type: "muscu",
+          startTime: "09:00",
+          durationMin: 60,
+          title: ""
+        });
+        saveSportPlanningData(dataTpl);
+        renderSportPlanTemplateEditor();
+        return;
+      }
+      var tplRemove = e.target.closest("[data-sport-tpl-remove]");
+      if (tplRemove) {
+        collectSportTemplateFromDom();
+        var row = tplRemove.closest(".sport-plan-tpl-row");
+        if (!row) return;
+        var dowR = parseInt(row.getAttribute("data-sport-tpl-dow"), 10);
+        var idxR = parseInt(row.getAttribute("data-sport-tpl-idx"), 10);
+        var dataR = getSportPlanningData();
+        if (dataR.weekTemplate[dowR]) dataR.weekTemplate[dowR].splice(idxR, 1);
+        saveSportPlanningData(dataR);
+        renderSportPlanTemplateEditor();
+      }
+    });
+
+    var prev = document.getElementById("sport-plan-week-prev");
+    var next = document.getElementById("sport-plan-week-next");
+    var todayBtn = document.getElementById("sport-plan-week-today");
+    if (prev) {
+      prev.addEventListener("click", function () {
+        if (!__sportPlanWeekStart) __sportPlanWeekStart = weekMonday(todayIso);
+        __sportPlanWeekStart = addDays(__sportPlanWeekStart, -7);
+        renderSportPlanningWeek();
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        if (!__sportPlanWeekStart) __sportPlanWeekStart = weekMonday(todayIso);
+        __sportPlanWeekStart = addDays(__sportPlanWeekStart, 7);
+        renderSportPlanningWeek();
+      });
+    }
+    if (todayBtn) {
+      todayBtn.addEventListener("click", function () {
+        __sportPlanWeekStart = weekMonday(todayIso);
+        renderSportPlanningWeek();
+      });
+    }
+    var addBtn = document.getElementById("btn-sport-plan-add");
+    if (addBtn) {
+      addBtn.addEventListener("click", function () {
+        openSportPlanSessionForm(null, todayIso);
+      });
+    }
+    var syncAll = document.getElementById("btn-sport-plan-sync-all");
+    if (syncAll) syncAll.addEventListener("click", syncAllUnsyncedSportSessions);
+    var expIcs = document.getElementById("btn-sport-plan-export-ics");
+    if (expIcs) expIcs.addEventListener("click", downloadSportWeekIcs);
+    var applyTpl = document.getElementById("btn-sport-apply-template");
+    if (applyTpl) {
+      applyTpl.addEventListener("click", function () {
+        collectSportTemplateFromDom();
+        if (!__sportPlanWeekStart) __sportPlanWeekStart = weekMonday(todayIso);
+        applySportWeekTemplate(__sportPlanWeekStart);
+      });
+    }
+    var tplHost = document.getElementById("sport-plan-template-editor");
+    if (tplHost) {
+      tplHost.addEventListener("change", function () {
+        collectSportTemplateFromDom();
+      });
+    }
+  }
+
   function defaultState() {
     return {
       version: STATE_VERSION,
@@ -6131,7 +8202,15 @@
         activeMetricKeys: ["running", "muscu", "natation", "water", "protein", "sleep", "meals"],
         agendaOpenUrl: "https://calendar.google.com/calendar",
         gcalClientId: GCAL_CLIENT_ID_EMBEDDED,
-        gcalApiKey: GCAL_API_KEY_EMBEDDED
+        gcalApiKey: GCAL_API_KEY_EMBEDDED,
+        echeances: [],
+        gcalTaskMap: {}
+      },
+      prefs: {
+        sidebarPinned: false,
+        sportCollapsed: false,
+        alimCollapsed: false,
+        dismissedCatchups: {}
       },
       history: {},
       todos: {
@@ -6440,33 +8519,48 @@
     });
   }
 
+  function normalizeEcheancesArray(arr) {
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .map(function (x) {
+        if (!x) return null;
+        var dt = x.date || x.dateIso;
+        if (!dt || !/^\d{4}-\d{2}-\d{2}$/.test(String(dt))) return null;
+        return {
+          id: String(x.id || uid()),
+          label: ((x.label && String(x.label).trim()) || "Échéance").slice(0, 120),
+          date: String(dt)
+        };
+      })
+      .filter(Boolean);
+  }
+
   function loadHomeEcheances() {
+    if (state && state.meta && Array.isArray(state.meta.echeances)) {
+      return normalizeEcheancesArray(state.meta.echeances);
+    }
     try {
       var raw = localStorage.getItem(HOME_ECHEANCES_KEY);
       if (raw == null || raw === "") return [];
-      var a = JSON.parse(raw);
-      if (!Array.isArray(a)) return [];
-      return a
-        .map(function (x) {
-          if (!x) return null;
-          var dt = x.date || x.dateIso;
-          if (!dt || !/^\d{4}-\d{2}-\d{2}$/.test(String(dt))) return null;
-          return {
-            id: String(x.id || uid()),
-            label: ((x.label && String(x.label).trim()) || "Échéance").slice(0, 120),
-            date: String(dt)
-          };
-        })
-        .filter(Boolean);
+      return normalizeEcheancesArray(JSON.parse(raw));
     } catch (e) {
       return [];
     }
   }
 
   function saveHomeEcheances(arr) {
-    try {
-      localStorage.setItem(HOME_ECHEANCES_KEY, JSON.stringify(arr || []));
-    } catch (e) { /* ignore */ }
+    var normalized = normalizeEcheancesArray(arr || []);
+    if (typeof state !== "undefined" && state && state.meta) {
+      state.meta.echeances = normalized;
+      saveState(state);
+      try {
+        localStorage.removeItem(HOME_ECHEANCES_KEY);
+      } catch (eRm) { /* ignore */ }
+    } else {
+      try {
+        localStorage.setItem(HOME_ECHEANCES_KEY, JSON.stringify(normalized));
+      } catch (eLs) { /* ignore */ }
+    }
   }
 
   function seedHomeEcheancesIfUnset(meta) {
@@ -6513,8 +8607,72 @@
     }
   }
 
+  function migrateLegacyStorageIntoState(d) {
+    if (!d.prefs || typeof d.prefs !== "object") {
+      d.prefs = defaultState().prefs;
+    }
+    if (typeof d.prefs.sidebarPinned !== "boolean") {
+      try {
+        d.prefs.sidebarPinned = localStorage.getItem(SIDEBAR_PIN_KEY) === "1";
+      } catch (ePin) {
+        d.prefs.sidebarPinned = false;
+      }
+    }
+    if (typeof d.prefs.sportCollapsed !== "boolean") {
+      try {
+        d.prefs.sportCollapsed = localStorage.getItem(HOME_SPORT_COLLAPSED_KEY) === "1";
+      } catch (eSc) {
+        d.prefs.sportCollapsed = false;
+      }
+    }
+    if (typeof d.prefs.alimCollapsed !== "boolean") {
+      try {
+        d.prefs.alimCollapsed = localStorage.getItem(HOME_ALIM_COLLAPSED_KEY) === "1";
+      } catch (eAc) {
+        d.prefs.alimCollapsed = false;
+      }
+    }
+    if (!d.prefs.dismissedCatchups || typeof d.prefs.dismissedCatchups !== "object") {
+      d.prefs.dismissedCatchups = {};
+    }
+    try {
+      var pre = HOME_DISMISSED_PREFIX;
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (!k || k.indexOf(pre) !== 0) continue;
+        var day = k.slice(pre.length);
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+        if (d.prefs.dismissedCatchups[day]) continue;
+        try {
+          var rawD = localStorage.getItem(k);
+          var parsedD = rawD ? JSON.parse(rawD) : [];
+          if (Array.isArray(parsedD) && parsedD.length) d.prefs.dismissedCatchups[day] = parsedD.slice();
+        } catch (eD) { /* ignore */ }
+      }
+    } catch (eScan) { /* ignore */ }
+
+    if (!Array.isArray(d.meta.echeances) || d.meta.echeances.length === 0) {
+      try {
+        var rawE = localStorage.getItem(HOME_ECHEANCES_KEY);
+        if (rawE) d.meta.echeances = normalizeEcheancesArray(JSON.parse(rawE));
+      } catch (eE) { /* ignore */ }
+    }
+    if (!Array.isArray(d.meta.echeances)) d.meta.echeances = [];
+
+    if (!d.meta.gcalTaskMap || typeof d.meta.gcalTaskMap !== "object") {
+      try {
+        var rawG = localStorage.getItem(GCAL_TASK_MAP_KEY);
+        d.meta.gcalTaskMap = rawG ? JSON.parse(rawG) : {};
+      } catch (eG) {
+        d.meta.gcalTaskMap = {};
+      }
+    }
+    if (!d.meta.gcalTaskMap || typeof d.meta.gcalTaskMap !== "object") d.meta.gcalTaskMap = {};
+  }
+
   function migrateState(data) {
     var d = defaultState();
+    if (data.prefs && typeof data.prefs === "object") d.prefs = Object.assign(defaultState().prefs, data.prefs);
     if (data.meta) d.meta = Object.assign(d.meta, data.meta);
     if (typeof d.meta.brandLogoDataUrl !== "string") d.meta.brandLogoDataUrl = "";
     if (typeof d.meta.showBriefSport !== "boolean") d.meta.showBriefSport = true;
@@ -6556,8 +8714,62 @@
       d.quickLinks = defaultQuickLinks();
     }
     ensureTodosShape(d);
+    migrateLegacyStorageIntoState(d);
     d.version = STATE_VERSION;
     return d;
+  }
+
+  function buildExportBundle() {
+    checkpointTodayHistory();
+    var theme = "dark";
+    try {
+      theme = localStorage.getItem(THEME_KEY) === "light" ? "light" : "dark";
+    } catch (eT) { /* ignore */ }
+    return {
+      formatVersion: BACKUP_FORMAT_VERSION,
+      exportedAt: new Date().toISOString(),
+      appStateVersion: STATE_VERSION,
+      theme: theme,
+      state: JSON.parse(JSON.stringify(state))
+    };
+  }
+
+  function downloadExportBundle() {
+    var bundle = buildExportBundle();
+    var blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "home-backup-" + isoDate(new Date()) + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    return bundle;
+  }
+
+  function applyImportBundle(raw) {
+    var bundle = typeof raw === "string" ? JSON.parse(raw) : raw;
+    if (!bundle || typeof bundle !== "object") throw new Error("Fichier JSON invalide.");
+    var st = bundle.state;
+    if (!st || typeof st !== "object") throw new Error("Objet state manquant dans la sauvegarde.");
+    var migrated = migrateState(st);
+    state = migrated;
+    var calToday = isoDate(new Date());
+    state = applyDailyReset(state, calToday);
+    saveState(state);
+    if (bundle.theme === "light" || bundle.theme === "dark") {
+      try {
+        localStorage.setItem(THEME_KEY, bundle.theme);
+      } catch (eTh) { /* ignore */ }
+      document.documentElement.setAttribute("data-theme", bundle.theme);
+    }
+    todayIso = calToday;
+    if (viewDateIso > todayIso) viewDateIso = todayIso;
+    clampViewDateToBounds();
+    __gcalTokenClient = null;
+    __gcalTokenClientClientId = null;
+    refreshChrome();
   }
 
   function saveState(s) {
@@ -6764,6 +8976,18 @@
     return Number(snap.sport[key]) || 0;
   }
 
+  function getNutritionValueOnDay(dayIso, key) {
+    if (dayIso === todayIso) return Number(state.nutrition[key]) || 0;
+    var snap = state.history[dayIso];
+    if (!snap || !snap.nutrition) return null;
+    return Number(snap.nutrition[key]) || 0;
+  }
+
+  function getMetricValueOnDay(dayIso, key) {
+    if (METRIC_SPORT[key]) return getSportValueOnDay(dayIso, key);
+    return getNutritionValueOnDay(dayIso, key);
+  }
+
   function sportWeekTotal(key) {
     var mon = weekMonday(todayIso);
     var total = 0;
@@ -6776,13 +9000,13 @@
     return total;
   }
 
-  function sportMetricStreak(key) {
+  function metricStreak(key) {
     var tgt = Number(state.targets[key]) || 0;
     if (tgt <= 0) return 0;
     var d = todayIso;
     var streak = 0;
     for (var guard = 0; guard < 500; guard++) {
-      var v = getSportValueOnDay(d, key);
+      var v = getMetricValueOnDay(d, key);
       if (v == null) break;
       if (v >= tgt) {
         streak++;
@@ -6790,6 +9014,126 @@
       } else break;
     }
     return streak;
+  }
+
+  function sportMetricStreak(key) {
+    return metricStreak(key);
+  }
+
+  function getMetricSeriesLastNDays(key, n) {
+    var out = [];
+    var i;
+    for (i = n - 1; i >= 0; i--) {
+      var iso = addDays(todayIso, -i);
+      var v = getMetricValueOnDay(iso, key);
+      out.push(v == null ? 0 : v);
+    }
+    return out;
+  }
+
+  function buildSparklineSvg(values, target, w, h) {
+    var n = values.length;
+    if (n < 2) return "";
+    w = w || 120;
+    h = h || 36;
+    var max = target;
+    values.forEach(function (v) {
+      if (v > max) max = v;
+    });
+    if (max <= 0) max = 1;
+    var pts = [];
+    var i;
+    for (i = 0; i < n; i++) {
+      var x = (i / (n - 1)) * w;
+      var y = h - 2 - (values[i] / max) * (h - 4);
+      pts.push(x.toFixed(1) + "," + y.toFixed(1));
+    }
+    var ty = h - 2 - (target / max) * (h - 4);
+    return (
+      '<svg viewBox="0 0 ' +
+      w +
+      " " +
+      h +
+      '" width="' +
+      w +
+      '" height="' +
+      h +
+      '" aria-hidden="true">' +
+      '<line x1="0" y1="' +
+      ty.toFixed(1) +
+      '" x2="' +
+      w +
+      '" y2="' +
+      ty.toFixed(1) +
+      '" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" stroke-dasharray="3 3"/>' +
+      '<polyline fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" points="' +
+      pts.join(" ") +
+      '"/></svg>'
+    );
+  }
+
+  function renderTrendsPanel() {
+    var mount = document.getElementById("trends-mount");
+    if (!mount) return;
+    var days = 30;
+    var active = getActiveMetricKeys();
+    var sportKs = active.filter(function (k) {
+      return METRIC_SPORT[k];
+    });
+    var nutKs = active.filter(function (k) {
+      return !METRIC_SPORT[k];
+    });
+
+    function cardHtml(key) {
+      var tgt = Number(state.targets[key]) || 0;
+      var streak = metricStreak(key);
+      var series = getMetricSeriesLastNDays(key, days);
+      var sum = series.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+      var stCls = "trend-card__streak" + (streak < 1 ? " is-zero" : "");
+      var stTxt = streak < 1 ? "Série : 0" : "Série : " + streak + " j";
+      var spark = buildSparklineSvg(series, tgt, 140, 36);
+      var unit = key === "muscu" ? " séances" : key === "meals" ? " repas" : key === "water" ? " verres" : key === "protein" ? " g" : key === "sleep" ? " h" : " km";
+      return (
+        '<article class="trend-card">' +
+        '<div class="trend-card__head">' +
+        '<h3 class="trend-card__label">' +
+        escapeHtml(METRIC_LABELS[key] || key) +
+        "</h3>" +
+        '<span class="' +
+        stCls +
+        '">' +
+        escapeHtml(stTxt) +
+        "</span></div>" +
+        '<div class="trend-card__spark">' +
+        spark +
+        "</div>" +
+        '<p class="trend-card__meta">30 j · total ' +
+        escapeHtml(formatMetricValue(key, sum) + unit) +
+        " · objectif " +
+        escapeHtml(formatMetricValue(key, tgt) + unit) +
+        "/j</p></article>"
+      );
+    }
+
+    var html = "";
+    if (sportKs.length) {
+      html +=
+        '<section><h2 class="trends-section-title">Sport</h2><div class="trends-grid">' +
+        sportKs.map(cardHtml).join("") +
+        "</div></section>";
+    }
+    if (nutKs.length) {
+      html +=
+        '<section><h2 class="trends-section-title">Nutrition</h2><div class="trends-grid">' +
+        nutKs.map(cardHtml).join("") +
+        "</div></section>";
+    }
+    if (!html) {
+      html = '<p class="hint">Aucune métrique active — active des objectifs dans Réglages.</p>';
+    }
+    mount.innerHTML = html;
   }
 
   function renderSportMetricSubs() {
@@ -6820,6 +9164,693 @@
     if (hour >= 6 && hour < 9) showPanel("todo");
     else if (hour >= 12 && hour < 14) showPanel("food");
     else if (hour >= 20) showPanel("home");
+  }
+
+  function nextWeekdayIso(mon0Target) {
+    var todayMon0 = weekdayMon0FromIso(todayIso);
+    var delta = (mon0Target - todayMon0 + 7) % 7;
+    return addDays(todayIso, delta);
+  }
+
+  function parseFrenchDateFromText(s) {
+    var rest = String(s || "");
+    var low = rest.toLowerCase();
+    var iso = null;
+    if (/\bdemain\b/.test(low)) {
+      iso = addDays(todayIso, 1);
+      rest = rest.replace(/\bdemain\b/gi, " ");
+    } else if (/\b(après-demain|apres-demain)\b/.test(low)) {
+      iso = addDays(todayIso, 2);
+      rest = rest.replace(/\b(après-demain|apres-demain)\b/gi, " ");
+    } else if (/\baujourd'?hui\b/.test(low)) {
+      iso = todayIso;
+      rest = rest.replace(/\baujourd'?hui\b/gi, " ");
+    } else {
+      var mDans = low.match(/\bdans\s+(\d+)\s+jours?\b/);
+      if (mDans) {
+        iso = addDays(todayIso, parseInt(mDans[1], 10));
+        rest = rest.replace(/\bdans\s+\d+\s+jours?\b/gi, " ");
+      }
+    }
+    if (!iso) {
+      var days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
+      var di;
+      for (di = 0; di < 7; di++) {
+        if (new RegExp("\\b" + days[di] + "\\b", "i").test(low)) {
+          iso = nextWeekdayIso(di);
+          rest = rest.replace(new RegExp("\\b" + days[di] + "\\b", "gi"), " ");
+          break;
+        }
+      }
+    }
+    return { iso: iso, rest: rest.replace(/\s+/g, " ").trim() };
+  }
+
+  function parseGlobalQuickAdd(raw) {
+    var s = String(raw || "").trim();
+    if (!s) return null;
+    var priority = "medium";
+    var mP = s.match(/!(haute|high|moyenne|medium|basse|low)\b/i);
+    if (mP) {
+      var pl = mP[1].toLowerCase();
+      priority = pl === "haute" || pl === "high" ? "high" : pl === "basse" || pl === "low" ? "low" : "medium";
+      s = s.replace(mP[0], "").trim();
+    }
+    var tag = "";
+    var mT = s.match(/#([\w\u00C0-\u024F-]+)/);
+    if (mT) {
+      tag = mT[1].slice(0, 32);
+      s = s.replace(mT[0], "").trim();
+    }
+    var kind = "oneoff";
+    var dueMode = "rolling";
+    var dueDate = null;
+    if (/^(rappel|r)\s*:/i.test(s)) {
+      kind = "reminder";
+      s = s.replace(/^(rappel|r)\s*:\s*/i, "").trim();
+    } else if (/^(habitude|récurrent|recurrent)\s*:/i.test(s)) {
+      kind = "recurring";
+      s = s.replace(/^(habitude|récurrent|recurrent)\s*:\s*/i, "").trim();
+    } else {
+      var parsed = parseFrenchDateFromText(s);
+      if (parsed.iso) {
+        dueMode = "fixed";
+        dueDate = parsed.iso;
+        s = parsed.rest;
+      }
+    }
+    s = s.replace(/\s+/g, " ").trim();
+    if (!s) return null;
+    return { kind: kind, text: s.slice(0, 200), priority: priority, tag: tag, dueMode: dueMode, dueDate: dueDate };
+  }
+
+  function setGlobalQuickAddHint(msg, kind) {
+    var el = document.getElementById("global-quick-add-hint");
+    if (!el) return;
+    if (!msg) {
+      el.textContent = "";
+      el.setAttribute("hidden", "");
+      el.classList.remove("is-ok", "is-err");
+      return;
+    }
+    el.textContent = msg;
+    el.removeAttribute("hidden");
+    el.classList.toggle("is-ok", kind === "ok");
+    el.classList.toggle("is-err", kind === "err");
+  }
+
+  function applyQuickAddFromText(raw) {
+    if (!isViewingToday()) {
+      return { ok: false, error: "Disponible seulement sur la journée courante." };
+    }
+    var parsed = parseGlobalQuickAdd(raw);
+    if (!parsed) {
+      return { ok: false, error: "Texte invalide ou vide." };
+    }
+    var label = "";
+    if (parsed.kind === "reminder") {
+      state.reminders.push({ id: uid(), text: parsed.text, done: false });
+      label = "Rappel ajouté";
+    } else if (parsed.kind === "recurring") {
+      state.todos.recurring.push({ id: uid(), text: parsed.text, done: false });
+      label = "Habitude ajoutée";
+    } else {
+      var item = {
+        id: uid(),
+        text: parsed.text,
+        done: false,
+        priority: parsed.priority,
+        dueMode: parsed.dueMode,
+        createdAt: Date.now(),
+        order: (state.todos.oneOff.length + 1) * 10
+      };
+      if (parsed.tag) item.tag = parsed.tag;
+      if (parsed.dueDate) item.dueDate = parsed.dueDate;
+      ensureOneOffItemShape(item, state.todos.oneOff.length);
+      state.todos.oneOff.push(item);
+      label =
+        parsed.dueMode === "fixed" && parsed.dueDate ?
+          "Ponctuelle · " + formatIsoShortFr(parsed.dueDate) :
+          "Ponctuelle en continu";
+    }
+    saveState(state);
+    refreshChrome();
+    return { ok: true, label: label };
+  }
+
+  function submitGlobalQuickAdd() {
+    var inp = document.getElementById("global-quick-add-input");
+    if (!inp) return;
+    var res = applyQuickAddFromText(inp.value);
+    if (!res.ok) {
+      setGlobalQuickAddHint(res.error || "Erreur", "err");
+      return;
+    }
+    inp.value = "";
+    setGlobalQuickAddHint(res.label, "ok");
+    setTimeout(function () {
+      setGlobalQuickAddHint("", "");
+    }, 2800);
+  }
+
+  function wireGlobalQuickAddOnce() {
+    var inp = document.getElementById("global-quick-add-input");
+    if (!inp || inp.dataset.wired) return;
+    inp.dataset.wired = "1";
+    inp.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        submitGlobalQuickAdd();
+      }
+    });
+  }
+
+  function toggleThemePreference() {
+    var dark = (document.documentElement.getAttribute("data-theme") || "dark") === "dark";
+    var next = dark ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch (eT) { /* ignore */ }
+    syncThemeSwitch();
+    applyThemeMeta();
+  }
+
+  function isMacPlatform() {
+    return /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || "");
+  }
+
+  var COMMAND_NAV = [
+    { panel: "home", label: "Vue d’ensemble", keys: ["home", "vue", "accueil"], shortcut: "1" },
+    { panel: "todo", label: "To-do", keys: ["todo", "tache", "taches", "faire"], shortcut: "2" },
+    { panel: "sport", label: "Sport", keys: ["sport", "running", "muscu"], shortcut: "3" },
+    { panel: "food", label: "Alimentation", keys: ["food", "alim", "nutrition"], shortcut: "4" },
+    { panel: "reminders", label: "Rappels", keys: ["rappel", "rappels", "reminder"], shortcut: "5" },
+    { panel: "notes", label: "Notes", keys: ["notes", "note"], shortcut: "6" },
+    { panel: "history", label: "Historique", keys: ["historique", "history", "archive"], shortcut: "7" },
+    { panel: "links", label: "Liens", keys: ["liens", "links"], shortcut: "8" },
+    { panel: "settings", label: "Réglages", keys: ["settings", "reglages", "config"], shortcut: null },
+    { panel: "trends", label: "Tendances", keys: ["tendances", "trends", "stats"], shortcut: null }
+  ];
+
+  var __cmdPaletteOpen = false;
+  var __cmdPaletteIdx = 0;
+  var __cmdPaletteResults = [];
+
+  function cmdNorm(s) {
+    return String(s || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function cmdMatchScore(nq, label, keys) {
+    if (!nq) return 1;
+    var lab = cmdNorm(label);
+    if (lab === nq) return 100;
+    if (lab.indexOf(nq) === 0) return 90;
+    if (lab.indexOf(nq) >= 0) return 70;
+    var i;
+    for (i = 0; i < (keys || []).length; i++) {
+      var k = cmdNorm(keys[i]);
+      if (k === nq) return 85;
+      if (k.indexOf(nq) === 0) return 75;
+      if (k.indexOf(nq) >= 0) return 55;
+    }
+    return 0;
+  }
+
+  function getNotesTextForSearch() {
+    return getNotesForView() || "";
+  }
+
+  function searchNotesContent(query) {
+    var nq = cmdNorm(query);
+    if (!nq || nq.length < 2) return [];
+    var text = getNotesTextForSearch();
+    if (!text) return [];
+    var lines = text.split("\n");
+    var hits = [];
+    var i;
+    for (i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+      if (cmdNorm(line).indexOf(nq) >= 0) {
+        hits.push({ line: line, lineNo: i + 1 });
+      }
+    }
+    return hits.slice(0, 8);
+  }
+
+  function goToNotesMatch(snippet) {
+    showPanel("notes");
+    requestAnimationFrame(function () {
+      var notes = document.getElementById("notes-field");
+      if (!notes) return;
+      notes.focus();
+      var val = notes.value || "";
+      var idx = val.indexOf(snippet);
+      if (idx < 0) {
+        idx = val.toLowerCase().indexOf(String(snippet).toLowerCase());
+      }
+      if (idx >= 0) {
+        notes.setSelectionRange(idx, idx + snippet.length);
+        var ratio = idx / Math.max(val.length, 1);
+        notes.scrollTop = Math.max(0, ratio * notes.scrollHeight - notes.clientHeight * 0.35);
+      }
+    });
+  }
+
+  function parseCommandPaletteQuery(raw) {
+    var q = String(raw || "").trim();
+    var mode = "default";
+    var body = q;
+    if (/^[?>]\s*/.test(q)) {
+      mode = "create";
+      body = q.replace(/^[?>]\s*/, "").trim();
+    } else if (/^r\s*:/i.test(q) || /^rappel\s*:/i.test(q)) {
+      mode = "reminder";
+      body = q.replace(/^(r|rappel)\s*:\s*/i, "").trim();
+    } else if (/^t\s*:/i.test(q) || /^tache\s*:/i.test(q)) {
+      mode = "task";
+      body = q.replace(/^(t|tache)\s*:\s*/i, "").trim();
+    } else if (/^habitude\s*:/i.test(q) || /^recurrent\s*:/i.test(q)) {
+      mode = "recurring";
+      body = q.replace(/^(habitude|recurrent)\s*:\s*/i, "").trim();
+    } else if (/^\?\s*/.test(q) || /^note\s*:/i.test(q) || /^notes\s*:/i.test(q)) {
+      mode = "notes";
+      body = q.replace(/^(\?|note|notes)\s*:?\s*/i, "").trim();
+    }
+    return { mode: mode, body: body, raw: q };
+  }
+
+  function buildCommandPaletteResults(query) {
+    var parsed = parseCommandPaletteQuery(query);
+    var nq = cmdNorm(parsed.body || parsed.raw);
+    var out = [];
+    var seen = {};
+
+    function push(item) {
+      if (!item || !item.id || seen[item.id]) return;
+      seen[item.id] = true;
+      out.push(item);
+    }
+
+    if (parsed.mode === "notes" || (parsed.mode === "default" && nq.length >= 2)) {
+      var noteQ = parsed.mode === "notes" ? parsed.body : parsed.body || parsed.raw;
+      searchNotesContent(noteQ).forEach(function (hit, ni) {
+        push({
+          id: "note-" + hit.lineNo + "-" + ni,
+          kind: "note",
+          label: "Ligne " + hit.lineNo + " · " + hit.line.slice(0, 72),
+          hint: "Ouvrir dans Notes",
+          score: 95,
+          run: function () {
+            goToNotesMatch(hit.line);
+          }
+        });
+      });
+    }
+
+    if (parsed.mode === "reminder" && parsed.body) {
+      push({
+        id: "create-reminder",
+        kind: "create",
+        label: "Créer rappel : " + parsed.body,
+        hint: "Rappels",
+        score: 200,
+        run: function () {
+          applyQuickAddFromText("rappel: " + parsed.body);
+        }
+      });
+    } else if (parsed.mode === "recurring" && parsed.body) {
+      push({
+        id: "create-recurring",
+        kind: "create",
+        label: "Créer habitude : " + parsed.body,
+        hint: "Récurrentes",
+        score: 200,
+        run: function () {
+          applyQuickAddFromText("habitude: " + parsed.body);
+        }
+      });
+    } else if ((parsed.mode === "create" || parsed.mode === "task") && parsed.body) {
+      push({
+        id: "create-task",
+        kind: "create",
+        label: "Créer tâche : " + parsed.body,
+        hint: "Ponctuelle — !haute #tag demain",
+        score: 200,
+        run: function () {
+          applyQuickAddFromText(parsed.body);
+        }
+      });
+    }
+
+    COMMAND_NAV.forEach(function (nav) {
+      var sc = cmdMatchScore(nq, nav.label, nav.keys);
+      if (!nq || sc > 0) {
+        push({
+          id: "nav-" + nav.panel,
+          kind: "nav",
+          label: "Aller à · " + nav.label,
+          hint: nav.shortcut ? "Raccourci " + nav.shortcut : "Navigation",
+          score: sc || (nq ? 0 : 50 - COMMAND_NAV.indexOf(nav)),
+          run: function () {
+            showPanel(nav.panel);
+          }
+        });
+      }
+    });
+
+    var actionDefs = [
+      {
+        id: "act-today",
+        label: "Aller à aujourd’hui",
+        keys: ["aujourd", "today", "now"],
+        hint: "Date du jour",
+        run: function () {
+          viewDateIso = todayIso;
+          refreshChrome();
+        }
+      },
+      {
+        id: "act-theme",
+        label: "Basculer thème clair / sombre",
+        keys: ["theme", "sombre", "clair", "dark", "light"],
+        hint: "Apparence",
+        run: toggleThemePreference
+      },
+      {
+        id: "act-focus",
+        label: "Mode focus",
+        keys: ["focus", "concentration"],
+        hint: "Masquer la barre latérale",
+        run: function () {
+          setFocusMode(true);
+        }
+      },
+      {
+        id: "act-palette-help",
+        label: "Aide saisie rapide",
+        keys: ["aide", "help", "?"],
+        hint: "> tâche · r: rappel · ? notes · 1–8 panneaux",
+        run: function () { /* noop — reste ouvert */ }
+      }
+    ];
+
+    actionDefs.forEach(function (act) {
+      var sc = cmdMatchScore(nq, act.label, act.keys);
+      if (!nq || sc > 0) {
+        push({
+          id: act.id,
+          kind: "act",
+          label: act.label,
+          hint: act.hint,
+          score: sc || (nq ? 0 : 30),
+          run: act.run
+        });
+      }
+    });
+
+    if (
+      parsed.mode === "default" &&
+      nq.length >= 2 &&
+      !seen["create-task"] &&
+      isViewingToday()
+    ) {
+      var bestNav = 0;
+      COMMAND_NAV.forEach(function (nav) {
+        var s = cmdMatchScore(nq, nav.label, nav.keys);
+        if (s > bestNav) bestNav = s;
+      });
+      if (bestNav < 70) {
+        push({
+          id: "create-task-fuzzy",
+          kind: "create",
+          label: "Créer tâche : " + parsed.raw,
+          hint: "Entrée — ou préfixe > / r: / ?",
+          score: 40,
+          run: function () {
+            applyQuickAddFromText(parsed.raw);
+          }
+        });
+      }
+    }
+
+    out.sort(function (a, b) {
+      return (b.score || 0) - (a.score || 0);
+    });
+
+    return out.slice(0, 12);
+  }
+
+  function renderCommandPaletteList() {
+    var list = document.getElementById("command-palette-list");
+    var inp = document.getElementById("command-palette-input");
+    if (!list || !inp) return;
+    __cmdPaletteResults = buildCommandPaletteResults(inp.value);
+    if (__cmdPaletteIdx >= __cmdPaletteResults.length) __cmdPaletteIdx = Math.max(0, __cmdPaletteResults.length - 1);
+    if (__cmdPaletteIdx < 0) __cmdPaletteIdx = 0;
+
+    if (!__cmdPaletteResults.length) {
+      list.innerHTML = '<li class="command-palette__empty">Aucun résultat</li>';
+      inp.setAttribute("aria-activedescendant", "");
+      return;
+    }
+
+    list.innerHTML = __cmdPaletteResults
+      .map(function (item, i) {
+        var badge =
+          item.kind === "nav" ?
+            "Nav" :
+            item.kind === "create" ?
+              "Créer" :
+              item.kind === "note" ?
+                "Note" :
+                "Action";
+        var badgeCls =
+          "command-palette__badge" +
+          (item.kind === "nav" ?
+            " command-palette__badge--nav" :
+            item.kind === "create" ?
+              " command-palette__badge--create" :
+              item.kind === "note" ?
+                " command-palette__badge--note" :
+                " command-palette__badge--act");
+        return (
+          '<li><button type="button" class="command-palette__item' +
+          (i === __cmdPaletteIdx ? " is-active" : "") +
+          '" role="option" id="cmd-palette-opt-' +
+          i +
+          '" data-cmd-idx="' +
+          i +
+          '"><span class="' +
+          badgeCls +
+          '">' +
+          escapeHtml(badge) +
+          '</span><span class="command-palette__body"><span class="command-palette__label">' +
+          escapeHtml(item.label) +
+          '</span><span class="command-palette__hint">' +
+          escapeHtml(item.hint || "") +
+          "</span></span></button></li>"
+        );
+      })
+      .join("");
+
+    inp.setAttribute("aria-activedescendant", "cmd-palette-opt-" + __cmdPaletteIdx);
+  }
+
+  function commandPaletteModLabel() {
+    return isMacPlatform() ? "⌘" : "Ctrl";
+  }
+
+  function isCommandPaletteShortcut(e) {
+    if (!e || e.isComposing || e.altKey) return false;
+    if (!(e.ctrlKey || e.metaKey)) return false;
+    var isK = e.code === "KeyK" || e.key === "k" || e.key === "K";
+    if (!isK) return false;
+    return true;
+  }
+
+  function openCommandPalette() {
+    var root = document.getElementById("command-palette");
+    var inp = document.getElementById("command-palette-input");
+    var footer = document.getElementById("command-palette-footer");
+    if (!root || !inp) return;
+    __cmdPaletteOpen = true;
+    __cmdPaletteIdx = 0;
+    root.removeAttribute("hidden");
+    root.style.display = "";
+    document.documentElement.style.overflow = "hidden";
+    inp.value = "";
+    if (footer) {
+      var mod = commandPaletteModLabel();
+      footer.innerHTML =
+        "<kbd>↑</kbd><kbd>↓</kbd> naviguer · <kbd>↵</kbd> valider · <kbd>Esc</kbd> fermer · <kbd>" +
+        mod +
+        "K</kbd> ou <kbd>" +
+        mod +
+        "⇧K</kbd>";
+    }
+    renderCommandPaletteList();
+    requestAnimationFrame(function () {
+      inp.focus({ preventScroll: true });
+    });
+  }
+
+  function closeCommandPalette() {
+    var root = document.getElementById("command-palette");
+    if (!root) return;
+    __cmdPaletteOpen = false;
+    root.setAttribute("hidden", "");
+    root.style.display = "";
+    document.documentElement.style.overflow = "";
+  }
+
+  function toggleCommandPalette() {
+    if (__cmdPaletteOpen) closeCommandPalette();
+    else openCommandPalette();
+  }
+
+  function runCommandPaletteSelection(idx) {
+    var item = __cmdPaletteResults[idx];
+    if (!item || typeof item.run !== "function") return;
+    if (item.id === "act-palette-help") {
+      return;
+    }
+    closeCommandPalette();
+    item.run();
+  }
+
+  function wireCommandPaletteOnce() {
+    if (document.documentElement.dataset.cmdPaletteWired) return;
+    document.documentElement.dataset.cmdPaletteWired = "1";
+
+    var root = document.getElementById("command-palette");
+    var inp = document.getElementById("command-palette-input");
+    var list = document.getElementById("command-palette-list");
+    var bd = document.getElementById("command-palette-backdrop");
+    var cmdHint = document.getElementById("kbd-hint-cmdk");
+    var triggerKey = document.getElementById("command-palette-trigger-key");
+    var openBtn = document.getElementById("btn-command-palette-open");
+    var kbdHint = document.getElementById("kbd-hint");
+    var mod = commandPaletteModLabel();
+    if (cmdHint) {
+      cmdHint.textContent = mod + "K palette · " + mod + "⇧K";
+    }
+    if (triggerKey) {
+      triggerKey.textContent = mod + "K";
+    }
+    if (openBtn) {
+      openBtn.setAttribute("aria-label", "Palette de commandes (" + mod + "K)");
+      openBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        toggleCommandPalette();
+      });
+    }
+    if (kbdHint) {
+      kbdHint.setAttribute("role", "button");
+      kbdHint.setAttribute("tabindex", "0");
+      kbdHint.setAttribute("title", "Ouvrir la palette de commandes");
+      kbdHint.addEventListener("click", function () {
+        toggleCommandPalette();
+      });
+      kbdHint.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleCommandPalette();
+        }
+      });
+    }
+
+    if (bd) {
+      bd.addEventListener("click", closeCommandPalette);
+    }
+
+    if (inp) {
+      inp.addEventListener("input", function () {
+        __cmdPaletteIdx = 0;
+        renderCommandPaletteList();
+      });
+      inp.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (__cmdPaletteResults.length) {
+            __cmdPaletteIdx = (__cmdPaletteIdx + 1) % __cmdPaletteResults.length;
+            renderCommandPaletteList();
+            var active = document.getElementById("cmd-palette-opt-" + __cmdPaletteIdx);
+            if (active && active.scrollIntoView) active.scrollIntoView({ block: "nearest" });
+          }
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (__cmdPaletteResults.length) {
+            __cmdPaletteIdx = (__cmdPaletteIdx - 1 + __cmdPaletteResults.length) % __cmdPaletteResults.length;
+            renderCommandPaletteList();
+            var activeUp = document.getElementById("cmd-palette-opt-" + __cmdPaletteIdx);
+            if (activeUp && activeUp.scrollIntoView) activeUp.scrollIntoView({ block: "nearest" });
+          }
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          runCommandPaletteSelection(__cmdPaletteIdx);
+        } else if (e.key === "Escape") {
+          e.preventDefault();
+          closeCommandPalette();
+        }
+      });
+    }
+
+    if (list) {
+      list.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-cmd-idx]");
+        if (!btn) return;
+        var idx = parseInt(btn.getAttribute("data-cmd-idx"), 10);
+        if (!isNaN(idx)) runCommandPaletteSelection(idx);
+      });
+    }
+
+    function onGlobalCommandPaletteKey(e) {
+      if (isCommandPaletteShortcut(e)) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleCommandPalette();
+        return;
+      }
+      if (e.key === "Escape" && __cmdPaletteOpen) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        closeCommandPalette();
+      }
+    }
+
+    window.addEventListener("keydown", onGlobalCommandPaletteKey, true);
+    document.addEventListener("keydown", onGlobalCommandPaletteKey, true);
+  }
+
+  function checkDayRollover() {
+    var calToday = isoDate(new Date());
+    if (calToday === todayIso) return;
+    var wasViewingToday = viewDateIso === todayIso;
+    todayIso = calToday;
+    state = applyDailyReset(state, calToday);
+    saveState(state);
+    if (wasViewingToday) viewDateIso = calToday;
+    clampViewDateToBounds();
+    refreshChrome();
+    updateNextResetBadge();
+    var sb = document.getElementById("streak-bar-today");
+    if (sb) sb.textContent = formatCompactHeaderDateFr(todayIso);
+  }
+
+  function wireDayRolloverOnce() {
+    if (document.documentElement.dataset.dayRolloverWired) return;
+    document.documentElement.dataset.dayRolloverWired = "1";
+    setInterval(checkDayRollover, 30000);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) checkDayRollover();
+    });
+    window.addEventListener("focus", checkDayRollover);
   }
 
   function countWords(s) {
@@ -7017,6 +10048,33 @@
     return b;
   }
 
+  function makeOneOffTagBadge(tagStr) {
+    var s = document.createElement("span");
+    s.className = "task-tag-pill";
+    s.textContent = tagStr;
+    return s;
+  }
+
+  function makeOneOffTypeBadge(item) {
+    var om = getOneOffDueMode(item);
+    var b = document.createElement("span");
+    b.className = "task-due-badge" + (om === "rolling" ? " task-mode-badge--rolling" : "");
+    if (om === "rolling") {
+      b.textContent = "En continu";
+      b.title = "En continu — affichée chaque jour jusqu’à cochée";
+    } else if (item.dueDate) {
+      b.textContent = formatIsoShortFr(item.dueDate);
+      b.title = "Jour précis — " + formatIsoShortFr(item.dueDate);
+    } else {
+      b.textContent = "Jour précis";
+      b.title = "Jour précis — date à définir";
+    }
+    return b;
+  }
+
+  var ONEOFF_EDIT_ICON_SVG =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+
   function renderTasks(listEl, items, kind) {
     if (!listEl) return;
     var ro = !isViewingToday();
@@ -7154,20 +10212,28 @@
           String(item.dueDate) > todayIso;
         if (dueFut0) li.classList.add("task-item--due-future");
         var tagStr = (item.tag && String(item.tag).trim()) || "";
-        var om = getOneOffDueMode(item);
 
         var topRow = document.createElement("div");
         topRow.className = "task-item__top";
+
+        if (!ro && !item.done) {
+          var dh = document.createElement("button");
+          dh.type = "button";
+          dh.className = "task-drag-handle";
+          dh.setAttribute("aria-label", "Déplacer");
+          dh.textContent = "⠿";
+          dh.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+          topRow.appendChild(dh);
+        }
+
         topRow.appendChild(cb);
         topRow.appendChild(span);
-        span.title =
-          om === "rolling"
-            ? "En continu — affichée chaque jour jusqu’à cochée"
-            : item.dueDate
-            ? "Jour précis — " + formatIsoShortFr(item.dueDate)
-            : "Jour précis — choisis une date dans la ligne d’édition";
-
+        if (tagStr) topRow.appendChild(makeOneOffTagBadge(tagStr));
         topRow.appendChild(makeOneOffPrioBadge(item.priority));
+        topRow.appendChild(makeOneOffTypeBadge(item));
+
         var fixedDue =
           getOneOffDueMode(item) === "fixed" &&
           item.dueDate &&
@@ -7189,18 +10255,37 @@
             '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><path d="M3 10h18"/></svg>';
           topRow.appendChild(gBtn);
         }
+
         topRow.appendChild(del);
-        if (!ro && !item.done) {
-          var dh = document.createElement("button");
-          dh.type = "button";
-          dh.className = "task-drag-handle";
-          dh.setAttribute("aria-label", "Déplacer");
-          dh.textContent = "⠿";
-          dh.addEventListener("click", function (e) {
+
+        if (!ro) {
+          var editBtn = document.createElement("button");
+          editBtn.type = "button";
+          editBtn.className = "task-edit-btn";
+          editBtn.setAttribute("aria-label", "Éditer la tâche");
+          editBtn.setAttribute("aria-expanded", "false");
+          editBtn.innerHTML = ONEOFF_EDIT_ICON_SVG;
+          editBtn.addEventListener("click", function (e) {
             e.stopPropagation();
+            e.preventDefault();
+            var on = !li.classList.contains("is-editing");
+            listEl.querySelectorAll(".task-item--oneoff.is-editing").forEach(function (other) {
+              if (other !== li) {
+                other.classList.remove("is-editing");
+                var ob = other.querySelector(".task-edit-btn");
+                if (ob) ob.setAttribute("aria-expanded", "false");
+              }
+            });
+            li.classList.toggle("is-editing", on);
+            editBtn.setAttribute("aria-expanded", on ? "true" : "false");
+            if (on) {
+              var firstInp = li.querySelector(".task-item__oneoff-edit input, .task-item__oneoff-edit button");
+              if (firstInp && typeof firstInp.focus === "function") firstInp.focus();
+            }
           });
-          topRow.insertBefore(dh, topRow.firstChild);
+          topRow.appendChild(editBtn);
         }
+
         li.appendChild(topRow);
 
         if (!ro) {
@@ -7210,6 +10295,7 @@
           var tagInp = document.createElement("input");
           tagInp.type = "text";
           tagInp.className = "task-tag-pill";
+          tagInp.id = "tag-" + item.id;
           tagInp.setAttribute("list", "oneoff-tag-datalist");
           tagInp.maxLength = 32;
           tagInp.value = tagStr;
@@ -7233,15 +10319,17 @@
           prWrap.setAttribute("role", "group");
           prWrap.setAttribute("aria-label", "Priorité");
           [["high", "Priorité haute"], ["medium", "Priorité moyenne"], ["low", "Priorité basse"]].forEach(function (pv) {
+            var radId = "prio-" + item.id + "-" + pv[0];
             var lab = document.createElement("label");
+            lab.setAttribute("for", radId);
             if (pr === pv[0]) lab.className = "is-active";
             lab.title = pv[1];
             var rad = document.createElement("input");
             rad.type = "radio";
-            rad.name = "prio-" + item.id + "-" + viewDateIso;
+            rad.id = radId;
+            rad.name = "prio-" + item.id;
             rad.value = pv[0];
             rad.checked = pr === pv[0];
-            rad.setAttribute("aria-label", pv[1]);
             var spn = document.createElement("span");
             spn.className = "prio-dot prio-dot--" + pv[0];
             spn.setAttribute("aria-hidden", "true");
@@ -7268,10 +10356,13 @@
           var dueWrap = document.createElement("div");
           dueWrap.className = "oneoff-row-due";
 
+          var dueInpId = "due-" + item.id;
           var dueInp = document.createElement("input");
           dueInp.type = "date";
+          dueInp.id = dueInpId;
           dueInp.className = "task-est-input";
           dueInp.title = "Date prévue (jour précis)";
+          dueInp.setAttribute("aria-label", "Date prévue");
           dueInp.value = item.dueDate || "";
           dueInp.addEventListener("click", function (e) {
             e.stopPropagation();
@@ -7293,15 +10384,17 @@
             dueInp.value = m === "fixed" ? item.dueDate || "" : "";
           }
 
-          [["fixed", "Jour précis"], ["rolling", "Continu"]].forEach(function (pair) {
+          [["fixed", "Jour précis"], ["rolling", "En continu"]].forEach(function (pair) {
+            var modeId = "type-" + item.id + "-" + pair[0];
             var ml = document.createElement("label");
+            ml.setAttribute("for", modeId);
             var r = document.createElement("input");
             r.type = "radio";
-            r.name = "oneoff-mode-" + item.id + "-" + viewDateIso;
+            r.id = modeId;
+            r.name = "type-" + item.id;
             r.value = pair[0];
             r.setAttribute("data-oneoff-mode-inp", "1");
             r.checked = getOneOffDueMode(item) === pair[0];
-            r.setAttribute("aria-label", pair[1]);
             r.addEventListener("click", function (e) {
               e.stopPropagation();
             });
@@ -7322,14 +10415,8 @@
           editRow.appendChild(dueWrap);
           syncOneoffRowModeUi();
           li.appendChild(editRow);
-        } else if (tagStr) {
-          var tagSpanRo = document.createElement("span");
-          tagSpanRo.className = "task-tag-pill";
-          tagSpanRo.textContent = tagStr;
-          var prioEl = topRow.querySelector(".task-prio-badge");
-          if (prioEl) topRow.insertBefore(tagSpanRo, prioEl);
-          else topRow.insertBefore(tagSpanRo, del);
         }
+
         if (ro) {
           span.title = (span.title ? span.title + " · " : "") + "Lecture seule";
         }
@@ -8179,24 +11266,23 @@
     var food = document.getElementById("brief-wrap-food");
     var bSport = document.getElementById("btn-brief-sport-collapse");
     var bFood = document.getElementById("btn-brief-alim-collapse");
-    try {
-      if (sport) {
-        var cS = localStorage.getItem(HOME_SPORT_COLLAPSED_KEY) === "1";
-        sport.classList.toggle("is-collapsed", cS);
-        if (bSport) {
-          bSport.setAttribute("aria-expanded", cS ? "false" : "true");
-          bSport.textContent = cS ? "▸" : "▾";
-        }
+    if (!state.prefs) state.prefs = defaultState().prefs;
+    if (sport) {
+      var cS = !!state.prefs.sportCollapsed;
+      sport.classList.toggle("is-collapsed", cS);
+      if (bSport) {
+        bSport.setAttribute("aria-expanded", cS ? "false" : "true");
+        bSport.textContent = cS ? "▸" : "▾";
       }
-      if (food) {
-        var cF = localStorage.getItem(HOME_ALIM_COLLAPSED_KEY) === "1";
-        food.classList.toggle("is-collapsed", cF);
-        if (bFood) {
-          bFood.setAttribute("aria-expanded", cF ? "false" : "true");
-          bFood.textContent = cF ? "▸" : "▾";
-        }
+    }
+    if (food) {
+      var cF = !!state.prefs.alimCollapsed;
+      food.classList.toggle("is-collapsed", cF);
+      if (bFood) {
+        bFood.setAttribute("aria-expanded", cF ? "false" : "true");
+        bFood.textContent = cF ? "▸" : "▾";
       }
-    } catch (e) { /* ignore */ }
+    }
   }
 
   function wireBriefCollapsiblesOnce() {
@@ -8211,9 +11297,9 @@
         var sport = document.getElementById("brief-wrap-sport");
         var on = sport && sport.classList.contains("is-collapsed");
         var next = !on;
-        try {
-          localStorage.setItem(HOME_SPORT_COLLAPSED_KEY, next ? "1" : "0");
-        } catch (e2) { /* ignore */ }
+        if (!state.prefs) state.prefs = defaultState().prefs;
+        state.prefs.sportCollapsed = next;
+        saveState(state);
         applyBriefBlockCollapseState();
       });
     }
@@ -8224,9 +11310,9 @@
         var food = document.getElementById("brief-wrap-food");
         var on = food && food.classList.contains("is-collapsed");
         var next = !on;
-        try {
-          localStorage.setItem(HOME_ALIM_COLLAPSED_KEY, next ? "1" : "0");
-        } catch (e2) { /* ignore */ }
+        if (!state.prefs) state.prefs = defaultState().prefs;
+        state.prefs.alimCollapsed = next;
+        saveState(state);
         applyBriefBlockCollapseState();
       });
     }
@@ -8283,6 +11369,10 @@
 
     var nextBtn = document.getElementById("date-next");
     if (nextBtn) nextBtn.disabled = viewDateIso >= viewDateMaxIso();
+
+    var gqa = document.getElementById("global-quick-add-input");
+    var gqaWrap = gqa && gqa.closest(".global-quick-add");
+    if (gqaWrap) gqaWrap.style.display = isViewingToday() ? "" : "none";
   }
 
   var __sidebarQlPopoverOpen = false;
@@ -8456,6 +11546,7 @@
     refreshMetrics();
     applyMetricVisibility();
     renderSportMetricSubs();
+    if (__sportSubTab === "planning") renderSportPlanningWeek();
     updateNotesWordcount();
     renderTargetsInDOM();
     renderSettingsCountdownEditor();
@@ -8498,6 +11589,9 @@
     updateNextResetBadge();
     var hp = document.getElementById("panel-home");
     if (hp && hp.classList.contains("active")) buildHomePrioritiesList();
+    if (__historySubTab === "trends") renderTrendsPanel();
+    var verLbl = document.getElementById("settings-state-version-label");
+    if (verLbl) verLbl.textContent = String(STATE_VERSION);
     initOneOffSortable();
   }
 
@@ -8515,6 +11609,7 @@
       if (sub === __historySubTab) p.removeAttribute("hidden");
       else p.setAttribute("hidden", "");
     });
+    if (__historySubTab === "trends") renderTrendsPanel();
   }
 
   function wireHistorySubtabsOnce() {
@@ -8611,10 +11706,8 @@
     var pin = document.getElementById("btn-sidebar-pin");
     var side = document.querySelector(".sidebar");
     if (!side || !pin) return;
-    var pinned = false;
-    try {
-      pinned = localStorage.getItem(SIDEBAR_PIN_KEY) === "1";
-    } catch (eP) { /* ignore */ }
+    if (!state.prefs) state.prefs = defaultState().prefs;
+    var pinned = !!state.prefs.sidebarPinned;
     side.classList.toggle("sidebar--expanded", pinned);
     pin.setAttribute("aria-pressed", pinned ? "true" : "false");
   }
@@ -8624,13 +11717,9 @@
     if (pin && !pin.dataset.wiredPin) {
       pin.dataset.wiredPin = "1";
       pin.addEventListener("click", function () {
-        var on = false;
-        try {
-          on = localStorage.getItem(SIDEBAR_PIN_KEY) === "1";
-        } catch (eT) { /* ignore */ }
-        try {
-          localStorage.setItem(SIDEBAR_PIN_KEY, on ? "0" : "1");
-        } catch (eS) { /* ignore */ }
+        if (!state.prefs) state.prefs = defaultState().prefs;
+        state.prefs.sidebarPinned = !state.prefs.sidebarPinned;
+        saveState(state);
         applySidebarPinFromStorage();
       });
     }
@@ -8684,6 +11773,9 @@
 
   function loadDismissedHomeCatchups(dayIso) {
     if (!dayIso || !/^\d{4}-\d{2}-\d{2}$/.test(String(dayIso))) return [];
+    if (state.prefs && state.prefs.dismissedCatchups && Array.isArray(state.prefs.dismissedCatchups[dayIso])) {
+      return state.prefs.dismissedCatchups[dayIso].slice();
+    }
     try {
       var raw = localStorage.getItem(homeDismissedStorageKey(dayIso));
       if (!raw) return [];
@@ -8696,23 +11788,35 @@
 
   function dismissHomeCatchupForDay(dayIso, rowId) {
     if (!rowId || !dayIso) return;
+    if (!state.prefs) state.prefs = defaultState().prefs;
+    if (!state.prefs.dismissedCatchups || typeof state.prefs.dismissedCatchups !== "object") {
+      state.prefs.dismissedCatchups = {};
+    }
     var list = loadDismissedHomeCatchups(dayIso);
     if (list.indexOf(rowId) >= 0) return;
     list.push(rowId);
+    state.prefs.dismissedCatchups[dayIso] = list;
+    saveState(state);
     try {
-      localStorage.setItem(homeDismissedStorageKey(dayIso), JSON.stringify(list));
+      localStorage.removeItem(homeDismissedStorageKey(dayIso));
     } catch (e2) { /* ignore */ }
   }
 
   function pruneHomeDismissedPrioritiesBefore(keepDayIso) {
     if (!keepDayIso || !/^\d{4}-\d{2}-\d{2}$/.test(String(keepDayIso))) return;
+    if (state.prefs && state.prefs.dismissedCatchups && typeof state.prefs.dismissedCatchups === "object") {
+      Object.keys(state.prefs.dismissedCatchups).forEach(function (d) {
+        if (d < keepDayIso) delete state.prefs.dismissedCatchups[d];
+      });
+      saveState(state);
+    }
     try {
       var pre = HOME_DISMISSED_PREFIX;
       for (var i = localStorage.length - 1; i >= 0; i--) {
         var k = localStorage.key(i);
         if (!k || k.indexOf(pre) !== 0) continue;
-        var d = k.slice(pre.length);
-        if (/^\d{4}-\d{2}-\d{2}$/.test(d) && d < keepDayIso) localStorage.removeItem(k);
+        var d2 = k.slice(pre.length);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(d2) && d2 < keepDayIso) localStorage.removeItem(k);
       }
     } catch (e) { /* ignore */ }
   }
@@ -9302,6 +12406,7 @@
   }
 
   function initUI() {
+    migrateSportData();
     sortTasksStableDoneLast(state.todos.recurring);
     sortOneOffInPlace();
     sortTasksStableDoneLast(state.reminders);
@@ -9340,12 +12445,16 @@
     wireQuickLinksPanelOnce();
     wireSidebarQuickLinksOnce();
     wireHistorySubtabsOnce();
+    wireSportPlanningOnce();
     wireSidebarRailOnce();
     wireMobileNavSheetOnce();
     wireHomePrioritiesOnce();
     wireMetricSlidersOnce();
     wireNotesSplitOnce();
     wireResetBadgeTimerOnce();
+    wireGlobalQuickAddOnce();
+    wireDayRolloverOnce();
+    wireBackupSettingsOnce();
 
     var qlAdd = document.getElementById("quick-link-add-btn");
     if (qlAdd) {
@@ -9393,16 +12502,7 @@
 
     var themeToggle = document.getElementById("theme-toggle");
     if (themeToggle) {
-      themeToggle.addEventListener("click", function () {
-        var dark = (document.documentElement.getAttribute("data-theme") || "dark") === "dark";
-        var next = dark ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", next);
-        try {
-          localStorage.setItem(THEME_KEY, next);
-        } catch (eT) { /* ignore */ }
-        syncThemeSwitch();
-        applyThemeMeta();
-      });
+      themeToggle.addEventListener("click", toggleThemePreference);
     }
     applyThemeMeta();
     syncThemeSwitch();
@@ -9419,6 +12519,7 @@
     }
 
     document.addEventListener("keydown", function (e) {
+      if (__cmdPaletteOpen) return;
       if (e.key === "Escape") {
         setFocusMode(false);
         return;
@@ -9659,18 +12760,54 @@
 
   function registerSW() {
     if (!("serviceWorker" in navigator)) return;
-    var code =
-      "self.addEventListener('install',function(e){self.skipWaiting();});" +
-      "self.addEventListener('activate',function(e){e.waitUntil(self.clients.claim());});";
-    var blob = new Blob([code], { type: "application/javascript" });
-    var url = URL.createObjectURL(blob);
-    navigator.serviceWorker.register(url).then(function () {
-      URL.revokeObjectURL(url);
-    }).catch(function () {
-      URL.revokeObjectURL(url);
-    });
+    navigator.serviceWorker.register("./sw.js").catch(function () { /* ignore */ });
   }
 
+  function wireBackupSettingsOnce() {
+    var btn = document.getElementById("btn-export-backup");
+    var inp = document.getElementById("input-import-backup");
+    var st = document.getElementById("settings-backup-status");
+    function setSt(msg, kind) {
+      if (!st) return;
+      st.textContent = msg || "";
+      st.classList.toggle("is-error", kind === "err");
+      st.classList.toggle("is-ok", kind === "ok");
+    }
+    if (btn && !btn.dataset.wired) {
+      btn.dataset.wired = "1";
+      btn.addEventListener("click", function () {
+        try {
+          downloadExportBundle();
+          setSt("Export téléchargé.", "ok");
+        } catch (e) {
+          setSt(e.message || String(e), "err");
+        }
+      });
+    }
+    if (inp && !inp.dataset.wired) {
+      inp.dataset.wired = "1";
+      inp.addEventListener("change", function () {
+        var f = inp.files && inp.files[0];
+        inp.value = "";
+        if (!f) return;
+        if (!window.confirm("Remplacer toutes les données locales par ce fichier ? Cette action est irréversible.")) {
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function () {
+          try {
+            applyImportBundle(String(reader.result || ""));
+            setSt("Import réussi — données restaurées.", "ok");
+          } catch (e2) {
+            setSt(e2.message || String(e2), "err");
+          }
+        };
+        reader.readAsText(f);
+      });
+    }
+  }
+
+  wireCommandPaletteOnce();
   initUI();
   registerSW();
 })();
