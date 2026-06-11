@@ -1965,7 +1965,8 @@
     }
 
     .brief-prio-badge--low {
-      background: #6b7280;
+      background: var(--progress);
+      color: var(--btn-on-progress);
     }
 
     .brief-todo-left {
@@ -2132,11 +2133,7 @@
     }
 
     .prio-dot--low {
-      background: #6b6b70;
-    }
-
-    [data-theme="light"] .prio-dot--low {
-      background: #8e8e93;
+      background: var(--progress);
     }
 
     .brief-todo-est {
@@ -2633,6 +2630,1156 @@
       resize: vertical;
     }
 
+    .sport-log-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .sport-log-type-pick {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    @media (max-width: 480px) {
+      .sport-log-type-pick {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sport-log-type-btn {
+      min-height: 3rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-log-type-btn.is-active {
+      border-color: var(--progress);
+      background: var(--progress-muted);
+      color: var(--progress);
+    }
+
+    .sport-log-section {
+      margin-bottom: 1rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+    }
+
+    .sport-log-section__title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin: 0 0 0.55rem;
+    }
+
+    .sport-log-recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .sport-log-recent-btn {
+      min-height: 2.75rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .sport-log-autocomplete-wrap {
+      position: relative;
+    }
+
+    .sport-log-autocomplete-input {
+      width: 100%;
+      min-height: 2.75rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+    }
+
+    .sport-log-suggest {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 4px);
+      z-index: 20;
+      max-height: 12rem;
+      overflow-y: auto;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      box-shadow: var(--shadow-card);
+    }
+
+    .sport-log-suggest[hidden] {
+      display: none !important;
+    }
+
+    .sport-log-suggest__item {
+      display: block;
+      width: 100%;
+      min-height: 2.5rem;
+      padding: 0.5rem 0.65rem;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .sport-log-muscle-pick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.45rem;
+    }
+
+    .sport-log-muscle-chip {
+      min-height: 2rem;
+      padding: 0.35rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+
+    .sport-log-muscle-chip.is-active {
+      border-color: var(--progress);
+      color: var(--progress);
+      background: var(--progress-muted);
+    }
+
+    .sport-body-coverage {
+      margin-bottom: 1rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+    }
+
+    .sport-body-coverage__title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin: 0 0 0.55rem;
+      text-align: center;
+    }
+
+    .sport-body-coverage__legend {
+      margin: 0.45rem 0 0;
+      text-align: center;
+    }
+
+    .sport-body-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      max-width: 26rem;
+      margin: 0 auto;
+    }
+
+    .sport-body-map__view {
+      min-width: 0;
+    }
+
+    .sport-body-map__view-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-align: center;
+      margin: 0 0 0.25rem;
+    }
+
+    .sport-body-map__svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      touch-action: manipulation;
+    }
+
+    .sport-body-muscle {
+      fill: var(--bar-track);
+      stroke: color-mix(in srgb, var(--border) 80%, transparent);
+      stroke-width: 0.35;
+      vector-effect: non-scaling-stroke;
+      transition: fill 0.15s ease, stroke 0.15s ease, opacity 0.1s ease;
+      pointer-events: all;
+    }
+
+    .sport-body-muscle-group--decorative .sport-body-muscle {
+      fill: color-mix(in srgb, var(--bar-track) 75%, var(--text-muted) 25%);
+      pointer-events: none;
+    }
+
+    .sport-body-map--nav .sport-body-muscle-group[data-muscle] {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-body-map--nav .sport-body-muscle-group.is-selected .sport-body-muscle {
+      fill: var(--progress-muted);
+      stroke: var(--progress);
+      stroke-width: 0.6;
+    }
+
+    .sport-body-map--nav .sport-body-muscle-group.is-pressed .sport-body-muscle {
+      fill: var(--progress);
+      opacity: 0.88;
+    }
+
+    .sport-body-map--coverage .sport-body-muscle-group {
+      pointer-events: none;
+    }
+
+    .sport-muscle-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      justify-content: center;
+      margin-bottom: 0.55rem;
+    }
+
+    .sport-muscle-chip {
+      min-height: 2rem;
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+    }
+
+    .sport-muscle-chip.is-active {
+      background: var(--progress-muted);
+      border-color: var(--progress);
+      color: var(--text);
+    }
+
+    .sport-exercise-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0.45rem 0 0;
+    }
+
+    .sport-exercise-filter-btn {
+      min-height: 2rem;
+      padding: 0.3rem 0.55rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sport-exercise-filter-btn.is-active {
+      background: var(--progress-muted);
+      border-color: var(--progress);
+      color: var(--text);
+    }
+
+    .sport-log-body-ex-btn.is-basic-fit::after {
+      content: " · BF";
+      opacity: 0.65;
+      font-size: 0.68rem;
+    }
+
+    .sport-log-worked-muscles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.35rem;
+    }
+
+    .sport-log-worked-muscle-tag {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: var(--progress-muted);
+      color: var(--text);
+      border: 1px solid var(--progress);
+    }
+
+    .sport-log-quick-exercises {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .sport-log-quick-ex-wrap {
+      display: inline-flex;
+      align-items: stretch;
+      max-width: 100%;
+    }
+
+    .sport-log-quick-ex-btn {
+      min-height: 2.35rem;
+      padding: 0.4rem 0.55rem;
+      border-radius: var(--radius-xs) 0 0 var(--radius-xs);
+      border: 1px solid var(--border);
+      border-right: none;
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.76rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-log-quick-ex-fav {
+      min-width: 2rem;
+      min-height: 2.35rem;
+      padding: 0;
+      border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-log-quick-ex-fav.is-active {
+      color: #e8b84a;
+      border-color: color-mix(in srgb, #e8b84a 45%, var(--border));
+    }
+
+    .sport-log-body-map-wrap {
+      margin-top: 0.55rem;
+    }
+
+    .sport-log-body-map-wrap[hidden] {
+      display: none !important;
+    }
+
+    .sport-log-body-exercises {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+    }
+
+    .sport-log-body-ex-btn {
+      min-height: 2.75rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-log-body-ex-btn:active {
+      background: var(--progress-muted);
+      border-color: var(--progress);
+      color: var(--progress);
+    }
+
+    .sport-log-exercise-block {
+      margin-bottom: 0.75rem;
+      padding: 0.55rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .sport-log-exercise-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.45rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .sport-log-exercise-head .sport-ex-thumb {
+      width: 2.5rem;
+      height: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .sport-log-exercise-head .sport-log-exercise-name {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sport-log-exercise-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .sport-log-set-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1.2fr) minmax(0, 1fr) auto;
+      gap: 0.35rem;
+      align-items: end;
+      margin-bottom: 0.35rem;
+    }
+
+    .sport-log-set-num {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 1.6rem;
+      text-align: center;
+      padding-bottom: 0.65rem;
+    }
+
+    .sport-log-set-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+
+    .sport-log-set-field__label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .sport-log-set-field input {
+      min-height: 2.5rem;
+      padding: 0.4rem 0.5rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .sport-log-set-row .btn {
+      align-self: end;
+      margin-bottom: 0.05rem;
+    }
+
+    .sport-log-set-stepper {
+      display: grid;
+      grid-template-columns: 2.25rem 1fr 2.25rem;
+      gap: 0.2rem;
+      align-items: center;
+    }
+
+    .sport-log-set-step {
+      min-height: 2.5rem;
+      min-width: 2.25rem;
+      padding: 0;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-log-set-step:active {
+      background: var(--progress-muted);
+      border-color: var(--progress);
+    }
+
+    .sport-log-set-del {
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      padding: 0;
+      font-size: 1.1rem;
+    }
+
+    .sport-log-form-shell {
+      position: relative;
+      padding-bottom: 0.25rem;
+    }
+
+    .sport-log-sticky-bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 0.65rem;
+      padding: 0.55rem 0;
+      border-top: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-deep) 94%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .sport-log-sticky-summary {
+      flex: 1;
+      min-width: 0;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: var(--text-muted);
+    }
+
+    .sport-log-sticky-bar .btn {
+      flex-shrink: 0;
+      min-height: 2.85rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .sport-log-sticky-bar .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .sport-log-collapsible {
+      margin-bottom: 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+    }
+
+    .sport-log-collapsible summary {
+      padding: 0.55rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      list-style: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-log-collapsible summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .sport-log-collapsible__body {
+      padding: 0 0.65rem 0.65rem;
+    }
+
+    .sport-log-set-stepper input {
+      min-height: 2.5rem;
+      text-align: center;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    .sport-prog-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .sport-prog-tab {
+      min-height: 2.35rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-prog-tab.is-active {
+      border-color: var(--progress);
+      color: var(--text);
+      background: var(--progress-muted);
+    }
+
+    .sport-prog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sport-prog-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+      overflow: hidden;
+    }
+
+    .sport-prog-card__head {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: none;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-prog-card__head:active {
+      background: var(--progress-muted);
+    }
+
+    .sport-prog-card__chev {
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      transition: transform 0.15s ease;
+    }
+
+    .sport-prog-card.is-open .sport-prog-card__chev {
+      transform: rotate(90deg);
+    }
+
+    .sport-prog-card__main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sport-prog-card__title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .sport-prog-card__meta {
+      margin-top: 0.2rem;
+      font-size: 0.7rem;
+      line-height: 1.35;
+      color: var(--text-muted);
+    }
+
+    .sport-prog-card__body {
+      padding: 0 0.75rem 0.65rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sport-prog-card__desc {
+      margin: 0.55rem 0 0.65rem;
+      font-size: 0.74rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    .sport-prog-session {
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    }
+
+    .sport-prog-session:last-child {
+      border-bottom: none;
+    }
+
+    .sport-prog-session__row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0;
+    }
+
+    .sport-prog-session__toggle {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-prog-session__toggle:active {
+      opacity: 0.85;
+    }
+
+    .sport-prog-session__chev {
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      transition: transform 0.15s ease;
+    }
+
+    .sport-prog-session.is-open .sport-prog-session__chev {
+      transform: rotate(90deg);
+    }
+
+    .sport-prog-session__info {
+      flex: 1;
+      min-width: 0;
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .sport-prog-session__name {
+      font-weight: 600;
+    }
+
+    .sport-prog-session__sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .sport-prog-session .btn {
+      flex-shrink: 0;
+      min-height: 2.35rem;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.72rem;
+    }
+
+    .sport-prog-session__detail {
+      padding: 0 0 0.55rem 1.15rem;
+    }
+
+    .sport-prog-ex-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .sport-prog-ex-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem;
+      border-radius: var(--radius-xs);
+      background: color-mix(in srgb, var(--bg-deep) 55%, transparent);
+    }
+
+    .sport-ex-thumb {
+      flex-shrink: 0;
+      width: 3.25rem;
+      height: 3.25rem;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-deep);
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sport-ex-thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sport-ex-thumb__ph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 0.55rem;
+      line-height: 1.2;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 0.15rem;
+    }
+
+    .sport-prog-ex-item__body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sport-prog-ex-item__name {
+      font-size: 0.76rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .sport-prog-ex-item__scheme {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .sport-prog-ex-item__muscles {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-top: 0.12rem;
+      opacity: 0.9;
+    }
+
+    .sport-ex-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: color-mix(in srgb, #000 72%, transparent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .sport-ex-lightbox[hidden] {
+      display: none !important;
+    }
+
+    .sport-ex-lightbox__panel {
+      width: min(100%, 22rem);
+      max-height: min(92vh, 36rem);
+      overflow: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .sport-ex-lightbox__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.65rem 0.75rem 0.35rem;
+    }
+
+    .sport-ex-lightbox__title {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .sport-ex-lightbox__img-wrap {
+      padding: 0 0.75rem;
+    }
+
+    .sport-ex-lightbox__img-wrap img {
+      display: block;
+      width: 100%;
+      max-height: 18rem;
+      object-fit: contain;
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+    }
+
+    .sport-ex-lightbox__meta {
+      padding: 0.55rem 0.75rem 0.75rem;
+      font-size: 0.68rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    .sport-ex-lightbox__meta a {
+      color: var(--progress);
+    }
+
+    .sport-prog-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .sport-prog-card__actions .btn {
+      min-height: 2.35rem;
+      font-size: 0.72rem;
+    }
+
+    .sport-prog-editor {
+      margin-bottom: 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid var(--progress);
+      border-radius: var(--radius-xs);
+      background: color-mix(in srgb, var(--progress-muted) 40%, var(--bg-elevated));
+    }
+
+    .sport-prog-editor__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .sport-prog-editor__head h3 {
+      margin: 0;
+      font-size: 0.88rem;
+    }
+
+    .sport-prog-editor-session {
+      margin-top: 0.65rem;
+      padding: 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+    }
+
+    .sport-prog-editor-session__head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: end;
+      margin-bottom: 0.45rem;
+    }
+
+    .sport-prog-editor-ex {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) 3.5rem 3.5rem auto;
+      gap: 0.35rem;
+      align-items: end;
+      margin-bottom: 0.35rem;
+    }
+
+    .sport-prog-editor-ex label {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .sport-prog-editor-ex input {
+      min-height: 2.35rem;
+      width: 100%;
+      padding: 0.35rem 0.45rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+    }
+
+    .sport-prog-editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.65rem;
+    }
+
+    @media (max-width: 480px) {
+      .sport-prog-editor-ex {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .sport-prog-editor-ex .sport-prog-editor-ex-del {
+        grid-column: 2;
+        justify-self: end;
+      }
+    }
+
+    .sport-log-field-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .sport-log-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1 1 8rem;
+      min-width: 0;
+    }
+
+    .sport-log-field label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .sport-log-field input,
+    .sport-log-field select,
+    .sport-log-field textarea {
+      min-height: 2.75rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+    }
+
+    .sport-log-field input[readonly] {
+      opacity: 0.75;
+    }
+
+    .sport-log-rpe-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .sport-log-rpe-btn {
+      min-width: 2.25rem;
+      min-height: 2.25rem;
+      padding: 0;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sport-log-rpe-btn.is-active {
+      border-color: var(--progress);
+      background: var(--progress-muted);
+      color: var(--progress);
+    }
+
+    .sport-log-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .sport-log-filter-btn {
+      min-height: 2rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+
+    .sport-log-filter-btn.is-active {
+      border-color: var(--progress);
+      color: var(--progress);
+      background: var(--progress-muted);
+    }
+
+    .sport-log-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-deep);
+      padding: 0.65rem 0.75rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .sport-log-card__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.45rem;
+    }
+
+    .sport-log-card__title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .sport-log-card__meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .sport-log-card__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+    }
+
+    .sport-log-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: var(--progress-muted);
+      color: var(--progress);
+    }
+
+    .sport-log-card__detail {
+      margin-top: 0.55rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .sport-log-card__detail[hidden] {
+      display: none !important;
+    }
+
+    .sport-log-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.45rem;
+    }
+
+    .sport-log-card__actions .btn,
+    .sport-log-card__actions .btn.secondary {
+      min-height: 2.25rem;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.72rem;
+    }
+
     .trends-mount {
       display: flex;
       flex-direction: column;
@@ -3052,8 +4199,8 @@
 
     .task-prio-badge--low {
       background: var(--progress-muted);
-      color: var(--accent);
-      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      color: var(--progress);
+      border: 1px solid color-mix(in srgb, var(--progress) 45%, transparent);
     }
 
     .task-item--oneoff {
@@ -4740,15 +5887,15 @@
     }
 
     [data-theme="dark"] .brief-prio-badge--medium {
-      background: rgba(48, 209, 88, 0.15);
-      border: 1px solid rgba(48, 209, 88, 0.4);
-      color: #62ff62;
+      background: rgba(255, 159, 10, 0.15);
+      border: 1px solid rgba(255, 159, 10, 0.45);
+      color: #ffc966;
     }
 
     [data-theme="dark"] .brief-prio-badge--low {
-      background: rgba(142, 142, 147, 0.18);
-      border: 1px solid rgba(142, 142, 147, 0.45);
-      color: #e5e5ea;
+      background: var(--progress-muted);
+      border: 1px solid color-mix(in srgb, var(--progress) 45%, transparent);
+      color: var(--progress);
     }
 
     [data-theme="light"] .brief-prio-badge--high {
@@ -4758,15 +5905,15 @@
     }
 
     [data-theme="light"] .brief-prio-badge--medium {
-      background: rgba(52, 199, 89, 0.12);
-      border: 1px solid rgba(52, 199, 89, 0.4);
-      color: #14532d;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #92400e;
     }
 
     [data-theme="light"] .brief-prio-badge--low {
-      background: rgba(107, 114, 128, 0.14);
-      border: 1px solid rgba(107, 114, 128, 0.35);
-      color: #374151;
+      background: var(--progress-muted);
+      border: 1px solid color-mix(in srgb, var(--progress) 45%, transparent);
+      color: color-mix(in srgb, var(--progress) 70%, #14532d);
     }
 
     .brief-prio-badge {
@@ -4780,15 +5927,15 @@
     }
 
     [data-theme="dark"] .task-prio-badge--medium {
-      background: rgba(48, 209, 88, 0.15);
-      border: 1px solid rgba(48, 209, 88, 0.4);
-      color: #62ff62;
+      background: rgba(255, 159, 10, 0.15);
+      border: 1px solid rgba(255, 159, 10, 0.45);
+      color: #ffc966;
     }
 
     [data-theme="dark"] .task-prio-badge--low {
-      background: rgba(48, 209, 88, 0.12);
-      border: 1px solid rgba(98, 255, 98, 0.45);
-      color: #b8ffcc;
+      background: var(--progress-muted);
+      border: 1px solid color-mix(in srgb, var(--progress) 45%, transparent);
+      color: var(--progress);
     }
 
     [data-theme="light"] .task-prio-badge--high {
@@ -4798,15 +5945,15 @@
     }
 
     [data-theme="light"] .task-prio-badge--medium {
-      background: rgba(52, 199, 89, 0.12);
-      border: 1px solid rgba(52, 199, 89, 0.4);
-      color: #14532d;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #92400e;
     }
 
     [data-theme="light"] .task-prio-badge--low {
-      background: rgba(52, 199, 89, 0.12);
-      border: 1px solid rgba(52, 199, 89, 0.45);
-      color: #14532d;
+      background: var(--progress-muted);
+      border: 1px solid color-mix(in srgb, var(--progress) 45%, transparent);
+      color: color-mix(in srgb, var(--progress) 70%, #14532d);
     }
 
     .task-prio-badge {
@@ -5390,6 +6537,7 @@
         <div class="history-subtabs sport-subtabs" role="tablist" aria-label="Sections sport">
           <button type="button" class="history-subtab is-active" data-sport-tab="objectifs" role="tab" aria-selected="true" id="tab-sport-objectifs">Objectifs</button>
           <button type="button" class="history-subtab" data-sport-tab="planning" role="tab" aria-selected="false" id="tab-sport-planning">Planning</button>
+          <button type="button" class="history-subtab" data-sport-tab="seances" role="tab" aria-selected="false" id="tab-sport-seances">Séances</button>
         </div>
 
         <div id="sport-sub-objectifs" class="sport-sub-panel" data-sport-sub="objectifs">
@@ -5513,6 +6661,46 @@
             <p class="hint">Définis un gabarit récurrent par jour (L→D), puis applique-le à la semaine affichée.</p>
             <div id="sport-plan-template-editor" class="sport-plan-template-days"></div>
             <button type="button" class="btn" id="btn-sport-apply-template">Appliquer à la semaine affichée</button>
+          </div>
+        </div>
+
+        <div id="sport-sub-seances" class="sport-sub-panel" data-sport-sub="seances" hidden>
+          <p class="subtitle">Logger tes séances — musculation, running ou natation.</p>
+          <div class="card">
+            <h2>Programmes d'entraînement</h2>
+            <p class="hint">Programmes types (StrongLifts, PPL…) ou tes créations — un clic pour pré-remplir le log, puis ajuste poids et reps.</p>
+            <div class="sport-prog-tabs" role="tablist" aria-label="Programmes">
+              <button type="button" class="sport-prog-tab is-active" data-sport-prog-tab="library" role="tab" aria-selected="true">Bibliothèque</button>
+              <button type="button" class="sport-prog-tab" data-sport-prog-tab="mine" role="tab" aria-selected="false">Mes programmes</button>
+            </div>
+            <div id="sport-prog-editor-mount"></div>
+            <div id="sport-prog-mount" aria-live="polite"></div>
+            <button type="button" class="btn secondary" id="btn-sport-prog-create">+ Créer un programme</button>
+          </div>
+          <div id="sport-ex-lightbox" class="sport-ex-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="sport-ex-lightbox-title">
+            <div class="sport-ex-lightbox__panel">
+              <div class="sport-ex-lightbox__head">
+                <h3 class="sport-ex-lightbox__title" id="sport-ex-lightbox-title"></h3>
+                <button type="button" class="icon-btn" id="sport-ex-lightbox-close" aria-label="Fermer">×</button>
+              </div>
+              <div class="sport-ex-lightbox__img-wrap" id="sport-ex-lightbox-img-wrap"></div>
+              <p class="sport-ex-lightbox__meta" id="sport-ex-lightbox-meta"></p>
+            </div>
+          </div>
+          <div id="sport-body-coverage-mount" class="sport-body-coverage" aria-label="Couverture musculaire hebdomadaire"></div>
+          <div class="card">
+            <div class="sport-log-toolbar">
+              <button type="button" class="btn" id="btn-sport-log-open">+ Logger une séance</button>
+            </div>
+            <div id="sport-log-form-mount"></div>
+            <p id="sport-log-status" class="gcal-agenda-status" aria-live="polite"></p>
+            <div class="sport-log-filter-row" id="sport-log-filter-row" role="group" aria-label="Filtrer par type">
+              <button type="button" class="sport-log-filter-btn is-active" data-sport-log-filter="all">Toutes</button>
+              <button type="button" class="sport-log-filter-btn" data-sport-log-filter="muscu">Musculation</button>
+              <button type="button" class="sport-log-filter-btn" data-sport-log-filter="running">Running</button>
+              <button type="button" class="sport-log-filter-btn" data-sport-log-filter="natation">Natation</button>
+            </div>
+            <div id="sport-log-list-mount" aria-label="Séances loggées"></div>
           </div>
         </div>
       </section>
@@ -7333,6 +8521,527 @@
   };
   var SPORT_STATUS_LABELS = { prevue: "Prévue", faite: "Faite", manquee: "Manquée" };
   var SPORT_WEEKDAY_NAMES = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+  var SPORT_MUSCLE_GROUPS = [
+    "pectoraux", "dos", "épaules", "biceps", "triceps", "quadriceps", "ischios",
+    "fessiers", "mollets", "abdos", "lombaires", "avant-bras", "trapèzes"
+  ];
+  var SPORT_LOG_TYPES = ["muscu", "running", "natation"];
+  var SPORT_STROKE_LABELS = {
+    crawl: "Crawl",
+    brasse: "Brasse",
+    dos: "Dos",
+    papillon: "Papillon",
+    mixte: "Mixte"
+  };
+  var __sportLogFilter = "all";
+  var __sportLogDraft = null;
+  var __sportLogEditingId = null;
+  var __sportLogFormId = null;
+  var __sportLogFormDirty = false;
+  var __sportLogSubmitting = false;
+  var __sportProgTab = "library";
+  var __sportProgExpandedId = null;
+  var __sportProgSessionExpanded = null;
+  var __sportProgEditor = null;
+  var DEFAULT_SPORT_EXERCISE_SEED = [
+    { name: "Développé couché", muscleGroups: ["pectoraux", "triceps", "épaules"] },
+    { name: "Développé incliné", muscleGroups: ["pectoraux", "épaules", "triceps"] },
+    { name: "Développé décliné", muscleGroups: ["pectoraux", "triceps"] },
+    { name: "Écarté haltères", muscleGroups: ["pectoraux"] },
+    { name: "Pompes", muscleGroups: ["pectoraux", "triceps", "épaules"] },
+    { name: "Tractions", muscleGroups: ["dos", "biceps"] },
+    { name: "Rowing barre", muscleGroups: ["dos", "biceps"] },
+    { name: "Rowing haltère", muscleGroups: ["dos", "biceps"] },
+    { name: "Tirage horizontal", muscleGroups: ["dos", "biceps"] },
+    { name: "Tirage vertical", muscleGroups: ["dos", "biceps"] },
+    { name: "Soulevé de terre", muscleGroups: ["dos", "ischios", "fessiers", "lombaires"] },
+    { name: "Squat", muscleGroups: ["quadriceps", "fessiers"] },
+    { name: "Front squat", muscleGroups: ["quadriceps", "fessiers"] },
+    { name: "Presse à cuisses", muscleGroups: ["quadriceps", "fessiers"] },
+    { name: "Fentes", muscleGroups: ["quadriceps", "fessiers"] },
+    { name: "Leg curl", muscleGroups: ["ischios"] },
+    { name: "Leg extension", muscleGroups: ["quadriceps"] },
+    { name: "Hip thrust", muscleGroups: ["fessiers", "ischios"] },
+    { name: "Développé militaire", muscleGroups: ["épaules", "triceps"] },
+    { name: "Élévations latérales", muscleGroups: ["épaules"] },
+    { name: "Élévations frontales", muscleGroups: ["épaules"] },
+    { name: "Oiseau", muscleGroups: ["épaules", "dos"] },
+    { name: "Curl barre", muscleGroups: ["biceps"] },
+    { name: "Curl haltères", muscleGroups: ["biceps"] },
+    { name: "Curl marteau", muscleGroups: ["biceps", "avant-bras"] },
+    { name: "Barre au front", muscleGroups: ["triceps"] },
+    { name: "Extension triceps poulie", muscleGroups: ["triceps"] },
+    { name: "Dips", muscleGroups: ["triceps", "pectoraux", "épaules"] },
+    { name: "Crunch", muscleGroups: ["abdos"] },
+    { name: "Planche", muscleGroups: ["abdos", "lombaires"] },
+    { name: "Gainage", muscleGroups: ["abdos", "lombaires"] },
+    { name: "Relevé de jambes", muscleGroups: ["abdos"] },
+    { name: "Mollets debout", muscleGroups: ["mollets"] },
+    { name: "Mollets assis", muscleGroups: ["mollets"] },
+    { name: "Shrugs", muscleGroups: ["trapèzes"] },
+    { name: "Rowing menton", muscleGroups: ["trapèzes", "épaules"] },
+    { name: "Hack squat", muscleGroups: ["quadriceps", "fessiers"] },
+    { name: "Split squat", muscleGroups: ["quadriceps", "fessiers"] },
+    { name: "Pullover", muscleGroups: ["dos", "pectoraux"] },
+    { name: "Rowing T-bar", muscleGroups: ["dos", "biceps"] },
+    { name: "Face pull", muscleGroups: ["épaules", "dos"] },
+    { name: "Ab wheel", muscleGroups: ["abdos", "lombaires"] }
+  ];
+
+  var BASIC_FIT_SAINT_LEON_EXERCISES = [
+    { name: "Presse pectoraux (machine)", muscleGroups: ["pectoraux", "triceps"], tags: ["machine", "basic-fit"] },
+    { name: "Pec deck / Butterfly", muscleGroups: ["pectoraux"], tags: ["machine", "basic-fit"] },
+    { name: "Développé incliné (machine)", muscleGroups: ["pectoraux", "épaules", "triceps"], tags: ["machine", "basic-fit"] },
+    { name: "Poulie vis-à-vis (crossover)", muscleGroups: ["pectoraux"], tags: ["machine", "basic-fit", "poulie"] },
+    { name: "Tirage vertical (lat pulldown)", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit"] },
+    { name: "Rowing assis (machine)", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit"] },
+    { name: "Tirage horizontal poulie basse", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit", "poulie"] },
+    { name: "Rowing T-bar (machine)", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit"] },
+    { name: "Hyperextension (lombaires)", muscleGroups: ["lombaires", "fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Presse épaules (machine)", muscleGroups: ["épaules", "triceps"], tags: ["machine", "basic-fit"] },
+    { name: "Élévations latérales (machine)", muscleGroups: ["épaules"], tags: ["machine", "basic-fit"] },
+    { name: "Reverse fly / Oiseau (machine)", muscleGroups: ["épaules", "dos"], tags: ["machine", "basic-fit"] },
+    { name: "Curl biceps (machine)", muscleGroups: ["biceps"], tags: ["machine", "basic-fit"] },
+    { name: "Curl biceps poulie basse", muscleGroups: ["biceps"], tags: ["machine", "basic-fit", "poulie"] },
+    { name: "Extension triceps (machine)", muscleGroups: ["triceps"], tags: ["machine", "basic-fit"] },
+    { name: "Pushdown triceps (poulie)", muscleGroups: ["triceps"], tags: ["machine", "basic-fit", "poulie"] },
+    { name: "Presse à cuisses (leg press)", muscleGroups: ["quadriceps", "fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Leg extension (machine)", muscleGroups: ["quadriceps"], tags: ["machine", "basic-fit"] },
+    { name: "Leg curl allongé (machine)", muscleGroups: ["ischios"], tags: ["machine", "basic-fit"] },
+    { name: "Leg curl assis (machine)", muscleGroups: ["ischios"], tags: ["machine", "basic-fit"] },
+    { name: "Abducteurs (machine)", muscleGroups: ["fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Adducteurs (machine)", muscleGroups: ["ischios"], tags: ["machine", "basic-fit"] },
+    { name: "Hack squat (machine)", muscleGroups: ["quadriceps", "fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Presse mollets debout (machine)", muscleGroups: ["mollets"], tags: ["machine", "basic-fit"] },
+    { name: "Presse mollets assis (machine)", muscleGroups: ["mollets"], tags: ["machine", "basic-fit"] },
+    { name: "Fessier kickback (machine)", muscleGroups: ["fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Multi hip / Abduction hanche", muscleGroups: ["fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Crunch (machine)", muscleGroups: ["abdos"], tags: ["machine", "basic-fit"] },
+    { name: "Rotation obliques (machine)", muscleGroups: ["abdos"], tags: ["machine", "basic-fit"] },
+    { name: "Squat Smith machine", muscleGroups: ["quadriceps", "fessiers"], tags: ["machine", "basic-fit", "smith"] },
+    { name: "Développé couché Smith", muscleGroups: ["pectoraux", "triceps", "épaules"], tags: ["machine", "basic-fit", "smith"] },
+    { name: "Fentes Smith", muscleGroups: ["quadriceps", "fessiers"], tags: ["machine", "basic-fit", "smith"] },
+    { name: "Chest press Hammer Strength", muscleGroups: ["pectoraux", "triceps"], tags: ["machine", "basic-fit", "hammer"] },
+    { name: "Rowing Hammer Strength", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit", "hammer"] },
+    { name: "Shoulder press Hammer Strength", muscleGroups: ["épaules", "triceps"], tags: ["machine", "basic-fit", "hammer"] },
+    { name: "Leg press Hammer Strength", muscleGroups: ["quadriceps", "fessiers"], tags: ["machine", "basic-fit", "hammer"] },
+    { name: "Tirage corde (face pull)", muscleGroups: ["épaules", "dos"], tags: ["machine", "basic-fit", "poulie"] },
+    { name: "Tirage unilatéral poulie", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit", "poulie"] },
+    { name: "Développé épaules Smith", muscleGroups: ["épaules", "triceps"], tags: ["machine", "basic-fit", "smith"] },
+    { name: "Traction assistée (machine)", muscleGroups: ["dos", "biceps"], tags: ["machine", "basic-fit"] },
+    { name: "Dips assistés (machine)", muscleGroups: ["triceps", "pectoraux", "épaules"], tags: ["machine", "basic-fit"] },
+    { name: "Extension lombaires (machine)", muscleGroups: ["lombaires", "fessiers"], tags: ["machine", "basic-fit"] },
+    { name: "Shrugs Smith / machine", muscleGroups: ["trapèzes"], tags: ["machine", "basic-fit"] }
+  ];
+
+  function programSets(count, reps, weightKg) {
+    var sets = [];
+    var i;
+    for (i = 0; i < count; i++) {
+      sets.push({ weightKg: weightKg || 0, reps: reps || 0 });
+    }
+    return sets;
+  }
+
+  var SPORT_BUILTIN_PROGRAMS = [
+    {
+      builtinId: "stronglifts-5x5",
+      name: "StrongLifts 5×5",
+      coach: "Mehdi Hadj",
+      description: "Alternance A/B, 3 séances/semaine. Progression linéaire +2,5 kg sur les lifts principaux.",
+      frequency: "3×/sem",
+      level: "Débutant",
+      sessions: [
+        {
+          id: "sl-a",
+          name: "Séance A",
+          exercises: [
+            { name: "Squat", sets: programSets(5, 5) },
+            { name: "Développé couché", sets: programSets(5, 5) },
+            { name: "Rowing barre", sets: programSets(5, 5) }
+          ]
+        },
+        {
+          id: "sl-b",
+          name: "Séance B",
+          exercises: [
+            { name: "Squat", sets: programSets(5, 5) },
+            { name: "Développé militaire", sets: programSets(5, 5) },
+            { name: "Soulevé de terre", sets: programSets(5, 5) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "starting-strength",
+      name: "Starting Strength",
+      coach: "Mark Rippetoe",
+      description: "Force de base : squat, développé, soulevé de terre, rowing. Volume modéré, technique prioritaire.",
+      frequency: "3×/sem",
+      level: "Débutant",
+      sessions: [
+        {
+          id: "ss-a",
+          name: "Workout A",
+          exercises: [
+            { name: "Squat", sets: programSets(3, 5) },
+            { name: "Développé couché", sets: programSets(3, 5) },
+            { name: "Soulevé de terre", sets: programSets(1, 5) }
+          ]
+        },
+        {
+          id: "ss-b",
+          name: "Workout B",
+          exercises: [
+            { name: "Squat", sets: programSets(3, 5) },
+            { name: "Développé militaire", sets: programSets(3, 5) },
+            { name: "Rowing barre", sets: programSets(3, 5) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "greyskull-lp",
+      name: "Greyskull LP",
+      coach: "Johnny Pain",
+      description: "Linear progression avec séries AMRAP finales sur les mouvements principaux.",
+      frequency: "3×/sem",
+      level: "Intermédiaire",
+      sessions: [
+        {
+          id: "gs-a",
+          name: "Séance A",
+          exercises: [
+            { name: "Squat", sets: programSets(3, 5) },
+            { name: "Développé couché", sets: programSets(3, 5) },
+            { name: "Rowing barre", sets: programSets(3, 8) }
+          ]
+        },
+        {
+          id: "gs-b",
+          name: "Séance B",
+          exercises: [
+            { name: "Squat", sets: programSets(3, 5) },
+            { name: "Développé militaire", sets: programSets(3, 5) },
+            { name: "Tractions", sets: programSets(3, 8) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "ppl-classic",
+      name: "Push Pull Legs",
+      coach: "Programme classique",
+      description: "Split 6 jours (PPL ×2) ou 3 jours en rotation. Hypertrophie équilibrée.",
+      frequency: "3–6×/sem",
+      level: "Intermédiaire",
+      sessions: [
+        {
+          id: "ppl-push",
+          name: "Push",
+          exercises: [
+            { name: "Développé couché", sets: programSets(4, 8) },
+            { name: "Développé incliné", sets: programSets(3, 10) },
+            { name: "Développé militaire", sets: programSets(3, 10) },
+            { name: "Élévations latérales", sets: programSets(3, 15) },
+            { name: "Dips", sets: programSets(3, 10) },
+            { name: "Extension triceps poulie", sets: programSets(3, 12) }
+          ]
+        },
+        {
+          id: "ppl-pull",
+          name: "Pull",
+          exercises: [
+            { name: "Tractions", sets: programSets(4, 8) },
+            { name: "Rowing barre", sets: programSets(4, 8) },
+            { name: "Tirage vertical", sets: programSets(3, 10) },
+            { name: "Face pull", sets: programSets(3, 15) },
+            { name: "Curl barre", sets: programSets(3, 10) },
+            { name: "Curl marteau", sets: programSets(3, 12) }
+          ]
+        },
+        {
+          id: "ppl-legs",
+          name: "Legs",
+          exercises: [
+            { name: "Squat", sets: programSets(4, 8) },
+            { name: "Leg curl", sets: programSets(3, 12) },
+            { name: "Leg extension", sets: programSets(3, 12) },
+            { name: "Hip thrust", sets: programSets(3, 10) },
+            { name: "Mollets debout", sets: programSets(4, 15) },
+            { name: "Crunch", sets: programSets(3, 15) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "upper-lower-4",
+      name: "Upper / Lower (4 jours)",
+      coach: "Split classique",
+      description: "4 séances/semaine : haut du corps ×2, bas du corps ×2. Bon compromis force/hypertrophie.",
+      frequency: "4×/sem",
+      level: "Intermédiaire",
+      sessions: [
+        {
+          id: "ul-upper-a",
+          name: "Upper A",
+          exercises: [
+            { name: "Développé couché", sets: programSets(4, 6) },
+            { name: "Rowing barre", sets: programSets(4, 6) },
+            { name: "Développé militaire", sets: programSets(3, 8) },
+            { name: "Tirage vertical", sets: programSets(3, 10) },
+            { name: "Curl barre", sets: programSets(3, 10) },
+            { name: "Barre au front", sets: programSets(3, 10) }
+          ]
+        },
+        {
+          id: "ul-lower-a",
+          name: "Lower A",
+          exercises: [
+            { name: "Squat", sets: programSets(4, 6) },
+            { name: "Leg curl", sets: programSets(3, 10) },
+            { name: "Leg extension", sets: programSets(3, 12) },
+            { name: "Mollets debout", sets: programSets(4, 12) },
+            { name: "Planche", sets: programSets(3, 45) }
+          ]
+        },
+        {
+          id: "ul-upper-b",
+          name: "Upper B",
+          exercises: [
+            { name: "Développé incliné", sets: programSets(4, 8) },
+            { name: "Tractions", sets: programSets(4, 8) },
+            { name: "Élévations latérales", sets: programSets(3, 12) },
+            { name: "Rowing haltère", sets: programSets(3, 10) },
+            { name: "Curl haltères", sets: programSets(3, 12) },
+            { name: "Extension triceps poulie", sets: programSets(3, 12) }
+          ]
+        },
+        {
+          id: "ul-lower-b",
+          name: "Lower B",
+          exercises: [
+            { name: "Soulevé de terre", sets: programSets(4, 5) },
+            { name: "Fentes", sets: programSets(3, 10) },
+            { name: "Hip thrust", sets: programSets(3, 10) },
+            { name: "Mollets assis", sets: programSets(4, 15) },
+            { name: "Relevé de jambes", sets: programSets(3, 12) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "full-body-3",
+      name: "Full Body 3×",
+      coach: "Programme débutant",
+      description: "Corps entier 3×/sem, volume modéré. Idéal pour reprendre ou consolider les bases.",
+      frequency: "3×/sem",
+      level: "Débutant",
+      sessions: [
+        {
+          id: "fb-a",
+          name: "Séance A",
+          exercises: [
+            { name: "Squat", sets: programSets(3, 10) },
+            { name: "Développé couché", sets: programSets(3, 10) },
+            { name: "Rowing barre", sets: programSets(3, 10) },
+            { name: "Développé militaire", sets: programSets(2, 10) },
+            { name: "Planche", sets: programSets(3, 30) }
+          ]
+        },
+        {
+          id: "fb-b",
+          name: "Séance B",
+          exercises: [
+            { name: "Soulevé de terre", sets: programSets(3, 8) },
+            { name: "Développé incliné", sets: programSets(3, 10) },
+            { name: "Tractions", sets: programSets(3, 8) },
+            { name: "Fentes", sets: programSets(3, 10) },
+            { name: "Mollets debout", sets: programSets(3, 15) }
+          ]
+        },
+        {
+          id: "fb-c",
+          name: "Séance C",
+          exercises: [
+            { name: "Front squat", sets: programSets(3, 8) },
+            { name: "Développé couché", sets: programSets(3, 8) },
+            { name: "Tirage horizontal", sets: programSets(3, 10) },
+            { name: "Élévations latérales", sets: programSets(3, 12) },
+            { name: "Crunch", sets: programSets(3, 15) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "phul",
+      name: "PHUL",
+      coach: "Power Hypertrophy Upper Lower",
+      description: "4 jours : jours force (4–6 reps) et jours hypertrophie (8–12 reps) alternés haut/bas.",
+      frequency: "4×/sem",
+      level: "Avancé",
+      sessions: [
+        {
+          id: "phul-upper-power",
+          name: "Upper Power",
+          exercises: [
+            { name: "Développé couché", sets: programSets(4, 5) },
+            { name: "Rowing barre", sets: programSets(4, 5) },
+            { name: "Développé militaire", sets: programSets(3, 6) },
+            { name: "Tractions", sets: programSets(3, 6) },
+            { name: "Barre au front", sets: programSets(3, 8) },
+            { name: "Curl barre", sets: programSets(3, 8) }
+          ]
+        },
+        {
+          id: "phul-lower-power",
+          name: "Lower Power",
+          exercises: [
+            { name: "Squat", sets: programSets(4, 5) },
+            { name: "Soulevé de terre", sets: programSets(4, 5) },
+            { name: "Leg curl", sets: programSets(3, 8) },
+            { name: "Leg extension", sets: programSets(3, 8) },
+            { name: "Mollets debout", sets: programSets(4, 10) }
+          ]
+        },
+        {
+          id: "phul-upper-hypertrophy",
+          name: "Upper Hypertrophy",
+          exercises: [
+            { name: "Développé incliné", sets: programSets(4, 10) },
+            { name: "Rowing haltère", sets: programSets(4, 10) },
+            { name: "Élévations latérales", sets: programSets(3, 12) },
+            { name: "Tirage vertical", sets: programSets(3, 12) },
+            { name: "Extension triceps poulie", sets: programSets(3, 12) },
+            { name: "Curl haltères", sets: programSets(3, 12) }
+          ]
+        },
+        {
+          id: "phul-lower-hypertrophy",
+          name: "Lower Hypertrophy",
+          exercises: [
+            { name: "Presse à cuisses", sets: programSets(4, 12) },
+            { name: "Fentes", sets: programSets(3, 12) },
+            { name: "Leg curl", sets: programSets(3, 12) },
+            { name: "Hip thrust", sets: programSets(3, 12) },
+            { name: "Mollets assis", sets: programSets(4, 15) }
+          ]
+        }
+      ]
+    },
+    {
+      builtinId: "arnold-split",
+      name: "Arnold Split",
+      coach: "Arnold Schwarzenegger",
+      description: "Split 6 jours : pec/dos, épaules/bras, jambes (×2). Volume élevé — niveau confirmé.",
+      frequency: "6×/sem",
+      level: "Avancé",
+      sessions: [
+        {
+          id: "arnold-chest-back",
+          name: "Pectoraux & Dos",
+          exercises: [
+            { name: "Développé couché", sets: programSets(4, 10) },
+            { name: "Développé incliné", sets: programSets(4, 10) },
+            { name: "Écarté haltères", sets: programSets(3, 12) },
+            { name: "Tractions", sets: programSets(4, 10) },
+            { name: "Rowing barre", sets: programSets(4, 10) },
+            { name: "Pullover", sets: programSets(3, 12) }
+          ]
+        },
+        {
+          id: "arnold-shoulders-arms",
+          name: "Épaules & Bras",
+          exercises: [
+            { name: "Développé militaire", sets: programSets(4, 10) },
+            { name: "Élévations latérales", sets: programSets(4, 12) },
+            { name: "Oiseau", sets: programSets(3, 12) },
+            { name: "Curl barre", sets: programSets(4, 10) },
+            { name: "Curl marteau", sets: programSets(3, 12) },
+            { name: "Barre au front", sets: programSets(4, 10) },
+            { name: "Extension triceps poulie", sets: programSets(3, 12) }
+          ]
+        },
+        {
+          id: "arnold-legs",
+          name: "Jambes",
+          exercises: [
+            { name: "Squat", sets: programSets(4, 10) },
+            { name: "Leg curl", sets: programSets(4, 12) },
+            { name: "Leg extension", sets: programSets(4, 12) },
+            { name: "Fentes", sets: programSets(3, 12) },
+            { name: "Mollets debout", sets: programSets(5, 15) },
+            { name: "Crunch", sets: programSets(4, 15) }
+          ]
+        }
+      ]
+    }
+  ];
+
+  var SPORT_EXERCISE_IMAGE_MAP = {
+    "Squat": "https://wger.de/media/exercise-images/1963/db285682-1ab3-4be0-ae00-5117ecce1ee6.png",
+    "Développé couché": "https://wger.de/media/exercise-images/192/Bench-press-1.png",
+    "Rowing barre": "https://wger.de/media/exercise-images/110/Reverse-grip-bent-over-rows-1.png",
+    "Soulevé de terre": "https://wger.de/media/exercise-images/1003/772d6e47-3865-4944-9255-7435d0b06782.png",
+    "Développé militaire": "https://wger.de/media/exercise-images/1968/cd92e973-a0d9-4e5f-9011-5369012598d3.png",
+    "Tractions": "https://wger.de/media/exercise-images/1738/0529acdf-ede8-42a2-a3e5-8d0c57b7a0e1.jpg",
+    "Développé incliné": "https://wger.de/media/exercise-images/61/Close-grip-bench-press-1.png",
+    "Élévations latérales": "https://wger.de/media/exercise-images/1378/7c1fcf34-fb7e-45e7-a0c1-51f296235315.jpg",
+    "Dips": "https://wger.de/media/exercise-images/1000/553266a8-a972-48c5-a014-b12afac66f65.png",
+    "Curl barre": "https://wger.de/media/exercise-images/1192/651a4535-8210-4dbd-8f06-61d95fdd9963.png",
+    "Curl haltères": "https://wger.de/media/exercise-images/1192/651a4535-8210-4dbd-8f06-61d95fdd9963.png",
+    "Curl marteau": "https://wger.de/media/exercise-images/86/Bicep-hammer-curl-1.png",
+    "Leg curl": "https://wger.de/media/exercise-images/364/b318dde9-f5f2-489f-940a-cd864affb9e3.png",
+    "Leg extension": "https://wger.de/media/exercise-images/851/4d621b17-f6cb-4107-97c0-9f44e9a2dbc6.webp",
+    "Mollets debout": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png",
+    "Mollets assis": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png",
+    "Crunch": "https://wger.de/media/exercise-images/976/94649ea6-bf58-4fd9-90c1-b2ec96ee20cd.png",
+    "Fentes": "https://wger.de/media/exercise-images/1651/04ab2679-a04d-4d05-9c85-0d36e898328c.webp",
+    "Hip thrust": "https://wger.de/media/exercise-images/1642/a81ad922-caf5-47f8-99b4-640cb0717436.webp",
+    "Presse à cuisses": "https://wger.de/media/exercise-images/371/d2136f96-3a43-4d4c-9944-1919c4ca1ce1.webp",
+    "Face pull": "https://wger.de/media/exercise-images/1639/8927346e-f5ca-4795-bdf1-5ac9309401e7.webp",
+    "Barre au front": "https://wger.de/media/exercise-images/84/Lying-close-grip-triceps-press-to-chin-1.png",
+    "Extension triceps poulie": "https://wger.de/media/exercise-images/1185/c5ca283d-8958-4fd8-9d59-a3f52a3ac66b.jpg",
+    "Planche": "https://wger.de/media/exercise-images/458/b7bd9c28-9f1d-4647-bd17-ab6a3adf5770.png",
+    "Tirage vertical": "https://wger.de/media/exercise-images/1971/729af526-19a0-4d3d-a258-196c7575d139.jpg",
+    "Tirage horizontal": "https://wger.de/media/exercise-images/1725/f0ebd44e-b8e1-400c-b598-ca371f3a07af.png",
+    "Rowing haltère": "https://wger.de/media/exercise-images/1283/e7262f70-7512-408a-8d00-4c499ef632fc.jpg",
+    "Écarté haltères": "https://wger.de/media/exercise-images/926/ae9deb5d-a1e9-4c30-b1e3-c128ba5d4969.png",
+    "Oiseau": "https://wger.de/media/exercise-images/828/2e959dab-f39b-4c7c-9063-eb43064ab5eb.png",
+    "Front squat": "https://wger.de/media/exercise-images/1640/bdea82f1-15ef-4649-8b5a-1303cfc178e7.webp",
+    "Relevé de jambes": "https://wger.de/media/exercise-images/979/27097a3a-5749-428d-b94c-6082afe390f6.png",
+    "Pullover": "https://wger.de/media/exercise-images/161/b9b1803e-2817-40bf-8ac7-e398ca86d8b4.png",
+    "Split squat": "https://wger.de/media/exercise-images/1593/9815fcd6-cf40-4ddd-9b38-2eac25973de1.gif",
+    "Hack squat": "https://wger.de/media/exercise-images/371/d2136f96-3a43-4d4c-9944-1919c4ca1ce1.webp",
+    "Shrugs": "https://wger.de/media/exercise-images/1645/9e730259-1dcd-4b5e-b4cc-9ebc0cfda75c.webp",
+    "Pompes": "https://wger.de/media/exercise-images/1551/a6a9e561-3965-45c6-9f2b-ee671e1a3a45.png",
+    "Gainage": "https://wger.de/media/exercise-images/458/b7bd9c28-9f1d-4647-bd17-ab6a3adf5770.png",
+    "Ab wheel": "https://wger.de/media/exercise-images/1573/a9ab402b-61ef-4d60-b91a-df52bf7f41a9.jpg",
+    "Presse pectoraux (machine)": "https://wger.de/media/exercise-images/192/Bench-press-1.png",
+    "Tirage vertical (lat pulldown)": "https://wger.de/media/exercise-images/1971/729af526-19a0-4d3d-a258-196c7575d139.jpg",
+    "Rowing assis (machine)": "https://wger.de/media/exercise-images/1725/f0ebd44e-b8e1-400c-b598-ca371f3a07af.png",
+    "Presse à cuisses (leg press)": "https://wger.de/media/exercise-images/371/d2136f96-3a43-4d4c-9944-1919c4ca1ce1.webp",
+    "Leg curl allongé (machine)": "https://wger.de/media/exercise-images/364/b318dde9-f5f2-489f-940a-cd864affb9e3.png",
+    "Leg curl assis (machine)": "https://wger.de/media/exercise-images/364/b318dde9-f5f2-489f-940a-cd864affb9e3.png",
+    "Leg extension (machine)": "https://wger.de/media/exercise-images/851/4d621b17-f6cb-4107-97c0-9f44e9a2dbc6.webp",
+    "Presse épaules (machine)": "https://wger.de/media/exercise-images/1968/cd92e973-a0d9-4e5f-9011-5369012598d3.png",
+    "Curl biceps (machine)": "https://wger.de/media/exercise-images/1192/651a4535-8210-4dbd-8f06-61d95fdd9963.png",
+    "Extension triceps (machine)": "https://wger.de/media/exercise-images/1185/c5ca283d-8958-4fd8-9d59-a3f52a3ac66b.jpg",
+    "Squat Smith machine": "https://wger.de/media/exercise-images/1963/db285682-1ab3-4be0-ae00-5117ecce1ee6.png",
+    "Développé couché Smith": "https://wger.de/media/exercise-images/192/Bench-press-1.png",
+    "Traction assistée (machine)": "https://wger.de/media/exercise-images/1738/0529acdf-ede8-42a2-a3e5-8d0c57b7a0e1.jpg",
+    "Dips assistés (machine)": "https://wger.de/media/exercise-images/1000/553266a8-a972-48c5-a014-b12afac66f65.png",
+    "Crunch (machine)": "https://wger.de/media/exercise-images/976/94649ea6-bf58-4fd9-90c1-b2ec96ee20cd.png",
+    "Presse mollets debout (machine)": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png",
+    "Rowing T-bar (machine)": "https://wger.de/media/exercise-images/110/Reverse-grip-bent-over-rows-1.png",
+    "Tirage corde (face pull)": "https://wger.de/media/exercise-images/1639/8927346e-f5ca-4795-bdf1-5ac9309401e7.webp",
+    "Pushdown triceps (poulie)": "https://wger.de/media/exercise-images/1185/c5ca283d-8958-4fd8-9d59-a3f52a3ac66b.jpg",
+    "Développé incliné (machine)": "https://wger.de/media/exercise-images/61/Close-grip-bench-press-1.png",
+    "Pec deck / Butterfly": "https://wger.de/media/exercise-images/926/ae9deb5d-a1e9-4c30-b1e3-c128ba5d4969.png",
+    "Reverse fly / Oiseau (machine)": "https://wger.de/media/exercise-images/828/2e959dab-f39b-4c7c-9063-eb43064ab5eb.png",
+    "Rowing menton": "https://wger.de/media/exercise-images/1968/cd92e973-a0d9-4e5f-9011-5369012598d3.png",
+    "Élévations frontales": "https://wger.de/media/exercise-images/1378/7c1fcf34-fb7e-45e7-a0c1-51f296235315.jpg"
+  };
 
   function sportUuid() {
     if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
@@ -7347,7 +9056,62 @@
       plannedSessions: [],
       loggedSessions: [],
       exerciseLibrary: [],
-      weekTemplate: [[], [], [], [], [], [], []]
+      exerciseFavorites: [],
+      weekTemplate: [[], [], [], [], [], [], []],
+      workoutPrograms: [],
+      exerciseImageCache: {}
+    };
+  }
+
+  function normalizeWorkoutProgramExercise(ex) {
+    if (!ex || typeof ex !== "object") return null;
+    var name = String(ex.name || "").trim();
+    if (!name) return null;
+    return {
+      name: name,
+      exerciseId: ex.exerciseId ? String(ex.exerciseId) : null,
+      sets: (Array.isArray(ex.sets) ? ex.sets : []).map(function (set) {
+        return {
+          weightKg: Math.max(0, parseFloat(set.weightKg) || 0),
+          reps: Math.max(0, parseInt(set.reps, 10) || 0)
+        };
+      }).filter(function (set) {
+        return set.reps > 0 || set.weightKg > 0;
+      })
+    };
+  }
+
+  function normalizeWorkoutProgramSession(sess) {
+    if (!sess || typeof sess !== "object") return null;
+    var name = String(sess.name || "").trim();
+    if (!name) return null;
+    var exercises = (Array.isArray(sess.exercises) ? sess.exercises : [])
+      .map(normalizeWorkoutProgramExercise)
+      .filter(Boolean);
+    return {
+      id: sess.id || sportUuid(),
+      name: name,
+      title: sess.title ? String(sess.title).trim() : "",
+      exercises: exercises
+    };
+  }
+
+  function normalizeWorkoutProgram(prog) {
+    if (!prog || typeof prog !== "object") return null;
+    var name = String(prog.name || "").trim();
+    if (!name) return null;
+    var sessions = (Array.isArray(prog.sessions) ? prog.sessions : [])
+      .map(normalizeWorkoutProgramSession)
+      .filter(Boolean);
+    if (!sessions.length) return null;
+    return {
+      id: prog.id || sportUuid(),
+      name: name,
+      description: prog.description ? String(prog.description).trim() : "",
+      coach: prog.coach ? String(prog.coach).trim() : "",
+      frequency: prog.frequency ? String(prog.frequency).trim() : "",
+      level: prog.level ? String(prog.level).trim() : "",
+      sessions: sessions
     };
   }
 
@@ -7356,6 +9120,10 @@
     if (!Array.isArray(d.plannedSessions)) d.plannedSessions = [];
     if (!Array.isArray(d.loggedSessions)) d.loggedSessions = [];
     if (!Array.isArray(d.exerciseLibrary)) d.exerciseLibrary = [];
+    if (!Array.isArray(d.exerciseFavorites)) d.exerciseFavorites = [];
+    d.exerciseFavorites = d.exerciseFavorites.filter(function (id) {
+      return typeof id === "string" && id;
+    });
     if (!Array.isArray(d.weekTemplate) || d.weekTemplate.length !== 7) {
       d.weekTemplate = [[], [], [], [], [], [], []];
     } else {
@@ -7377,6 +9145,113 @@
         gcalEventId: s.gcalEventId ? String(s.gcalEventId) : null
       };
     });
+    d.exerciseLibrary = (d.exerciseLibrary || []).map(function (ex) {
+      var groups = Array.isArray(ex.muscleGroups) ? ex.muscleGroups.filter(function (g) {
+        return SPORT_MUSCLE_GROUPS.indexOf(g) >= 0;
+      }) : [];
+      var tags = Array.isArray(ex.tags) ? ex.tags.filter(function (t) { return typeof t === "string" && t; }) : [];
+      return {
+        id: ex.id || sportUuid(),
+        name: String(ex.name || "").trim(),
+        muscleGroups: groups,
+        tags: tags.length ? tags : undefined
+      };
+    }).filter(function (ex) {
+      return ex.name;
+    });
+    var libIds = {};
+    d.exerciseLibrary.forEach(function (ex) {
+      libIds[ex.id] = true;
+    });
+    d.exerciseFavorites = d.exerciseFavorites.filter(function (id) {
+      return libIds[id];
+    });
+    d.loggedSessions = (d.loggedSessions || []).map(function (s) {
+      return normalizeLoggedSportSession(s);
+    });
+    if (!Array.isArray(d.workoutPrograms)) d.workoutPrograms = [];
+    d.workoutPrograms = d.workoutPrograms.map(normalizeWorkoutProgram).filter(Boolean);
+    if (!d.exerciseImageCache || typeof d.exerciseImageCache !== "object") d.exerciseImageCache = {};
+    return d;
+  }
+
+  function normalizeLoggedSportSession(s) {
+    if (!s || typeof s !== "object") s = {};
+    var type = SPORT_LOG_TYPES.indexOf(s.type) >= 0 ? s.type : "muscu";
+    var out = {
+      id: s.id || sportUuid(),
+      type: type,
+      date: /^\d{4}-\d{2}-\d{2}$/.test(String(s.date || "")) ? s.date : todayIso,
+      title: String(s.title || "").trim(),
+      rpe: Math.min(10, Math.max(1, parseInt(s.rpe, 10) || 5)),
+      note: s.note ? String(s.note) : "",
+      plannedSessionId: s.plannedSessionId ? String(s.plannedSessionId) : null,
+      loggedAt: typeof s.loggedAt === "number" ? s.loggedAt : Date.now()
+    };
+    if (type === "muscu") {
+      out.exercises = (Array.isArray(s.exercises) ? s.exercises : []).map(function (ex) {
+        return {
+          id: ex.id || sportUuid(),
+          exerciseId: ex.exerciseId ? String(ex.exerciseId) : null,
+          name: String(ex.name || "").trim(),
+          sets: (Array.isArray(ex.sets) ? ex.sets : []).map(function (set) {
+            return {
+              weightKg: Math.max(0, parseFloat(set.weightKg) || 0),
+              reps: Math.max(0, parseInt(set.reps, 10) || 0)
+            };
+          })
+        };
+      }).filter(function (ex) {
+        return ex.name;
+      });
+      out.workedMuscles = (Array.isArray(s.workedMuscles) ? s.workedMuscles : []).filter(function (g) {
+        return SPORT_MUSCLE_GROUPS.indexOf(g) >= 0;
+      });
+    } else if (type === "running") {
+      out.distanceKm = Math.max(0, parseFloat(s.distanceKm) || 0);
+      out.durationMin = Math.max(0, parseFloat(s.durationMin) || 0);
+      out.location = s.location ? String(s.location) : "";
+    } else if (type === "natation") {
+      out.distanceM = Math.max(0, parseInt(s.distanceM, 10) || 0);
+      out.durationMin = Math.max(0, parseFloat(s.durationMin) || 0);
+      out.stroke = SPORT_STROKE_LABELS[s.stroke] ? s.stroke : "crawl";
+    }
+    return out;
+  }
+
+  function mergeBasicFitSaintLeonExercises(d) {
+    var lib = d.exerciseLibrary || [];
+    var names = {};
+    lib.forEach(function (ex) {
+      names[ex.name.toLowerCase()] = true;
+    });
+    var added = false;
+    BASIC_FIT_SAINT_LEON_EXERCISES.forEach(function (ex) {
+      if (names[ex.name.toLowerCase()]) return;
+      lib.push({
+        id: sportUuid(),
+        name: ex.name,
+        muscleGroups: ex.muscleGroups.slice(),
+        tags: ex.tags ? ex.tags.slice() : ["machine", "basic-fit"]
+      });
+      names[ex.name.toLowerCase()] = true;
+      added = true;
+    });
+    if (added) d.exerciseLibrary = lib;
+    return d;
+  }
+
+  function seedDefaultExerciseLibraryIfEmpty(d) {
+    if (!d.exerciseLibrary || !d.exerciseLibrary.length) {
+      d.exerciseLibrary = DEFAULT_SPORT_EXERCISE_SEED.map(function (ex) {
+        return {
+          id: sportUuid(),
+          name: ex.name,
+          muscleGroups: ex.muscleGroups.slice()
+        };
+      });
+      d = mergeBasicFitSaintLeonExercises(d);
+    }
     return d;
   }
 
@@ -7384,14 +9259,17 @@
     try {
       var raw = localStorage.getItem(SPORT_PLANNING_STORAGE_KEY);
       if (!raw) {
+        var init = seedDefaultExerciseLibraryIfEmpty(defaultSportPlanningData());
         localStorage.setItem(
           SPORT_PLANNING_STORAGE_KEY,
-          JSON.stringify(defaultSportPlanningData())
+          JSON.stringify(init)
         );
         return;
       }
       var parsed = JSON.parse(raw);
       var normalized = normalizeSportPlanningData(parsed);
+      normalized = seedDefaultExerciseLibraryIfEmpty(normalized);
+      normalized = mergeBasicFitSaintLeonExercises(normalized);
       if (!parsed.version || parsed.version < SPORT_PLANNING_VERSION) {
         normalized.version = SPORT_PLANNING_VERSION;
       }
@@ -7644,9 +9522,13 @@
       return s.id === id;
     });
     if (!session) return;
+    var prev = session.status;
     session.status = nextSportSessionStatus(session.status);
     saveSportPlanningData(data);
     renderSportPlanningWeek();
+    if (session.status === "faite" && prev !== "faite") {
+      offerLogFromPlannedSession(session);
+    }
   }
 
   function applySportWeekTemplate(weekMon) {
@@ -8045,8 +9927,2180 @@
     }
   }
 
+  function setSportLogStatus(msg, isErr) {
+    var el = document.getElementById("sport-log-status");
+    if (!el) return;
+    el.textContent = msg || "";
+    el.classList.toggle("is-error", !!isErr);
+  }
+
+  function findExerciseInLibrary(name) {
+    var q = String(name || "").trim().toLowerCase();
+    if (!q) return null;
+    return getSportPlanningData().exerciseLibrary.find(function (ex) {
+      return ex.name.toLowerCase() === q;
+    }) || null;
+  }
+
+  function findOrAddExercise(name) {
+    var trimmed = String(name || "").trim();
+    if (!trimmed) return null;
+    var data = getSportPlanningData();
+    var found = data.exerciseLibrary.find(function (ex) {
+      return ex.name.toLowerCase() === trimmed.toLowerCase();
+    });
+    if (found) return found;
+    var neu = { id: sportUuid(), name: trimmed, muscleGroups: [] };
+    data.exerciseLibrary.push(neu);
+    saveSportPlanningData(data);
+    return neu;
+  }
+
+  function filterExerciseLibrary(query, muscleGroup, opts) {
+    opts = opts || {};
+    var q = String(query || "").trim().toLowerCase();
+    var muscles = opts.muscles || (muscleGroup ? [muscleGroup] : []);
+    return getSportPlanningData().exerciseLibrary.filter(function (ex) {
+      if (opts.basicFitOnly && (!ex.tags || ex.tags.indexOf("basic-fit") < 0)) return false;
+      if (muscles.length && !muscles.some(function (m) { return ex.muscleGroups.indexOf(m) >= 0; })) return false;
+      if (!q || q.length < 2) return false;
+      return ex.name.toLowerCase().indexOf(q) >= 0;
+    }).slice(0, 12);
+  }
+
+  /* Corps interactif — SVG body-highlighter (MIT, lahaxearnaud/body-highlighter) */
+  var SPORT_BODY_SVG_DATA = {"a":[{"m":"chest","p":["51.8367347 41.6326531 51.0204082 55.1020408 57.9591837 57.9591837 67.755102 55.5102041 70.6122449 47.3469388 62.0408163 41.6326531","29.7959184 46.5306122 31.4285714 55.5102041 40.8163265 57.9591837 48.1632653 55.1020408 47.755102 42.0408163 37.5510204 42.0408163"]},{"m":"obliques","p":["68.5714286 63.2653061 67.3469388 57.1428571 58.7755102 59.5918367 60 64.0816327 60.4081633 83.2653061 65.7142857 78.7755102 66.5306122 69.7959184","33.877551 78.3673469 33.0612245 71.8367347 31.0204082 63.2653061 32.244898 57.1428571 40.8163265 59.1836735 39.1836735 63.2653061 39.1836735 83.6734694"]},{"m":"abs","p":["56.3265306 59.1836735 57.9591837 64.0816327 58.3673469 77.9591837 58.3673469 92.6530612 56.3265306 98.3673469 55.1020408 104.081633 51.4285714 107.755102 51.0204082 84.4897959 50.6122449 67.3469388 51.0204082 57.1428571","43.6734694 58.7755102 48.5714286 57.1428571 48.9795918 67.3469388 48.5714286 84.4897959 48.1632653 107.346939 44.4897959 103.673469 40.8163265 91.4285714 40.8163265 78.3673469 41.2244898 64.4897959"]},{"m":"biceps","p":["16.7346939 68.1632653 17.9591837 71.4285714 22.8571429 66.122449 28.9795918 53.877551 27.755102 49.3877551 20.4081633 55.9183673","71.4285714 49.3877551 70.2040816 54.6938776 76.3265306 66.122449 81.6326531 71.8367347 82.8571429 68.9795918 78.7755102 55.5102041"]},{"m":"triceps","p":["69.3877551 55.5102041 69.3877551 61.6326531 75.9183673 72.6530612 77.5510204 70.2040816 75.5102041 67.3469388","22.4489796 69.3877551 29.7959184 55.5102041 29.7959184 60.8163265 22.8571429 73.0612245"]},{"m":"neck","p":["55.5102041 23.6734694 50.6122449 33.4693878 50.6122449 39.1836735 61.6326531 40 70.6122449 44.8979592 69.3877551 36.7346939 63.2653061 35.1020408 58.3673469 30.6122449","28.9795918 44.8979592 30.2040816 37.1428571 36.3265306 35.1020408 41.2244898 30.2040816 44.4897959 24.4897959 48.9795918 33.877551 48.5714286 39.1836735 37.9591837 39.5918367"]},{"m":"front-deltoids","p":["78.3673469 53.0612245 79.5918367 47.755102 79.1836735 41.2244898 75.9183673 37.9591837 71.0204082 36.3265306 72.244898 42.8571429 71.4285714 47.3469388","28.1632653 47.3469388 21.2244898 53.0612245 20 47.755102 20.4081633 40.8163265 24.4897959 37.1428571 28.5714286 37.1428571 26.9387755 43.2653061"]},{"m":"head","p":["42.4489796 2.85714286 40 11.8367347 42.0408163 19.5918367 46.122449 23.2653061 49.7959184 25.3061224 54.6938776 22.4489796 57.5510204 19.1836735 59.1836735 10.2040816 57.1428571 2.44897959 49.7959184 0"]},{"m":"abductors","p":["52.6530612 110.204082 54.2857143 124.897959 60 110.204082 62.0408163 100 64.8979592 94.2857143 60 92.6530612 56.7346939 104.489796","47.755102 110.612245 44.8979592 125.306122 42.0408163 115.918367 40.4081633 113.061224 39.5918367 107.346939 37.9591837 102.44898 34.6938776 93.877551 39.5918367 92.244898 41.6326531 99.1836735 43.6734694 105.306122"]},{"m":"quadriceps","p":["34.6938776 98.7755102 37.1428571 108.163265 37.1428571 127.755102 34.2857143 137.142857 31.0204082 132.653061 29.3877551 120 28.1632653 111.428571 29.3877551 100.816327 32.244898 94.6938776","63.2653061 105.714286 64.4897959 100 66.9387755 94.6938776 70.2040816 101.22449 71.0204082 111.836735 68.1632653 133.061224 65.3061224 137.55102 62.4489796 128.571429 62.0408163 111.428571","38.7755102 129.387755 38.3673469 112.244898 41.2244898 118.367347 44.4897959 129.387755 42.8571429 135.102041 40 146.122449 36.3265306 146.530612 35.5102041 140","59.5918367 145.714286 55.5102041 128.979592 60.8163265 113.877551 61.2244898 130.204082 64.0816327 139.591837 62.8571429 146.530612","32.6530612 138.367347 26.5306122 145.714286 25.7142857 136.734694 25.7142857 127.346939 26.9387755 114.285714 29.3877551 133.469388","71.8367347 113.061224 73.877551 124.081633 73.877551 140.408163 72.6530612 145.714286 66.5306122 138.367347 70.2040816 133.469388"]},{"m":"knees","p":["33.877551 140 34.6938776 143.265306 35.5102041 147.346939 36.3265306 151.020408 35.1020408 156.734694 29.7959184 156.734694 27.3469388 152.653061 27.3469388 147.346939 30.2040816 144.081633","65.7142857 140 72.244898 147.755102 72.244898 152.244898 69.7959184 157.142857 64.8979592 156.734694 62.8571429 151.020408"]},{"m":"calves","p":["71.4285714 160.408163 73.4693878 153.469388 76.7346939 161.22449 79.5918367 167.755102 78.3673469 187.755102 79.5918367 195.510204 74.6938776 195.510204","24.8979592 194.693878 27.755102 164.897959 28.1632653 160.408163 26.122449 154.285714 24.8979592 157.55102 22.4489796 161.632653 20.8163265 167.755102 22.0408163 188.163265 20.8163265 195.510204","72.6530612 195.102041 69.7959184 159.183673 65.3061224 158.367347 64.0816327 162.44898 64.0816327 165.306122 65.7142857 177.142857","35.5102041 158.367347 35.9183673 162.44898 35.9183673 166.938776 35.1020408 172.244898 35.1020408 176.734694 32.244898 182.040816 30.6122449 187.346939 26.9387755 194.693878 27.3469388 187.755102 28.1632653 180.408163 28.5714286 175.510204 28.9795918 169.795918 29.7959184 164.081633 30.2040816 158.77551"]},{"m":"forearm","p":["6.12244898 88.5714286 10.2040816 75.1020408 14.6938776 70.2040816 16.3265306 74.2857143 19.1836735 73.4693878 4.48979592 97.5510204 0 100","84.4897959 69.7959184 83.2653061 73.4693878 80 73.0612245 95.1020408 98.3673469 100 100.408163 93.4693878 89.3877551 89.7959184 76.3265306","77.5510204 72.244898 77.5510204 77.5510204 80.4081633 84.0816327 85.3061224 89.7959184 92.244898 101.22449 94.6938776 99.5918367","6.93877551 101.22449 13.4693878 90.6122449 18.7755102 84.0816327 21.6326531 77.1428571 21.2244898 71.8367347 4.89795918 98.7755102"]}],"b":[{"m":"head","p":["50.6382979 0 45.9574468 0.85106383 40.8510638 5.53191489 40.4255319 12.7659574 45.106383 20 55.7446809 20 59.1489362 13.6170213 59.5744681 4.68085106 55.7446809 1.27659574"]},{"m":"trapezius","p":["44.6808511 21.7021277 47.6595745 21.7021277 47.2340426 38.2978723 47.6595745 64.6808511 38.2978723 53.1914894 35.3191489 40.8510638 31.0638298 36.5957447 39.1489362 33.1914894 43.8297872 27.2340426","52.3404255 21.7021277 55.7446809 21.7021277 56.5957447 27.2340426 60.8510638 32.7659574 68.9361702 36.5957447 64.6808511 40.4255319 61.7021277 53.1914894 52.3404255 64.6808511 53.1914894 38.2978723"]},{"m":"back-deltoids","p":["29.3617021 37.0212766 22.9787234 39.1489362 17.4468085 44.2553191 18.2978723 53.6170213 24.2553191 49.3617021 27.2340426 46.3829787","71.0638298 37.0212766 78.2978723 39.5744681 82.5531915 44.6808511 81.7021277 53.6170213 74.893617 48.9361702 72.3404255 45.106383"]},{"m":"upper-back","p":["31.0638298 38.7234043 28.0851064 48.9361702 28.5106383 55.3191489 34.0425532 75.3191489 47.2340426 71.0638298 47.2340426 66.3829787 36.5957447 54.0425532 33.6170213 41.2765957","68.9361702 38.7234043 71.9148936 49.3617021 71.4893617 56.1702128 65.9574468 75.3191489 52.7659574 71.0638298 52.7659574 66.3829787 63.4042553 54.4680851 66.3829787 41.7021277"]},{"m":"triceps","p":["26.8085106 49.787234 17.8723404 55.7446809 14.4680851 72.3404255 16.5957447 81.7021277 21.7021277 63.8297872 26.8085106 55.7446809","73.6170213 50.212766 82.1276596 55.7446809 85.9574468 73.1914894 83.4042553 82.1276596 77.8723404 62.9787234 73.1914894 55.7446809","26.8085106 58.2978723 26.8085106 68.5106383 22.9787234 75.3191489 19.1489362 77.4468085 22.5531915 65.5319149","72.7659574 58.2978723 77.0212766 64.6808511 80.4255319 77.4468085 76.5957447 75.3191489 72.7659574 68.9361702"]},{"m":"lower-back","p":["47.6595745 72.7659574 34.4680851 77.0212766 35.3191489 83.4042553 49.3617021 102.12766 46.8085106 82.9787234","52.3404255 72.7659574 65.5319149 77.0212766 64.6808511 83.4042553 50.6382979 102.12766 53.1914894 83.8297872"]},{"m":"forearm","p":["86.3829787 75.7446809 91.0638298 83.4042553 93.1914894 94.0425532 100 106.382979 96.1702128 104.255319 88.0851064 89.3617021 84.2553191 83.8297872","13.6170213 75.7446809 8.93617021 83.8297872 6.80851064 93.6170213 0 106.382979 3.82978723 104.255319 12.3404255 88.5106383 15.7446809 82.9787234","81.2765957 79.5744681 77.4468085 77.8723404 79.1489362 84.6808511 91.0638298 103.829787 93.1914894 108.93617 94.4680851 104.680851","18.7234043 79.5744681 22.1276596 77.8723404 20.8510638 84.2553191 9.36170213 102.978723 6.80851064 108.510638 5.10638298 104.680851"]},{"m":"gluteal","p":["44.6808511 99.5744681 30.212766 108.510638 29.787234 118.723404 31.4893617 125.957447 47.2340426 121.276596 49.3617021 114.893617","55.3191489 99.1489362 51.0638298 114.468085 52.3404255 120.851064 68.0851064 125.957447 69.787234 119.148936 69.3617021 108.510638"]},{"m":"adductor","p":["48.0851064 122.978723 44.6808511 122.978723 41.2765957 125.531915 45.106383 144.255319 48.5106383 135.744681 48.9361702 129.361702","51.9148936 122.553191 55.7446809 123.404255 59.1489362 125.957447 54.893617 144.255319 51.9148936 136.170213 51.0638298 129.361702"]},{"m":"hamstring","p":["28.9361702 122.12766 31.0638298 129.361702 36.5957447 125.957447 35.3191489 135.319149 34.4680851 150.212766 29.3617021 158.297872 28.9361702 146.808511 27.6595745 141.276596 27.2340426 131.489362","71.4893617 121.702128 69.3617021 128.93617 63.8297872 125.957447 65.5319149 136.595745 66.3829787 150.212766 71.0638298 158.297872 71.4893617 147.659574 72.7659574 142.12766 73.6170213 131.914894","38.7234043 125.531915 44.2553191 145.957447 40.4255319 166.808511 36.1702128 152.765957 37.0212766 135.319149","61.7021277 125.531915 63.4042553 136.170213 64.2553191 153.191489 60 166.808511 56.1702128 146.382979"]},{"m":"knees","p":["34.4680851 153.191489 31.0638298 159.148936 33.6170213 166.382979 37.4468085 162.553191","66.3829787 153.617021 62.9787234 162.978723 66.8085106 166.382979 69.3617021 159.148936"]},{"m":"calves","p":["29.3617021 160.425532 28.5106383 167.234043 24.6808511 179.574468 23.8297872 192.765957 25.5319149 197.021277 28.5106383 193.191489 29.787234 180 31.9148936 171.06383 31.9148936 166.808511","37.4468085 165.106383 35.3191489 167.659574 33.1914894 171.914894 31.0638298 180.425532 30.212766 191.914894 34.0425532 200 38.7234043 190.638298 39.1489362 168.93617","62.9787234 165.106383 61.2765957 168.510638 61.7021277 190.638298 66.3829787 199.574468 70.6382979 191.914894 68.9361702 179.574468 66.8085106 170.212766","70.6382979 160.425532 72.3404255 168.510638 75.7446809 179.148936 76.5957447 192.765957 74.4680851 196.595745 72.3404255 193.617021 70.6382979 179.574468 68.0851064 168.085106"]},{"m":"left-soleus","p":["28.5106383 195.744681 30.212766 195.744681 33.6170213 201.702128 30.6382979 220 28.5106383 213.617021 26.8085106 198.297872"]},{"m":"right-soleus","p":["69.787234 195.744681 71.9148936 195.744681 73.6170213 198.297872 71.9148936 213.191489 70.212766 219.574468 67.2340426 202.12766"]}]};
+  var SPORT_BODY_SLUG_TO_GROUP = {
+    chest: "pectoraux",
+    "upper-back": "dos",
+    trapezius: "trapèzes",
+    "lower-back": "lombaires",
+    "front-deltoids": "épaules",
+    "back-deltoids": "épaules",
+    biceps: "biceps",
+    triceps: "triceps",
+    forearm: "avant-bras",
+    abs: "abdos",
+    obliques: "abdos",
+    quadriceps: "quadriceps",
+    hamstring: "ischios",
+    gluteal: "fessiers",
+    abductor: "ischios",
+    abductors: "fessiers",
+    calves: "mollets",
+    "left-soleus": "mollets",
+    "right-soleus": "mollets"
+  };
+  function sportBodyMuscleFill(intensity) {
+    intensity = Math.max(0, Math.min(1, intensity || 0));
+    if (intensity <= 0) return "var(--bar-track)";
+    var pct = Math.round(intensity * 100);
+    return "color-mix(in srgb, var(--bar-track) " + (100 - pct) + "%, var(--progress) " + pct + "%)";
+  }
+
+  function sportBodyGroupForSlug(slug) {
+    return SPORT_BODY_SLUG_TO_GROUP[slug] || null;
+  }
+
+  function buildSportBodyViewHtml(sideKey, label, mode, opts) {
+    opts = opts || {};
+    var items = SPORT_BODY_SVG_DATA[sideKey] || [];
+    var polys = items
+      .map(function (item) {
+        var group = sportBodyGroupForSlug(item.m);
+        var selectedMuscles = opts.selectedMuscles || (opts.selectedMuscle ? [opts.selectedMuscle] : []);
+        var selected = mode === "nav" && group && selectedMuscles.indexOf(group) >= 0;
+        var intensity = group && opts.intensityMap ? opts.intensityMap[group] || 0 : 0;
+        var fill = mode === "coverage" && group ? sportBodyMuscleFill(intensity) : "";
+        var gcls =
+          "sport-body-muscle-group" +
+          (group ? "" : " sport-body-muscle-group--decorative") +
+          (selected ? " is-selected" : "");
+        var navAttrs =
+          group && mode === "nav" ?
+            ' role="button" tabindex="0" data-muscle="' + escapeAttr(group) + '"' :
+            ' aria-hidden="true"';
+        return item.p
+          .map(function (pts) {
+            return (
+              '<g class="' +
+              gcls +
+              '" data-slug="' +
+              escapeAttr(item.m) +
+              '"' +
+              navAttrs +
+              '><polygon class="sport-body-muscle" points="' +
+              escapeAttr(pts) +
+              '"' +
+              (fill ? ' style="fill:' + fill + '"' : "") +
+              "/></g>"
+            );
+          })
+          .join("");
+      })
+      .join("");
+    return (
+      '<div class="sport-body-map__view"><p class="sport-body-map__view-label">' +
+      escapeHtml(label) +
+      '</p><svg class="sport-body-map__svg" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      polys +
+      "</svg></div>"
+    );
+  }
+
+  function buildSportBodySvgHtml(opts) {
+    opts = opts || {};
+    var mode = opts.mode === "coverage" ? "coverage" : "nav";
+    return (
+      '<div class="sport-body-map sport-body-map--' +
+      mode +
+      '" role="img" aria-label="' +
+      (mode === "coverage" ? "Couverture musculaire 7 jours" : "Sélection par muscle") +
+      '">' +
+      buildSportBodyViewHtml("a", "Face", mode, opts) +
+      buildSportBodyViewHtml("b", "Dos", mode, opts) +
+      "</div>"
+    );
+  }
+
+  function computeWeeklyMuscleVolume() {
+    var weekStart = addDays(todayIso, -6);
+    var volumes = {};
+    SPORT_MUSCLE_GROUPS.forEach(function (g) {
+      volumes[g] = 0;
+    });
+    var data = getSportPlanningData();
+    var lib = data.exerciseLibrary;
+    data.loggedSessions.forEach(function (session) {
+      if (session.type !== "muscu" || session.date < weekStart || session.date > todayIso) return;
+      (session.exercises || []).forEach(function (ex) {
+        var libEx = lib.find(function (e) {
+          return (
+            (ex.exerciseId && e.id === ex.exerciseId) ||
+            e.name.toLowerCase() === String(ex.name || "").toLowerCase()
+          );
+        });
+        var groups =
+          libEx && libEx.muscleGroups && libEx.muscleGroups.length ?
+            libEx.muscleGroups :
+            [];
+        var tonnage = 0;
+        (ex.sets || []).forEach(function (set) {
+          tonnage += (parseFloat(set.weightKg) || 0) * (parseInt(set.reps, 10) || 0);
+        });
+        if (!groups.length || tonnage <= 0) return;
+        var share = tonnage / groups.length;
+        groups.forEach(function (g) {
+          if (volumes[g] !== undefined) volumes[g] += share;
+        });
+      });
+    });
+    var max = 0;
+    SPORT_MUSCLE_GROUPS.forEach(function (g) {
+      if (volumes[g] > max) max = volumes[g];
+    });
+    var intensity = {};
+    SPORT_MUSCLE_GROUPS.forEach(function (g) {
+      intensity[g] = max > 0 ? volumes[g] / max : 0;
+    });
+    return { volumes: volumes, intensity: intensity, max: max };
+  }
+
+  function resolveProgramExercise(name, exerciseId) {
+    var trimmed = String(name || "").trim();
+    if (!trimmed) return null;
+    var data = getSportPlanningData();
+    if (exerciseId) {
+      var byId = data.exerciseLibrary.find(function (ex) {
+        return ex.id === exerciseId;
+      });
+      if (byId) return byId;
+    }
+    var found = data.exerciseLibrary.find(function (ex) {
+      return ex.name.toLowerCase() === trimmed.toLowerCase();
+    });
+    if (found) return found;
+    var seed = DEFAULT_SPORT_EXERCISE_SEED.find(function (ex) {
+      return ex.name.toLowerCase() === trimmed.toLowerCase();
+    });
+    var bf = BASIC_FIT_SAINT_LEON_EXERCISES.find(function (ex) {
+      return ex.name.toLowerCase() === trimmed.toLowerCase();
+    });
+    var src = seed || bf;
+    var neu = {
+      id: sportUuid(),
+      name: trimmed,
+      muscleGroups: src && src.muscleGroups ? src.muscleGroups.slice() : [],
+      tags: src && src.tags ? src.tags.slice() : undefined
+    };
+    data.exerciseLibrary.push(neu);
+    saveSportPlanningData(data);
+    return neu;
+  }
+
+  function normalizeExerciseNameKey(name) {
+    return String(name || "")
+      .toLowerCase()
+      .trim()
+      .replace(/[àâä]/g, "a")
+      .replace(/[éèêë]/g, "e")
+      .replace(/[îï]/g, "i")
+      .replace(/[ôö]/g, "o")
+      .replace(/[ùûü]/g, "u")
+      .replace(/ç/g, "c")
+      .replace(/[^a-z0-9 ]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getSportExerciseImageUrl(name) {
+    var trimmed = String(name || "").trim();
+    if (!trimmed) return null;
+    var data = getSportPlanningData();
+    var key = normalizeExerciseNameKey(trimmed);
+    if (data.exerciseImageCache && data.exerciseImageCache[key]) {
+      return data.exerciseImageCache[key];
+    }
+    if (SPORT_EXERCISE_IMAGE_MAP[trimmed]) return SPORT_EXERCISE_IMAGE_MAP[trimmed];
+    var nk;
+    for (nk in SPORT_EXERCISE_IMAGE_MAP) {
+      if (normalizeExerciseNameKey(nk) === key) return SPORT_EXERCISE_IMAGE_MAP[nk];
+    }
+    var best = null;
+    var bestLen = 0;
+    for (nk in SPORT_EXERCISE_IMAGE_MAP) {
+      var nn = normalizeExerciseNameKey(nk);
+      if (!nn || nn.length < 4) continue;
+      if (key.indexOf(nn) >= 0 || nn.indexOf(key) >= 0) {
+        if (nn.length > bestLen) {
+          best = SPORT_EXERCISE_IMAGE_MAP[nk];
+          bestLen = nn.length;
+        }
+      }
+    }
+    return best;
+  }
+
+  function cacheSportExerciseImageUrl(name, url) {
+    if (!name || !url) return;
+    var data = getSportPlanningData();
+    if (!data.exerciseImageCache) data.exerciseImageCache = {};
+    data.exerciseImageCache[normalizeExerciseNameKey(name)] = url;
+    saveSportPlanningData(data);
+  }
+
+  function formatExerciseSetsScheme(ex) {
+    var sets = ex.sets || [];
+    if (!sets.length) return "—";
+    var sameReps = sets.every(function (s) {
+      return parseInt(s.reps, 10) === parseInt(sets[0].reps, 10);
+    });
+    if (sameReps) return sets.length + " × " + (parseInt(sets[0].reps, 10) || 0) + " reps";
+    return sets
+      .map(function (s, i) {
+        return "S" + (i + 1) + ": " + (parseInt(s.reps, 10) || 0);
+      })
+      .join(" · ");
+  }
+
+  function getExerciseMuscleLabel(name) {
+    var lib = findExerciseInLibrary(name);
+    if (lib && lib.muscleGroups && lib.muscleGroups.length) {
+      return lib.muscleGroups.slice(0, 3).join(", ");
+    }
+    var seed = DEFAULT_SPORT_EXERCISE_SEED.find(function (ex) {
+      return ex.name.toLowerCase() === String(name || "").toLowerCase();
+    });
+    if (seed && seed.muscleGroups && seed.muscleGroups.length) {
+      return seed.muscleGroups.slice(0, 3).join(", ");
+    }
+    return "";
+  }
+
+  function buildSportExerciseThumbHtml(name, opts) {
+    opts = opts || {};
+    var url = getSportExerciseImageUrl(name);
+    var label = escapeAttr(name || "Exercice");
+    if (url) {
+      return (
+        '<button type="button" class="sport-ex-thumb" data-sport-ex-thumb="' +
+        label +
+        '" data-sport-ex-img="' +
+        escapeAttr(url) +
+        '" aria-label="Voir le mouvement : ' +
+        label +
+        '"><img src="' +
+        escapeAttr(url) +
+        '" alt="" loading="lazy" decoding="async" /></button>'
+      );
+    }
+    return (
+      '<button type="button" class="sport-ex-thumb" data-sport-ex-thumb="' +
+      label +
+      '" aria-label="Illustration indisponible : ' +
+      label +
+      '"><span class="sport-ex-thumb__ph">?</span></button>'
+    );
+  }
+
+  function renderSportProgramExerciseDetailHtml(ex) {
+    var muscles = getExerciseMuscleLabel(ex.name);
+    return (
+      '<div class="sport-prog-ex-item">' +
+      buildSportExerciseThumbHtml(ex.name) +
+      '<div class="sport-prog-ex-item__body"><div class="sport-prog-ex-item__name">' +
+      escapeHtml(ex.name) +
+      '</div><div class="sport-prog-ex-item__scheme">' +
+      escapeHtml(formatExerciseSetsScheme(ex)) +
+      "</div>" +
+      (muscles ? '<div class="sport-prog-ex-item__muscles">' + escapeHtml(muscles) + "</div>" : "") +
+      "</div></div>"
+    );
+  }
+
+  function openSportExerciseLightbox(name, imageUrl) {
+    var box = document.getElementById("sport-ex-lightbox");
+    var title = document.getElementById("sport-ex-lightbox-title");
+    var imgWrap = document.getElementById("sport-ex-lightbox-img-wrap");
+    var meta = document.getElementById("sport-ex-lightbox-meta");
+    if (!box || !title || !imgWrap) return;
+    title.textContent = name || "Exercice";
+    if (imageUrl) {
+      imgWrap.innerHTML =
+        '<img src="' +
+        escapeAttr(imageUrl) +
+        '" alt="' +
+        escapeAttr(name || "") +
+        '" decoding="async" />';
+      if (meta) {
+        meta.innerHTML =
+          'Illustration du mouvement — source <a href="https://wger.de" target="_blank" rel="noopener noreferrer">wger.de</a> (CC-BY-SA). Vérifie la technique avec un coach si besoin.';
+      }
+    } else {
+      imgWrap.innerHTML = '<p class="hint" style="padding:1rem 0">Aucune illustration disponible pour cet exercice.</p>';
+      if (meta) meta.textContent = "";
+    }
+    box.removeAttribute("hidden");
+  }
+
+  function closeSportExerciseLightbox() {
+    var box = document.getElementById("sport-ex-lightbox");
+    if (box) box.setAttribute("hidden", "");
+  }
+
+  function hydrateSportExerciseImages(root) {
+    if (!root) return;
+    root.querySelectorAll(".sport-ex-thumb[data-sport-ex-thumb]").forEach(function (btn) {
+      if (btn.dataset.hydrated === "1") return;
+      var name = btn.getAttribute("data-sport-ex-thumb");
+      var url = btn.getAttribute("data-sport-ex-img") || getSportExerciseImageUrl(name);
+      if (url && !btn.getAttribute("data-sport-ex-img")) {
+        btn.setAttribute("data-sport-ex-img", url);
+        btn.innerHTML =
+          '<img src="' +
+          escapeAttr(url) +
+          '" alt="" loading="lazy" decoding="async" />';
+        cacheSportExerciseImageUrl(name, url);
+      }
+      btn.dataset.hydrated = "1";
+    });
+  }
+
+  function getSportProgramSessionStats(session) {
+    var exCount = (session.exercises || []).length;
+    var setCount = 0;
+    (session.exercises || []).forEach(function (ex) {
+      setCount += (ex.sets || []).length;
+    });
+    return { exCount: exCount, setCount: setCount };
+  }
+
+  function getSportProgramRefKey(ref) {
+    if (!ref) return "";
+    return ref.builtinId ? "b:" + ref.builtinId : "c:" + ref.id;
+  }
+
+  function findSportProgramByKey(key) {
+    if (!key) return null;
+    if (key.indexOf("b:") === 0) {
+      var bid = key.slice(2);
+      return SPORT_BUILTIN_PROGRAMS.find(function (p) {
+        return p.builtinId === bid;
+      }) || null;
+    }
+    if (key.indexOf("c:") === 0) {
+      var cid = key.slice(2);
+      return getSportPlanningData().workoutPrograms.find(function (p) {
+        return p.id === cid;
+      }) || null;
+    }
+    return null;
+  }
+
+  function buildProgramSessionLogExercises(session) {
+    return (session.exercises || [])
+      .map(function (exT) {
+        var libEx = resolveProgramExercise(exT.name, exT.exerciseId);
+        if (!libEx) return null;
+        var sets = (exT.sets || []).map(function (set) {
+          var last = getLastExerciseSetFromLogs(libEx.id, libEx.name);
+          return {
+            weightKg: last ? last.weightKg : (parseFloat(set.weightKg) || 0),
+            reps: parseInt(set.reps, 10) || 0
+          };
+        });
+        if (!sets.length) sets.push({ weightKg: 0, reps: 0 });
+        return {
+          id: sportUuid(),
+          exerciseId: libEx.id,
+          name: libEx.name,
+          sets: sets
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function startSportProgramSession(program, session) {
+    if (!program || !session) return;
+    var exercises = buildProgramSessionLogExercises(session);
+    if (!exercises.length) return;
+    var title = session.title || program.name + " · " + session.name;
+    var noteParts = [];
+    if (program.coach) noteParts.push("Coach / source : " + program.coach);
+    if (program.description) noteParts.push(program.description);
+    openSportLogForm({
+      type: "muscu",
+      date: todayIso,
+      title: title,
+      note: noteParts.join("\n"),
+      exercises: exercises
+    });
+    mergeDraftWorkedMuscles();
+    if (__sportLogFormId) refreshSportLogMuscuUI(__sportLogFormId);
+    var mount = document.getElementById("sport-log-form-mount");
+    if (mount) mount.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function newSportProgramEditorDraft(preset) {
+    preset = preset || {};
+    return {
+      id: preset.id || null,
+      name: preset.name || "",
+      description: preset.description || "",
+      sessions: (preset.sessions || []).map(function (sess) {
+        return {
+          id: sess.id || sportUuid(),
+          name: sess.name || "",
+          exercises: (sess.exercises || []).map(function (ex) {
+            var setCount = (ex.sets || []).length || 3;
+            var targetReps = ex.sets && ex.sets[0] ? ex.sets[0].reps : 10;
+            return {
+              name: ex.name || "",
+              setCount: setCount,
+              targetReps: targetReps
+            };
+          })
+        };
+      })
+    };
+  }
+
+  function renderSportProgramEditor() {
+    var mount = document.getElementById("sport-prog-editor-mount");
+    if (!mount) return;
+    if (!__sportProgEditor) {
+      mount.innerHTML = "";
+      return;
+    }
+    var ed = __sportProgEditor;
+    var sessionsHtml = (ed.sessions || [])
+      .map(function (sess, si) {
+        var exHtml = (sess.exercises || [])
+          .map(function (ex, ei) {
+            return (
+              '<div class="sport-prog-editor-ex" data-sess-idx="' +
+              si +
+              '" data-ex-idx="' +
+              ei +
+              '"><div><label>Nom</label><input type="text" data-prog-ex-name value="' +
+              escapeAttr(ex.name || "") +
+              '" placeholder="Exercice" /></div><div><label>Sér.</label><input type="number" inputmode="numeric" min="1" max="20" data-prog-ex-sets value="' +
+              escapeAttr(String(ex.setCount || 3)) +
+              '" /></div><div><label>Reps</label><input type="number" inputmode="numeric" min="1" max="100" data-prog-ex-reps value="' +
+              escapeAttr(String(ex.targetReps || 10)) +
+              '" /></div><button type="button" class="btn secondary sport-prog-editor-ex-del" data-prog-ex-del aria-label="Supprimer exercice">×</button></div>'
+            );
+          })
+          .join("");
+        return (
+          '<div class="sport-prog-editor-session" data-sess-idx="' +
+          si +
+          '"><div class="sport-prog-editor-session__head"><div class="sport-log-field" style="flex:1"><label>Séance</label><input type="text" data-prog-sess-name value="' +
+          escapeAttr(sess.name || "") +
+          '" placeholder="Push, Jour A…" /></div><button type="button" class="btn secondary" data-prog-sess-del>Suppr. séance</button></div>' +
+          exHtml +
+          '<button type="button" class="btn secondary" data-prog-ex-add data-sess-idx="' +
+          si +
+          '">+ Exercice</button></div>'
+        );
+      })
+      .join("");
+    mount.innerHTML =
+      '<div class="sport-prog-editor"><div class="sport-prog-editor__head"><h3>' +
+      (ed.id ? "Modifier le programme" : "Nouveau programme") +
+      '</h3><button type="button" class="icon-btn" id="sport-prog-editor-close" aria-label="Fermer">×</button></div><div class="sport-log-field"><label for="sport-prog-ed-name">Nom du programme</label><input type="text" id="sport-prog-ed-name" value="' +
+      escapeAttr(ed.name || "") +
+      '" maxlength="80" placeholder="Mon PPL perso" /></div><div class="sport-log-field"><label for="sport-prog-ed-desc">Description (optionnel)</label><textarea id="sport-prog-ed-desc" rows="2" maxlength="300" placeholder="Objectif, fréquence…">' +
+      escapeHtml(ed.description || "") +
+      '</textarea></div><div id="sport-prog-ed-sessions">' +
+      sessionsHtml +
+      '</div><div class="sport-prog-editor-toolbar"><button type="button" class="btn secondary" id="sport-prog-ed-add-session">+ Séance</button><button type="button" class="btn btn-add-unified" id="sport-prog-ed-save">Enregistrer</button></div></div>';
+  }
+
+  function collectSportProgramEditorFromDom() {
+    if (!__sportProgEditor) return null;
+    var nameIn = document.getElementById("sport-prog-ed-name");
+    var descIn = document.getElementById("sport-prog-ed-desc");
+    var name = nameIn ? String(nameIn.value || "").trim() : __sportProgEditor.name;
+    if (!name) return null;
+    var sessions = [];
+    document.querySelectorAll("#sport-prog-ed-sessions .sport-prog-editor-session").forEach(function (sessEl, si) {
+      var nameEl = sessEl.querySelector("[data-prog-sess-name]");
+      var sessName = nameEl ? String(nameEl.value || "").trim() : "";
+      if (!sessName) return;
+      var exercises = [];
+      sessEl.querySelectorAll(".sport-prog-editor-ex").forEach(function (exEl) {
+        var exNameEl = exEl.querySelector("[data-prog-ex-name]");
+        var setsEl = exEl.querySelector("[data-prog-ex-sets]");
+        var repsEl = exEl.querySelector("[data-prog-ex-reps]");
+        var exName = exNameEl ? String(exNameEl.value || "").trim() : "";
+        if (!exName) return;
+        var setCount = Math.max(1, parseInt(setsEl && setsEl.value, 10) || 3);
+        var targetReps = Math.max(1, parseInt(repsEl && repsEl.value, 10) || 10);
+        exercises.push({
+          name: exName,
+          sets: programSets(setCount, targetReps)
+        });
+      });
+      if (exercises.length) {
+        sessions.push({
+          id: (__sportProgEditor.sessions[si] && __sportProgEditor.sessions[si].id) || sportUuid(),
+          name: sessName,
+          exercises: exercises
+        });
+      }
+    });
+    if (!sessions.length) return null;
+    return normalizeWorkoutProgram({
+      id: __sportProgEditor.id || sportUuid(),
+      name: name,
+      description: descIn ? descIn.value : __sportProgEditor.description,
+      sessions: sessions
+    });
+  }
+
+  function syncSportProgramEditorDraftFromDom() {
+    if (!__sportProgEditor) return;
+    var nameIn = document.getElementById("sport-prog-ed-name");
+    var descIn = document.getElementById("sport-prog-ed-desc");
+    if (nameIn) __sportProgEditor.name = nameIn.value;
+    if (descIn) __sportProgEditor.description = descIn.value;
+    var sessions = [];
+    document.querySelectorAll("#sport-prog-ed-sessions .sport-prog-editor-session").forEach(function (sessEl, si) {
+      var prev = __sportProgEditor.sessions[si] || { id: sportUuid(), name: "", exercises: [] };
+      var nameEl = sessEl.querySelector("[data-prog-sess-name]");
+      var sessName = nameEl ? nameEl.value : prev.name;
+      var exercises = [];
+      sessEl.querySelectorAll(".sport-prog-editor-ex").forEach(function (exEl, ei) {
+        var prevEx = (prev.exercises || [])[ei] || { name: "", setCount: 3, targetReps: 10 };
+        var exNameEl = exEl.querySelector("[data-prog-ex-name]");
+        var setsEl = exEl.querySelector("[data-prog-ex-sets]");
+        var repsEl = exEl.querySelector("[data-prog-ex-reps]");
+        exercises.push({
+          name: exNameEl ? exNameEl.value : prevEx.name,
+          setCount: Math.max(1, parseInt(setsEl && setsEl.value, 10) || prevEx.setCount || 3),
+          targetReps: Math.max(1, parseInt(repsEl && repsEl.value, 10) || prevEx.targetReps || 10)
+        });
+      });
+      sessions.push({ id: prev.id || sportUuid(), name: sessName, exercises: exercises });
+    });
+    __sportProgEditor.sessions = sessions;
+  }
+
+  function saveSportProgramEditor() {
+    var prog = collectSportProgramEditorFromDom();
+    if (!prog) {
+      window.alert("Nom, au moins une séance et un exercice requis.");
+      return;
+    }
+    var data = getSportPlanningData();
+    var idx = data.workoutPrograms.findIndex(function (p) {
+      return p.id === prog.id;
+    });
+    if (idx >= 0) data.workoutPrograms[idx] = prog;
+    else data.workoutPrograms.push(prog);
+    saveSportPlanningData(data);
+    __sportProgEditor = null;
+    __sportProgTab = "mine";
+    __sportProgExpandedId = "c:" + prog.id;
+    renderSportProgramEditor();
+    renderSportPrograms();
+    setSportLogStatus("Programme enregistré.", false);
+  }
+
+  function openSportProgramEditor(program) {
+    if (program) {
+      __sportProgEditor = newSportProgramEditorDraft({
+        id: program.id,
+        name: program.name,
+        description: program.description,
+        sessions: program.sessions
+      });
+    } else {
+      __sportProgEditor = newSportProgramEditorDraft({
+        sessions: [
+          {
+            id: sportUuid(),
+            name: "Séance A",
+            exercises: [{ name: "", setCount: 3, targetReps: 10 }]
+          }
+        ]
+      });
+    }
+    renderSportProgramEditor();
+    var mount = document.getElementById("sport-prog-editor-mount");
+    if (mount) mount.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function deleteSportProgram(programId) {
+    if (!programId || !window.confirm("Supprimer ce programme ?")) return;
+    var data = getSportPlanningData();
+    data.workoutPrograms = data.workoutPrograms.filter(function (p) {
+      return p.id !== programId;
+    });
+    saveSportPlanningData(data);
+    if (__sportProgExpandedId === "c:" + programId) __sportProgExpandedId = null;
+    renderSportPrograms();
+  }
+
+  function duplicateBuiltinToCustomProgram(builtinId) {
+    var src = SPORT_BUILTIN_PROGRAMS.find(function (p) {
+      return p.builtinId === builtinId;
+    });
+    if (!src) return;
+    var copy = normalizeWorkoutProgram({
+      id: sportUuid(),
+      name: src.name + " (copie)",
+      description: src.description,
+      coach: src.coach,
+      frequency: src.frequency,
+      level: src.level,
+      sessions: src.sessions.map(function (sess) {
+        return {
+          id: sportUuid(),
+          name: sess.name,
+          exercises: (sess.exercises || []).map(function (ex) {
+            return { name: ex.name, sets: (ex.sets || []).map(function (s) {
+              return { weightKg: s.weightKg, reps: s.reps };
+            }) };
+          })
+        };
+      })
+    });
+    if (!copy) return;
+    var data = getSportPlanningData();
+    data.workoutPrograms.push(copy);
+    saveSportPlanningData(data);
+    __sportProgTab = "mine";
+    __sportProgExpandedId = "c:" + copy.id;
+    renderSportPrograms();
+    setSportLogStatus("Programme copié dans « Mes programmes ».", false);
+  }
+
+  function renderSportProgramCard(program, isBuiltin) {
+    var key = isBuiltin ? "b:" + program.builtinId : "c:" + program.id;
+    var open = __sportProgExpandedId === key;
+    var meta = [];
+    if (program.coach) meta.push(program.coach);
+    if (program.frequency) meta.push(program.frequency);
+    if (program.level) meta.push(program.level);
+    meta.push((program.sessions || []).length + " séance" + ((program.sessions || []).length > 1 ? "s" : ""));
+    var sessionsHtml = (program.sessions || [])
+      .map(function (sess) {
+        var stats = getSportProgramSessionStats(sess);
+        var sessKey = key + ":" + sess.id;
+        var sessOpen = __sportProgSessionExpanded === sessKey;
+        var exPreview = (sess.exercises || [])
+          .slice(0, 3)
+          .map(function (ex) {
+            return ex.name;
+          })
+          .join(", ");
+        if ((sess.exercises || []).length > 3) exPreview += "…";
+        var detailHtml = sessOpen ?
+          '<div class="sport-prog-session__detail"><div class="sport-prog-ex-list">' +
+          (sess.exercises || [])
+            .map(function (ex) {
+              return renderSportProgramExerciseDetailHtml(ex);
+            })
+            .join("") +
+          "</div></div>" :
+          "";
+        return (
+          '<div class="sport-prog-session' +
+          (sessOpen ? " is-open" : "") +
+          '"><div class="sport-prog-session__row"><button type="button" class="sport-prog-session__toggle" data-sport-prog-sess-toggle="' +
+          escapeAttr(sessKey) +
+          '" aria-expanded="' +
+          (sessOpen ? "true" : "false") +
+          '"><span class="sport-prog-session__chev" aria-hidden="true">›</span><span class="sport-prog-session__info"><span class="sport-prog-session__name">' +
+          escapeHtml(sess.name) +
+          '</span><span class="sport-prog-session__sub">' +
+          escapeHtml(stats.exCount + " ex. · " + stats.setCount + " séries" + (exPreview ? " · " + exPreview : "")) +
+          '</span></span></button><button type="button" class="btn btn-add-unified" data-sport-prog-start="' +
+          escapeAttr(key) +
+          '" data-sport-prog-session="' +
+          escapeAttr(sess.id) +
+          '">Démarrer</button></div>' +
+          detailHtml +
+          "</div>"
+        );
+      })
+      .join("");
+    var actions = "";
+    if (isBuiltin) {
+      actions =
+        '<div class="sport-prog-card__actions"><button type="button" class="btn secondary" data-sport-prog-duplicate="' +
+        escapeAttr(program.builtinId) +
+        '">Copier pour personnaliser</button></div>';
+    } else {
+      actions =
+        '<div class="sport-prog-card__actions"><button type="button" class="btn secondary" data-sport-prog-edit="' +
+        escapeAttr(program.id) +
+        '">Modifier</button><button type="button" class="btn secondary" data-sport-prog-delete="' +
+        escapeAttr(program.id) +
+        '">Supprimer</button></div>';
+    }
+    return (
+      '<div class="sport-prog-card' +
+      (open ? " is-open" : "") +
+      '" data-sport-prog-key="' +
+      escapeAttr(key) +
+      '"><button type="button" class="sport-prog-card__head" data-sport-prog-toggle="' +
+      escapeAttr(key) +
+      '"><span class="sport-prog-card__chev" aria-hidden="true">›</span><span class="sport-prog-card__main"><span class="sport-prog-card__title">' +
+      escapeHtml(program.name) +
+      '</span><span class="sport-prog-card__meta">' +
+      escapeHtml(meta.join(" · ")) +
+      '</span></span></button>' +
+      (open ?
+        '<div class="sport-prog-card__body">' +
+        (program.description ? '<p class="sport-prog-card__desc">' + escapeHtml(program.description) + "</p>" : "") +
+        sessionsHtml +
+        actions +
+        "</div>" :
+        "") +
+      "</div>"
+    );
+  }
+
+  function renderSportPrograms() {
+    var mount = document.getElementById("sport-prog-mount");
+    if (!mount) return;
+    document.querySelectorAll("[data-sport-prog-tab]").forEach(function (btn) {
+      var on = btn.getAttribute("data-sport-prog-tab") === __sportProgTab;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    var createBtn = document.getElementById("btn-sport-prog-create");
+    if (createBtn) createBtn.hidden = __sportProgTab !== "mine";
+    if (__sportProgTab === "library") {
+      mount.innerHTML =
+        '<div class="sport-prog-list">' +
+        SPORT_BUILTIN_PROGRAMS.map(function (p) {
+          return renderSportProgramCard(p, true);
+        }).join("") +
+        "</div>";
+      hydrateSportExerciseImages(mount);
+      return;
+    }
+    var custom = getSportPlanningData().workoutPrograms;
+    if (!custom.length) {
+      mount.innerHTML =
+        '<p class="hint">Aucun programme perso. Crée le tien ou copie un programme de la bibliothèque pour l’adapter.</p>';
+      return;
+    }
+    mount.innerHTML =
+      '<div class="sport-prog-list">' +
+      custom
+        .map(function (p) {
+          return renderSportProgramCard(p, false);
+        })
+        .join("") +
+      "</div>";
+    hydrateSportExerciseImages(mount);
+  }
+
+  function renderSportBodyCoverage() {
+    var mount = document.getElementById("sport-body-coverage-mount");
+    if (!mount) return;
+    var vol = computeWeeklyMuscleVolume();
+    mount.innerHTML =
+      '<p class="sport-body-coverage__title">Couverture musculaire (7 derniers jours)</p>' +
+      buildSportBodySvgHtml({ mode: "coverage", intensityMap: vol.intensity }) +
+      '<p class="sport-body-coverage__legend hint">Gris = non travaillé · Vert = volume croissant</p>';
+  }
+
+  function buildSportMuscleChipsHtml(selectedMuscles) {
+    selectedMuscles = selectedMuscles || [];
+    return SPORT_MUSCLE_GROUPS.map(function (g) {
+      return (
+        '<button type="button" class="sport-muscle-chip' +
+        (selectedMuscles.indexOf(g) >= 0 ? " is-active" : "") +
+        '" data-muscle="' +
+        escapeAttr(g) +
+        '">' +
+        escapeHtml(g) +
+        "</button>"
+      );
+    }).join("");
+  }
+
+  function toggleSportWorkedMuscle(muscle) {
+    if (!__sportLogDraft || !muscle) return;
+    var arr = __sportLogDraft.workedMuscles ? __sportLogDraft.workedMuscles.slice() : [];
+    var idx = arr.indexOf(muscle);
+    if (idx >= 0) {
+      arr.splice(idx, 1);
+      if (__sportLogDraft.muscleBrowse === muscle) {
+        __sportLogDraft.muscleBrowse = arr.length ? arr[arr.length - 1] : "";
+      }
+    } else {
+      arr.push(muscle);
+      __sportLogDraft.muscleBrowse = muscle;
+    }
+    __sportLogDraft.workedMuscles = arr;
+  }
+
+  function syncSportBodyMapSelection(formId) {
+    var wrap = document.getElementById("sport-log-body-map-" + formId);
+    var chips = document.getElementById("sport-log-muscles-" + formId);
+    if (!__sportLogDraft) return;
+    var sel = __sportLogDraft.workedMuscles || [];
+    if (wrap) {
+      wrap.querySelectorAll(".sport-body-muscle-group[data-muscle]").forEach(function (g) {
+        g.classList.toggle("is-selected", sel.indexOf(g.getAttribute("data-muscle")) >= 0);
+      });
+    }
+    if (chips) {
+      chips.querySelectorAll(".sport-muscle-chip").forEach(function (btn) {
+        btn.classList.toggle("is-active", sel.indexOf(btn.getAttribute("data-muscle")) >= 0);
+      });
+    }
+  }
+
+  function renderSportBodyExerciseList(formId) {
+    var host = document.getElementById("sport-log-body-exercises-" + formId);
+    if (!host || !__sportLogDraft) return;
+    var muscle = __sportLogDraft.muscleBrowse || "";
+    var worked = __sportLogDraft.workedMuscles || [];
+    var basicFitOnly = !!__sportLogDraft.basicFitFilter;
+    var filterMuscles = muscle ? [muscle] : worked;
+    if (!filterMuscles.length && !basicFitOnly) {
+      host.innerHTML = '<p class="hint">Sélectionne un ou plusieurs muscles pour voir les exercices.</p>';
+      return;
+    }
+    var items = getSportPlanningData().exerciseLibrary.filter(function (ex) {
+      if (basicFitOnly && (!ex.tags || ex.tags.indexOf("basic-fit") < 0)) return false;
+      if (filterMuscles.length && !filterMuscles.some(function (m) { return ex.muscleGroups.indexOf(m) >= 0; })) return false;
+      return true;
+    });
+    items.sort(function (a, b) {
+      var aBf = a.tags && a.tags.indexOf("basic-fit") >= 0 ? 0 : 1;
+      var bBf = b.tags && b.tags.indexOf("basic-fit") >= 0 ? 0 : 1;
+      if (aBf !== bBf) return aBf - bBf;
+      return a.name.localeCompare(b.name, "fr");
+    });
+    var title = muscle ?
+      "Exercices · " + muscle :
+      worked.length ?
+        "Exercices · " + worked.join(", ") :
+        "Machines Basic Fit Saint-Léon";
+    host.innerHTML =
+      '<p class="sport-log-section__title">' +
+      escapeHtml(title) +
+      "</p>" +
+      (items.length ?
+        items
+          .map(function (ex) {
+            var bf = ex.tags && ex.tags.indexOf("basic-fit") >= 0;
+            return (
+              '<button type="button" class="sport-log-body-ex-btn' +
+              (bf ? " is-basic-fit" : "") +
+              '" data-ex-id="' +
+              escapeAttr(ex.id) +
+              '" data-ex-name="' +
+              escapeAttr(ex.name) +
+              '">' +
+              escapeHtml(ex.name) +
+              "</button>"
+            );
+          })
+          .join("") :
+        '<p class="hint">Aucun exercice — essaie un autre muscle ou la recherche.</p>');
+  }
+
+  function wireSportBodyMapNav(formId) {
+    var wrap = document.getElementById("sport-log-body-map-" + formId);
+    var chips = document.getElementById("sport-log-muscles-" + formId);
+    if (!wrap) return;
+    if (!wrap.dataset.sportBodyNavWired) {
+      wrap.dataset.sportBodyNavWired = "1";
+      var pressedGroup = null;
+      wrap.addEventListener("pointerdown", function (ev) {
+        var g = ev.target.closest(".sport-body-muscle-group[data-muscle]");
+        if (!g) return;
+        pressedGroup = g.getAttribute("data-muscle");
+        wrap.querySelectorAll('.sport-body-muscle-group[data-muscle="' + pressedGroup + '"]').forEach(function (el) {
+          el.classList.add("is-pressed");
+        });
+      });
+      function clearPress() {
+        if (!pressedGroup) return;
+        wrap.querySelectorAll('.sport-body-muscle-group[data-muscle="' + pressedGroup + '"]').forEach(function (el) {
+          el.classList.remove("is-pressed");
+        });
+        pressedGroup = null;
+      }
+      wrap.addEventListener("pointerup", clearPress);
+      wrap.addEventListener("pointerleave", clearPress);
+      wrap.addEventListener("pointercancel", clearPress);
+      wrap.addEventListener("click", function (ev) {
+        var group = ev.target.closest(".sport-body-muscle-group[data-muscle]");
+        if (!group || !__sportLogDraft) return;
+        toggleSportWorkedMuscle(group.getAttribute("data-muscle"));
+        syncSportBodyMapSelection(formId);
+        renderSportBodyExerciseList(formId);
+      });
+      wrap.addEventListener("keydown", function (ev) {
+        if (ev.key !== "Enter" && ev.key !== " ") return;
+        var group = ev.target.closest(".sport-body-muscle-group[data-muscle]");
+        if (!group) return;
+        ev.preventDefault();
+        group.click();
+      });
+    }
+    if (chips && !chips.dataset.sportMuscleChipsWired) {
+      chips.dataset.sportMuscleChipsWired = "1";
+      chips.addEventListener("click", function (ev) {
+        var btn = ev.target.closest(".sport-muscle-chip");
+        if (!btn || !__sportLogDraft) return;
+        toggleSportWorkedMuscle(btn.getAttribute("data-muscle"));
+        syncSportBodyMapSelection(formId);
+        renderSportBodyExerciseList(formId);
+      });
+    }
+    syncSportBodyMapSelection(formId);
+    renderSportBodyExerciseList(formId);
+  }
+
+  function computeMuscuTonnage(session) {
+    if (!session || !Array.isArray(session.exercises)) return 0;
+    var total = 0;
+    session.exercises.forEach(function (ex) {
+      (ex.sets || []).forEach(function (set) {
+        total += (parseFloat(set.weightKg) || 0) * (parseInt(set.reps, 10) || 0);
+      });
+    });
+    return Math.round(total);
+  }
+
+  function formatRunningPace(distanceKm, durationMin) {
+    if (!distanceKm || distanceKm <= 0 || !durationMin) return "—";
+    var paceMin = durationMin / distanceKm;
+    var mm = Math.floor(paceMin);
+    var ss = Math.round((paceMin - mm) * 60);
+    if (ss >= 60) {
+      mm += 1;
+      ss = 0;
+    }
+    return mm + ":" + String(ss).padStart(2, "0") + "/km";
+  }
+
+  function sportMetricDeltaFromLog(session, sign) {
+    sign = sign || 1;
+    if (!session || session.date !== todayIso || !isViewingToday()) return;
+    if (session.type === "muscu") {
+      state.sport.muscu = Math.max(0, (Number(state.sport.muscu) || 0) + sign);
+    } else if (session.type === "running") {
+      state.sport.running = Math.max(0, Math.round(((Number(state.sport.running) || 0) + sign * (parseFloat(session.distanceKm) || 0)) * 10) / 10);
+    } else if (session.type === "natation") {
+      var km = (parseInt(session.distanceM, 10) || 0) / 1000;
+      state.sport.natation = Math.max(0, Math.round(((Number(state.sport.natation) || 0) + sign * km) * 10) / 10);
+    }
+    saveState(state);
+  }
+
+  function getRecentMuscuLogs(limit) {
+    return getSportPlanningData().loggedSessions
+      .filter(function (s) {
+        return s.type === "muscu" && s.exercises && s.exercises.length;
+      })
+      .sort(function (a, b) {
+        return (b.loggedAt || 0) - (a.loggedAt || 0);
+      })
+      .slice(0, limit || 5);
+  }
+
+  function isExerciseFavorite(exId) {
+    return (getSportPlanningData().exerciseFavorites || []).indexOf(exId) >= 0;
+  }
+
+  function toggleSportExerciseFavorite(exId) {
+    if (!exId) return;
+    var data = getSportPlanningData();
+    if (!Array.isArray(data.exerciseFavorites)) data.exerciseFavorites = [];
+    var idx = data.exerciseFavorites.indexOf(exId);
+    if (idx >= 0) data.exerciseFavorites.splice(idx, 1);
+    else data.exerciseFavorites.push(exId);
+    saveSportPlanningData(data);
+  }
+
+  function countExerciseUsageFromLogs() {
+    var counts = {};
+    getSportPlanningData().loggedSessions.forEach(function (session) {
+      if (session.type !== "muscu") return;
+      (session.exercises || []).forEach(function (ex) {
+        var key = ex.exerciseId || String(ex.name || "").toLowerCase();
+        if (!key) return;
+        if (!counts[key]) {
+          counts[key] = {
+            count: 0,
+            lastUsed: 0,
+            exerciseId: ex.exerciseId || null,
+            name: ex.name
+          };
+        }
+        counts[key].count++;
+        counts[key].lastUsed = Math.max(counts[key].lastUsed, session.loggedAt || 0);
+      });
+    });
+    return counts;
+  }
+
+  function getSportExerciseQuickPicks(limit) {
+    limit = limit || 10;
+    var lib = getSportPlanningData().exerciseLibrary;
+    var favIds = getSportPlanningData().exerciseFavorites || [];
+    var usage = countExerciseUsageFromLogs();
+    var picks = [];
+    var seen = {};
+    favIds.forEach(function (id) {
+      var ex = lib.find(function (e) {
+        return e.id === id;
+      });
+      if (ex && !seen[ex.id]) {
+        picks.push(ex);
+        seen[ex.id] = true;
+      }
+    });
+    Object.keys(usage)
+      .map(function (k) {
+        return usage[k];
+      })
+      .sort(function (a, b) {
+        return b.count - a.count || b.lastUsed - a.lastUsed;
+      })
+      .forEach(function (u) {
+        if (picks.length >= limit) return;
+        var ex = u.exerciseId ?
+          lib.find(function (e) {
+            return e.id === u.exerciseId;
+          }) :
+          lib.find(function (e) {
+            return e.name.toLowerCase() === String(u.name || "").toLowerCase();
+          });
+        if (ex && !seen[ex.id]) {
+          picks.push(ex);
+          seen[ex.id] = true;
+        }
+      });
+    return picks.slice(0, limit);
+  }
+
+  function buildSportQuickExercisesHtml(formId) {
+    var picks = getSportExerciseQuickPicks(10);
+    if (!picks.length) {
+      return '<p class="hint">Tes exercices fréquents apparaîtront ici après quelques séances.</p>';
+    }
+    return (
+      '<div class="sport-log-quick-exercises" id="sport-log-quick-ex-' +
+      escapeAttr(formId) +
+      '">' +
+      picks
+        .map(function (ex) {
+          var fav = isExerciseFavorite(ex.id);
+          return (
+            '<span class="sport-log-quick-ex-wrap">' +
+            '<button type="button" class="sport-log-quick-ex-btn" data-ex-id="' +
+            escapeAttr(ex.id) +
+            '" data-ex-name="' +
+            escapeAttr(ex.name) +
+            '">' +
+            escapeHtml(ex.name) +
+            '</button><button type="button" class="sport-log-quick-ex-fav' +
+            (fav ? " is-active" : "") +
+            '" data-ex-fav-id="' +
+            escapeAttr(ex.id) +
+            '" aria-label="' +
+            (fav ? "Retirer des favoris" : "Ajouter aux favoris") +
+            '">★</button></span>'
+          );
+        })
+        .join("") +
+      "</div>"
+    );
+  }
+
+  function getMuscleGroupsForLoggedExercise(ex) {
+    var lib = getSportPlanningData().exerciseLibrary;
+    var libEx = null;
+    if (ex.exerciseId) {
+      libEx = lib.find(function (e) {
+        return e.id === ex.exerciseId;
+      });
+    }
+    if (!libEx && ex.name) {
+      libEx = lib.find(function (e) {
+        return e.name.toLowerCase() === String(ex.name).toLowerCase();
+      });
+    }
+    return libEx && libEx.muscleGroups ? libEx.muscleGroups.slice() : [];
+  }
+
+  function inferWorkedMusclesFromExercises(exercises) {
+    var map = {};
+    (exercises || []).forEach(function (ex) {
+      getMuscleGroupsForLoggedExercise(ex).forEach(function (g) {
+        map[g] = true;
+      });
+    });
+    return SPORT_MUSCLE_GROUPS.filter(function (g) {
+      return map[g];
+    });
+  }
+
+  function mergeDraftWorkedMuscles() {
+    if (!__sportLogDraft || __sportLogDraft.type !== "muscu") return;
+    var inferred = inferWorkedMusclesFromExercises(__sportLogDraft.exercises);
+    var merged = {};
+    (__sportLogDraft.workedMuscles || []).forEach(function (g) {
+      merged[g] = true;
+    });
+    inferred.forEach(function (g) {
+      merged[g] = true;
+    });
+    __sportLogDraft.workedMuscles = SPORT_MUSCLE_GROUPS.filter(function (g) {
+      return merged[g];
+    });
+  }
+
+  function getLastExerciseSetFromLogs(exerciseId, exerciseName) {
+    var sessions = getSportPlanningData().loggedSessions
+      .filter(function (s) {
+        return s.type === "muscu";
+      })
+      .sort(function (a, b) {
+        return (b.loggedAt || 0) - (a.loggedAt || 0);
+      });
+    var ni;
+    for (ni = 0; ni < sessions.length; ni++) {
+      var found = (sessions[ni].exercises || []).find(function (ex) {
+        return (
+          (exerciseId && ex.exerciseId === exerciseId) ||
+          String(ex.name || "").toLowerCase() === String(exerciseName || "").toLowerCase()
+        );
+      });
+      if (found && found.sets && found.sets.length) {
+        var last = found.sets[found.sets.length - 1];
+        return {
+          weightKg: parseFloat(last.weightKg) || 0,
+          reps: parseInt(last.reps, 10) || 0
+        };
+      }
+    }
+    return null;
+  }
+
+  function cloneMuscuExercisesFromSession(src) {
+    return (src.exercises || []).map(function (ex) {
+      return {
+        id: sportUuid(),
+        exerciseId: ex.exerciseId,
+        name: ex.name,
+        sets: (ex.sets || []).map(function (set) {
+          return { weightKg: set.weightKg, reps: set.reps };
+        })
+      };
+    });
+  }
+
+  function newSportLogDraft(preset) {
+    preset = preset || {};
+    var type = SPORT_LOG_TYPES.indexOf(preset.type) >= 0 ? preset.type : "muscu";
+    var draft = {
+      type: type,
+      date: preset.date || todayIso,
+      title: preset.title || "",
+      rpe: preset.rpe || 5,
+      note: preset.note || "",
+      plannedSessionId: preset.plannedSessionId || null,
+      exercises: [],
+      distanceKm: preset.distanceKm || "",
+      durationMin: preset.durationMin || "",
+      location: preset.location || "",
+      distanceM: preset.distanceM || "",
+      stroke: preset.stroke || "crawl",
+      muscleBrowse: "",
+      workedMuscles: Array.isArray(preset.workedMuscles) ? preset.workedMuscles.slice() : [],
+      basicFitFilter: !!preset.basicFitFilter
+    };
+    if (type === "muscu" && preset.exercises) {
+      draft.exercises = cloneMuscuExercisesFromSession({ exercises: preset.exercises });
+    }
+    return draft;
+  }
+
+  function sportLogSetRowHtml(exIdx, setIdx, set) {
+    return (
+      '<div class="sport-log-set-row" data-ex-idx="' +
+      exIdx +
+      '" data-set-idx="' +
+      setIdx +
+      '"><span class="sport-log-set-num">S' +
+      (setIdx + 1) +
+      '</span><label class="sport-log-set-field"><span class="sport-log-set-field__label">Poids (kg)</span><div class="sport-log-set-stepper"><button type="button" class="sport-log-set-step" data-step="weight" data-delta="-2.5" aria-label="Moins 2,5 kg">−</button><input type="number" inputmode="decimal" min="0" step="0.5" data-field="weight" value="' +
+      escapeAttr(String(set.weightKg)) +
+      '" aria-label="Poids en kilogrammes" placeholder="kg" /><button type="button" class="sport-log-set-step" data-step="weight" data-delta="2.5" aria-label="Plus 2,5 kg">+</button></div></label><label class="sport-log-set-field"><span class="sport-log-set-field__label">Reps</span><div class="sport-log-set-stepper"><button type="button" class="sport-log-set-step" data-step="reps" data-delta="-1" aria-label="Moins 1 rep">−</button><input type="number" inputmode="numeric" min="0" step="1" data-field="reps" value="' +
+      escapeAttr(String(set.reps)) +
+      '" aria-label="Répétitions" placeholder="reps" /><button type="button" class="sport-log-set-step" data-step="reps" data-delta="1" aria-label="Plus 1 rep">+</button></div></label><button type="button" class="btn secondary sport-log-set-del" data-sport-log-remove-set aria-label="Supprimer série">×</button></div>'
+    );
+  }
+
+  function focusSportLogSetField(formId, exIdx, setIdx, field) {
+    var inp = document.querySelector(
+      "#sport-log-exercises-" +
+        formId +
+        ' .sport-log-exercise-block[data-ex-idx="' +
+        exIdx +
+        '"] .sport-log-set-row[data-set-idx="' +
+        setIdx +
+        '"] [data-field="' +
+        field +
+        '"]'
+    );
+    if (inp) {
+      inp.focus();
+      if (inp.select) inp.select();
+    }
+  }
+
+  function updateSportLogStickyBar(formId) {
+    var sum = document.getElementById("sport-log-sticky-summary-" + formId);
+    if (!sum || !__sportLogDraft) return;
+    if (__sportLogDraft.type !== "muscu") {
+      sum.textContent = "";
+      return;
+    }
+    var exCount = (__sportLogDraft.exercises || []).length;
+    var setCount = 0;
+    var tonnage = 0;
+    var exHost = document.getElementById("sport-log-exercises-" + formId);
+    if (exHost) {
+      exHost.querySelectorAll(".sport-log-set-row").forEach(function (row) {
+        setCount++;
+        var w = row.querySelector('[data-field="weight"]');
+        var r = row.querySelector('[data-field="reps"]');
+        tonnage += (parseFloat(w && w.value) || 0) * (parseInt(r && r.value, 10) || 0);
+      });
+    }
+    var parts = [];
+    if (exCount) parts.push(exCount + (exCount > 1 ? " ex." : " ex."));
+    if (setCount) parts.push(setCount + (setCount > 1 ? " séries" : " série"));
+    if (tonnage > 0) parts.push(Math.round(tonnage).toLocaleString("fr-FR") + " kg·rep");
+    sum.textContent = parts.length ? parts.join(" · ") : "Ajoute un exercice";
+  }
+
+  function refreshSportLogMuscuUI(formId, focus) {
+    if (!__sportLogDraft || __sportLogDraft.type !== "muscu") return;
+    syncSportLogDraftFromDom(formId);
+    renderSportLogMuscuExercises(formId);
+    var chips = document.getElementById("sport-log-muscles-" + formId);
+    if (chips) chips.innerHTML = buildSportMuscleChipsHtml(__sportLogDraft.workedMuscles || []);
+    var map = document.getElementById("sport-log-body-map-" + formId);
+    if (map) {
+      map.innerHTML = buildSportBodySvgHtml({ mode: "nav", selectedMuscles: __sportLogDraft.workedMuscles || [] });
+      wireSportBodyMapNav(formId);
+    }
+    var quickHost = document.getElementById("sport-log-quick-host-" + formId);
+    if (quickHost) quickHost.innerHTML = buildSportQuickExercisesHtml(formId);
+    renderSportBodyExerciseList(formId);
+    updateSportLogStickyBar(formId);
+    if (focus) {
+      if (focus.scrollEx != null) {
+        var block = document.querySelector(
+          "#sport-log-exercises-" + formId + ' .sport-log-exercise-block[data-ex-idx="' + focus.scrollEx + '"]'
+        );
+        if (block) block.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+      if (focus.exIdx != null && focus.setIdx != null && focus.field) {
+        focusSportLogSetField(formId, focus.exIdx, focus.setIdx, focus.field);
+      }
+    }
+  }
+
+  function closeSportLogForm() {
+    var mount = document.getElementById("sport-log-form-mount");
+    if (!mount) return;
+    if (__sportLogFormDirty && __sportLogDraft) {
+      if (!window.confirm("Brouillon non enregistré. Fermer quand même ?")) return;
+    }
+    __sportLogDraft = null;
+    __sportLogEditingId = null;
+    __sportLogFormId = null;
+    __sportLogFormDirty = false;
+    __sportLogSubmitting = false;
+    mount.innerHTML = "";
+  }
+
+  function ensureSportLogFormDelegated(formId) {
+    var shell = document.getElementById("sport-log-shell-" + formId);
+    if (!shell || shell.dataset.sportLogDelegated === "1") return;
+    shell.dataset.sportLogDelegated = "1";
+
+    shell.addEventListener("input", function (ev) {
+      if (!__sportLogDraft) return;
+      __sportLogFormDirty = true;
+      updateSportLogStickyBar(formId);
+      if (__sportLogDraft.type === "running") {
+        var paceIn = document.getElementById("sport-log-pace-" + formId);
+        var distIn = document.getElementById("sport-log-dist-" + formId);
+        var durIn = document.getElementById("sport-log-dur-" + formId);
+        if (paceIn && (ev.target === distIn || ev.target === durIn)) {
+          paceIn.value = formatRunningPace(parseFloat(distIn && distIn.value), parseFloat(durIn && durIn.value));
+        }
+      }
+    });
+
+    shell.addEventListener("keydown", function (ev) {
+      if (ev.key !== "Enter" || ev.target.tagName === "TEXTAREA") return;
+      var inp = ev.target.closest('input[data-field="weight"], input[data-field="reps"]');
+      if (!inp || !__sportLogDraft) return;
+      ev.preventDefault();
+      var row = inp.closest(".sport-log-set-row");
+      var field = inp.getAttribute("data-field");
+      var exIdx = parseInt(row.getAttribute("data-ex-idx"), 10);
+      var setIdx = parseInt(row.getAttribute("data-set-idx"), 10);
+      if (field === "weight") {
+        focusSportLogSetField(formId, exIdx, setIdx, "reps");
+      } else if (field === "reps") {
+        syncSportLogDraftFromDom(formId);
+        var sets = __sportLogDraft.exercises[exIdx].sets;
+        var last = sets[setIdx];
+        sets.push({ weightKg: last.weightKg, reps: last.reps });
+        refreshSportLogMuscuUI(formId, { exIdx: exIdx, setIdx: setIdx + 1, field: "weight", scrollEx: exIdx });
+      }
+    });
+
+    shell.addEventListener("click", function (ev) {
+      if (!__sportLogDraft) return;
+      var closeBtn = ev.target.closest("#sport-log-close-" + formId);
+      if (closeBtn) {
+        closeSportLogForm();
+        return;
+      }
+      var sub = ev.target.closest("#sport-log-submit-" + formId);
+      if (sub) {
+        submitSportLogForm(formId);
+        return;
+      }
+      var typeBtn = ev.target.closest("[data-sport-log-type]");
+      if (typeBtn) {
+        __sportLogDraft.type = typeBtn.getAttribute("data-sport-log-type");
+        __sportLogFormId = null;
+        renderSportLogForm();
+        return;
+      }
+      var rpeBtn = ev.target.closest("[data-sport-log-rpe]");
+      if (rpeBtn) {
+        __sportLogFormDirty = true;
+        __sportLogDraft.rpe = parseInt(rpeBtn.getAttribute("data-sport-log-rpe"), 10);
+        shell.querySelectorAll("[data-sport-log-rpe]").forEach(function (b) {
+          b.classList.toggle("is-active", b === rpeBtn);
+        });
+        return;
+      }
+      if (__sportLogDraft.type !== "muscu") return;
+
+      var stepBtn = ev.target.closest(".sport-log-set-step");
+      if (stepBtn) {
+        ev.preventDefault();
+        var stepRow = stepBtn.closest(".sport-log-set-row");
+        var stepInp = stepRow.querySelector('[data-field="' + stepBtn.getAttribute("data-step") + '"]');
+        var delta = parseFloat(stepBtn.getAttribute("data-delta"));
+        var cur = parseFloat(stepInp.value) || 0;
+        var next =
+          stepBtn.getAttribute("data-step") === "reps" ?
+            Math.max(0, Math.round(cur + delta)) :
+            Math.max(0, Math.round((cur + delta) * 2) / 2);
+        stepInp.value = String(next);
+        __sportLogFormDirty = true;
+        updateSportLogStickyBar(formId);
+        return;
+      }
+
+      var addSet = ev.target.closest("[data-sport-log-add-set]");
+      var remSet = ev.target.closest("[data-sport-log-remove-set]");
+      var remEx = ev.target.closest("[data-sport-log-remove-ex]");
+      if (addSet) {
+        var block = addSet.closest("[data-ex-idx]");
+        var exIdxA = parseInt(block.getAttribute("data-ex-idx"), 10);
+        syncSportLogDraftFromDom(formId);
+        var setsA = __sportLogDraft.exercises[exIdxA].sets;
+        var lastA = setsA.length ? setsA[setsA.length - 1] : { weightKg: 0, reps: 0 };
+        setsA.push({ weightKg: lastA.weightKg, reps: lastA.reps });
+        refreshSportLogMuscuUI(formId, { exIdx: exIdxA, setIdx: setsA.length - 1, field: "weight", scrollEx: exIdxA });
+        return;
+      }
+      if (remSet) {
+        var rowR = remSet.closest(".sport-log-set-row");
+        syncSportLogDraftFromDom(formId);
+        __sportLogDraft.exercises[parseInt(rowR.getAttribute("data-ex-idx"), 10)].sets.splice(
+          parseInt(rowR.getAttribute("data-set-idx"), 10),
+          1
+        );
+        refreshSportLogMuscuUI(formId);
+        return;
+      }
+      if (remEx) {
+        syncSportLogDraftFromDom(formId);
+        __sportLogDraft.exercises.splice(parseInt(remEx.closest("[data-ex-idx]").getAttribute("data-ex-idx"), 10), 1);
+        mergeDraftWorkedMuscles();
+        refreshSportLogMuscuUI(formId);
+        return;
+      }
+
+      var favBtn = ev.target.closest(".sport-log-quick-ex-fav");
+      if (favBtn) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        toggleSportExerciseFavorite(favBtn.getAttribute("data-ex-fav-id"));
+        var quickHost = document.getElementById("sport-log-quick-host-" + formId);
+        if (quickHost) quickHost.innerHTML = buildSportQuickExercisesHtml(formId);
+        return;
+      }
+      var quickBtn = ev.target.closest(".sport-log-quick-ex-btn");
+      if (quickBtn) {
+        addExerciseToSportLogDraft(quickBtn.getAttribute("data-ex-name"), quickBtn.getAttribute("data-ex-id"));
+        var qEx = __sportLogDraft.exercises.length - 1;
+        refreshSportLogMuscuUI(formId, { exIdx: qEx, setIdx: 0, field: "weight", scrollEx: qEx });
+        return;
+      }
+
+      var suggestBtn = ev.target.closest(".sport-log-suggest__item");
+      if (suggestBtn) {
+        addExerciseToSportLogDraft(suggestBtn.getAttribute("data-ex-name"), suggestBtn.getAttribute("data-ex-id"));
+        var searchIn = document.getElementById("sport-log-search-" + formId);
+        var suggest = document.getElementById("sport-log-suggest-" + formId);
+        if (searchIn) searchIn.value = "";
+        if (suggest) suggest.setAttribute("hidden", "");
+        var sEx = __sportLogDraft.exercises.length - 1;
+        refreshSportLogMuscuUI(formId, { exIdx: sEx, setIdx: 0, field: "weight", scrollEx: sEx });
+        return;
+      }
+
+      var filterBtn = ev.target.closest("[data-sport-ex-filter]");
+      if (filterBtn) {
+        __sportLogDraft.basicFitFilter = filterBtn.getAttribute("data-sport-ex-filter") === "basic-fit";
+        shell.querySelectorAll("[data-sport-ex-filter]").forEach(function (b) {
+          b.classList.toggle("is-active", b === filterBtn);
+        });
+        renderSportBodyExerciseList(formId);
+        var searchF = document.getElementById("sport-log-search-" + formId);
+        var suggestF = document.getElementById("sport-log-suggest-" + formId);
+        if (searchF && searchF.value.trim().length >= 2 && suggestF) {
+          var worked = __sportLogDraft.workedMuscles || [];
+          var muscle = __sportLogDraft.muscleBrowse || "";
+          var items = filterExerciseLibrary(searchF.value, muscle, {
+            basicFitOnly: !!__sportLogDraft.basicFitFilter,
+            muscles: muscle ? [muscle] : worked
+          });
+          if (items.length) {
+            suggestF.innerHTML = items
+              .map(function (ex) {
+                var bf = ex.tags && ex.tags.indexOf("basic-fit") >= 0;
+                return (
+                  '<button type="button" class="sport-log-suggest__item' +
+                  (bf ? " is-basic-fit" : "") +
+                  '" data-ex-id="' +
+                  escapeAttr(ex.id) +
+                  '" data-ex-name="' +
+                  escapeAttr(ex.name) +
+                  '">' +
+                  escapeHtml(ex.name) +
+                  "</button>"
+                );
+              })
+              .join("");
+            suggestF.removeAttribute("hidden");
+          } else {
+            suggestF.setAttribute("hidden", "");
+            suggestF.innerHTML = "";
+          }
+        }
+        return;
+      }
+
+      var cloneBtn = ev.target.closest("[data-sport-log-clone-idx]");
+      if (cloneBtn) {
+        var mount = document.getElementById("sport-log-form-mount");
+        var idx = parseInt(cloneBtn.getAttribute("data-sport-log-clone-idx"), 10);
+        var src = mount && mount.__sportLogRecent ? mount.__sportLogRecent[idx] : null;
+        if (!src) return;
+        __sportLogFormDirty = true;
+        __sportLogDraft.exercises = cloneMuscuExercisesFromSession(src);
+        if (!__sportLogDraft.title) __sportLogDraft.title = src.title || "";
+        if (src.workedMuscles && src.workedMuscles.length) {
+          __sportLogDraft.workedMuscles = src.workedMuscles.slice();
+        }
+        mergeDraftWorkedMuscles();
+        refreshSportLogMuscuUI(formId);
+        return;
+      }
+
+      var bodyExBtn = ev.target.closest(".sport-log-body-ex-btn");
+      if (bodyExBtn) {
+        addExerciseToSportLogDraft(bodyExBtn.getAttribute("data-ex-name"), bodyExBtn.getAttribute("data-ex-id"));
+        var bEx = __sportLogDraft.exercises.length - 1;
+        refreshSportLogMuscuUI(formId, { exIdx: bEx, setIdx: 0, field: "weight", scrollEx: bEx });
+      }
+    });
+
+    var searchIn = document.getElementById("sport-log-search-" + formId);
+    var suggest = document.getElementById("sport-log-suggest-" + formId);
+    if (searchIn) {
+      searchIn.addEventListener("input", function () {
+        if (!__sportLogDraft) return;
+        var worked = __sportLogDraft.workedMuscles || [];
+        var muscle = __sportLogDraft.muscleBrowse || "";
+        var items = filterExerciseLibrary(searchIn.value, muscle, {
+          basicFitOnly: !!__sportLogDraft.basicFitFilter,
+          muscles: muscle ? [muscle] : worked
+        });
+        if (!suggest) return;
+        if (!items.length) {
+          suggest.setAttribute("hidden", "");
+          suggest.innerHTML = "";
+          return;
+        }
+        suggest.innerHTML = items
+          .map(function (ex) {
+            var bf = ex.tags && ex.tags.indexOf("basic-fit") >= 0;
+            return (
+              '<button type="button" class="sport-log-suggest__item' +
+              (bf ? " is-basic-fit" : "") +
+              '" data-ex-id="' +
+              escapeAttr(ex.id) +
+              '" data-ex-name="' +
+              escapeAttr(ex.name) +
+              '">' +
+              escapeHtml(ex.name) +
+              "</button>"
+            );
+          })
+          .join("");
+        suggest.removeAttribute("hidden");
+      });
+      searchIn.addEventListener("keydown", function (ev) {
+        if (ev.key !== "Enter" || !__sportLogDraft) return;
+        ev.preventDefault();
+        var name = String(searchIn.value || "").trim();
+        if (name.length < 2) return;
+        addExerciseToSportLogDraft(name, null);
+        searchIn.value = "";
+        if (suggest) suggest.setAttribute("hidden", "");
+        var nEx = __sportLogDraft.exercises.length - 1;
+        refreshSportLogMuscuUI(formId, { exIdx: nEx, setIdx: 0, field: "weight", scrollEx: nEx });
+      });
+    }
+  }
+
+  function renderSportLogMuscuExercises(formId) {
+    var host = document.getElementById("sport-log-exercises-" + formId);
+    if (!host || !__sportLogDraft) return;
+    host.innerHTML = (__sportLogDraft.exercises || [])
+      .map(function (ex, exIdx) {
+        var setsHtml = (ex.sets || [])
+          .map(function (set, setIdx) {
+            return sportLogSetRowHtml(exIdx, setIdx, set);
+          })
+          .join("");
+        return (
+          '<div class="sport-log-exercise-block" data-ex-idx="' +
+          exIdx +
+          '"><div class="sport-log-exercise-head">' +
+          buildSportExerciseThumbHtml(ex.name) +
+          '<span class="sport-log-exercise-name">' +
+          escapeHtml(ex.name) +
+          '</span><button type="button" class="btn secondary" data-sport-log-remove-ex>Suppr.</button></div>' +
+          setsHtml +
+          '<button type="button" class="btn secondary" data-sport-log-add-set title="Reprend poids et reps de la série précédente">+ série</button></div>'
+        );
+      })
+      .join("");
+    hydrateSportExerciseImages(host);
+  }
+
+  function renderSportLogForm(opts) {
+    opts = opts || {};
+    var mount = document.getElementById("sport-log-form-mount");
+    if (!mount || !__sportLogDraft) {
+      if (mount) mount.innerHTML = "";
+      __sportLogFormId = null;
+      __sportLogFormDirty = false;
+      return;
+    }
+    if (opts.muscuRefresh && __sportLogFormId) {
+      refreshSportLogMuscuUI(__sportLogFormId, opts.focus || null);
+      return;
+    }
+    var formId = __sportLogFormId || sportUuid();
+    __sportLogFormId = formId;
+    var d = __sportLogDraft;
+    var typePick = SPORT_LOG_TYPES.map(function (t) {
+      return (
+        '<button type="button" class="sport-log-type-btn' +
+        (d.type === t ? " is-active" : "") +
+        '" data-sport-log-type="' +
+        escapeAttr(t) +
+        '">' +
+        escapeHtml(SPORT_TYPE_LABELS[t] || t) +
+        "</button>"
+      );
+    }).join("");
+    var rpeBtns = "";
+    var ri;
+    for (ri = 1; ri <= 10; ri++) {
+      rpeBtns +=
+        '<button type="button" class="sport-log-rpe-btn' +
+        (d.rpe === ri ? " is-active" : "") +
+        '" data-sport-log-rpe="' +
+        ri +
+        '">' +
+        ri +
+        "</button>";
+    }
+    var bodyHtml = "";
+    if (d.type === "muscu") {
+      var recent = getRecentMuscuLogs(5);
+      var recentHtml = recent.length ?
+        recent
+          .map(function (s, idx) {
+            return (
+              '<button type="button" class="sport-log-recent-btn" data-sport-log-clone-idx="' +
+              idx +
+              '">' +
+              escapeHtml(formatIsoShortFr(s.date) + " · " + (s.title || "Séance") + " · " + (s.exercises ? s.exercises.length : 0) + " ex.") +
+              "</button>"
+            );
+          })
+          .join("") :
+        '<p class="hint">Aucune séance muscu précédente.</p>';
+      var recentHtml = recent.length ?
+        recent
+          .map(function (s, idx) {
+            return (
+              '<button type="button" class="sport-log-recent-btn" data-sport-log-clone-idx="' +
+              idx +
+              '">' +
+              escapeHtml(formatIsoShortFr(s.date) + " · " + (s.title || "Séance") + " · " + (s.exercises ? s.exercises.length : 0) + " ex.") +
+              "</button>"
+            );
+          })
+          .join("") :
+        '<p class="hint">Aucune séance muscu précédente.</p>';
+      bodyHtml =
+        '<div class="sport-log-section"><p class="sport-log-section__title">Accès rapide</p><div id="sport-log-quick-host-' +
+        escapeAttr(formId) +
+        '">' +
+        buildSportQuickExercisesHtml(formId) +
+        '</div></div><div class="sport-log-section"><p class="sport-log-section__title">Ajouter un exercice</p><div class="sport-log-autocomplete-wrap"><input type="text" class="sport-log-autocomplete-input" id="sport-log-search-' +
+        escapeAttr(formId) +
+        '" placeholder="Taper 2 lettres…" autocomplete="off" /><div class="sport-log-suggest" id="sport-log-suggest-' +
+        escapeAttr(formId) +
+        '" hidden></div></div><div class="sport-exercise-filter-row" role="group" aria-label="Filtrer exercices"><button type="button" class="sport-exercise-filter-btn' +
+        (!d.basicFitFilter ? " is-active" : "") +
+        '" data-sport-ex-filter="all">Tous</button><button type="button" class="sport-exercise-filter-btn' +
+        (d.basicFitFilter ? " is-active" : "") +
+        '" data-sport-ex-filter="basic-fit">Machines Basic Fit Saint-Léon</button></div></div><div id="sport-log-exercises-' +
+        escapeAttr(formId) +
+        '"></div><details class="sport-log-collapsible"><summary>Reprendre la dernière séance</summary><div class="sport-log-collapsible__body"><div class="sport-log-recent-list" id="sport-log-recent-' +
+        escapeAttr(formId) +
+        '">' +
+        recentHtml +
+        '</div></div></details><details class="sport-log-collapsible"><summary>Muscles travaillés & carte</summary><div class="sport-log-collapsible__body"><div class="sport-muscle-chips" id="sport-log-muscles-' +
+        escapeAttr(formId) +
+        '" role="group" aria-label="Muscles travaillés">' +
+        buildSportMuscleChipsHtml(d.workedMuscles || []) +
+        '</div><div class="sport-log-body-map-wrap" id="sport-log-body-wrap-' +
+        escapeAttr(formId) +
+        '"><div id="sport-log-body-map-' +
+        escapeAttr(formId) +
+        '">' +
+        buildSportBodySvgHtml({ mode: "nav", selectedMuscles: d.workedMuscles || [] }) +
+        '</div><div class="sport-log-body-exercises" id="sport-log-body-exercises-' +
+        escapeAttr(formId) +
+        '"></div></div></div></details>';
+      mount.__sportLogRecent = recent;
+    } else if (d.type === "running") {
+      bodyHtml =
+        '<div class="sport-log-field-row"><div class="sport-log-field"><label for="sport-log-dist-' +
+        escapeAttr(formId) +
+        '">Distance (km)</label><input type="number" inputmode="decimal" min="0" step="0.1" id="sport-log-dist-' +
+        escapeAttr(formId) +
+        '" value="' +
+        escapeAttr(String(d.distanceKm)) +
+        '" /></div><div class="sport-log-field"><label for="sport-log-dur-' +
+        escapeAttr(formId) +
+        '">Durée (min)</label><input type="number" inputmode="decimal" min="0" step="1" id="sport-log-dur-' +
+        escapeAttr(formId) +
+        '" value="' +
+        escapeAttr(String(d.durationMin)) +
+        '" /></div><div class="sport-log-field"><label for="sport-log-pace-' +
+        escapeAttr(formId) +
+        '">Allure</label><input type="text" id="sport-log-pace-' +
+        escapeAttr(formId) +
+        '" readonly value="' +
+        escapeAttr(formatRunningPace(parseFloat(d.distanceKm), parseFloat(d.durationMin))) +
+        '" /></div></div><div class="sport-log-field"><label for="sport-log-loc-' +
+        escapeAttr(formId) +
+        '">Lieu (optionnel)</label><input type="text" id="sport-log-loc-' +
+        escapeAttr(formId) +
+        '" value="' +
+        escapeAttr(d.location || "") +
+        '" /></div>';
+    } else {
+      bodyHtml =
+        '<div class="sport-log-field-row"><div class="sport-log-field"><label for="sport-log-distm-' +
+        escapeAttr(formId) +
+        '">Distance (m)</label><input type="number" inputmode="numeric" min="0" step="50" id="sport-log-distm-' +
+        escapeAttr(formId) +
+        '" value="' +
+        escapeAttr(String(d.distanceM)) +
+        '" /></div><div class="sport-log-field"><label for="sport-log-durn-' +
+        escapeAttr(formId) +
+        '">Durée (min)</label><input type="number" inputmode="decimal" min="0" step="1" id="sport-log-durn-' +
+        escapeAttr(formId) +
+        '" value="' +
+        escapeAttr(String(d.durationMin)) +
+        '" /></div></div><div class="sport-log-field"><label for="sport-log-stroke-' +
+        escapeAttr(formId) +
+        '">Nage dominante</label><select id="sport-log-stroke-' +
+        escapeAttr(formId) +
+        '">' +
+        Object.keys(SPORT_STROKE_LABELS)
+          .map(function (k) {
+            return (
+              '<option value="' +
+              escapeAttr(k) +
+              '"' +
+              (d.stroke === k ? " selected" : "") +
+              ">" +
+              escapeHtml(SPORT_STROKE_LABELS[k]) +
+              "</option>"
+            );
+          })
+          .join("") +
+        "</select></div>";
+    }
+    mount.innerHTML =
+      '<div class="sport-log-form-shell" id="sport-log-shell-' +
+      escapeAttr(formId) +
+      '"><div class="gcal-quick-add is-open sport-log-form" id="sport-log-form-' +
+      escapeAttr(formId) +
+      '"><button type="button" class="icon-btn" id="sport-log-close-' +
+      escapeAttr(formId) +
+      '" aria-label="Fermer">×</button><div class="sport-log-type-pick">' +
+      typePick +
+      '</div><div class="sport-log-field-row"><div class="sport-log-field"><label for="sport-log-title-' +
+      escapeAttr(formId) +
+      '">Titre</label><input type="text" id="sport-log-title-' +
+      escapeAttr(formId) +
+      '" value="' +
+      escapeAttr(d.title || "") +
+      '" maxlength="120" /></div><div class="sport-log-field"><label for="sport-log-date-' +
+      escapeAttr(formId) +
+      '">Date</label><input type="date" id="sport-log-date-' +
+      escapeAttr(formId) +
+      '" value="' +
+      escapeAttr(d.date || todayIso) +
+      '" /></div></div>' +
+      bodyHtml +
+      '<div class="sport-log-section"><p class="sport-log-section__title">RPE (1–10)</p><div class="sport-log-rpe-row" id="sport-log-rpe-row-' +
+      escapeAttr(formId) +
+      '">' +
+      rpeBtns +
+      '</div></div><div class="sport-log-field"><label for="sport-log-note-' +
+      escapeAttr(formId) +
+      '">Note</label><textarea id="sport-log-note-' +
+      escapeAttr(formId) +
+      '" rows="2" maxlength="400">' +
+      escapeHtml(d.note || "") +
+      '</textarea></div></div><div class="sport-log-sticky-bar" id="sport-log-sticky-' +
+      escapeAttr(formId) +
+      '"><span class="sport-log-sticky-summary" id="sport-log-sticky-summary-' +
+      escapeAttr(formId) +
+      '"></span><button type="button" class="btn btn-add-unified" id="sport-log-submit-' +
+      escapeAttr(formId) +
+      '">' +
+      (__sportLogEditingId ? "Enregistrer" : "Logger la séance") +
+      '</button></div><p id="sport-log-form-error-' +
+      escapeAttr(formId) +
+      '" class="gcal-quick-add-error" hidden></p></div>';
+    mount.dataset.formId = formId;
+    if (d.type === "muscu") {
+      renderSportLogMuscuExercises(formId);
+      wireSportBodyMapNav(formId);
+      renderSportBodyExerciseList(formId);
+      updateSportLogStickyBar(formId);
+    }
+    ensureSportLogFormDelegated(formId);
+  }
+
+  function wireSportLogFormEvents(formId) {
+    ensureSportLogFormDelegated(formId);
+  }
+
+  function wireSportLogMuscuFormEvents(formId) {
+    ensureSportLogFormDelegated(formId);
+  }
+
+  function addExerciseToSportLogDraft(name, exerciseId) {
+    if (!__sportLogDraft) return;
+    var exLib = exerciseId ?
+      getSportPlanningData().exerciseLibrary.find(function (e) {
+        return e.id === exerciseId;
+      }) :
+      findOrAddExercise(name);
+    if (!exLib) exLib = findOrAddExercise(name);
+    if (!exLib) return;
+    var lastSet = getLastExerciseSetFromLogs(exLib.id, exLib.name);
+    __sportLogDraft.exercises.push({
+      id: sportUuid(),
+      exerciseId: exLib.id,
+      name: exLib.name,
+      sets: [lastSet || { weightKg: 0, reps: 0 }]
+    });
+    mergeDraftWorkedMuscles();
+    __sportLogFormDirty = true;
+  }
+
+  function syncSportLogDraftFromDom(formId) {
+    if (!__sportLogDraft) return;
+    var titleIn = document.getElementById("sport-log-title-" + formId);
+    var dateIn = document.getElementById("sport-log-date-" + formId);
+    var noteIn = document.getElementById("sport-log-note-" + formId);
+    if (titleIn) __sportLogDraft.title = titleIn.value;
+    if (dateIn) __sportLogDraft.date = dateIn.value;
+    if (noteIn) __sportLogDraft.note = noteIn.value;
+    if (__sportLogDraft.type === "running") {
+      var dKm = document.getElementById("sport-log-dist-" + formId);
+      var dMin = document.getElementById("sport-log-dur-" + formId);
+      var loc = document.getElementById("sport-log-loc-" + formId);
+      if (dKm) __sportLogDraft.distanceKm = dKm.value;
+      if (dMin) __sportLogDraft.durationMin = dMin.value;
+      if (loc) __sportLogDraft.location = loc.value;
+    } else if (__sportLogDraft.type === "natation") {
+      var dM = document.getElementById("sport-log-distm-" + formId);
+      var dMn = document.getElementById("sport-log-durn-" + formId);
+      var st = document.getElementById("sport-log-stroke-" + formId);
+      if (dM) __sportLogDraft.distanceM = dM.value;
+      if (dMn) __sportLogDraft.durationMin = dMn.value;
+      if (st) __sportLogDraft.stroke = st.value;
+    } else if (__sportLogDraft.type === "muscu") {
+      var exHost = document.getElementById("sport-log-exercises-" + formId);
+      if (!exHost) return;
+      exHost.querySelectorAll(".sport-log-exercise-block").forEach(function (block, exIdx) {
+        if (!__sportLogDraft.exercises[exIdx]) return;
+        block.querySelectorAll(".sport-log-set-row").forEach(function (row, setIdx) {
+          if (!__sportLogDraft.exercises[exIdx].sets[setIdx]) return;
+          var w = row.querySelector('[data-field="weight"]');
+          var r = row.querySelector('[data-field="reps"]');
+          __sportLogDraft.exercises[exIdx].sets[setIdx].weightKg = w ? parseFloat(w.value) || 0 : 0;
+          __sportLogDraft.exercises[exIdx].sets[setIdx].reps = r ? parseInt(r.value, 10) || 0 : 0;
+        });
+      });
+    }
+  }
+
+  function buildLoggedSessionFromDraft(formId) {
+    syncSportLogDraftFromDom(formId);
+    var d = __sportLogDraft;
+    if (!d) return null;
+    var title = String(d.title || "").trim();
+    var date = d.date;
+    if (!title || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+    var session = {
+      id: __sportLogEditingId || sportUuid(),
+      type: d.type,
+      date: date,
+      title: title,
+      rpe: d.rpe || 5,
+      note: d.note || "",
+      plannedSessionId: d.plannedSessionId,
+      loggedAt: Date.now()
+    };
+    if (d.type === "muscu") {
+      if (!d.exercises || !d.exercises.length) return null;
+      mergeDraftWorkedMuscles();
+      session.exercises = d.exercises.map(function (ex) {
+        return {
+          id: ex.id || sportUuid(),
+          exerciseId: ex.exerciseId,
+          name: ex.name,
+          sets: (ex.sets || []).map(function (set) {
+            return { weightKg: parseFloat(set.weightKg) || 0, reps: parseInt(set.reps, 10) || 0 };
+          })
+        };
+      });
+      session.workedMuscles = (d.workedMuscles || []).slice();
+    } else if (d.type === "running") {
+      session.distanceKm = parseFloat(d.distanceKm) || 0;
+      session.durationMin = parseFloat(d.durationMin) || 0;
+      session.location = d.location || "";
+      if (session.distanceKm <= 0) return null;
+    } else {
+      session.distanceM = parseInt(d.distanceM, 10) || 0;
+      session.durationMin = parseFloat(d.durationMin) || 0;
+      session.stroke = d.stroke || "crawl";
+      if (session.distanceM <= 0) return null;
+    }
+    return normalizeLoggedSportSession(session);
+  }
+
+  function saveSportLoggedSession(session, previous) {
+    var data = getSportPlanningData();
+    if (previous && previous.date === todayIso) sportMetricDeltaFromLog(previous, -1);
+    var idx = data.loggedSessions.findIndex(function (s) {
+      return s.id === session.id;
+    });
+    if (idx >= 0) {
+      session.loggedAt = data.loggedSessions[idx].loggedAt || session.loggedAt;
+      data.loggedSessions[idx] = session;
+    } else {
+      data.loggedSessions.push(session);
+    }
+    saveSportPlanningData(data);
+    if (session.date === todayIso) sportMetricDeltaFromLog(session, 1);
+    if (session.plannedSessionId) {
+      var planned = data.plannedSessions.find(function (p) {
+        return p.id === session.plannedSessionId;
+      });
+      if (planned && planned.status !== "faite") {
+        planned.status = "faite";
+        saveSportPlanningData(data);
+      }
+    }
+  }
+
+  function submitSportLogForm(formId) {
+    if (__sportLogSubmitting) return;
+    var errEl = document.getElementById("sport-log-form-error-" + formId);
+    var sub = document.getElementById("sport-log-submit-" + formId);
+    var session = buildLoggedSessionFromDraft(formId);
+    if (!session) {
+      if (errEl) {
+        errEl.textContent = __sportLogDraft && __sportLogDraft.type === "muscu" ?
+          "Titre, date et au moins un exercice requis." :
+          "Titre, date et distance requis.";
+        errEl.removeAttribute("hidden");
+      }
+      return;
+    }
+    __sportLogSubmitting = true;
+    if (sub) sub.disabled = true;
+    var prev = null;
+    if (__sportLogEditingId) {
+      prev = getSportPlanningData().loggedSessions.find(function (s) {
+        return s.id === __sportLogEditingId;
+      });
+    }
+    saveSportLoggedSession(session, prev);
+    __sportLogDraft = null;
+    __sportLogEditingId = null;
+    __sportLogFormId = null;
+    __sportLogFormDirty = false;
+    __sportLogSubmitting = false;
+    document.getElementById("sport-log-form-mount").innerHTML = "";
+    setSportLogStatus("Séance enregistrée.", false);
+    renderSportLoggedList();
+    if (__sportSubTab === "seances") renderSportBodyCoverage();
+    refreshChrome();
+  }
+
+  function deleteSportLoggedSession(id) {
+    var data = getSportPlanningData();
+    var session = data.loggedSessions.find(function (s) {
+      return s.id === id;
+    });
+    data.loggedSessions = data.loggedSessions.filter(function (s) {
+      return s.id !== id;
+    });
+    saveSportPlanningData(data);
+    if (session && session.date === todayIso) sportMetricDeltaFromLog(session, -1);
+    renderSportLoggedList();
+    if (__sportSubTab === "seances") renderSportBodyCoverage();
+    refreshChrome();
+  }
+
+  function openSportLogForm(preset) {
+    __sportLogDraft = newSportLogDraft(preset || {});
+    __sportLogEditingId = preset && preset.editId ? preset.editId : null;
+    if (__sportLogEditingId && preset.session) {
+      var s = preset.session;
+      __sportLogDraft = {
+        type: s.type,
+        date: s.date,
+        title: s.title,
+        rpe: s.rpe,
+        note: s.note,
+        plannedSessionId: s.plannedSessionId,
+        exercises: s.type === "muscu" ? cloneMuscuExercisesFromSession(s) : [],
+        distanceKm: s.distanceKm || "",
+        durationMin: s.durationMin || "",
+        location: s.location || "",
+        distanceM: s.distanceM || "",
+        stroke: s.stroke || "crawl",
+        muscleBrowse: "",
+        workedMuscles: Array.isArray(s.workedMuscles) ? s.workedMuscles.slice() : [],
+        basicFitFilter: false
+      };
+    }
+    __sportLogFormId = null;
+    __sportLogFormDirty = false;
+    __sportLogSubmitting = false;
+    renderSportLogForm();
+    var mount = document.getElementById("sport-log-form-mount");
+    if (mount) mount.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function offerLogFromPlannedSession(planned) {
+    if (!planned) return;
+    var logType = SPORT_LOG_TYPES.indexOf(planned.type) >= 0 ? planned.type : "muscu";
+    setSportSubTab("seances");
+    openSportLogForm({
+      type: logType,
+      date: planned.date,
+      title: planned.title || SPORT_TYPE_LABELS[logType] || "Séance",
+      note: planned.note || "",
+      plannedSessionId: planned.id
+    });
+  }
+
+  function renderSportLoggedList() {
+    var mount = document.getElementById("sport-log-list-mount");
+    if (!mount) return;
+    var sessions = getSportPlanningData().loggedSessions.slice().sort(function (a, b) {
+      var dc = String(b.date).localeCompare(String(a.date));
+      if (dc) return dc;
+      return (b.loggedAt || 0) - (a.loggedAt || 0);
+    });
+    if (__sportLogFilter !== "all") {
+      sessions = sessions.filter(function (s) {
+        return s.type === __sportLogFilter;
+      });
+    }
+    if (!sessions.length) {
+      mount.innerHTML = '<p class="hint">Aucune séance loggée.</p>';
+      return;
+    }
+    mount.innerHTML = sessions
+      .map(function (s) {
+        var badges = "";
+        if (s.type === "muscu") {
+          badges =
+            '<span class="sport-log-badge">' +
+            (s.exercises ? s.exercises.length : 0) +
+            " exercices · " +
+            computeMuscuTonnage(s) +
+            " kg</span>";
+        } else if (s.type === "running") {
+          badges =
+            '<span class="sport-log-badge">' +
+            escapeHtml(String(s.distanceKm)) +
+            " km · " +
+            escapeHtml(formatRunningPace(s.distanceKm, s.durationMin)) +
+            "</span>";
+        } else {
+          badges =
+            '<span class="sport-log-badge">' +
+            escapeHtml(String(s.distanceM)) +
+            " m · " +
+            escapeHtml(SPORT_STROKE_LABELS[s.stroke] || s.stroke) +
+            "</span>";
+        }
+        badges += '<span class="sport-log-badge">RPE ' + escapeHtml(String(s.rpe)) + "</span>";
+        var detail = "";
+        if (s.type === "muscu") {
+          detail = (s.exercises || [])
+            .map(function (ex) {
+              var sets = (ex.sets || [])
+                .map(function (set, i) {
+                  return "S" + (i + 1) + " " + set.weightKg + "kg×" + set.reps;
+                })
+                .join(" · ");
+              return escapeHtml(ex.name) + " — " + escapeHtml(sets);
+            })
+            .join("<br>");
+          if (s.workedMuscles && s.workedMuscles.length) {
+            detail +=
+              '<div class="sport-log-worked-muscles">' +
+              s.workedMuscles
+                .map(function (m) {
+                  return '<span class="sport-log-worked-muscle-tag">' + escapeHtml(m) + "</span>";
+                })
+                .join("") +
+              "</div>";
+          }
+        } else if (s.type === "running") {
+          detail = escapeHtml(String(s.durationMin) + " min" + (s.location ? " · " + s.location : ""));
+        } else {
+          detail = escapeHtml(String(s.durationMin) + " min");
+        }
+        return (
+          '<article class="sport-log-card" data-logged-id="' +
+          escapeAttr(s.id) +
+          '"><div class="sport-log-card__head"><div><div class="sport-log-card__title">' +
+          escapeHtml(s.title) +
+          '</div><div class="sport-log-card__meta">' +
+          escapeHtml(formatIsoShortFr(s.date)) +
+          " · " +
+          escapeHtml(SPORT_TYPE_LABELS[s.type] || s.type) +
+          '</div></div></div><div class="sport-log-card__badges">' +
+          badges +
+          '</div><div class="sport-log-card__detail" hidden id="sport-log-detail-' +
+          escapeAttr(s.id) +
+          '">' +
+          detail +
+          '</div><div class="sport-log-card__actions"><button type="button" class="btn secondary" data-sport-log-toggle-detail>Détail</button><button type="button" class="btn secondary" data-sport-log-edit>Modifier</button><button type="button" class="btn secondary" data-sport-log-delete>Supprimer</button></div></article>'
+        );
+      })
+      .join("");
+  }
+
   function setSportSubTab(tab) {
-    __sportSubTab = tab === "planning" ? "planning" : "objectifs";
+    __sportSubTab =
+      tab === "planning" ? "planning" : tab === "seances" ? "seances" : "objectifs";
     document.querySelectorAll("[data-sport-tab]").forEach(function (b) {
       var on = b.getAttribute("data-sport-tab") === __sportSubTab;
       b.classList.toggle("is-active", on);
@@ -8060,6 +12114,10 @@
     if (__sportSubTab === "planning") {
       renderSportPlanningWeek();
       renderSportPlanTemplateEditor();
+    } else if (__sportSubTab === "seances") {
+      renderSportPrograms();
+      renderSportBodyCoverage();
+      renderSportLoggedList();
     }
   }
 
@@ -8177,6 +12235,182 @@
     if (tplHost) {
       tplHost.addEventListener("change", function () {
         collectSportTemplateFromDom();
+      });
+    }
+    var logOpen = document.getElementById("btn-sport-log-open");
+    if (logOpen) {
+      logOpen.addEventListener("click", function () {
+        openSportLogForm({ type: "muscu", date: todayIso });
+      });
+    }
+    var progCreate = document.getElementById("btn-sport-prog-create");
+    if (progCreate) {
+      progCreate.addEventListener("click", function () {
+        openSportProgramEditor(null);
+      });
+    }
+    var sportSeances = document.getElementById("sport-sub-seances");
+    if (sportSeances && !sportSeances.dataset.progWired) {
+      sportSeances.dataset.progWired = "1";
+      sportSeances.addEventListener("click", function (ev) {
+        var tabBtn = ev.target.closest("[data-sport-prog-tab]");
+        if (tabBtn) {
+          __sportProgTab = tabBtn.getAttribute("data-sport-prog-tab") === "mine" ? "mine" : "library";
+          renderSportPrograms();
+          return;
+        }
+        var toggleBtn = ev.target.closest("[data-sport-prog-toggle]");
+        if (toggleBtn) {
+          var tKey = toggleBtn.getAttribute("data-sport-prog-toggle");
+          __sportProgExpandedId = __sportProgExpandedId === tKey ? null : tKey;
+          if (!__sportProgExpandedId) __sportProgSessionExpanded = null;
+          renderSportPrograms();
+          return;
+        }
+        var sessToggle = ev.target.closest("[data-sport-prog-sess-toggle]");
+        if (sessToggle) {
+          var sKey = sessToggle.getAttribute("data-sport-prog-sess-toggle");
+          __sportProgSessionExpanded = __sportProgSessionExpanded === sKey ? null : sKey;
+          renderSportPrograms();
+          return;
+        }
+        var thumbBtn = ev.target.closest("[data-sport-ex-thumb]");
+        if (thumbBtn) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          var exName = thumbBtn.getAttribute("data-sport-ex-thumb");
+          var imgUrl = thumbBtn.getAttribute("data-sport-ex-img") || getSportExerciseImageUrl(exName);
+          openSportExerciseLightbox(exName, imgUrl);
+          return;
+        }
+        if (ev.target.id === "sport-ex-lightbox-close" || ev.target.id === "sport-ex-lightbox") {
+          closeSportExerciseLightbox();
+          return;
+        }
+        var startBtn = ev.target.closest("[data-sport-prog-start]");
+        if (startBtn) {
+          var pKey = startBtn.getAttribute("data-sport-prog-start");
+          var sessionId = startBtn.getAttribute("data-sport-prog-session");
+          var program = findSportProgramByKey(pKey);
+          if (!program) return;
+          var session = (program.sessions || []).find(function (s) {
+            return s.id === sessionId;
+          });
+          if (session) startSportProgramSession(program, session);
+          return;
+        }
+        var dupBtn = ev.target.closest("[data-sport-prog-duplicate]");
+        if (dupBtn) {
+          duplicateBuiltinToCustomProgram(dupBtn.getAttribute("data-sport-prog-duplicate"));
+          return;
+        }
+        var editBtn = ev.target.closest("[data-sport-prog-edit]");
+        if (editBtn) {
+          var editProg = getSportPlanningData().workoutPrograms.find(function (p) {
+            return p.id === editBtn.getAttribute("data-sport-prog-edit");
+          });
+          if (editProg) openSportProgramEditor(editProg);
+          return;
+        }
+        var delBtn = ev.target.closest("[data-sport-prog-delete]");
+        if (delBtn) {
+          deleteSportProgram(delBtn.getAttribute("data-sport-prog-delete"));
+          return;
+        }
+        if (ev.target.id === "sport-prog-editor-close") {
+          __sportProgEditor = null;
+          renderSportProgramEditor();
+          return;
+        }
+        if (ev.target.id === "sport-prog-ed-save") {
+          saveSportProgramEditor();
+          return;
+        }
+        if (ev.target.id === "sport-prog-ed-add-session") {
+          syncSportProgramEditorDraftFromDom();
+          __sportProgEditor.sessions.push({
+            id: sportUuid(),
+            name: "Séance " + String.fromCharCode(65 + __sportProgEditor.sessions.length),
+            exercises: [{ name: "", setCount: 3, targetReps: 10 }]
+          });
+          renderSportProgramEditor();
+          return;
+        }
+        var addExBtn = ev.target.closest("[data-prog-ex-add]");
+        if (addExBtn) {
+          syncSportProgramEditorDraftFromDom();
+          var si = parseInt(addExBtn.getAttribute("data-sess-idx"), 10);
+          if (__sportProgEditor.sessions[si]) {
+            __sportProgEditor.sessions[si].exercises.push({ name: "", setCount: 3, targetReps: 10 });
+          }
+          renderSportProgramEditor();
+          return;
+        }
+        var delExBtn = ev.target.closest("[data-prog-ex-del]");
+        if (delExBtn) {
+          syncSportProgramEditorDraftFromDom();
+          var exRow = delExBtn.closest(".sport-prog-editor-ex");
+          var siD = parseInt(exRow.getAttribute("data-sess-idx"), 10);
+          var eiD = parseInt(exRow.getAttribute("data-ex-idx"), 10);
+          if (__sportProgEditor.sessions[siD]) {
+            __sportProgEditor.sessions[siD].exercises.splice(eiD, 1);
+          }
+          renderSportProgramEditor();
+          return;
+        }
+        var delSessBtn = ev.target.closest("[data-prog-sess-del]");
+        if (delSessBtn) {
+          syncSportProgramEditorDraftFromDom();
+          var sessEl = delSessBtn.closest(".sport-prog-editor-session");
+          var siS = parseInt(sessEl.getAttribute("data-sess-idx"), 10);
+          __sportProgEditor.sessions.splice(siS, 1);
+          renderSportProgramEditor();
+        }
+      });
+      document.addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape") closeSportExerciseLightbox();
+      });
+    }
+    var logFilterRow = document.getElementById("sport-log-filter-row");
+    if (logFilterRow && !logFilterRow.dataset.wired) {
+      logFilterRow.dataset.wired = "1";
+      logFilterRow.addEventListener("click", function (ev) {
+        var btn = ev.target.closest("[data-sport-log-filter]");
+        if (!btn) return;
+        __sportLogFilter = btn.getAttribute("data-sport-log-filter") || "all";
+        logFilterRow.querySelectorAll(".sport-log-filter-btn").forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
+        });
+        renderSportLoggedList();
+      });
+    }
+    var logList = document.getElementById("sport-log-list-mount");
+    if (logList && !logList.dataset.wired) {
+      logList.dataset.wired = "1";
+      logList.addEventListener("click", function (ev) {
+        var toggle = ev.target.closest("[data-sport-log-toggle-detail]");
+        var editBtn = ev.target.closest("[data-sport-log-edit]");
+        var delBtn = ev.target.closest("[data-sport-log-delete]");
+        var card = ev.target.closest("[data-logged-id]");
+        if (!card) return;
+        var lid = card.getAttribute("data-logged-id");
+        if (toggle) {
+          var det = document.getElementById("sport-log-detail-" + lid);
+          if (det) {
+            if (det.hasAttribute("hidden")) det.removeAttribute("hidden");
+            else det.setAttribute("hidden", "");
+          }
+        } else if (editBtn) {
+          var session = getSportPlanningData().loggedSessions.find(function (s) {
+            return s.id === lid;
+          });
+          if (session) {
+            setSportSubTab("seances");
+            openSportLogForm({ editId: session.id, session: session });
+          }
+        } else if (delBtn) {
+          if (window.confirm("Supprimer cette séance loggée ?")) deleteSportLoggedSession(lid);
+        }
       });
     }
   }
@@ -8730,7 +12964,8 @@
       exportedAt: new Date().toISOString(),
       appStateVersion: STATE_VERSION,
       theme: theme,
-      state: JSON.parse(JSON.stringify(state))
+      state: JSON.parse(JSON.stringify(state)),
+      sportData: JSON.parse(JSON.stringify(getSportPlanningData()))
     };
   }
 
@@ -8758,6 +12993,9 @@
     var calToday = isoDate(new Date());
     state = applyDailyReset(state, calToday);
     saveState(state);
+    if (bundle.sportData && typeof bundle.sportData === "object") {
+      saveSportPlanningData(bundle.sportData);
+    }
     if (bundle.theme === "light" || bundle.theme === "dark") {
       try {
         localStorage.setItem(THEME_KEY, bundle.theme);
@@ -11547,6 +15785,11 @@
     applyMetricVisibility();
     renderSportMetricSubs();
     if (__sportSubTab === "planning") renderSportPlanningWeek();
+    if (__sportSubTab === "seances") {
+      renderSportPrograms();
+      renderSportBodyCoverage();
+      renderSportLoggedList();
+    }
     updateNotesWordcount();
     renderTargetsInDOM();
     renderSettingsCountdownEditor();
